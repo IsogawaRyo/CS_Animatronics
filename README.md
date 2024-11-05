@@ -1,2 +1,2 @@
 # CS_Animatronics
-Practice for2. 
+Practice for ROS2. 
