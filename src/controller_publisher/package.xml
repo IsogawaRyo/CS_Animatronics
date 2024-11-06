@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>motor_controller</name>
+  <name>controller_publisher</name>
   <version>0.0.0</version>
-  <description>a package for controlling motors</description>
-  <maintainer email="2023m002@kuas.ac.jp">Ryo Isogawa</maintainer>
-  <license>BSD-3-Clause</license>
+  <description>TODO: Package description</description>
+  <maintainer email="2023m002@kuas.ac.jp">csanimatronics</maintainer>
+  <license>TODO: License declaration</license>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
