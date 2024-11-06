@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="system_controller" exec="system_controller" name="system_controller"/>
+  <node pkg="controller_publisher" exec="controller_publisher" name="controller_publisher"/>
+</launch>
