@@ -14,7 +14,7 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='csanimatronics',
-    maintainer_email='csanimatronics@todo.todo',
+    maintainer_email='2023m002@kuas.ac.jp',
     description='TODO: Package description',
     license='TODO: License declaration',
     tests_require=['pytest'],
