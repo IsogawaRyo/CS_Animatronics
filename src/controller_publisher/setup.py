@@ -13,10 +13,10 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='csanimatronics',
+    maintainer='Ryo Isogawa',
     maintainer_email='2023m002@kuas.ac.jp',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='a package for controller',
+    license='BSD-3-Clause',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [

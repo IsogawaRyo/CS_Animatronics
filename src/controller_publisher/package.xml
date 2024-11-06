@@ -3,9 +3,9 @@
 <package format="3">
   <name>controller_publisher</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="2023m002@kuas.ac.jp">csanimatronics</maintainer>
-  <license>TODO: License declaration</license>
+  <description>a package for controller</description>
+  <maintainer email="2023m002@kuas.ac.jp">Ryo Isogawa</maintainer>
+  <license>BSD-3-Clause</license>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
