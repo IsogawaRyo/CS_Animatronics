@@ -23,19 +23,19 @@ class ControllerPublisher(Node):
         pygame.event.pump()
         msg = Joy()
 
-        # Axes
+        # Joy Axes(L, R)
         axes = []
         for i in range(self.controller.get_numaxes()):
             axes.append(self.controller.get_axis(i))
         msg.axes = axes
 
-        # Buttons
+        # Buttons(circle, cross, square, triangle,...)
         buttons = []
         for i in range(self.controller.get_numbuttons()):
             buttons.append(self.controller.get_button(i))
         msg.buttons = buttons
 
-        # Publish the message
+        # Publish message
         self.publisher_.publish(msg)
         self.get_logger().info('Published controller state')
 
@@ -43,6 +43,7 @@ def main(args=None):
     rclpy.init(args=args)
     node = ControllerPublisher()
     rclpy.spin(node)
+    
     node.destroy_node()
     rclpy.shutdown()
 

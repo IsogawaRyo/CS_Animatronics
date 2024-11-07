@@ -1,0 +1,15 @@
+/home/csanimatronics/CS_Animatronics/install/launch/share/ament_index/resource_index/package_run_dependencies/launch
+/home/csanimatronics/CS_Animatronics/install/launch/share/ament_index/resource_index/parent_prefix_path/launch
+/home/csanimatronics/CS_Animatronics/install/launch/share/launch/environment/ament_prefix_path.sh
+/home/csanimatronics/CS_Animatronics/install/launch/share/launch/environment/ament_prefix_path.dsv
+/home/csanimatronics/CS_Animatronics/install/launch/share/launch/environment/path.sh
+/home/csanimatronics/CS_Animatronics/install/launch/share/launch/environment/path.dsv
+/home/csanimatronics/CS_Animatronics/install/launch/share/launch/local_setup.bash
+/home/csanimatronics/CS_Animatronics/install/launch/share/launch/local_setup.sh
+/home/csanimatronics/CS_Animatronics/install/launch/share/launch/local_setup.zsh
+/home/csanimatronics/CS_Animatronics/install/launch/share/launch/local_setup.dsv
+/home/csanimatronics/CS_Animatronics/install/launch/share/launch/package.dsv
+/home/csanimatronics/CS_Animatronics/install/launch/share/ament_index/resource_index/packages/launch
+/home/csanimatronics/CS_Animatronics/install/launch/share/launch/cmake/launchConfig.cmake
+/home/csanimatronics/CS_Animatronics/install/launch/share/launch/cmake/launchConfig-version.cmake
+/home/csanimatronics/CS_Animatronics/install/launch/share/launch/package.xml

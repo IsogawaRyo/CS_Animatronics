@@ -1,0 +1,20 @@
+[0.360s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/launch': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/launch -- -j4 -l4
+[0.699s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/launch' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/launch -- -j4 -l4
+[1.056s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/launch': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/launch
+[1.074s] -- Install configuration: ""
+[1.075s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/ament_index/resource_index/package_run_dependencies/launch
+[1.075s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/ament_index/resource_index/parent_prefix_path/launch
+[1.075s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/environment/ament_prefix_path.sh
+[1.075s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/environment/ament_prefix_path.dsv
+[1.075s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/environment/path.sh
+[1.077s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/environment/path.dsv
+[1.077s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/local_setup.bash
+[1.077s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/local_setup.sh
+[1.078s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/local_setup.zsh
+[1.079s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/local_setup.dsv
+[1.080s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/package.dsv
+[1.080s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/ament_index/resource_index/packages/launch
+[1.080s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/cmake/launchConfig.cmake
+[1.080s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/cmake/launchConfig-version.cmake
+[1.082s] -- Up-to-date: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/package.xml
+[1.088s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/launch' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/launch

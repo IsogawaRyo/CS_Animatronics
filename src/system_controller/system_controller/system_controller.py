@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
-from system_controller.msg import IdAngle
+from motor_command_msg.msg import IdAngle
 
 class SystemController(Node):
     def __init__(self):
@@ -27,20 +27,21 @@ class SystemController(Node):
         self.get_logger().info(f'Axes: {msg.axes}')
         self.get_logger().info(f'Buttons: {msg.buttons}')
        
-        ids, angles = self.translate(msg.data)
+        ###############################
+        ids, angles = self.translate(0)
  
-        new_msg = IdAngl()
+        new_msg = IdAngle()
         new_msg.ids = ids
         new_msg.angles = angles
 
         self.publisher.publish(new_msg)
         self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
 
-    def translete(self, data):
+    def translate(self, data):
         ids = [11, 21]
         angles = [100, 100]
 
-        return id, angle
+        return ids, angles
 
 def main(args=None):
     rclpy.init(args=args)
