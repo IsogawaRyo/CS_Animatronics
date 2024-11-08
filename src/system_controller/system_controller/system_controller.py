@@ -2,6 +2,12 @@
 # SPDX-FileCopyrightText: 2024 Ryo Isogawa 　　　　　
 # SPDX-License-Identifier: BSD-3-Clause
 
+# Operation Mode
+# 0: InitialPosition
+# 1: Full Manual
+# 2: Assist
+MODE = 0
+
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
