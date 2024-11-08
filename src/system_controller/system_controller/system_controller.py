@@ -41,7 +41,7 @@ class SystemController(Node):
         self.get_logger().info(f'Buttons: {msg.buttons}')
        
         ###############################
-        ids, angles = self.translate(self, msg.axes, msg_buttons)
+        ids, angles = self.translate(self, msg.axes, msg.buttons)
  
         new_msg = IdAngle()
         new_msg.ids = ids
