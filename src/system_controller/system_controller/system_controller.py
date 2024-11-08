@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2024 Ryo Isogawa 　　　　　
+# SPDX-License-Identifier: BSD-3-Clause
+
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
@@ -23,13 +27,17 @@ class SystemController(Node):
         )
 
     def listener_callback(self, msg):
-        # Log the axes and buttons states received from the controller
+        # Log the axes and buttons
+        # Axes [0:LeftStick_X, 1:LeftStick_Y, 2:LeftTrigger, 3:RightStick_X, 4:RightStick_Y, 5:RightTrigger]
+        # Buttons [0:Cross, 1:Circle, 2:Square, 3:Triangle, 4:LeftBumper, 5:RightBumper, 6:LeftTrigger, 7:RightTrigger, 8:Share, 9:Options, 10:PS, 11:LeftStick, 12:RightStick]
+        # Hat/D-pad [X:down-up, Y:left-right]
         self.get_logger().info(f'Axes: {msg.axes}')
         self.get_logger().info(f'Buttons: {msg.buttons}')
        
         ###############################
-        ids, angles = self.translate(0)
+        ids, angles = self.translate(self, msg.axes, msg_buttons)
  
+
         new_msg = IdAngle()
         new_msg.ids = ids
         new_msg.angles = angles
@@ -37,8 +45,8 @@ class SystemController(Node):
         self.publisher.publish(new_msg)
         self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
 
-    def translate(self, data):
-        ids = [11, 21]
+    def translate(self, axes, buttons):
+        ids = [0 0]
         angles = [100, 100]
 
         return ids, angles
