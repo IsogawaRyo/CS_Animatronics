@@ -37,7 +37,6 @@ class SystemController(Node):
         ###############################
         ids, angles = self.translate(self, msg.axes, msg_buttons)
  
-
         new_msg = IdAngle()
         new_msg.ids = ids
         new_msg.angles = angles
@@ -50,6 +49,18 @@ class SystemController(Node):
         angles = [100, 100]
 
         return ids, angles
+
+    def blink(self):
+        pass
+
+    def jaw(self):
+        pass
+
+    def eyes(self):
+        pass
+
+    def neck(self):
+        pass
 
 def main(args=None):
     rclpy.init(args=args)
