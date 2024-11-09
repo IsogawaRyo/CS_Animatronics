@@ -1,0 +1,14 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from dynamixel_sdk_examples/msg/SetPosition.msg
+// generated code does not contain a copyright notice
+
+
+module dynamixel_sdk_examples {
+  module msg {
+    struct SetPosition {
+      uint8 id;
+
+      int32 position;
+    };
+  };
+};

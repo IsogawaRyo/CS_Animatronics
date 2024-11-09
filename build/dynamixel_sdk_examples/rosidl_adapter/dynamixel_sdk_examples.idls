@@ -1,0 +1,6 @@
+/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples/rosidl_adapter/dynamixel_sdk_examples:msg/SetPosition.idl
+/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples/rosidl_adapter/dynamixel_sdk_examples:msg/SyncSetPosition.idl
+/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples/rosidl_adapter/dynamixel_sdk_examples:msg/BulkSetItem.idl
+/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples/rosidl_adapter/dynamixel_sdk_examples:srv/GetPosition.idl
+/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples/rosidl_adapter/dynamixel_sdk_examples:srv/SyncGetPosition.idl
+/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples/rosidl_adapter/dynamixel_sdk_examples:srv/BulkGetItem.idl

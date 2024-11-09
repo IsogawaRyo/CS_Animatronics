@@ -1,0 +1,11 @@
+{
+  "package_name": "dynamixel_sdk_examples",
+  "non_idl_tuples": [
+    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples:msg/SetPosition.msg",
+    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples:msg/SyncSetPosition.msg",
+    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples:msg/BulkSetItem.msg",
+    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples:srv/GetPosition.srv",
+    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples:srv/SyncGetPosition.srv",
+    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples:srv/BulkGetItem.srv"
+  ]
+}
