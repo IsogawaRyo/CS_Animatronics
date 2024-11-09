@@ -30,7 +30,6 @@ include_directories(
 
 if(APPLE)
   add_library(dynamixel_sdk
-    src/dynamixel_sdk/packet_handler.cpp
     src/dynamixel_sdk/protocol1_packet_handler.cpp
     src/dynamixel_sdk/protocol2_packet_handler.cpp
     src/dynamixel_sdk/group_sync_read.cpp
@@ -42,7 +41,6 @@ if(APPLE)
   )
 else()
   add_library(dynamixel_sdk
-    src/dynamixel_sdk/packet_handler.cpp
     src/dynamixel_sdk/protocol1_packet_handler.cpp
     src/dynamixel_sdk/protocol2_packet_handler.cpp
     src/dynamixel_sdk/group_sync_read.cpp
