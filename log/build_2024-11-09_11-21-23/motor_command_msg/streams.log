@@ -1,0 +1,25 @@
+[0.427s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg': CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/system_controller:/home/csanimatronics/CS_Animatronics/install/motor_controller:/home/csanimatronics/CS_Animatronics/install/controller_publisher:/opt/ros/jazzy:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/motor_command_msg -- -j4 -l4
+[0.602s] [  0%] Built target ament_cmake_python_copy_motor_command_msg
+[0.608s] [  2%] Built target motor_command_msg__rosidl_generator_type_description
+[0.687s] [  5%] Built target motor_command_msg__cpp
+[0.717s] [ 20%] Built target motor_command_msg__rosidl_generator_c
+[0.811s] [ 29%] Built target motor_command_msg__rosidl_typesupport_c
+[0.815s] [ 38%] Built target motor_command_msg__rosidl_typesupport_introspection_c
+[0.831s] [ 47%] Built target motor_command_msg__rosidl_typesupport_fastrtps_cpp
+[0.925s] [ 55%] Built target motor_command_msg__rosidl_typesupport_introspection_cpp
+[0.937s] [ 64%] Built target motor_command_msg__rosidl_typesupport_cpp
+[0.938s] [ 73%] Built target motor_command_msg__rosidl_typesupport_fastrtps_c
+[0.994s] [ 73%] Built target motor_command_msg
+[1.041s] [ 76%] Built target motor_command_msg__py
+[1.085s] [ 82%] Built target motor_command_msg__rosidl_generator_py
+[1.198s] [ 88%] Built target motor_command_msg_s__rosidl_typesupport_introspection_c
+[1.206s] [ 94%] Built target motor_command_msg_s__rosidl_typesupport_fastrtps_c
+[1.217s] [100%] Built target motor_command_msg_s__rosidl_typesupport_c
+[1.247s] running egg_info
+[1.278s] writing motor_command_msg.egg-info/PKG-INFO
+[1.279s] writing dependency_links to motor_command_msg.egg-info/dependency_links.txt
+[1.281s] writing top-level names to motor_command_msg.egg-info/top_level.txt
+[1.386s] reading manifest file 'motor_command_msg.egg-info/SOURCES.txt'
+[1.387s] writing manifest file 'motor_command_msg.egg-info/SOURCES.txt'
+[1.502s] [100%] Built target ament_cmake_python_build_motor_command_msg_egg
+[1.575s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg' returned '0': CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/system_controller:/home/csanimatronics/CS_Animatronics/install/motor_controller:/home/csanimatronics/CS_Animatronics/install/controller_publisher:/opt/ros/jazzy:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/motor_command_msg -- -j4 -l4

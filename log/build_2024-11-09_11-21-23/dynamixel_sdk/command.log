@@ -1,0 +1,2 @@
+Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk -- -j4 -l4
+Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk' returned '2': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk -- -j4 -l4
