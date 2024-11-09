@@ -17,8 +17,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/protocol1_packet_handler.cpp.o.d"
   "CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/protocol2_packet_handler.cpp.o"
   "CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/protocol2_packet_handler.cpp.o.d"
-  "libdynamixel_sdk.a"
   "libdynamixel_sdk.pdb"
+  "libdynamixel_sdk.so"
 )
 
 # Per-language clean rules from dependency scanning.

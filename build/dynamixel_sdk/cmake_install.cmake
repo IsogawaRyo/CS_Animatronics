@@ -43,33 +43,34 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/" TYPE DIRECTORY FILES "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk/include/")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libdynamixel_sdk.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libdynamixel_sdk.so")
+    file(RPATH_CHECK
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libdynamixel_sdk.so"
+         RPATH "")
+  endif()
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk/libdynamixel_sdk.so")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libdynamixel_sdk.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libdynamixel_sdk.so")
+    if(CMAKE_INSTALL_DO_STRIP)
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libdynamixel_sdk.so")
+    endif()
+  endif()
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dynamixel_sdk/environment" TYPE FILE FILES "/opt/ros/jazzy/lib/python3.12/site-packages/ament_package/template/environment_hook/library_path.sh")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dynamixel_sdk/environment" TYPE FILE FILES "/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk/ament_cmake_environment_hooks/library_path.dsv")
-endif()
-
-if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk/libdynamixel_sdk.a")
-endif()
-
-if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/dynamixel_sdk" TYPE DIRECTORY FILES "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk/include/dynamixel_sdk/")
-endif()
-
-if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dynamixel_sdk" TYPE PROGRAM FILES
-    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk/src/dynamixel_sdk/group_bulk_read.py"
-    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk/src/dynamixel_sdk/group_bulk_write.py"
-    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk/src/dynamixel_sdk/group_sync_read.py"
-    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk/src/dynamixel_sdk/group_sync_write.py"
-    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk/src/dynamixel_sdk/packet_handler.py"
-    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk/src/dynamixel_sdk/port_handler.py"
-    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk/src/dynamixel_sdk/protocol1_packet_handler.py"
-    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk/src/dynamixel_sdk/protocol2_packet_handler.py"
-    "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk/src/dynamixel_sdk/robotis_def.py"
-    )
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)

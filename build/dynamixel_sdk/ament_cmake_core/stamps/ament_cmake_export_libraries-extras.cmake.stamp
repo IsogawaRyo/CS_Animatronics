@@ -1,7 +1,7 @@
 # generated from ament_cmake_export_libraries/cmake/template/ament_cmake_export_libraries.cmake.in
 
 set(_exported_libraries "dynamixel_sdk")
-set(_exported_library_names "dynamixel_sdk")
+set(_exported_library_names "")
 
 # populate dynamixel_sdk_LIBRARIES
 if(NOT _exported_libraries STREQUAL "")

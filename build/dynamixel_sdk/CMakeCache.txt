@@ -340,9 +340,6 @@ dynamixel_sdk_BINARY_DIR:STATIC=/home/csanimatronics/CS_Animatronics/build/dynam
 //Value Computed by CMake
 dynamixel_sdk_IS_TOP_LEVEL:STATIC=ON
 
-//Dependencies for the target
-dynamixel_sdk_LIB_DEPENDS:STATIC=general;rclcpp;general;rclcpp::rclcpp;
-
 //Value Computed by CMake
 dynamixel_sdk_SOURCE_DIR:STATIC=/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk
 

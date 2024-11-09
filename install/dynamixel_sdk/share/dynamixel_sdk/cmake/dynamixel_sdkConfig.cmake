@@ -16,7 +16,7 @@ set(_dynamixel_sdk_CONFIG_INCLUDED TRUE)
 
 # output package information
 if(NOT dynamixel_sdk_FIND_QUIETLY)
-  message(STATUS "Found dynamixel_sdk: 3.7.51 (${dynamixel_sdk_DIR})")
+  message(STATUS "Found dynamixel_sdk: 3.7.60 (${dynamixel_sdk_DIR})")
 endif()
 
 # warn when using a deprecated package
