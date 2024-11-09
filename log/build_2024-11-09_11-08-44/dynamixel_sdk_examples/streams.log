@@ -1,0 +1,40 @@
+[0.028s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples
+[0.060s] [0mCMake Deprecation Warning at CMakeLists.txt:4 (cmake_minimum_required):
+[0.064s]   Compatibility with CMake < 3.5 will be removed from a future version of
+[0.064s]   CMake.
+[0.064s] 
+[0.065s]   Update the VERSION argument <min> value or use a ...<max> suffix to tell
+[0.065s]   CMake that the project does not need compatibility with older versions.
+[0.065s] 
+[0.065s] [0m
+[0.180s] -- The C compiler identification is GNU 13.2.0
+[0.329s] -- The CXX compiler identification is GNU 13.2.0
+[0.381s] -- Detecting C compiler ABI info
+[0.594s] -- Detecting C compiler ABI info - done
+[0.614s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.616s] -- Detecting C compile features
+[0.617s] -- Detecting C compile features - done
+[0.652s] -- Detecting CXX compiler ABI info
+[0.948s] -- Detecting CXX compiler ABI info - done
+[0.981s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.981s] -- Detecting CXX compile features
+[0.982s] -- Detecting CXX compile features - done
+[0.995s] [31mCMake Error at CMakeLists.txt:13 (find_package):
+[0.995s]   By not providing "Findcatkin.cmake" in CMAKE_MODULE_PATH this project has
+[0.996s]   asked CMake to find a package configuration file provided by "catkin", but
+[0.996s]   CMake did not find one.
+[0.996s] 
+[0.996s]   Could not find a package configuration file provided by "catkin" with any
+[0.996s]   of the following names:
+[0.996s] 
+[0.996s]     catkinConfig.cmake
+[0.996s]     catkin-config.cmake
+[0.996s] 
+[0.996s]   Add the installation prefix of "catkin" to CMAKE_PREFIX_PATH or set
+[0.997s]   "catkin_DIR" to a directory containing one of the above files.  If "catkin"
+[0.997s]   provides a separate development package or SDK, be sure it has been
+[0.997s]   installed.
+[0.997s] 
+[0.997s] [0m
+[0.997s] -- Configuring incomplete, errors occurred!
+[1.005s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples' returned '1': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples
