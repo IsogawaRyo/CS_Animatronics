@@ -1,0 +1,42 @@
+[0.031s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples
+[0.066s] -- Found ament_cmake: 2.5.2 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.565s] -- Found rclcpp: 28.1.5 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.614s] -- Found rosidl_generator_c: 4.6.4 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.640s] -- Found rosidl_generator_cpp: 4.6.4 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.666s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.696s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.829s] -- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.831s] -- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.972s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.131s] -- Found std_msgs: 5.3.5 (/opt/ros/jazzy/share/std_msgs/cmake)
+[1.150s] -- Found dynamixel_sdk: 3.7.51 (/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/cmake)
+[1.152s] -- Found rosidl_default_generators: 1.6.0 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)
+[1.165s] -- Found rosidl_adapter: 4.6.4 (/opt/ros/jazzy/share/rosidl_adapter/cmake)
+[1.692s] Error parsing '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples/package.xml':
+[8.980s] Traceback (most recent call last):
+[8.980s]   File "/opt/ros/jazzy/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 150, in <module>
+[8.980s]     main()
+[8.982s]   File "/opt/ros/jazzy/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 53, in main
+[8.982s]     raise e
+[8.982s]   File "/opt/ros/jazzy/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 49, in main
+[8.982s]     package = parse_package_string(
+[8.982s]               ^^^^^^^^^^^^^^^^^^^^^
+[8.982s]   File "/usr/lib/python3/dist-packages/catkin_pkg/package.py", line 786, in parse_package_string
+[8.982s]     raise InvalidPackage('Error(s):%s' % (''.join(['\n- %s' % e for e in errors])), filename)
+[8.982s] catkin_pkg.package.InvalidPackage: Error(s) in package '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples/package.xml':
+[8.982s] Error(s):
+[8.983s] - The manifest of package "dynamixel_sdk_examples" (with format version 2) must not contain the following tags: member_of_group
+[9.102s] [31mCMake Error at /opt/ros/jazzy/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:95 (message):
+[9.102s]   execute_process(/usr/bin/python3
+[9.102s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py
+[9.102s]   /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples/package.xml
+[9.102s]   /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples/ament_cmake_core/package.cmake)
+[9.102s]   returned error code 1
+[9.103s] Call Stack (most recent call first):
+[9.103s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:49 (_ament_package_xml)
+[9.103s]   /opt/ros/jazzy/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:220 (ament_package_xml)
+[9.103s]   CMakeLists.txt:38 (rosidl_generate_interfaces)
+[9.103s] 
+[9.103s] [0m
+[9.103s] -- Configuring incomplete, errors occurred!
+[9.122s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples' returned '1': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples

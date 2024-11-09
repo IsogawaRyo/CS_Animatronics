@@ -21,4 +21,6 @@
   <build_depend>message_generation</build_depend>
   <exec_depend>message_runtime</exec_depend>
 
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
 </package>

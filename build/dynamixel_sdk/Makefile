@@ -210,6 +210,150 @@ dynamixel_sdk/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/build
 .PHONY : dynamixel_sdk/fast
 
+src/dynamixel_sdk/group_bulk_read.o: src/dynamixel_sdk/group_bulk_read.cpp.o
+.PHONY : src/dynamixel_sdk/group_bulk_read.o
+
+# target to build an object file
+src/dynamixel_sdk/group_bulk_read.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_bulk_read.cpp.o
+.PHONY : src/dynamixel_sdk/group_bulk_read.cpp.o
+
+src/dynamixel_sdk/group_bulk_read.i: src/dynamixel_sdk/group_bulk_read.cpp.i
+.PHONY : src/dynamixel_sdk/group_bulk_read.i
+
+# target to preprocess a source file
+src/dynamixel_sdk/group_bulk_read.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_bulk_read.cpp.i
+.PHONY : src/dynamixel_sdk/group_bulk_read.cpp.i
+
+src/dynamixel_sdk/group_bulk_read.s: src/dynamixel_sdk/group_bulk_read.cpp.s
+.PHONY : src/dynamixel_sdk/group_bulk_read.s
+
+# target to generate assembly for a file
+src/dynamixel_sdk/group_bulk_read.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_bulk_read.cpp.s
+.PHONY : src/dynamixel_sdk/group_bulk_read.cpp.s
+
+src/dynamixel_sdk/group_bulk_write.o: src/dynamixel_sdk/group_bulk_write.cpp.o
+.PHONY : src/dynamixel_sdk/group_bulk_write.o
+
+# target to build an object file
+src/dynamixel_sdk/group_bulk_write.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_bulk_write.cpp.o
+.PHONY : src/dynamixel_sdk/group_bulk_write.cpp.o
+
+src/dynamixel_sdk/group_bulk_write.i: src/dynamixel_sdk/group_bulk_write.cpp.i
+.PHONY : src/dynamixel_sdk/group_bulk_write.i
+
+# target to preprocess a source file
+src/dynamixel_sdk/group_bulk_write.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_bulk_write.cpp.i
+.PHONY : src/dynamixel_sdk/group_bulk_write.cpp.i
+
+src/dynamixel_sdk/group_bulk_write.s: src/dynamixel_sdk/group_bulk_write.cpp.s
+.PHONY : src/dynamixel_sdk/group_bulk_write.s
+
+# target to generate assembly for a file
+src/dynamixel_sdk/group_bulk_write.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_bulk_write.cpp.s
+.PHONY : src/dynamixel_sdk/group_bulk_write.cpp.s
+
+src/dynamixel_sdk/group_sync_read.o: src/dynamixel_sdk/group_sync_read.cpp.o
+.PHONY : src/dynamixel_sdk/group_sync_read.o
+
+# target to build an object file
+src/dynamixel_sdk/group_sync_read.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_sync_read.cpp.o
+.PHONY : src/dynamixel_sdk/group_sync_read.cpp.o
+
+src/dynamixel_sdk/group_sync_read.i: src/dynamixel_sdk/group_sync_read.cpp.i
+.PHONY : src/dynamixel_sdk/group_sync_read.i
+
+# target to preprocess a source file
+src/dynamixel_sdk/group_sync_read.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_sync_read.cpp.i
+.PHONY : src/dynamixel_sdk/group_sync_read.cpp.i
+
+src/dynamixel_sdk/group_sync_read.s: src/dynamixel_sdk/group_sync_read.cpp.s
+.PHONY : src/dynamixel_sdk/group_sync_read.s
+
+# target to generate assembly for a file
+src/dynamixel_sdk/group_sync_read.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_sync_read.cpp.s
+.PHONY : src/dynamixel_sdk/group_sync_read.cpp.s
+
+src/dynamixel_sdk/group_sync_write.o: src/dynamixel_sdk/group_sync_write.cpp.o
+.PHONY : src/dynamixel_sdk/group_sync_write.o
+
+# target to build an object file
+src/dynamixel_sdk/group_sync_write.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_sync_write.cpp.o
+.PHONY : src/dynamixel_sdk/group_sync_write.cpp.o
+
+src/dynamixel_sdk/group_sync_write.i: src/dynamixel_sdk/group_sync_write.cpp.i
+.PHONY : src/dynamixel_sdk/group_sync_write.i
+
+# target to preprocess a source file
+src/dynamixel_sdk/group_sync_write.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_sync_write.cpp.i
+.PHONY : src/dynamixel_sdk/group_sync_write.cpp.i
+
+src/dynamixel_sdk/group_sync_write.s: src/dynamixel_sdk/group_sync_write.cpp.s
+.PHONY : src/dynamixel_sdk/group_sync_write.s
+
+# target to generate assembly for a file
+src/dynamixel_sdk/group_sync_write.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_sync_write.cpp.s
+.PHONY : src/dynamixel_sdk/group_sync_write.cpp.s
+
+src/dynamixel_sdk/packet_handler.o: src/dynamixel_sdk/packet_handler.cpp.o
+.PHONY : src/dynamixel_sdk/packet_handler.o
+
+# target to build an object file
+src/dynamixel_sdk/packet_handler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/packet_handler.cpp.o
+.PHONY : src/dynamixel_sdk/packet_handler.cpp.o
+
+src/dynamixel_sdk/packet_handler.i: src/dynamixel_sdk/packet_handler.cpp.i
+.PHONY : src/dynamixel_sdk/packet_handler.i
+
+# target to preprocess a source file
+src/dynamixel_sdk/packet_handler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/packet_handler.cpp.i
+.PHONY : src/dynamixel_sdk/packet_handler.cpp.i
+
+src/dynamixel_sdk/packet_handler.s: src/dynamixel_sdk/packet_handler.cpp.s
+.PHONY : src/dynamixel_sdk/packet_handler.s
+
+# target to generate assembly for a file
+src/dynamixel_sdk/packet_handler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/packet_handler.cpp.s
+.PHONY : src/dynamixel_sdk/packet_handler.cpp.s
+
+src/dynamixel_sdk/port_handler.o: src/dynamixel_sdk/port_handler.cpp.o
+.PHONY : src/dynamixel_sdk/port_handler.o
+
+# target to build an object file
+src/dynamixel_sdk/port_handler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/port_handler.cpp.o
+.PHONY : src/dynamixel_sdk/port_handler.cpp.o
+
+src/dynamixel_sdk/port_handler.i: src/dynamixel_sdk/port_handler.cpp.i
+.PHONY : src/dynamixel_sdk/port_handler.i
+
+# target to preprocess a source file
+src/dynamixel_sdk/port_handler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/port_handler.cpp.i
+.PHONY : src/dynamixel_sdk/port_handler.cpp.i
+
+src/dynamixel_sdk/port_handler.s: src/dynamixel_sdk/port_handler.cpp.s
+.PHONY : src/dynamixel_sdk/port_handler.s
+
+# target to generate assembly for a file
+src/dynamixel_sdk/port_handler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/port_handler.cpp.s
+.PHONY : src/dynamixel_sdk/port_handler.cpp.s
+
 src/dynamixel_sdk/port_handler_linux.o: src/dynamixel_sdk/port_handler_linux.cpp.o
 .PHONY : src/dynamixel_sdk/port_handler_linux.o
 
@@ -234,6 +378,54 @@ src/dynamixel_sdk/port_handler_linux.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/port_handler_linux.cpp.s
 .PHONY : src/dynamixel_sdk/port_handler_linux.cpp.s
 
+src/dynamixel_sdk/protocol1_packet_handler.o: src/dynamixel_sdk/protocol1_packet_handler.cpp.o
+.PHONY : src/dynamixel_sdk/protocol1_packet_handler.o
+
+# target to build an object file
+src/dynamixel_sdk/protocol1_packet_handler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/protocol1_packet_handler.cpp.o
+.PHONY : src/dynamixel_sdk/protocol1_packet_handler.cpp.o
+
+src/dynamixel_sdk/protocol1_packet_handler.i: src/dynamixel_sdk/protocol1_packet_handler.cpp.i
+.PHONY : src/dynamixel_sdk/protocol1_packet_handler.i
+
+# target to preprocess a source file
+src/dynamixel_sdk/protocol1_packet_handler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/protocol1_packet_handler.cpp.i
+.PHONY : src/dynamixel_sdk/protocol1_packet_handler.cpp.i
+
+src/dynamixel_sdk/protocol1_packet_handler.s: src/dynamixel_sdk/protocol1_packet_handler.cpp.s
+.PHONY : src/dynamixel_sdk/protocol1_packet_handler.s
+
+# target to generate assembly for a file
+src/dynamixel_sdk/protocol1_packet_handler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/protocol1_packet_handler.cpp.s
+.PHONY : src/dynamixel_sdk/protocol1_packet_handler.cpp.s
+
+src/dynamixel_sdk/protocol2_packet_handler.o: src/dynamixel_sdk/protocol2_packet_handler.cpp.o
+.PHONY : src/dynamixel_sdk/protocol2_packet_handler.o
+
+# target to build an object file
+src/dynamixel_sdk/protocol2_packet_handler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/protocol2_packet_handler.cpp.o
+.PHONY : src/dynamixel_sdk/protocol2_packet_handler.cpp.o
+
+src/dynamixel_sdk/protocol2_packet_handler.i: src/dynamixel_sdk/protocol2_packet_handler.cpp.i
+.PHONY : src/dynamixel_sdk/protocol2_packet_handler.i
+
+# target to preprocess a source file
+src/dynamixel_sdk/protocol2_packet_handler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/protocol2_packet_handler.cpp.i
+.PHONY : src/dynamixel_sdk/protocol2_packet_handler.cpp.i
+
+src/dynamixel_sdk/protocol2_packet_handler.s: src/dynamixel_sdk/protocol2_packet_handler.cpp.s
+.PHONY : src/dynamixel_sdk/protocol2_packet_handler.s
+
+# target to generate assembly for a file
+src/dynamixel_sdk/protocol2_packet_handler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dynamixel_sdk.dir/build.make CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/protocol2_packet_handler.cpp.s
+.PHONY : src/dynamixel_sdk/protocol2_packet_handler.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -250,9 +442,33 @@ help:
 	@echo "... dynamixel_sdk_uninstall"
 	@echo "... uninstall"
 	@echo "... dynamixel_sdk"
+	@echo "... src/dynamixel_sdk/group_bulk_read.o"
+	@echo "... src/dynamixel_sdk/group_bulk_read.i"
+	@echo "... src/dynamixel_sdk/group_bulk_read.s"
+	@echo "... src/dynamixel_sdk/group_bulk_write.o"
+	@echo "... src/dynamixel_sdk/group_bulk_write.i"
+	@echo "... src/dynamixel_sdk/group_bulk_write.s"
+	@echo "... src/dynamixel_sdk/group_sync_read.o"
+	@echo "... src/dynamixel_sdk/group_sync_read.i"
+	@echo "... src/dynamixel_sdk/group_sync_read.s"
+	@echo "... src/dynamixel_sdk/group_sync_write.o"
+	@echo "... src/dynamixel_sdk/group_sync_write.i"
+	@echo "... src/dynamixel_sdk/group_sync_write.s"
+	@echo "... src/dynamixel_sdk/packet_handler.o"
+	@echo "... src/dynamixel_sdk/packet_handler.i"
+	@echo "... src/dynamixel_sdk/packet_handler.s"
+	@echo "... src/dynamixel_sdk/port_handler.o"
+	@echo "... src/dynamixel_sdk/port_handler.i"
+	@echo "... src/dynamixel_sdk/port_handler.s"
 	@echo "... src/dynamixel_sdk/port_handler_linux.o"
 	@echo "... src/dynamixel_sdk/port_handler_linux.i"
 	@echo "... src/dynamixel_sdk/port_handler_linux.s"
+	@echo "... src/dynamixel_sdk/protocol1_packet_handler.o"
+	@echo "... src/dynamixel_sdk/protocol1_packet_handler.i"
+	@echo "... src/dynamixel_sdk/protocol1_packet_handler.s"
+	@echo "... src/dynamixel_sdk/protocol2_packet_handler.o"
+	@echo "... src/dynamixel_sdk/protocol2_packet_handler.i"
+	@echo "... src/dynamixel_sdk/protocol2_packet_handler.s"
 .PHONY : help
 
 
