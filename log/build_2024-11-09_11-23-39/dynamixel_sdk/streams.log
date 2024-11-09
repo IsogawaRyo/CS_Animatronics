@@ -1,0 +1,29 @@
+[0.059s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk -- -j4 -l4
+[0.461s] -- Found ament_cmake: 2.5.2 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.522s] -- Found rclcpp: 28.1.5 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.568s] -- Found rosidl_generator_c: 4.6.4 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.586s] -- Found rosidl_generator_cpp: 4.6.4 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.619s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.651s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.789s] -- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.791s] -- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.945s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.068s] -- Found rclpy: 7.1.2 (/opt/ros/jazzy/share/rclpy/cmake)
+[1.329s] -- Configuring done (1.2s)
+[1.335s] [31mCMake Error at CMakeLists.txt:44 (add_library):
+[1.335s]   Cannot find source file:
+[1.335s] 
+[1.335s]     src/dynamixel_sdk/packet_handler.cpp
+[1.335s] 
+[1.335s]   Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm
+[1.335s]   .ccm .cxxm .c++m .h .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90
+[1.335s]   .f95 .f03 .hip .ispc
+[1.336s] 
+[1.336s] [0m
+[1.338s] [31mCMake Error at CMakeLists.txt:44 (add_library):
+[1.338s]   No SOURCES given to target: dynamixel_sdk
+[1.338s] 
+[1.339s] [0m
+[1.339s] [0mCMake Generate step failed.  Build files cannot be regenerated correctly.[0m
+[1.363s] gmake: *** [Makefile:267: cmake_check_build_system] Error 1
+[1.367s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk' returned '2': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk -- -j4 -l4
