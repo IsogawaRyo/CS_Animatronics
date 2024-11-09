@@ -1,0 +1,19 @@
+[1.744s] Invoking command in '/home/csanimatronics/CS_Animatronics/src/motor_controller': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/motor_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages: /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/motor_controller build --build-base /home/csanimatronics/CS_Animatronics/build/motor_controller/build install --record /home/csanimatronics/CS_Animatronics/build/motor_controller/install.log --single-version-externally-managed install_data
+[3.282s] running egg_info
+[3.386s] writing ../../build/motor_controller/motor_controller.egg-info/PKG-INFO
+[3.387s] writing dependency_links to ../../build/motor_controller/motor_controller.egg-info/dependency_links.txt
+[3.402s] writing requirements to ../../build/motor_controller/motor_controller.egg-info/requires.txt
+[3.403s] writing top-level names to ../../build/motor_controller/motor_controller.egg-info/top_level.txt
+[3.659s] reading manifest file '../../build/motor_controller/motor_controller.egg-info/SOURCES.txt'
+[3.669s] writing manifest file '../../build/motor_controller/motor_controller.egg-info/SOURCES.txt'
+[3.672s] running build
+[3.672s] running build_py
+[3.673s] running install
+[3.705s] running install_lib
+[3.840s] running install_data
+[3.844s] running install_egg_info
+[3.971s] removing '/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages/motor_controller-0.0.0-py3.12.egg-info' (and everything under it)
+[3.978s] Copying ../../build/motor_controller/motor_controller.egg-info to /home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages/motor_controller-0.0.0-py3.12.egg-info
+[3.992s] running install_scripts
+[5.265s] writing list of installed files to '/home/csanimatronics/CS_Animatronics/build/motor_controller/install.log'
+[7.569s] Invoked command in '/home/csanimatronics/CS_Animatronics/src/motor_controller' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/motor_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages: /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/motor_controller build --build-base /home/csanimatronics/CS_Animatronics/build/motor_controller/build install --record /home/csanimatronics/CS_Animatronics/build/motor_controller/install.log --single-version-externally-managed install_data

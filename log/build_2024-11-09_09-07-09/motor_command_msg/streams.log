@@ -1,0 +1,24 @@
+[0.305s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/motor_command_msg -- -j4 -l4
+[0.425s] [  2%] Built target motor_command_msg__rosidl_generator_type_description
+[0.469s] [  2%] Built target ament_cmake_python_copy_motor_command_msg
+[0.499s] [ 17%] Built target motor_command_msg__rosidl_generator_c
+[0.500s] [ 20%] Built target motor_command_msg__cpp
+[0.563s] [ 29%] Built target motor_command_msg__rosidl_typesupport_introspection_c
+[0.569s] [ 38%] Built target motor_command_msg__rosidl_typesupport_fastrtps_c
+[0.591s] [ 47%] Built target motor_command_msg__rosidl_typesupport_c
+[0.632s] [ 55%] Built target motor_command_msg__rosidl_typesupport_fastrtps_cpp
+[0.647s] [ 64%] Built target motor_command_msg__rosidl_typesupport_introspection_cpp
+[0.654s] [ 73%] Built target motor_command_msg__rosidl_typesupport_cpp
+[0.693s] [ 73%] Built target motor_command_msg
+[0.731s] [ 76%] Built target motor_command_msg__py
+[0.770s] [ 82%] Built target motor_command_msg__rosidl_generator_py
+[0.830s] [ 88%] Built target motor_command_msg_s__rosidl_typesupport_c
+[0.838s] [ 94%] Built target motor_command_msg_s__rosidl_typesupport_fastrtps_c
+[0.841s] [100%] Built target motor_command_msg_s__rosidl_typesupport_introspection_c
+[0.855s] running egg_info
+[0.871s] writing motor_command_msg.egg-info/PKG-INFO
+[0.872s] writing dependency_links to motor_command_msg.egg-info/dependency_links.txt
+[0.874s] writing top-level names to motor_command_msg.egg-info/top_level.txt
+[0.922s] reading manifest file 'motor_command_msg.egg-info/SOURCES.txt'
+[0.923s] writing manifest file 'motor_command_msg.egg-info/SOURCES.txt'
+[0.997s] [100%] Built target ament_cmake_python_build_motor_command_msg_egg

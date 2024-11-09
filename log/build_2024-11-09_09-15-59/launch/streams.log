@@ -1,0 +1,19 @@
+[0.300s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/launch': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/launch -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/launch
+[0.330s] -- Found ament_cmake: 2.5.2 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[11.930s] Traceback (most recent call last):
+[11.930s]   File "/opt/ros/jazzy/share/ament_cmake_core/cmake/package_templates/templates_2_cmake.py", line 21, in <module>
+[11.930s]     from ament_package.templates import get_environment_hook_template_path
+[11.931s] ModuleNotFoundError: No module named 'ament_package'
+[12.020s] [31mCMake Error at /opt/ros/jazzy/share/ament_cmake_core/cmake/ament_cmake_package_templates-extras.cmake:41 (message):
+[12.020s]   execute_process(/usr/bin/python3
+[12.020s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/package_templates/templates_2_cmake.py
+[12.020s]   /home/csanimatronics/CS_Animatronics/build/launch/ament_cmake_package_templates/templates.cmake)
+[12.020s]   returned error code 1
+[12.020s] Call Stack (most recent call first):
+[12.020s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/ament_cmake_coreConfig.cmake:41 (include)
+[12.020s]   /opt/ros/jazzy/share/ament_cmake/cmake/ament_cmake_export_dependencies-extras.cmake:15 (find_package)
+[12.021s]   /opt/ros/jazzy/share/ament_cmake/cmake/ament_cmakeConfig.cmake:41 (include)
+[12.021s]   CMakeLists.txt:9 (find_package)
+[12.021s] 
+[12.021s] [0m
+[12.021s] -- Configuring incomplete, errors occurred!

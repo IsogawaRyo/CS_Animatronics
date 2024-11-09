@@ -1,0 +1,1 @@
+[0.295s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/launch': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/launch -- -j4 -l4

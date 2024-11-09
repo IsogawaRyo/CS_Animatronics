@@ -1,0 +1,20 @@
+[0.301s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/motor_command_msg -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/motor_command_msg
+[0.333s] -- Found rosidl_default_generators: 1.6.0 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)
+[0.409s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[12.969s] Traceback (most recent call last):
+[12.970s]   File "/opt/ros/jazzy/share/ament_cmake_core/cmake/package_templates/templates_2_cmake.py", line 21, in <module>
+[12.970s]     from ament_package.templates import get_environment_hook_template_path
+[12.970s] ModuleNotFoundError: No module named 'ament_package'
+[13.066s] -- Configuring incomplete, errors occurred!
+[13.067s] [31mCMake Error at /opt/ros/jazzy/share/ament_cmake_core/cmake/ament_cmake_package_templates-extras.cmake:41 (message):
+[13.067s]   execute_process(/usr/bin/python3
+[13.067s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/package_templates/templates_2_cmake.py
+[13.067s]   /home/csanimatronics/CS_Animatronics/build/motor_command_msg/ament_cmake_package_templates/templates.cmake)
+[13.068s]   returned error code 1
+[13.068s] Call Stack (most recent call first):
+[13.068s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/ament_cmake_coreConfig.cmake:41 (include)
+[13.069s]   /opt/ros/jazzy/share/rosidl_default_generators/cmake/ament_cmake_export_dependencies-extras.cmake:15 (find_package)
+[13.069s]   /opt/ros/jazzy/share/rosidl_default_generators/cmake/rosidl_default_generatorsConfig.cmake:41 (include)
+[13.069s]   CMakeLists.txt:8 (find_package)
+[13.069s] 
+[13.069s] [0m

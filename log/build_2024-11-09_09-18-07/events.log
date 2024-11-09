@@ -1,0 +1,256 @@
+[0.000000] (-) TimerEvent: {}
+[0.000367] (controller_publisher) JobQueued: {'identifier': 'controller_publisher', 'dependencies': OrderedDict()}
+[0.001678] (launch) JobQueued: {'identifier': 'launch', 'dependencies': OrderedDict()}
+[0.001818] (motor_command_msg) JobQueued: {'identifier': 'motor_command_msg', 'dependencies': OrderedDict()}
+[0.001850] (motor_controller) JobQueued: {'identifier': 'motor_controller', 'dependencies': OrderedDict()}
+[0.001873] (system_controller) JobQueued: {'identifier': 'system_controller', 'dependencies': OrderedDict()}
+[0.001903] (controller_publisher) JobStarted: {'identifier': 'controller_publisher'}
+[0.017192] (launch) JobStarted: {'identifier': 'launch'}
+[0.019598] (motor_command_msg) JobStarted: {'identifier': 'motor_command_msg'}
+[0.021849] (motor_controller) JobStarted: {'identifier': 'motor_controller'}
+[0.099720] (-) TimerEvent: {}
+[0.200054] (-) TimerEvent: {}
+[0.300523] (-) TimerEvent: {}
+[0.310730] (launch) JobProgress: {'identifier': 'launch', 'progress': 'cmake'}
+[0.311935] (launch) JobProgress: {'identifier': 'launch', 'progress': 'build'}
+[0.312945] (launch) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/csanimatronics/CS_Animatronics/build/launch', '--', '-j4', '-l4'], 'cwd': '/home/csanimatronics/CS_Animatronics/build/launch', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'csanimatronics', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'HOME': '/home/csanimatronics', 'OLDPWD': '/home/csanimatronics/CS_Animatronics/src', 'DESKTOP_SESSION': 'ubuntu', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1641', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1002/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'LOGNAME': 'csanimatronics', '_': '/usr/bin/colcon', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'csanimatronics', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/csanimatronics:@/tmp/.ICE-unix/1601,unix/csanimatronics:/tmp/.ICE-unix/1601', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/038df77d_e498_44c2_8431_29c34b6c215a', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1002', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1002/.mutter-Xwaylandauth.VGZKW2', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.104', 'SSH_AUTH_SOCK': '/run/user/1002/keyring/ssh', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/csanimatronics/CS_Animatronics/build/launch', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600'}), 'shell': False}
+[0.317523] (motor_command_msg) JobProgress: {'identifier': 'motor_command_msg', 'progress': 'cmake'}
+[0.318445] (motor_command_msg) JobProgress: {'identifier': 'motor_command_msg', 'progress': 'build'}
+[0.319737] (motor_command_msg) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/csanimatronics/CS_Animatronics/build/motor_command_msg', '--', '-j4', '-l4'], 'cwd': '/home/csanimatronics/CS_Animatronics/build/motor_command_msg', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'csanimatronics', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'HOME': '/home/csanimatronics', 'OLDPWD': '/home/csanimatronics/CS_Animatronics/src', 'DESKTOP_SESSION': 'ubuntu', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1641', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1002/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'LOGNAME': 'csanimatronics', '_': '/usr/bin/colcon', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'csanimatronics', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/csanimatronics:@/tmp/.ICE-unix/1601,unix/csanimatronics:/tmp/.ICE-unix/1601', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/038df77d_e498_44c2_8431_29c34b6c215a', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1002', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1002/.mutter-Xwaylandauth.VGZKW2', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.104', 'SSH_AUTH_SOCK': '/run/user/1002/keyring/ssh', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/csanimatronics/CS_Animatronics/build/motor_command_msg', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600'}), 'shell': False}
+[0.359347] (launch) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.2 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.365555] (motor_command_msg) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.6.0 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)\n'}
+[0.402392] (-) TimerEvent: {}
+[0.502823] (-) TimerEvent: {}
+[0.603240] (-) TimerEvent: {}
+[0.707600] (-) TimerEvent: {}
+[0.808887] (-) TimerEvent: {}
+[0.913774] (-) TimerEvent: {}
+[1.014420] (-) TimerEvent: {}
+[1.114812] (-) TimerEvent: {}
+[1.215206] (-) TimerEvent: {}
+[1.317349] (-) TimerEvent: {}
+[1.417975] (-) TimerEvent: {}
+[1.518572] (-) TimerEvent: {}
+[1.619079] (-) TimerEvent: {}
+[1.687651] (controller_publisher) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/controller_publisher', 'build', '--build-base', '/home/csanimatronics/CS_Animatronics/build/controller_publisher/build', 'install', '--record', '/home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/csanimatronics/CS_Animatronics/src/controller_publisher', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'csanimatronics', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'HOME': '/home/csanimatronics', 'OLDPWD': '/home/csanimatronics/CS_Animatronics/src', 'DESKTOP_SESSION': 'ubuntu', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1641', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1002/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'LOGNAME': 'csanimatronics', '_': '/usr/bin/colcon', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'csanimatronics', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/csanimatronics:@/tmp/.ICE-unix/1601,unix/csanimatronics:/tmp/.ICE-unix/1601', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/038df77d_e498_44c2_8431_29c34b6c215a', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1002', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1002/.mutter-Xwaylandauth.VGZKW2', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.104', 'SSH_AUTH_SOCK': '/run/user/1002/keyring/ssh', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/csanimatronics/CS_Animatronics/build/controller_publisher', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'PYTHONPATH': '/home/csanimatronics/CS_Animatronics/build/controller_publisher/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages:'}, 'shell': False}
+[1.719325] (-) TimerEvent: {}
+[1.762368] (motor_controller) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/motor_controller', 'build', '--build-base', '/home/csanimatronics/CS_Animatronics/build/motor_controller/build', 'install', '--record', '/home/csanimatronics/CS_Animatronics/build/motor_controller/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/csanimatronics/CS_Animatronics/src/motor_controller', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'csanimatronics', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'HOME': '/home/csanimatronics', 'OLDPWD': '/home/csanimatronics/CS_Animatronics/src', 'DESKTOP_SESSION': 'ubuntu', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1641', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1002/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'LOGNAME': 'csanimatronics', '_': '/usr/bin/colcon', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'csanimatronics', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/csanimatronics:@/tmp/.ICE-unix/1601,unix/csanimatronics:/tmp/.ICE-unix/1601', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/038df77d_e498_44c2_8431_29c34b6c215a', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1002', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1002/.mutter-Xwaylandauth.VGZKW2', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.104', 'SSH_AUTH_SOCK': '/run/user/1002/keyring/ssh', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/csanimatronics/CS_Animatronics/build/motor_controller', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'PYTHONPATH': '/home/csanimatronics/CS_Animatronics/build/motor_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages:'}, 'shell': False}
+[1.821497] (-) TimerEvent: {}
+[1.926175] (-) TimerEvent: {}
+[2.027102] (-) TimerEvent: {}
+[2.128263] (-) TimerEvent: {}
+[2.231973] (-) TimerEvent: {}
+[2.336624] (-) TimerEvent: {}
+[2.438659] (-) TimerEvent: {}
+[2.543382] (-) TimerEvent: {}
+[2.645923] (-) TimerEvent: {}
+[2.752042] (-) TimerEvent: {}
+[2.856372] (-) TimerEvent: {}
+[2.959554] (-) TimerEvent: {}
+[3.060975] (-) TimerEvent: {}
+[3.064695] (controller_publisher) StdoutLine: {'line': b'running egg_info\n'}
+[3.161379] (-) TimerEvent: {}
+[3.176033] (controller_publisher) StdoutLine: {'line': b'writing ../../build/controller_publisher/controller_publisher.egg-info/PKG-INFO\n'}
+[3.183550] (controller_publisher) StdoutLine: {'line': b'writing dependency_links to ../../build/controller_publisher/controller_publisher.egg-info/dependency_links.txt\n'}
+[3.184904] (controller_publisher) StdoutLine: {'line': b'writing entry points to ../../build/controller_publisher/controller_publisher.egg-info/entry_points.txt\n'}
+[3.185397] (controller_publisher) StdoutLine: {'line': b'writing requirements to ../../build/controller_publisher/controller_publisher.egg-info/requires.txt\n'}
+[3.191512] (controller_publisher) StdoutLine: {'line': b'writing top-level names to ../../build/controller_publisher/controller_publisher.egg-info/top_level.txt\n'}
+[3.265608] (-) TimerEvent: {}
+[3.303941] (motor_controller) StdoutLine: {'line': b'running egg_info\n'}
+[3.365864] (-) TimerEvent: {}
+[3.407756] (motor_controller) StdoutLine: {'line': b'writing ../../build/motor_controller/motor_controller.egg-info/PKG-INFO\n'}
+[3.409175] (motor_controller) StdoutLine: {'line': b'writing dependency_links to ../../build/motor_controller/motor_controller.egg-info/dependency_links.txt\n'}
+[3.422642] (motor_controller) StdoutLine: {'line': b'writing requirements to ../../build/motor_controller/motor_controller.egg-info/requires.txt\n'}
+[3.424723] (motor_controller) StdoutLine: {'line': b'writing top-level names to ../../build/motor_controller/motor_controller.egg-info/top_level.txt\n'}
+[3.452563] (controller_publisher) StdoutLine: {'line': b"reading manifest file '../../build/controller_publisher/controller_publisher.egg-info/SOURCES.txt'\n"}
+[3.454829] (controller_publisher) StdoutLine: {'line': b"writing manifest file '../../build/controller_publisher/controller_publisher.egg-info/SOURCES.txt'\n"}
+[3.459715] (controller_publisher) StdoutLine: {'line': b'running build\n'}
+[3.460580] (controller_publisher) StdoutLine: {'line': b'running build_py\n'}
+[3.461202] (controller_publisher) StdoutLine: {'line': b'running install\n'}
+[3.467658] (-) TimerEvent: {}
+[3.509756] (controller_publisher) StdoutLine: {'line': b'running install_lib\n'}
+[3.568002] (-) TimerEvent: {}
+[3.647845] (controller_publisher) StdoutLine: {'line': b'running install_data\n'}
+[3.652990] (controller_publisher) StdoutLine: {'line': b'running install_egg_info\n'}
+[3.668266] (-) TimerEvent: {}
+[3.680649] (motor_controller) StdoutLine: {'line': b"reading manifest file '../../build/motor_controller/motor_controller.egg-info/SOURCES.txt'\n"}
+[3.690536] (motor_controller) StdoutLine: {'line': b"writing manifest file '../../build/motor_controller/motor_controller.egg-info/SOURCES.txt'\n"}
+[3.693737] (motor_controller) StdoutLine: {'line': b'running build\n'}
+[3.694366] (motor_controller) StdoutLine: {'line': b'running build_py\n'}
+[3.694818] (motor_controller) StdoutLine: {'line': b'running install\n'}
+[3.725717] (motor_controller) StdoutLine: {'line': b'running install_lib\n'}
+[3.770587] (-) TimerEvent: {}
+[3.801992] (controller_publisher) StdoutLine: {'line': b"removing '/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher-0.0.0-py3.12.egg-info' (and everything under it)\n"}
+[3.804121] (controller_publisher) StdoutLine: {'line': b'Copying ../../build/controller_publisher/controller_publisher.egg-info to /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher-0.0.0-py3.12.egg-info\n'}
+[3.812573] (controller_publisher) StdoutLine: {'line': b'running install_scripts\n'}
+[3.861290] (motor_controller) StdoutLine: {'line': b'running install_data\n'}
+[3.865553] (motor_controller) StdoutLine: {'line': b'running install_egg_info\n'}
+[3.873464] (-) TimerEvent: {}
+[3.974498] (-) TimerEvent: {}
+[3.992588] (motor_controller) StdoutLine: {'line': b"removing '/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages/motor_controller-0.0.0-py3.12.egg-info' (and everything under it)\n"}
+[3.999867] (motor_controller) StdoutLine: {'line': b'Copying ../../build/motor_controller/motor_controller.egg-info to /home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages/motor_controller-0.0.0-py3.12.egg-info\n'}
+[4.013309] (motor_controller) StdoutLine: {'line': b'running install_scripts\n'}
+[4.076531] (-) TimerEvent: {}
+[4.177911] (-) TimerEvent: {}
+[4.281513] (-) TimerEvent: {}
+[4.382850] (-) TimerEvent: {}
+[4.486527] (-) TimerEvent: {}
+[4.587712] (-) TimerEvent: {}
+[4.690607] (-) TimerEvent: {}
+[4.741803] (controller_publisher) StdoutLine: {'line': b'Installing controller_publisher script to /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/controller_publisher\n'}
+[4.751131] (controller_publisher) StdoutLine: {'line': b"writing list of installed files to '/home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log'\n"}
+[4.795716] (-) TimerEvent: {}
+[4.898088] (-) TimerEvent: {}
+[5.003846] (-) TimerEvent: {}
+[5.110420] (-) TimerEvent: {}
+[5.211619] (-) TimerEvent: {}
+[5.253543] (controller_publisher) CommandEnded: {'returncode': 0}
+[5.286811] (motor_controller) StdoutLine: {'line': b"writing list of installed files to '/home/csanimatronics/CS_Animatronics/build/motor_controller/install.log'\n"}
+[5.311980] (-) TimerEvent: {}
+[5.387138] (controller_publisher) JobEnded: {'identifier': 'controller_publisher', 'rc': 0}
+[5.402997] (system_controller) JobStarted: {'identifier': 'system_controller'}
+[5.417501] (-) TimerEvent: {}
+[5.534055] (-) TimerEvent: {}
+[5.636391] (-) TimerEvent: {}
+[5.741790] (-) TimerEvent: {}
+[5.843261] (-) TimerEvent: {}
+[5.950258] (-) TimerEvent: {}
+[6.052363] (-) TimerEvent: {}
+[6.157488] (-) TimerEvent: {}
+[6.259735] (-) TimerEvent: {}
+[6.361500] (-) TimerEvent: {}
+[6.465870] (-) TimerEvent: {}
+[6.570065] (-) TimerEvent: {}
+[6.675098] (-) TimerEvent: {}
+[6.776987] (-) TimerEvent: {}
+[6.878605] (-) TimerEvent: {}
+[6.983388] (-) TimerEvent: {}
+[7.087984] (-) TimerEvent: {}
+[7.189732] (-) TimerEvent: {}
+[7.294093] (-) TimerEvent: {}
+[7.398985] (-) TimerEvent: {}
+[7.502717] (-) TimerEvent: {}
+[7.590830] (motor_controller) CommandEnded: {'returncode': 0}
+[7.603166] (-) TimerEvent: {}
+[7.661454] (motor_controller) JobEnded: {'identifier': 'motor_controller', 'rc': 0}
+[7.703701] (-) TimerEvent: {}
+[7.805540] (-) TimerEvent: {}
+[7.906908] (-) TimerEvent: {}
+[8.007857] (-) TimerEvent: {}
+[8.109794] (-) TimerEvent: {}
+[8.214147] (-) TimerEvent: {}
+[8.316106] (-) TimerEvent: {}
+[8.417905] (-) TimerEvent: {}
+[8.519985] (-) TimerEvent: {}
+[8.621563] (-) TimerEvent: {}
+[8.726159] (-) TimerEvent: {}
+[8.828306] (-) TimerEvent: {}
+[8.930201] (-) TimerEvent: {}
+[9.033137] (-) TimerEvent: {}
+[9.137904] (-) TimerEvent: {}
+[9.238956] (-) TimerEvent: {}
+[9.339920] (-) TimerEvent: {}
+[9.442596] (-) TimerEvent: {}
+[9.544830] (-) TimerEvent: {}
+[9.647116] (-) TimerEvent: {}
+[9.752152] (-) TimerEvent: {}
+[9.857060] (-) TimerEvent: {}
+[9.958705] (-) TimerEvent: {}
+[10.060089] (-) TimerEvent: {}
+[10.171698] (-) TimerEvent: {}
+[10.274685] (-) TimerEvent: {}
+[10.376648] (-) TimerEvent: {}
+[10.480186] (-) TimerEvent: {}
+[10.583207] (-) TimerEvent: {}
+[10.688595] (-) TimerEvent: {}
+[10.793398] (-) TimerEvent: {}
+[10.898459] (-) TimerEvent: {}
+[11.004005] (-) TimerEvent: {}
+[11.106262] (-) TimerEvent: {}
+[11.178704] (system_controller) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/system_controller', 'build', '--build-base', '/home/csanimatronics/CS_Animatronics/build/system_controller/build', 'install', '--record', '/home/csanimatronics/CS_Animatronics/build/system_controller/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/csanimatronics/CS_Animatronics/src/system_controller', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'csanimatronics', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'HOME': '/home/csanimatronics', 'OLDPWD': '/home/csanimatronics/CS_Animatronics/src', 'DESKTOP_SESSION': 'ubuntu', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1641', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1002/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'LOGNAME': 'csanimatronics', '_': '/usr/bin/colcon', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'csanimatronics', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/csanimatronics:@/tmp/.ICE-unix/1601,unix/csanimatronics:/tmp/.ICE-unix/1601', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/038df77d_e498_44c2_8431_29c34b6c215a', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1002', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1002/.mutter-Xwaylandauth.VGZKW2', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.104', 'SSH_AUTH_SOCK': '/run/user/1002/keyring/ssh', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/csanimatronics/CS_Animatronics/build/system_controller', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'PYTHONPATH': '/home/csanimatronics/CS_Animatronics/build/system_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages:'}, 'shell': False}
+[11.206684] (-) TimerEvent: {}
+[11.308578] (-) TimerEvent: {}
+[11.413266] (-) TimerEvent: {}
+[11.516496] (-) TimerEvent: {}
+[11.621087] (-) TimerEvent: {}
+[11.722951] (-) TimerEvent: {}
+[11.825321] (-) TimerEvent: {}
+[11.927154] (-) TimerEvent: {}
+[12.029509] (-) TimerEvent: {}
+[12.131339] (-) TimerEvent: {}
+[12.236034] (-) TimerEvent: {}
+[12.337126] (-) TimerEvent: {}
+[12.441907] (-) TimerEvent: {}
+[12.543650] (-) TimerEvent: {}
+[12.565526] (system_controller) StdoutLine: {'line': b'running egg_info\n'}
+[12.631424] (system_controller) StdoutLine: {'line': b'writing ../../build/system_controller/system_controller.egg-info/PKG-INFO\n'}
+[12.633028] (system_controller) StdoutLine: {'line': b'writing dependency_links to ../../build/system_controller/system_controller.egg-info/dependency_links.txt\n'}
+[12.637688] (system_controller) StdoutLine: {'line': b'writing entry points to ../../build/system_controller/system_controller.egg-info/entry_points.txt\n'}
+[12.639531] (system_controller) StdoutLine: {'line': b'writing requirements to ../../build/system_controller/system_controller.egg-info/requires.txt\n'}
+[12.640944] (system_controller) StdoutLine: {'line': b'writing top-level names to ../../build/system_controller/system_controller.egg-info/top_level.txt\n'}
+[12.643844] (-) TimerEvent: {}
+[12.747931] (-) TimerEvent: {}
+[12.798603] (system_controller) StdoutLine: {'line': b"reading manifest file '../../build/system_controller/system_controller.egg-info/SOURCES.txt'\n"}
+[12.803590] (system_controller) StdoutLine: {'line': b"writing manifest file '../../build/system_controller/system_controller.egg-info/SOURCES.txt'\n"}
+[12.805204] (system_controller) StdoutLine: {'line': b'running build\n'}
+[12.805964] (system_controller) StdoutLine: {'line': b'running build_py\n'}
+[12.806814] (system_controller) StdoutLine: {'line': b'running install\n'}
+[12.827791] (system_controller) StdoutLine: {'line': b'running install_lib\n'}
+[12.848578] (-) TimerEvent: {}
+[12.914472] (system_controller) StdoutLine: {'line': b'running install_data\n'}
+[12.914951] (system_controller) StdoutLine: {'line': b'running install_egg_info\n'}
+[12.948907] (-) TimerEvent: {}
+[13.006776] (system_controller) StdoutLine: {'line': b"removing '/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages/system_controller-0.0.0-py3.12.egg-info' (and everything under it)\n"}
+[13.007828] (system_controller) StdoutLine: {'line': b'Copying ../../build/system_controller/system_controller.egg-info to /home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages/system_controller-0.0.0-py3.12.egg-info\n'}
+[13.017376] (system_controller) StdoutLine: {'line': b'running install_scripts\n'}
+[13.049186] (-) TimerEvent: {}
+[13.150707] (-) TimerEvent: {}
+[13.252670] (-) TimerEvent: {}
+[13.354107] (-) TimerEvent: {}
+[13.377263] (motor_command_msg) StderrLine: {'line': b'Traceback (most recent call last):\n'}
+[13.378135] (motor_command_msg) StderrLine: {'line': b'  File "/opt/ros/jazzy/share/ament_cmake_core/cmake/package_templates/templates_2_cmake.py", line 21, in <module>\n'}
+[13.378457] (motor_command_msg) StderrLine: {'line': b'    from ament_package.templates import get_environment_hook_template_path\n'}
+[13.378628] (motor_command_msg) StderrLine: {'line': b"ModuleNotFoundError: No module named 'ament_package'\n"}
+[13.385788] (launch) StderrLine: {'line': b'Traceback (most recent call last):\n'}
+[13.386353] (launch) StderrLine: {'line': b'  File "/opt/ros/jazzy/share/ament_cmake_core/cmake/package_templates/templates_2_cmake.py", line 21, in <module>\n'}
+[13.386842] (launch) StderrLine: {'line': b'    from ament_package.templates import get_environment_hook_template_path\n'}
+[13.387054] (launch) StderrLine: {'line': b"ModuleNotFoundError: No module named 'ament_package'\n"}
+[13.454232] (-) TimerEvent: {}
+[13.481692] (system_controller) StdoutLine: {'line': b'Installing controller_publisher script to /home/csanimatronics/CS_Animatronics/install/system_controller/lib/system_controller\n'}
+[13.482404] (system_controller) StdoutLine: {'line': b'Installing system_controller script to /home/csanimatronics/CS_Animatronics/install/system_controller/lib/system_controller\n'}
+[13.483876] (motor_command_msg) StderrLine: {'line': b'\x1b[31mCMake Error at /opt/ros/jazzy/share/ament_cmake_core/cmake/ament_cmake_package_templates-extras.cmake:41 (message):\n'}
+[13.484690] (motor_command_msg) StderrLine: {'line': b'  execute_process(/usr/bin/python3\n'}
+[13.484798] (motor_command_msg) StderrLine: {'line': b'  /opt/ros/jazzy/share/ament_cmake_core/cmake/package_templates/templates_2_cmake.py\n'}
+[13.484921] (motor_command_msg) StderrLine: {'line': b'  /home/csanimatronics/CS_Animatronics/build/motor_command_msg/ament_cmake_package_templates/templates.cmake)\n'}
+[13.485998] (motor_command_msg) StderrLine: {'line': b'  returned error code 1\n'}
+[13.486139] (motor_command_msg) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[13.486246] (motor_command_msg) StderrLine: {'line': b'  /opt/ros/jazzy/share/ament_cmake_core/cmake/ament_cmake_coreConfig.cmake:41 (include)\n'}
+[13.487558] (motor_command_msg) StderrLine: {'line': b'  /opt/ros/jazzy/share/rosidl_default_generators/cmake/ament_cmake_export_dependencies-extras.cmake:15 (find_package)\n'}
+[13.487703] (motor_command_msg) StderrLine: {'line': b'  /opt/ros/jazzy/share/rosidl_default_generators/cmake/rosidl_default_generatorsConfig.cmake:41 (include)\n'}
+[13.487801] (motor_command_msg) StderrLine: {'line': b'  CMakeLists.txt:8 (find_package)\n'}
+[13.487895] (motor_command_msg) StderrLine: {'line': b'\n'}
+[13.487978] (motor_command_msg) StderrLine: {'line': b'\x1b[0m\n'}
+[13.489411] (system_controller) StdoutLine: {'line': b"writing list of installed files to '/home/csanimatronics/CS_Animatronics/build/system_controller/install.log'\n"}
+[13.489841] (motor_command_msg) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[13.494983] (launch) StderrLine: {'line': b'\x1b[31mCMake Error at /opt/ros/jazzy/share/ament_cmake_core/cmake/ament_cmake_package_templates-extras.cmake:41 (message):\n'}
+[13.495372] (launch) StderrLine: {'line': b'  execute_process(/usr/bin/python3\n'}
+[13.495513] (launch) StderrLine: {'line': b'  /opt/ros/jazzy/share/ament_cmake_core/cmake/package_templates/templates_2_cmake.py\n'}
+[13.495826] (launch) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[13.496001] (launch) StderrLine: {'line': b'  /home/csanimatronics/CS_Animatronics/build/launch/ament_cmake_package_templates/templates.cmake)\n'}
+[13.496125] (launch) StderrLine: {'line': b'  returned error code 1\n'}
+[13.496237] (launch) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[13.496395] (launch) StderrLine: {'line': b'  /opt/ros/jazzy/share/ament_cmake_core/cmake/ament_cmake_coreConfig.cmake:41 (include)\n'}
+[13.496499] (launch) StderrLine: {'line': b'  /opt/ros/jazzy/share/ament_cmake/cmake/ament_cmake_export_dependencies-extras.cmake:15 (find_package)\n'}
+[13.496588] (launch) StderrLine: {'line': b'  /opt/ros/jazzy/share/ament_cmake/cmake/ament_cmakeConfig.cmake:41 (include)\n'}
+[13.496694] (launch) StderrLine: {'line': b'  CMakeLists.txt:9 (find_package)\n'}
+[13.496798] (launch) StderrLine: {'line': b'\n'}
+[13.496894] (launch) StderrLine: {'line': b'\x1b[0m\n'}
+[13.501402] (motor_command_msg) StderrLine: {'line': b'gmake: *** [Makefile:815: cmake_check_build_system] Error 1\n'}
+[13.504455] (launch) StderrLine: {'line': b'gmake: *** [Makefile:226: cmake_check_build_system] Error 1\n'}
+[13.505810] (launch) CommandEnded: {'returncode': 2}
+[13.507359] (motor_command_msg) CommandEnded: {'returncode': 2}
+[13.556508] (-) TimerEvent: {}
+[13.562598] (launch) JobEnded: {'identifier': 'launch', 'rc': 2}
+[13.602780] (system_controller) JobEnded: {'identifier': 'system_controller', 'rc': 'SIGINT'}
+[13.623277] (motor_command_msg) JobEnded: {'identifier': 'motor_command_msg', 'rc': 'SIGINT'}
+[13.633903] (-) EventReactorShutdown: {}

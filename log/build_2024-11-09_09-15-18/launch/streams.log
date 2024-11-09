@@ -1,0 +1,34 @@
+[0.293s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/launch': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/launch -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/launch
+[0.322s] -- Found ament_cmake: 2.5.2 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[12.954s] Traceback (most recent call last):
+[12.954s]   File "/opt/ros/jazzy/share/ament_cmake_core/cmake/package_templates/templates_2_cmake.py", line 21, in <module>
+[12.954s]     from ament_package.templates import get_environment_hook_template_path
+[12.954s] ModuleNotFoundError: No module named 'ament_package'
+[12.954s] Error in sys.excepthook:
+[12.954s] Traceback (most recent call last):
+[12.955s]   File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 228, in partial_apport_excepthook
+[12.959s]     return apport_excepthook(binary, exc_type, exc_obj, exc_tb)
+[12.960s]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[12.960s]   File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 144, in apport_excepthook
+[12.960s]     os.open(pr_filename, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o640), "wb"
+[12.961s]     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[12.966s] FileExistsError: [Errno 17] File exists: '/var/crash/_opt_ros_jazzy_share_ament_cmake_core_cmake_package_templates_templates_2_cmake.py.1002.crash'
+[12.966s] 
+[12.966s] Original exception was:
+[12.967s] Traceback (most recent call last):
+[12.970s]   File "/opt/ros/jazzy/share/ament_cmake_core/cmake/package_templates/templates_2_cmake.py", line 21, in <module>
+[12.971s]     from ament_package.templates import get_environment_hook_template_path
+[12.971s] ModuleNotFoundError: No module named 'ament_package'
+[13.078s] [31mCMake Error at /opt/ros/jazzy/share/ament_cmake_core/cmake/ament_cmake_package_templates-extras.cmake:41 (message):
+[13.078s]   execute_process(/usr/bin/python3
+[13.078s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/package_templates/templates_2_cmake.py
+[13.078s]   /home/csanimatronics/CS_Animatronics/build/launch/ament_cmake_package_templates/templates.cmake)
+[13.079s]   returned error code 1
+[13.080s] Call Stack (most recent call first):
+[13.082s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/ament_cmake_coreConfig.cmake:41 (include)
+[13.082s]   /opt/ros/jazzy/share/ament_cmake/cmake/ament_cmake_export_dependencies-extras.cmake:15 (find_package)
+[13.083s]   /opt/ros/jazzy/share/ament_cmake/cmake/ament_cmakeConfig.cmake:41 (include)
+[13.083s]   CMakeLists.txt:9 (find_package)
+[13.083s] 
+[13.083s] [0m
+[13.084s] -- Configuring incomplete, errors occurred!
