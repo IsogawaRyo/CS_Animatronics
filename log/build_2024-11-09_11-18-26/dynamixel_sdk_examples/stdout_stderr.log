@@ -1,0 +1,8 @@
+[33mCMake Warning:
+  Ignoring extra path from command line:
+
+   "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples"
+
+[0m
+[0mCMake Error: The source directory "/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.[0m
