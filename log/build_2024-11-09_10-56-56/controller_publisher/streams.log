@@ -1,0 +1,21 @@
+[1.955s] Invoking command in '/home/csanimatronics/CS_Animatronics/src/controller_publisher': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/controller_publisher/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/controller_publisher build --build-base /home/csanimatronics/CS_Animatronics/build/controller_publisher/build install --record /home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log --single-version-externally-managed install_data
+[2.538s] running egg_info
+[2.572s] writing ../../build/controller_publisher/controller_publisher.egg-info/PKG-INFO
+[2.573s] writing dependency_links to ../../build/controller_publisher/controller_publisher.egg-info/dependency_links.txt
+[2.573s] writing entry points to ../../build/controller_publisher/controller_publisher.egg-info/entry_points.txt
+[2.574s] writing requirements to ../../build/controller_publisher/controller_publisher.egg-info/requires.txt
+[2.574s] writing top-level names to ../../build/controller_publisher/controller_publisher.egg-info/top_level.txt
+[2.639s] reading manifest file '../../build/controller_publisher/controller_publisher.egg-info/SOURCES.txt'
+[2.641s] writing manifest file '../../build/controller_publisher/controller_publisher.egg-info/SOURCES.txt'
+[2.642s] running build
+[2.642s] running build_py
+[2.642s] running install
+[2.655s] running install_lib
+[2.697s] running install_data
+[2.697s] running install_egg_info
+[2.756s] removing '/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher-0.0.0-py3.12.egg-info' (and everything under it)
+[2.756s] Copying ../../build/controller_publisher/controller_publisher.egg-info to /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher-0.0.0-py3.12.egg-info
+[2.756s] running install_scripts
+[3.041s] Installing controller_publisher script to /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/controller_publisher
+[3.042s] writing list of installed files to '/home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log'
+[3.141s] Invoked command in '/home/csanimatronics/CS_Animatronics/src/controller_publisher' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/controller_publisher/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/controller_publisher build --build-base /home/csanimatronics/CS_Animatronics/build/controller_publisher/build install --record /home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log --single-version-externally-managed install_data

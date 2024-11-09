@@ -1,1 +1,0 @@
-Invoking command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/motor_command_msg -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/motor_command_msg

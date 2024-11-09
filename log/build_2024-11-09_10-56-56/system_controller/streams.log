@@ -1,0 +1,29 @@
+[1.592s] Invoking command in '/home/csanimatronics/CS_Animatronics/src/system_controller': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/system_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/system_controller build --build-base /home/csanimatronics/CS_Animatronics/build/system_controller/build install --record /home/csanimatronics/CS_Animatronics/build/system_controller/install.log --single-version-externally-managed install_data
+[1.967s] running egg_info
+[1.967s] creating ../../build/system_controller/system_controller.egg-info
+[1.991s] writing ../../build/system_controller/system_controller.egg-info/PKG-INFO
+[1.991s] writing dependency_links to ../../build/system_controller/system_controller.egg-info/dependency_links.txt
+[1.992s] writing entry points to ../../build/system_controller/system_controller.egg-info/entry_points.txt
+[1.992s] writing requirements to ../../build/system_controller/system_controller.egg-info/requires.txt
+[1.992s] writing top-level names to ../../build/system_controller/system_controller.egg-info/top_level.txt
+[1.992s] writing manifest file '../../build/system_controller/system_controller.egg-info/SOURCES.txt'
+[2.046s] reading manifest file '../../build/system_controller/system_controller.egg-info/SOURCES.txt'
+[2.047s] writing manifest file '../../build/system_controller/system_controller.egg-info/SOURCES.txt'
+[2.047s] running build
+[2.047s] running build_py
+[2.047s] creating /home/csanimatronics/CS_Animatronics/build/system_controller/build
+[2.047s] creating /home/csanimatronics/CS_Animatronics/build/system_controller/build/lib
+[2.047s] creating /home/csanimatronics/CS_Animatronics/build/system_controller/build/lib/system_controller
+[2.048s] copying system_controller/__init__.py -> /home/csanimatronics/CS_Animatronics/build/system_controller/build/lib/system_controller
+[2.048s] copying system_controller/system_controller.py -> /home/csanimatronics/CS_Animatronics/build/system_controller/build/lib/system_controller
+[2.050s] running install
+[2.060s] running install_lib
+[2.086s] running install_data
+[2.086s] running install_egg_info
+[2.116s] removing '/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages/system_controller-0.0.0-py3.12.egg-info' (and everything under it)
+[2.117s] Copying ../../build/system_controller/system_controller.egg-info to /home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages/system_controller-0.0.0-py3.12.egg-info
+[2.118s] running install_scripts
+[2.296s] Installing controller_publisher script to /home/csanimatronics/CS_Animatronics/install/system_controller/lib/system_controller
+[2.296s] Installing system_controller script to /home/csanimatronics/CS_Animatronics/install/system_controller/lib/system_controller
+[2.301s] writing list of installed files to '/home/csanimatronics/CS_Animatronics/build/system_controller/install.log'
+[2.384s] Invoked command in '/home/csanimatronics/CS_Animatronics/src/system_controller' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/system_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/system_controller build --build-base /home/csanimatronics/CS_Animatronics/build/system_controller/build install --record /home/csanimatronics/CS_Animatronics/build/system_controller/install.log --single-version-externally-managed install_data

@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/home/csanimatronics/CS_Animatronics/build/motor_command_msg/rosidl_generator_py/motor_command_msg/motor_command_msg_s__rosidl_typesupport_introspection_c.so" "TARGETS" "motor_command_msg_s__rosidl_typesupport_introspection_c" "DESTINATION" "lib/python3.12/site-packages/motor_command_msg")

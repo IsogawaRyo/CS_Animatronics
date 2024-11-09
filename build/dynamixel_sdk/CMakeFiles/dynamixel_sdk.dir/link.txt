@@ -1,0 +1,2 @@
+/usr/bin/ar qc libdynamixel_sdk.a CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/port_handler_linux.cpp.o
+/usr/bin/ranlib libdynamixel_sdk.a

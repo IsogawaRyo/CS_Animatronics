@@ -1,0 +1,28 @@
+[0.367s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/launch': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/csanimatronics/CS_Animatronics/install/system_controller:/home/csanimatronics/CS_Animatronics/install/motor_controller:/home/csanimatronics/CS_Animatronics/install/controller_publisher:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/launch -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/launch
+[1.033s] -- The C compiler identification is GNU 13.2.0
+[1.624s] -- The CXX compiler identification is GNU 13.2.0
+[1.657s] -- Detecting C compiler ABI info
+[1.914s] -- Detecting C compiler ABI info - done
+[1.930s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.932s] -- Detecting C compile features
+[1.934s] -- Detecting C compile features - done
+[1.954s] -- Detecting CXX compiler ABI info
+[2.239s] -- Detecting CXX compiler ABI info - done
+[2.251s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[2.251s] -- Detecting CXX compile features
+[2.254s] -- Detecting CXX compile features - done
+[2.259s] -- Found ament_cmake: 2.5.2 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[2.672s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[2.971s] -- Found ament_lint_auto: 0.17.1 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[3.241s] -- Added test 'lint_cmake' to check CMake code style
+[3.244s] -- Added test 'xmllint' to check XML markup files
+[3.250s] -- Configuring done (2.9s)
+[3.259s] -- Generating done (0.0s)
+[3.259s] -- Build files have been written to: /home/csanimatronics/CS_Animatronics/build/launch
+[3.333s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/launch' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/csanimatronics/CS_Animatronics/install/system_controller:/home/csanimatronics/CS_Animatronics/install/motor_controller:/home/csanimatronics/CS_Animatronics/install/controller_publisher:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/launch -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/launch
+[3.334s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/launch': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/csanimatronics/CS_Animatronics/install/system_controller:/home/csanimatronics/CS_Animatronics/install/motor_controller:/home/csanimatronics/CS_Animatronics/install/controller_publisher:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/launch -- -j4 -l4
+[3.438s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/launch' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/csanimatronics/CS_Animatronics/install/system_controller:/home/csanimatronics/CS_Animatronics/install/motor_controller:/home/csanimatronics/CS_Animatronics/install/controller_publisher:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/launch -- -j4 -l4
+[3.517s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/launch': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/csanimatronics/CS_Animatronics/install/system_controller:/home/csanimatronics/CS_Animatronics/install/motor_controller:/home/csanimatronics/CS_Animatronics/install/controller_publisher:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/launch
+[3.538s] -- Install configuration: ""
+[3.538s] -- Installing: /home/csanimatronics/CS_Animatronics/install/launch/share/launch/package.dsv
+[3.545s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/launch' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/csanimatronics/CS_Animatronics/install/system_controller:/home/csanimatronics/CS_Animatronics/install/motor_controller:/home/csanimatronics/CS_Animatronics/install/controller_publisher:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/launch

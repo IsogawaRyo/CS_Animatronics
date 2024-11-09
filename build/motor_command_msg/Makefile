@@ -328,17 +328,17 @@ motor_command_msg__rosidl_typesupport_cpp/fast:
 .PHONY : motor_command_msg__rosidl_typesupport_cpp/fast
 
 #=============================================================================
-# Target rules for targets named ament_cmake_python_symlink_motor_command_msg
+# Target rules for targets named ament_cmake_python_copy_motor_command_msg
 
 # Build rule for target.
-ament_cmake_python_symlink_motor_command_msg: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ament_cmake_python_symlink_motor_command_msg
-.PHONY : ament_cmake_python_symlink_motor_command_msg
+ament_cmake_python_copy_motor_command_msg: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ament_cmake_python_copy_motor_command_msg
+.PHONY : ament_cmake_python_copy_motor_command_msg
 
 # fast build rule for target.
-ament_cmake_python_symlink_motor_command_msg/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_symlink_motor_command_msg.dir/build.make CMakeFiles/ament_cmake_python_symlink_motor_command_msg.dir/build
-.PHONY : ament_cmake_python_symlink_motor_command_msg/fast
+ament_cmake_python_copy_motor_command_msg/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_copy_motor_command_msg.dir/build.make CMakeFiles/ament_cmake_python_copy_motor_command_msg.dir/build
+.PHONY : ament_cmake_python_copy_motor_command_msg/fast
 
 #=============================================================================
 # Target rules for targets named ament_cmake_python_build_motor_command_msg_egg
@@ -744,7 +744,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... ament_cmake_python_build_motor_command_msg_egg"
-	@echo "... ament_cmake_python_symlink_motor_command_msg"
+	@echo "... ament_cmake_python_copy_motor_command_msg"
 	@echo "... motor_command_msg"
 	@echo "... motor_command_msg__cpp"
 	@echo "... motor_command_msg__py"
