@@ -53,8 +53,8 @@ bool motor_command_msg__msg__id_angle__convert_from_py(PyObject * _pymsg, void *
     assert(strncmp("motor_command_msg.msg._id_angle.IdAngle", full_classname_dest, 39) == 0);
   }
   motor_command_msg__msg__IdAngle * ros_message = _ros_message;
-  {  // id
-    PyObject * field = PyObject_GetAttrString(_pymsg, "id");
+  {  // ids
+    PyObject * field = PyObject_GetAttrString(_pymsg, "ids");
     if (!field) {
       return false;
     }
@@ -67,13 +67,13 @@ bool motor_command_msg__msg__id_angle__convert_from_py(PyObject * _pymsg, void *
         return false;
       }
       Py_ssize_t size = view.len / sizeof(int32_t);
-      if (!rosidl_runtime_c__int32__Sequence__init(&(ros_message->id), size)) {
+      if (!rosidl_runtime_c__int32__Sequence__init(&(ros_message->ids), size)) {
         PyErr_SetString(PyExc_RuntimeError, "unable to create int32__Sequence ros_message");
         PyBuffer_Release(&view);
         Py_DECREF(field);
         return false;
       }
-      int32_t * dest = ros_message->id.data;
+      int32_t * dest = ros_message->ids.data;
       rc = PyBuffer_ToContiguous(dest, &view, view.len, 'C');
       if (rc < 0) {
         PyBuffer_Release(&view);
@@ -82,7 +82,7 @@ bool motor_command_msg__msg__id_angle__convert_from_py(PyObject * _pymsg, void *
       }
       PyBuffer_Release(&view);
     } else {
-      PyObject * seq_field = PySequence_Fast(field, "expected a sequence in 'id'");
+      PyObject * seq_field = PySequence_Fast(field, "expected a sequence in 'ids'");
       if (!seq_field) {
         Py_DECREF(field);
         return false;
@@ -93,13 +93,13 @@ bool motor_command_msg__msg__id_angle__convert_from_py(PyObject * _pymsg, void *
         Py_DECREF(field);
         return false;
       }
-      if (!rosidl_runtime_c__int32__Sequence__init(&(ros_message->id), size)) {
+      if (!rosidl_runtime_c__int32__Sequence__init(&(ros_message->ids), size)) {
         PyErr_SetString(PyExc_RuntimeError, "unable to create int32__Sequence ros_message");
         Py_DECREF(seq_field);
         Py_DECREF(field);
         return false;
       }
-      int32_t * dest = ros_message->id.data;
+      int32_t * dest = ros_message->ids.data;
       for (Py_ssize_t i = 0; i < size; ++i) {
         PyObject * item = PySequence_Fast_GET_ITEM(seq_field, i);
         if (!item) {
@@ -115,8 +115,8 @@ bool motor_command_msg__msg__id_angle__convert_from_py(PyObject * _pymsg, void *
     }
     Py_DECREF(field);
   }
-  {  // angle
-    PyObject * field = PyObject_GetAttrString(_pymsg, "angle");
+  {  // angles
+    PyObject * field = PyObject_GetAttrString(_pymsg, "angles");
     if (!field) {
       return false;
     }
@@ -129,13 +129,13 @@ bool motor_command_msg__msg__id_angle__convert_from_py(PyObject * _pymsg, void *
         return false;
       }
       Py_ssize_t size = view.len / sizeof(double);
-      if (!rosidl_runtime_c__double__Sequence__init(&(ros_message->angle), size)) {
+      if (!rosidl_runtime_c__double__Sequence__init(&(ros_message->angles), size)) {
         PyErr_SetString(PyExc_RuntimeError, "unable to create double__Sequence ros_message");
         PyBuffer_Release(&view);
         Py_DECREF(field);
         return false;
       }
-      double * dest = ros_message->angle.data;
+      double * dest = ros_message->angles.data;
       rc = PyBuffer_ToContiguous(dest, &view, view.len, 'C');
       if (rc < 0) {
         PyBuffer_Release(&view);
@@ -144,7 +144,7 @@ bool motor_command_msg__msg__id_angle__convert_from_py(PyObject * _pymsg, void *
       }
       PyBuffer_Release(&view);
     } else {
-      PyObject * seq_field = PySequence_Fast(field, "expected a sequence in 'angle'");
+      PyObject * seq_field = PySequence_Fast(field, "expected a sequence in 'angles'");
       if (!seq_field) {
         Py_DECREF(field);
         return false;
@@ -155,13 +155,13 @@ bool motor_command_msg__msg__id_angle__convert_from_py(PyObject * _pymsg, void *
         Py_DECREF(field);
         return false;
       }
-      if (!rosidl_runtime_c__double__Sequence__init(&(ros_message->angle), size)) {
+      if (!rosidl_runtime_c__double__Sequence__init(&(ros_message->angles), size)) {
         PyErr_SetString(PyExc_RuntimeError, "unable to create double__Sequence ros_message");
         Py_DECREF(seq_field);
         Py_DECREF(field);
         return false;
       }
-      double * dest = ros_message->angle.data;
+      double * dest = ros_message->angles.data;
       for (Py_ssize_t i = 0; i < size; ++i) {
         PyObject * item = PySequence_Fast_GET_ITEM(seq_field, i);
         if (!item) {
@@ -199,9 +199,9 @@ PyObject * motor_command_msg__msg__id_angle__convert_to_py(void * raw_ros_messag
     }
   }
   motor_command_msg__msg__IdAngle * ros_message = (motor_command_msg__msg__IdAngle *)raw_ros_message;
-  {  // id
+  {  // ids
     PyObject * field = NULL;
-    field = PyObject_GetAttrString(_pymessage, "id");
+    field = PyObject_GetAttrString(_pymessage, "ids");
     if (!field) {
       return NULL;
     }
@@ -238,12 +238,12 @@ PyObject * motor_command_msg__msg__id_angle__convert_to_py(void * raw_ros_messag
       }
       Py_DECREF(pop);
     }
-    if (ros_message->id.size > 0) {
+    if (ros_message->ids.size > 0) {
       // populating the array.array using the frombytes method
       PyObject * frombytes = PyObject_GetAttrString(field, "frombytes");
       assert(frombytes != NULL);
-      int32_t * src = &(ros_message->id.data[0]);
-      PyObject * data = PyBytes_FromStringAndSize((const char *)src, ros_message->id.size * sizeof(int32_t));
+      int32_t * src = &(ros_message->ids.data[0]);
+      PyObject * data = PyBytes_FromStringAndSize((const char *)src, ros_message->ids.size * sizeof(int32_t));
       assert(data != NULL);
       PyObject * ret = PyObject_CallFunctionObjArgs(frombytes, data, NULL);
       Py_DECREF(data);
@@ -256,9 +256,9 @@ PyObject * motor_command_msg__msg__id_angle__convert_to_py(void * raw_ros_messag
     }
     Py_DECREF(field);
   }
-  {  // angle
+  {  // angles
     PyObject * field = NULL;
-    field = PyObject_GetAttrString(_pymessage, "angle");
+    field = PyObject_GetAttrString(_pymessage, "angles");
     if (!field) {
       return NULL;
     }
@@ -295,12 +295,12 @@ PyObject * motor_command_msg__msg__id_angle__convert_to_py(void * raw_ros_messag
       }
       Py_DECREF(pop);
     }
-    if (ros_message->angle.size > 0) {
+    if (ros_message->angles.size > 0) {
       // populating the array.array using the frombytes method
       PyObject * frombytes = PyObject_GetAttrString(field, "frombytes");
       assert(frombytes != NULL);
-      double * src = &(ros_message->angle.data[0]);
-      PyObject * data = PyBytes_FromStringAndSize((const char *)src, ros_message->angle.size * sizeof(double));
+      double * src = &(ros_message->angles.data[0]);
+      PyObject * data = PyBytes_FromStringAndSize((const char *)src, ros_message->angles.size * sizeof(double));
       assert(data != NULL);
       PyObject * ret = PyObject_CallFunctionObjArgs(frombytes, data, NULL);
       Py_DECREF(data);

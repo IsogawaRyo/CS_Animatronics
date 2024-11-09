@@ -12,8 +12,8 @@ ros_python_check_fields = getenv('ROS_PYTHON_CHECK_FIELDS', default='')
 
 # Import statements for member types
 
-# Member 'id'
-# Member 'angle'
+# Member 'ids'
+# Member 'angles'
 import array  # noqa: E402, I100
 
 import builtins  # noqa: E402, I100
@@ -68,14 +68,14 @@ class IdAngle(metaclass=Metaclass_IdAngle):
     """Message class 'IdAngle'."""
 
     __slots__ = [
-        '_id',
-        '_angle',
+        '_ids',
+        '_angles',
         '_check_fields',
     ]
 
     _fields_and_field_types = {
-        'id': 'sequence<int32>',
-        'angle': 'sequence<double>',
+        'ids': 'sequence<int32>',
+        'angles': 'sequence<double>',
     }
 
     # This attribute is used to store an rosidl_parser.definition variable
@@ -94,8 +94,8 @@ class IdAngle(metaclass=Metaclass_IdAngle):
             assert all('_' + key in self.__slots__ for key in kwargs.keys()), \
                 'Invalid arguments passed to constructor: %s' % \
                 ', '.join(sorted(k for k in kwargs.keys() if '_' + k not in self.__slots__))
-        self.id = array.array('i', kwargs.get('id', []))
-        self.angle = array.array('d', kwargs.get('angle', []))
+        self.ids = array.array('i', kwargs.get('ids', []))
+        self.angles = array.array('d', kwargs.get('angles', []))
 
     def __repr__(self):
         typename = self.__class__.__module__.split('.')
@@ -127,9 +127,9 @@ class IdAngle(metaclass=Metaclass_IdAngle):
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return False
-        if self.id != other.id:
+        if self.ids != other.ids:
             return False
-        if self.angle != other.angle:
+        if self.angles != other.angles:
             return False
         return True
 
@@ -138,18 +138,18 @@ class IdAngle(metaclass=Metaclass_IdAngle):
         from copy import copy
         return copy(cls._fields_and_field_types)
 
-    @builtins.property  # noqa: A003
-    def id(self):  # noqa: A003
-        """Message field 'id'."""
-        return self._id
+    @builtins.property
+    def ids(self):
+        """Message field 'ids'."""
+        return self._ids
 
-    @id.setter  # noqa: A003
-    def id(self, value):  # noqa: A003
+    @ids.setter
+    def ids(self, value):
         if self._check_fields:
             if isinstance(value, array.array):
                 assert value.typecode == 'i', \
-                    "The 'id' array.array() must have the type code of 'i'"
-                self._id = value
+                    "The 'ids' array.array() must have the type code of 'i'"
+                self._ids = value
                 return
             from collections.abc import Sequence
             from collections.abc import Set
@@ -163,21 +163,21 @@ class IdAngle(metaclass=Metaclass_IdAngle):
                  not isinstance(value, UserString) and
                  all(isinstance(v, int) for v in value) and
                  all(val >= -2147483648 and val < 2147483648 for val in value)), \
-                "The 'id' field must be a set or sequence and each value of type 'int' and each integer in [-2147483648, 2147483647]"
-        self._id = array.array('i', value)
+                "The 'ids' field must be a set or sequence and each value of type 'int' and each integer in [-2147483648, 2147483647]"
+        self._ids = array.array('i', value)
 
     @builtins.property
-    def angle(self):
-        """Message field 'angle'."""
-        return self._angle
+    def angles(self):
+        """Message field 'angles'."""
+        return self._angles
 
-    @angle.setter
-    def angle(self, value):
+    @angles.setter
+    def angles(self, value):
         if self._check_fields:
             if isinstance(value, array.array):
                 assert value.typecode == 'd', \
-                    "The 'angle' array.array() must have the type code of 'd'"
-                self._angle = value
+                    "The 'angles' array.array() must have the type code of 'd'"
+                self._angles = value
                 return
             from collections.abc import Sequence
             from collections.abc import Set
@@ -191,5 +191,5 @@ class IdAngle(metaclass=Metaclass_IdAngle):
                  not isinstance(value, UserString) and
                  all(isinstance(v, float) for v in value) and
                  all(not (val < -1.7976931348623157e+308 or val > 1.7976931348623157e+308) or math.isinf(val) for val in value)), \
-                "The 'angle' field must be a set or sequence and each value of type 'float' and each double in [-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000, 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000]"
-        self._angle = array.array('d', value)
+                "The 'angles' field must be a set or sequence and each value of type 'float' and each double in [-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000, 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000]"
+        self._angles = array.array('d', value)
