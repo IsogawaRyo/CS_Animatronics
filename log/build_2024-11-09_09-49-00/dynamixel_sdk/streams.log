@@ -1,0 +1,28 @@
+[0.357s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk
+[0.375s] [0mCMake Deprecation Warning at CMakeLists.txt:4 (cmake_minimum_required):
+[0.375s]   Compatibility with CMake < 3.5 will be removed from a future version of
+[0.375s]   CMake.
+[0.376s] 
+[0.376s]   Update the VERSION argument <min> value or use a ...<max> suffix to tell
+[0.376s]   CMake that the project does not need compatibility with older versions.
+[0.376s] 
+[0.376s] [0m
+[0.400s] [31mCMake Error at CMakeLists.txt:13 (find_package):
+[0.401s]   By not providing "Findcatkin.cmake" in CMAKE_MODULE_PATH this project has
+[0.401s]   asked CMake to find a package configuration file provided by "catkin", but
+[0.401s]   CMake did not find one.
+[0.401s] 
+[0.401s]   Could not find a package configuration file provided by "catkin" with any
+[0.401s]   of the following names:
+[0.401s] 
+[0.402s]     catkinConfig.cmake
+[0.402s]     catkin-config.cmake
+[0.402s] 
+[0.410s]   Add the installation prefix of "catkin" to CMAKE_PREFIX_PATH or set
+[0.410s]   "catkin_DIR" to a directory containing one of the above files.  If "catkin"
+[0.410s]   provides a separate development package or SDK, be sure it has been
+[0.411s]   installed.
+[0.411s] 
+[0.411s] [0m
+[0.411s] -- Configuring incomplete, errors occurred!
+[0.411s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk' returned '1': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk

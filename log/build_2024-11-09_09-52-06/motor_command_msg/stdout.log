@@ -1,0 +1,3 @@
+[  2%] Built target motor_command_msg__rosidl_generator_type_description
+[ 17%] Built target motor_command_msg__rosidl_generator_c
+[ 20%] Built target motor_command_msg__cpp
