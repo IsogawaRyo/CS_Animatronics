@@ -11,7 +11,8 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
     ],
-    install_requires=['setuptools', 'dynamixel_sdk'],
+    install_requires=['setuptools',
+                      'dynamixel_sdk'],
     zip_safe=True,
     maintainer='Ryo Isogawa',
     maintainer_email='2023m002@kuas.ac.jp',
@@ -20,6 +21,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'motor_controller = motor_controller:main'
         ],
     },
 )
