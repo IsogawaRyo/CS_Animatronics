@@ -4,6 +4,7 @@ setup.py
 ../../build/motor_controller/motor_controller.egg-info/PKG-INFO
 ../../build/motor_controller/motor_controller.egg-info/SOURCES.txt
 ../../build/motor_controller/motor_controller.egg-info/dependency_links.txt
+../../build/motor_controller/motor_controller.egg-info/entry_points.txt
 ../../build/motor_controller/motor_controller.egg-info/requires.txt
 ../../build/motor_controller/motor_controller.egg-info/top_level.txt
 ../../build/motor_controller/motor_controller.egg-info/zip-safe
