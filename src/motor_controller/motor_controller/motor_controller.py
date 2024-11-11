@@ -53,7 +53,7 @@ class MotorController(Node):
 
     def listener_callback(self, msg):
         self.get_logger().info(f'Ids: {msg.ids}')
-        self.get_logger().info(f'Angles: {msg.angles}'}
+        self.get_logger().info(f'Angles: {msg.angles}')
 
         ids = [31]
         angles = [3000]
