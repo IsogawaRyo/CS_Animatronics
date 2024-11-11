@@ -1,0 +1,6 @@
+{
+  "package_name": "motor_command_msg",
+  "non_idl_tuples": [
+    "/home/csanimatronics/CS_Animatronics/src/motor_command_msg:msg/IdAngle.msg"
+  ]
+}
