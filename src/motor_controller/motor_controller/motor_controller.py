@@ -40,7 +40,6 @@ class MotorController(Node):
         self.set_position_subscriber_ = self.create_subscription(
             SetPosition,
             'set_position',
-            self.set_position_callback,
             qos_rkl10v
         )
 
@@ -62,7 +61,7 @@ class MotorController(Node):
         new_msg = ids
         new_msg = angles
 
-        self.publisher.publish(new_msg)
+        self.set_position_subscriber_.publish(new_msg)
         self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
 
 def main(args=None):
