@@ -1,8 +1,0 @@
-setup.py
-motor_command_msg/__init__.py
-motor_command_msg.egg-info/PKG-INFO
-motor_command_msg.egg-info/SOURCES.txt
-motor_command_msg.egg-info/dependency_links.txt
-motor_command_msg.egg-info/top_level.txt
-motor_command_msg/msg/__init__.py
-motor_command_msg/msg/_id_angle.py

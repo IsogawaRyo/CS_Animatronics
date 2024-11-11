@@ -1,4 +1,0 @@
-dynamixel_sdk
-dynamixel_sdk_custom_interfaces
-rclpy
-setuptools
