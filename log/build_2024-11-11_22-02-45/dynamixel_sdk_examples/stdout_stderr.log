@@ -35,7 +35,7 @@
 -- Added test 'uncrustify' to check C / C++ code style
 -- Configured uncrustify additional arguments: 
 -- Added test 'xmllint' to check XML markup files
--- Configuring done (2.1s)
+-- Configuring done (2.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples
 [ 50%] [32mBuilding CXX object CMakeFiles/read_write_node.dir/src/read_write_node.cpp.o[0m
