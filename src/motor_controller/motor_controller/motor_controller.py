@@ -131,14 +131,10 @@ class MotorController(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    motor_controller = MotorController()
-    try:
-        rclpy.spin(motor_controller)
-    except KeyboardInterrupt:
-        pass
-    finally:
-        motor_controller.destroy_node()
-        rclpy.shutdown()
+    node = MotorController()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
 
 if __name__ == "__main__":
     main()
