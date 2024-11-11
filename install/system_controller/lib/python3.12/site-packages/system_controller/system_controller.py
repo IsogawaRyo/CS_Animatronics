@@ -51,8 +51,9 @@ class SystemController(Node):
         self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
 
     def translate(self, axes, buttons):
-        ids = [0, 0]
-        angles = [100, 100]
+        if MODE == 0:
+            ids = [0, 0]
+            angles = [100, 100]
 
         return ids, angles
 
