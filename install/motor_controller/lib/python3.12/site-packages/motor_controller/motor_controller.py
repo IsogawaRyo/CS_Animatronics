@@ -72,6 +72,9 @@ class MotorController(Node):
             self.get_present_position_callback
         )
 
+    def listener_callback(self):
+        pass
+    
     def setup_dynamixel(self, dxl_id):
         # Use Position Control Mode
         dxl_comm_result, dxl_error = self.packet_handler.write1ByteTxRx(
