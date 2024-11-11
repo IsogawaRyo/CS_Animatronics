@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: 2024 Ryo Isogawa 　　　　　
 # SPDX-License-Identifier: BSD-3-Claus
 
+import sys
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
@@ -141,4 +142,4 @@ def main(args=None):
         rclpy.shutdown()
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv)
