@@ -47,7 +47,6 @@ class MotorController(Node):
         self.get_position_server_ = self.create_service(
             GetPosition,
             'get_position',
-            self.get_present_position_callback
         )
 
     def listener_callback(self, msg):
