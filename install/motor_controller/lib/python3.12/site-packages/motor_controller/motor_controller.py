@@ -40,13 +40,15 @@ class MotorController(Node):
         self.set_position_subscriber_ = self.create_subscription(
             SetPosition,
             'set_position',
-        )
+            self.listener_callback,
+            10)
 
         # Service get position
         self.get_position_server_ = self.create_service(
             GetPosition,
             'get_position',
-        )
+            self.listener_callback,
+            10)
 
     def listener_callback(self, msg):
         self.get_logger().info(f'Ids: {msg.ids}')
