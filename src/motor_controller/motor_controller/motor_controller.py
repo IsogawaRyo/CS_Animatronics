@@ -40,7 +40,6 @@ class MotorController(Node):
         self.set_position_subscriber_ = self.create_subscription(
             SetPosition,
             'set_position',
-            qos_rkl10v
         )
 
         # Service get position
