@@ -16,6 +16,7 @@ setup(
     ],
     install_requires=['setuptools',
                       'dynamixel_sdk',
+                      'rclpy',
                       'dynamixel_sdk_custom_interfaces',],
     zip_safe=True,
     maintainer='Ryo Isogawa',
