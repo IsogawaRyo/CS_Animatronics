@@ -20,6 +20,9 @@ PROTOCOL_VERSION = 2.0
 BAUDRATE = 57600
 DEVICE_NAME = '/dev/ttyUSB0'
 
+port_handler = PortHandler(DEVICE_NAME)
+packet_handler = PacketHandler(PROTOCOL_VERSION)
+
 class MotorController(Node):
     def __init__(self):
         super().__init__('motor_controller')
@@ -38,11 +41,8 @@ class MotorController(Node):
 
         qos_rkl10v = rclpy.qos.QoSProfile(depth=qos_depth, reliability=rclpy.qos.QoSReliabilityPolicy.RELIABLE, durability=rclpy.qos.QoSDurabilityPolicy.VOLATILE)
 
-        self.port_handler = PortHandler(DEVICE_NAME)
-        self.packet_handler = PacketHandler(PROTOCOL_VERSION)
-
         # Open Serial Port
-        if not self.port_handler.openPort():
+        if not port_handler.openPort():
             self.get_logger().error('Failed to open the port!')
             raise RuntimeError('Failed to open the port!')
         else:
@@ -77,8 +77,8 @@ class MotorController(Node):
     
     def setup_dynamixel(self, dxl_id):
         # Use Position Control Mode
-        dxl_comm_result, dxl_error = self.packet_handler.write1ByteTxRx(
-            self.port_handler, dxl_id, ADDR_OPERATING_MODE, 3
+        dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(
+            port_handler, dxl_id, ADDR_OPERATING_MODE, 3
         )
 
         if dxl_comm_result != COMM_SUCCESS:
@@ -87,8 +87,8 @@ class MotorController(Node):
             self.get_logger().info('Succeeded to set Position Control Mode.')
 
         # Enable Torque of DYNAMIXEL
-        dxl_comm_result, dxl_error = self.packet_handler.write1ByteTxRx(
-            self.port_handler, dxl_id, ADDR_TORQUE_ENABLE, 1
+        dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(
+            port_handler, dxl_id, ADDR_TORQUE_ENABLE, 1
         )
 
         if dxl_comm_result != COMM_SUCCESS:
@@ -100,21 +100,21 @@ class MotorController(Node):
         goal_position = int(msg.position)  # Convert int32 -> uint32
 
         # Write Goal Position (length : 4 bytes)
-        dxl_comm_result, dxl_error = self.packet_handler.write4ByteTxRx(
-            self.port_handler, msg.id, ADDR_GOAL_POSITION, goal_position
+        dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(
+            port_handler, msg.id, ADDR_GOAL_POSITION, goal_position
         )
 
         if dxl_comm_result != COMM_SUCCESS:
-            self.get_logger().info(self.packet_handler.getTxRxResult(dxl_comm_result))
+            self.get_logger().info(packet_handler.getTxRxResult(dxl_comm_result))
         elif dxl_error != 0:
-            self.get_logger().info(self.packet_handler.getRxPacketError(dxl_error))
+            self.get_logger().info(packet_handler.getRxPacketError(dxl_error))
         else:
             self.get_logger().info(f'Set [ID: {msg.id}] [Goal Position: {msg.position}]')
 
     def get_present_position_callback(self, request, response):
         # Read Present Position (length : 4 bytes) and Convert uint32 -> int32
-        present_position, dxl_comm_result, dxl_error = self.packet_handler.read4ByteTxRx(
-            self.port_handler, request.id, ADDR_PRESENT_POSITION
+        present_position, dxl_comm_result, dxl_error = packet_handler.read4ByteTxRx(
+            port_handler, request.id, ADDR_PRESENT_POSITION
         )
 
         if dxl_comm_result != COMM_SUCCESS:
@@ -127,10 +127,10 @@ class MotorController(Node):
 
     def __del__(self):
         # Disable Torque of DYNAMIXEL
-        self.packet_handler.write1ByteTxRx(
-            self.port_handler, BROADCAST_ID, ADDR_TORQUE_ENABLE, 0
+        packet_handler.write1ByteTxRx(
+            port_handler, BROADCAST_ID, ADDR_TORQUE_ENABLE, 0
         )
-        self.port_handler.closePort()
+        port_handler.closePort()
 
 def main(args=None):
     rclpy.init(args=args)
