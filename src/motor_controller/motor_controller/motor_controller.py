@@ -129,7 +129,7 @@ class MotorController(Node):
         )
         self.port_handler.closePort()
 
-def main():
+def main(args=None):
     rclpy.init(args=args)
     motor_controller = MotorController()
     try:
