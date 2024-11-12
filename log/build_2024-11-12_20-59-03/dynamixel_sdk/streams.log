@@ -1,0 +1,70 @@
+[0.050s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk
+[0.867s] -- The C compiler identification is GNU 13.2.0
+[1.523s] -- The CXX compiler identification is GNU 13.2.0
+[1.569s] -- Detecting C compiler ABI info
+[1.827s] -- Detecting C compiler ABI info - done
+[1.842s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.843s] -- Detecting C compile features
+[1.844s] -- Detecting C compile features - done
+[1.862s] -- Detecting CXX compiler ABI info
+[2.114s] -- Detecting CXX compiler ABI info - done
+[2.135s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[2.136s] -- Detecting CXX compile features
+[2.139s] -- Detecting CXX compile features - done
+[2.140s] -- Found ament_cmake: 2.5.2 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[2.494s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[3.052s] -- Configuring done (2.8s)
+[3.060s] -- Generating done (0.0s)
+[3.062s] -- Build files have been written to: /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk
+[3.077s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk
+[3.079s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk -- -j4 -l4
+[3.223s] [ 20%] [32mBuilding CXX object CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/packet_handler.cpp.o[0m
+[3.223s] [ 20%] [32mBuilding CXX object CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/protocol1_packet_handler.cpp.o[0m
+[3.228s] [ 30%] [32mBuilding CXX object CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_sync_read.cpp.o[0m
+[3.233s] [ 40%] [32mBuilding CXX object CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/protocol2_packet_handler.cpp.o[0m
+[4.056s] [ 50%] [32mBuilding CXX object CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_sync_write.cpp.o[0m
+[4.421s] [ 60%] [32mBuilding CXX object CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_bulk_read.cpp.o[0m
+[4.524s] [ 70%] [32mBuilding CXX object CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/group_bulk_write.cpp.o[0m
+[4.815s] [ 80%] [32mBuilding CXX object CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/port_handler.cpp.o[0m
+[5.001s] [ 90%] [32mBuilding CXX object CMakeFiles/dynamixel_sdk.dir/src/dynamixel_sdk/port_handler_linux.cpp.o[0m
+[6.392s] [100%] [32m[1mLinking CXX shared library libdynamixel_sdk.so[0m
+[6.628s] [100%] Built target dynamixel_sdk
+[6.654s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk -- -j4 -l4
+[6.817s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk
+[6.835s] -- Install configuration: ""
+[6.836s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include/
+[6.836s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk
+[6.836s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/port_handler_linux.h
+[6.836s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/port_handler_mac.h
+[6.837s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/port_handler.h
+[6.838s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/port_handler_windows.h
+[6.838s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/group_bulk_write.h
+[6.839s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/protocol2_packet_handler.h
+[6.839s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/protocol1_packet_handler.h
+[6.839s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/port_handler_arduino.h
+[6.840s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/dynamixel_sdk.h
+[6.841s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/packet_handler.h
+[6.842s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/group_sync_read.h
+[6.843s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/group_bulk_read.h
+[6.843s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/include//dynamixel_sdk/group_sync_write.h
+[6.843s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib/libdynamixel_sdk.so
+[6.843s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/environment/library_path.sh
+[6.843s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/environment/library_path.dsv
+[6.843s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/ament_index/resource_index/package_run_dependencies/dynamixel_sdk
+[6.844s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/ament_index/resource_index/parent_prefix_path/dynamixel_sdk
+[6.844s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/environment/ament_prefix_path.sh
+[6.844s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/environment/ament_prefix_path.dsv
+[6.844s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/environment/path.sh
+[6.845s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/environment/path.dsv
+[6.846s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/local_setup.bash
+[6.846s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/local_setup.sh
+[6.846s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/local_setup.zsh
+[6.849s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/local_setup.dsv
+[6.849s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.dsv
+[6.850s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/ament_index/resource_index/packages/dynamixel_sdk
+[6.850s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/cmake/ament_cmake_export_include_directories-extras.cmake
+[6.850s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/cmake/ament_cmake_export_libraries-extras.cmake
+[6.850s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/cmake/dynamixel_sdkConfig.cmake
+[6.850s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/cmake/dynamixel_sdkConfig-version.cmake
+[6.850s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.xml
+[6.852s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk
