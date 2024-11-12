@@ -1,0 +1,38 @@
+[1.432s] Invoking command in '/home/csanimatronics/CS_Animatronics/src/motor_controller': CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/motor_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/motor_controller build --build-base /home/csanimatronics/CS_Animatronics/build/motor_controller/build install --record /home/csanimatronics/CS_Animatronics/build/motor_controller/install.log --single-version-externally-managed install_data
+[1.837s] running egg_info
+[1.837s] creating ../../build/motor_controller/motor_controller.egg-info
+[1.863s] writing ../../build/motor_controller/motor_controller.egg-info/PKG-INFO
+[1.864s] writing dependency_links to ../../build/motor_controller/motor_controller.egg-info/dependency_links.txt
+[1.864s] writing entry points to ../../build/motor_controller/motor_controller.egg-info/entry_points.txt
+[1.864s] writing requirements to ../../build/motor_controller/motor_controller.egg-info/requires.txt
+[1.864s] writing top-level names to ../../build/motor_controller/motor_controller.egg-info/top_level.txt
+[1.864s] writing manifest file '../../build/motor_controller/motor_controller.egg-info/SOURCES.txt'
+[1.924s] reading manifest file '../../build/motor_controller/motor_controller.egg-info/SOURCES.txt'
+[1.925s] writing manifest file '../../build/motor_controller/motor_controller.egg-info/SOURCES.txt'
+[1.925s] running build
+[1.926s] running build_py
+[1.927s] creating /home/csanimatronics/CS_Animatronics/build/motor_controller/build
+[1.927s] creating /home/csanimatronics/CS_Animatronics/build/motor_controller/build/lib
+[1.927s] creating /home/csanimatronics/CS_Animatronics/build/motor_controller/build/lib/motor_controller
+[1.927s] copying motor_controller/__init__.py -> /home/csanimatronics/CS_Animatronics/build/motor_controller/build/lib/motor_controller
+[1.927s] copying motor_controller/motor_controller.py -> /home/csanimatronics/CS_Animatronics/build/motor_controller/build/lib/motor_controller
+[1.928s] running install
+[1.937s] running install_lib
+[1.966s] creating /home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages/motor_controller
+[1.966s] copying /home/csanimatronics/CS_Animatronics/build/motor_controller/build/lib/motor_controller/__init__.py -> /home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages/motor_controller
+[1.967s] copying /home/csanimatronics/CS_Animatronics/build/motor_controller/build/lib/motor_controller/motor_controller.py -> /home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages/motor_controller
+[1.967s] byte-compiling /home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages/motor_controller/__init__.py to __init__.cpython-312.pyc
+[1.968s] byte-compiling /home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages/motor_controller/motor_controller.py to motor_controller.cpython-312.pyc
+[1.969s] running install_data
+[1.969s] creating /home/csanimatronics/CS_Animatronics/install/motor_controller/share/ament_index
+[1.969s] creating /home/csanimatronics/CS_Animatronics/install/motor_controller/share/ament_index/resource_index
+[1.969s] creating /home/csanimatronics/CS_Animatronics/install/motor_controller/share/ament_index/resource_index/packages
+[1.969s] copying resource/motor_controller -> /home/csanimatronics/CS_Animatronics/install/motor_controller/share/ament_index/resource_index/packages
+[1.969s] copying package.xml -> /home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller
+[1.969s] creating /home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/msg
+[1.970s] running install_egg_info
+[2.002s] Copying ../../build/motor_controller/motor_controller.egg-info to /home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages/motor_controller-0.0.0-py3.12.egg-info
+[2.003s] running install_scripts
+[2.211s] Installing motor_controller script to /home/csanimatronics/CS_Animatronics/install/motor_controller/lib/motor_controller
+[2.211s] writing list of installed files to '/home/csanimatronics/CS_Animatronics/build/motor_controller/install.log'
+[2.306s] Invoked command in '/home/csanimatronics/CS_Animatronics/src/motor_controller' returned '0': CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/motor_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/motor_controller build --build-base /home/csanimatronics/CS_Animatronics/build/motor_controller/build install --record /home/csanimatronics/CS_Animatronics/build/motor_controller/install.log --single-version-externally-managed install_data
