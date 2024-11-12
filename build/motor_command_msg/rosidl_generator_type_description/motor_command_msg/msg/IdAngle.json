@@ -6,8 +6,8 @@
         {
           "name": "ids",
           "type": {
-            "type_id": 150,
-            "capacity": 0,
+            "type_id": 51,
+            "capacity": 76800,
             "string_capacity": 0,
             "nested_type_name": ""
           },
@@ -16,8 +16,8 @@
         {
           "name": "angles",
           "type": {
-            "type_id": 155,
-            "capacity": 0,
+            "type_id": 54,
+            "capacity": 76800,
             "string_capacity": 0,
             "nested_type_name": ""
           },
@@ -30,7 +30,7 @@
   "type_hashes": [
     {
       "type_name": "motor_command_msg/msg/IdAngle",
-      "hash_string": "RIHS01_122f5a0137a688a7dea705c8acc396ab9781d329f15d54bf54d1b091e1c7d569"
+      "hash_string": "RIHS01_c9ca8f73dfafb60a04a59b0d13a895d0093df1556e859ba9110212a33108b86c"
     }
   ]
 }

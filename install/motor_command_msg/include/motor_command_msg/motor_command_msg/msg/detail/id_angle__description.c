@@ -11,10 +11,10 @@ motor_command_msg__msg__IdAngle__get_type_hash(
 {
   (void)type_support;
   static rosidl_type_hash_t hash = {1, {
-      0x12, 0x2f, 0x5a, 0x01, 0x37, 0xa6, 0x88, 0xa7,
-      0xde, 0xa7, 0x05, 0xc8, 0xac, 0xc3, 0x96, 0xab,
-      0x97, 0x81, 0xd3, 0x29, 0xf1, 0x5d, 0x54, 0xbf,
-      0x54, 0xd1, 0xb0, 0x91, 0xe1, 0xc7, 0xd5, 0x69,
+      0xc9, 0xca, 0x8f, 0x73, 0xdf, 0xaf, 0xb6, 0x0a,
+      0x04, 0xa5, 0x9b, 0x0d, 0x13, 0xa8, 0x95, 0xd0,
+      0x09, 0x3d, 0xf1, 0x55, 0x6e, 0x85, 0x9b, 0xa9,
+      0x11, 0x02, 0x12, 0xa3, 0x31, 0x08, 0xb8, 0x6c,
     }};
   return &hash;
 }
@@ -38,8 +38,8 @@ static rosidl_runtime_c__type_description__Field motor_command_msg__msg__IdAngle
   {
     {motor_command_msg__msg__IdAngle__FIELD_NAME__ids, 3, 3},
     {
-      rosidl_runtime_c__type_description__FieldType__FIELD_TYPE_INT32_UNBOUNDED_SEQUENCE,
-      0,
+      rosidl_runtime_c__type_description__FieldType__FIELD_TYPE_UINT8_ARRAY,
+      76800,
       0,
       {NULL, 0, 0},
     },
@@ -48,8 +48,8 @@ static rosidl_runtime_c__type_description__Field motor_command_msg__msg__IdAngle
   {
     {motor_command_msg__msg__IdAngle__FIELD_NAME__angles, 6, 6},
     {
-      rosidl_runtime_c__type_description__FieldType__FIELD_TYPE_DOUBLE_UNBOUNDED_SEQUENCE,
-      0,
+      rosidl_runtime_c__type_description__FieldType__FIELD_TYPE_INT32_ARRAY,
+      76800,
       0,
       {NULL, 0, 0},
     },
@@ -77,8 +77,9 @@ motor_command_msg__msg__IdAngle__get_type_description(
 }
 
 static char toplevel_type_raw_source[] =
-  "int32[] ids\n"
-  "float64[] angles";
+  "# Messages\n"
+  "uint8[76800] ids\n"
+  "int32[76800] angles";
 
 static char msg_encoding[] = "msg";
 
@@ -92,7 +93,7 @@ motor_command_msg__msg__IdAngle__get_individual_type_description_source(
   static const rosidl_runtime_c__type_description__TypeSource source = {
     {motor_command_msg__msg__IdAngle__TYPE_NAME, 29, 29},
     {msg_encoding, 3, 3},
-    {toplevel_type_raw_source, 29, 29},
+    {toplevel_type_raw_source, 48, 48},
   };
   return &source;
 }

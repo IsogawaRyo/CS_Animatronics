@@ -36,8 +36,6 @@ extern "C"
 {
 #endif
 
-#include "rosidl_runtime_c/primitives_sequence.h"  // angles, ids
-#include "rosidl_runtime_c/primitives_sequence_functions.h"  // angles, ids
 
 // forward declare type support functions
 
@@ -52,17 +50,15 @@ bool cdr_serialize_motor_command_msg__msg__IdAngle(
 {
   // Field name: ids
   {
-    size_t size = ros_message->ids.size;
-    auto array_ptr = ros_message->ids.data;
-    cdr << static_cast<uint32_t>(size);
+    size_t size = 76800;
+    auto array_ptr = ros_message->ids;
     cdr.serialize_array(array_ptr, size);
   }
 
   // Field name: angles
   {
-    size_t size = ros_message->angles.size;
-    auto array_ptr = ros_message->angles.data;
-    cdr << static_cast<uint32_t>(size);
+    size_t size = 76800;
+    auto array_ptr = ros_message->angles;
     cdr.serialize_array(array_ptr, size);
   }
 
@@ -76,33 +72,15 @@ bool cdr_deserialize_motor_command_msg__msg__IdAngle(
 {
   // Field name: ids
   {
-    uint32_t cdrSize;
-    cdr >> cdrSize;
-    size_t size = static_cast<size_t>(cdrSize);
-    if (ros_message->ids.data) {
-      rosidl_runtime_c__int32__Sequence__fini(&ros_message->ids);
-    }
-    if (!rosidl_runtime_c__int32__Sequence__init(&ros_message->ids, size)) {
-      fprintf(stderr, "failed to create array for field 'ids'");
-      return false;
-    }
-    auto array_ptr = ros_message->ids.data;
+    size_t size = 76800;
+    auto array_ptr = ros_message->ids;
     cdr.deserialize_array(array_ptr, size);
   }
 
   // Field name: angles
   {
-    uint32_t cdrSize;
-    cdr >> cdrSize;
-    size_t size = static_cast<size_t>(cdrSize);
-    if (ros_message->angles.data) {
-      rosidl_runtime_c__double__Sequence__fini(&ros_message->angles);
-    }
-    if (!rosidl_runtime_c__double__Sequence__init(&ros_message->angles, size)) {
-      fprintf(stderr, "failed to create array for field 'angles'");
-      return false;
-    }
-    auto array_ptr = ros_message->angles.data;
+    size_t size = 76800;
+    auto array_ptr = ros_message->angles;
     cdr.deserialize_array(array_ptr, size);
   }
 
@@ -126,10 +104,8 @@ size_t get_serialized_size_motor_command_msg__msg__IdAngle(
 
   // Field name: ids
   {
-    size_t array_size = ros_message->ids.size;
-    auto array_ptr = ros_message->ids.data;
-    current_alignment += padding +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, padding);
+    size_t array_size = 76800;
+    auto array_ptr = ros_message->ids;
     (void)array_ptr;
     size_t item_size = sizeof(array_ptr[0]);
     current_alignment += array_size * item_size +
@@ -138,10 +114,8 @@ size_t get_serialized_size_motor_command_msg__msg__IdAngle(
 
   // Field name: angles
   {
-    size_t array_size = ros_message->angles.size;
-    auto array_ptr = ros_message->angles.data;
-    current_alignment += padding +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, padding);
+    size_t array_size = 76800;
+    auto array_ptr = ros_message->angles;
     (void)array_ptr;
     size_t item_size = sizeof(array_ptr[0]);
     current_alignment += array_size * item_size +
@@ -172,26 +146,17 @@ size_t max_serialized_size_motor_command_msg__msg__IdAngle(
 
   // Field name: ids
   {
-    size_t array_size = 0;
-    full_bounded = false;
-    is_plain = false;
-    current_alignment += padding +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, padding);
-    last_member_size = array_size * sizeof(uint32_t);
-    current_alignment += array_size * sizeof(uint32_t) +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
+    size_t array_size = 76800;
+    last_member_size = array_size * sizeof(uint8_t);
+    current_alignment += array_size * sizeof(uint8_t);
   }
 
   // Field name: angles
   {
-    size_t array_size = 0;
-    full_bounded = false;
-    is_plain = false;
-    current_alignment += padding +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, padding);
-    last_member_size = array_size * sizeof(uint64_t);
-    current_alignment += array_size * sizeof(uint64_t) +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint64_t));
+    size_t array_size = 76800;
+    last_member_size = array_size * sizeof(uint32_t);
+    current_alignment += array_size * sizeof(uint32_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
   }
 
 
@@ -217,17 +182,15 @@ bool cdr_serialize_key_motor_command_msg__msg__IdAngle(
 {
   // Field name: ids
   {
-    size_t size = ros_message->ids.size;
-    auto array_ptr = ros_message->ids.data;
-    cdr << static_cast<uint32_t>(size);
+    size_t size = 76800;
+    auto array_ptr = ros_message->ids;
     cdr.serialize_array(array_ptr, size);
   }
 
   // Field name: angles
   {
-    size_t size = ros_message->angles.size;
-    auto array_ptr = ros_message->angles.data;
-    cdr << static_cast<uint32_t>(size);
+    size_t size = 76800;
+    auto array_ptr = ros_message->angles;
     cdr.serialize_array(array_ptr, size);
   }
 
@@ -251,10 +214,8 @@ size_t get_serialized_size_key_motor_command_msg__msg__IdAngle(
 
   // Field name: ids
   {
-    size_t array_size = ros_message->ids.size;
-    auto array_ptr = ros_message->ids.data;
-    current_alignment += padding +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, padding);
+    size_t array_size = 76800;
+    auto array_ptr = ros_message->ids;
     (void)array_ptr;
     size_t item_size = sizeof(array_ptr[0]);
     current_alignment += array_size * item_size +
@@ -263,10 +224,8 @@ size_t get_serialized_size_key_motor_command_msg__msg__IdAngle(
 
   // Field name: angles
   {
-    size_t array_size = ros_message->angles.size;
-    auto array_ptr = ros_message->angles.data;
-    current_alignment += padding +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, padding);
+    size_t array_size = 76800;
+    auto array_ptr = ros_message->angles;
     (void)array_ptr;
     size_t item_size = sizeof(array_ptr[0]);
     current_alignment += array_size * item_size +
@@ -295,26 +254,17 @@ size_t max_serialized_size_key_motor_command_msg__msg__IdAngle(
   is_plain = true;
   // Field name: ids
   {
-    size_t array_size = 0;
-    full_bounded = false;
-    is_plain = false;
-    current_alignment += padding +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, padding);
-    last_member_size = array_size * sizeof(uint32_t);
-    current_alignment += array_size * sizeof(uint32_t) +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
+    size_t array_size = 76800;
+    last_member_size = array_size * sizeof(uint8_t);
+    current_alignment += array_size * sizeof(uint8_t);
   }
 
   // Field name: angles
   {
-    size_t array_size = 0;
-    full_bounded = false;
-    is_plain = false;
-    current_alignment += padding +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, padding);
-    last_member_size = array_size * sizeof(uint64_t);
-    current_alignment += array_size * sizeof(uint64_t) +
-      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint64_t));
+    size_t array_size = 76800;
+    last_member_size = array_size * sizeof(uint32_t);
+    current_alignment += array_size * sizeof(uint32_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
   }
 
   size_t ret_val = current_alignment - initial_alignment;

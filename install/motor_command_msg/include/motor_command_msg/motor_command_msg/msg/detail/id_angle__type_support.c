@@ -12,11 +12,6 @@
 #include "motor_command_msg/msg/detail/id_angle__struct.h"
 
 
-// Include directives for member types
-// Member `ids`
-// Member `angles`
-#include "rosidl_runtime_c/primitives_sequence_functions.h"
-
 #ifdef __cplusplus
 extern "C"
 {
@@ -39,122 +34,102 @@ void motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__IdAngl
 size_t motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__size_function__IdAngle__ids(
   const void * untyped_member)
 {
-  const rosidl_runtime_c__int32__Sequence * member =
-    (const rosidl_runtime_c__int32__Sequence *)(untyped_member);
-  return member->size;
+  (void)untyped_member;
+  return 76800;
 }
 
 const void * motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__get_const_function__IdAngle__ids(
   const void * untyped_member, size_t index)
 {
-  const rosidl_runtime_c__int32__Sequence * member =
-    (const rosidl_runtime_c__int32__Sequence *)(untyped_member);
-  return &member->data[index];
+  const uint8_t * member =
+    (const uint8_t *)(untyped_member);
+  return &member[index];
 }
 
 void * motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__get_function__IdAngle__ids(
   void * untyped_member, size_t index)
 {
-  rosidl_runtime_c__int32__Sequence * member =
-    (rosidl_runtime_c__int32__Sequence *)(untyped_member);
-  return &member->data[index];
+  uint8_t * member =
+    (uint8_t *)(untyped_member);
+  return &member[index];
 }
 
 void motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__fetch_function__IdAngle__ids(
   const void * untyped_member, size_t index, void * untyped_value)
 {
-  const int32_t * item =
-    ((const int32_t *)
+  const uint8_t * item =
+    ((const uint8_t *)
     motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__get_const_function__IdAngle__ids(untyped_member, index));
-  int32_t * value =
-    (int32_t *)(untyped_value);
+  uint8_t * value =
+    (uint8_t *)(untyped_value);
   *value = *item;
 }
 
 void motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__assign_function__IdAngle__ids(
   void * untyped_member, size_t index, const void * untyped_value)
 {
-  int32_t * item =
-    ((int32_t *)
+  uint8_t * item =
+    ((uint8_t *)
     motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__get_function__IdAngle__ids(untyped_member, index));
-  const int32_t * value =
-    (const int32_t *)(untyped_value);
+  const uint8_t * value =
+    (const uint8_t *)(untyped_value);
   *item = *value;
-}
-
-bool motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__resize_function__IdAngle__ids(
-  void * untyped_member, size_t size)
-{
-  rosidl_runtime_c__int32__Sequence * member =
-    (rosidl_runtime_c__int32__Sequence *)(untyped_member);
-  rosidl_runtime_c__int32__Sequence__fini(member);
-  return rosidl_runtime_c__int32__Sequence__init(member, size);
 }
 
 size_t motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__size_function__IdAngle__angles(
   const void * untyped_member)
 {
-  const rosidl_runtime_c__double__Sequence * member =
-    (const rosidl_runtime_c__double__Sequence *)(untyped_member);
-  return member->size;
+  (void)untyped_member;
+  return 76800;
 }
 
 const void * motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__get_const_function__IdAngle__angles(
   const void * untyped_member, size_t index)
 {
-  const rosidl_runtime_c__double__Sequence * member =
-    (const rosidl_runtime_c__double__Sequence *)(untyped_member);
-  return &member->data[index];
+  const int32_t * member =
+    (const int32_t *)(untyped_member);
+  return &member[index];
 }
 
 void * motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__get_function__IdAngle__angles(
   void * untyped_member, size_t index)
 {
-  rosidl_runtime_c__double__Sequence * member =
-    (rosidl_runtime_c__double__Sequence *)(untyped_member);
-  return &member->data[index];
+  int32_t * member =
+    (int32_t *)(untyped_member);
+  return &member[index];
 }
 
 void motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__fetch_function__IdAngle__angles(
   const void * untyped_member, size_t index, void * untyped_value)
 {
-  const double * item =
-    ((const double *)
+  const int32_t * item =
+    ((const int32_t *)
     motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__get_const_function__IdAngle__angles(untyped_member, index));
-  double * value =
-    (double *)(untyped_value);
+  int32_t * value =
+    (int32_t *)(untyped_value);
   *value = *item;
 }
 
 void motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__assign_function__IdAngle__angles(
   void * untyped_member, size_t index, const void * untyped_value)
 {
-  double * item =
-    ((double *)
+  int32_t * item =
+    ((int32_t *)
     motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__get_function__IdAngle__angles(untyped_member, index));
-  const double * value =
-    (const double *)(untyped_value);
+  const int32_t * value =
+    (const int32_t *)(untyped_value);
   *item = *value;
-}
-
-bool motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__resize_function__IdAngle__angles(
-  void * untyped_member, size_t size)
-{
-  rosidl_runtime_c__double__Sequence * member =
-    (rosidl_runtime_c__double__Sequence *)(untyped_member);
-  rosidl_runtime_c__double__Sequence__fini(member);
-  return rosidl_runtime_c__double__Sequence__init(member, size);
 }
 
 static rosidl_typesupport_introspection_c__MessageMember motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__IdAngle_message_member_array[2] = {
   {
     "ids",  // name
-    rosidl_typesupport_introspection_c__ROS_TYPE_INT32,  // type
+    rosidl_typesupport_introspection_c__ROS_TYPE_UINT8,  // type
     0,  // upper bound of string
     NULL,  // members of sub message
     false,  // is key
     true,  // is array
-    0,  // array size
+    76800,  // array size
     false,  // is upper bound
     offsetof(motor_command_msg__msg__IdAngle, ids),  // bytes offset in struct
     NULL,  // default value
@@ -163,16 +138,16 @@ static rosidl_typesupport_introspection_c__MessageMember motor_command_msg__msg_
     motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__get_function__IdAngle__ids,  // get(index) function pointer
     motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__fetch_function__IdAngle__ids,  // fetch(index, &value) function pointer
     motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__assign_function__IdAngle__ids,  // assign(index, value) function pointer
-    motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__resize_function__IdAngle__ids  // resize(index) function pointer
+    NULL  // resize(index) function pointer
   },
   {
     "angles",  // name
-    rosidl_typesupport_introspection_c__ROS_TYPE_DOUBLE,  // type
+    rosidl_typesupport_introspection_c__ROS_TYPE_INT32,  // type
     0,  // upper bound of string
     NULL,  // members of sub message
     false,  // is key
     true,  // is array
-    0,  // array size
+    76800,  // array size
     false,  // is upper bound
     offsetof(motor_command_msg__msg__IdAngle, angles),  // bytes offset in struct
     NULL,  // default value
@@ -181,7 +156,7 @@ static rosidl_typesupport_introspection_c__MessageMember motor_command_msg__msg_
     motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__get_function__IdAngle__angles,  // get(index) function pointer
     motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__fetch_function__IdAngle__angles,  // fetch(index, &value) function pointer
     motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__assign_function__IdAngle__angles,  // assign(index, value) function pointer
-    motor_command_msg__msg__IdAngle__rosidl_typesupport_introspection_c__resize_function__IdAngle__angles  // resize(index) function pointer
+    NULL  // resize(index) function pointer
   }
 };
 

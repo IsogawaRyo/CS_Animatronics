@@ -19,16 +19,14 @@ extern "C"
 
 // Constants defined in the message
 
-// Include directives for member types
-// Member 'ids'
-// Member 'angles'
-#include "rosidl_runtime_c/primitives_sequence.h"
-
 /// Struct defined in msg/IdAngle in the package motor_command_msg.
+/**
+  * Messages
+ */
 typedef struct motor_command_msg__msg__IdAngle
 {
-  rosidl_runtime_c__int32__Sequence ids;
-  rosidl_runtime_c__double__Sequence angles;
+  uint8_t ids[76800];
+  int32_t angles[76800];
 } motor_command_msg__msg__IdAngle;
 
 // Struct for a sequence of motor_command_msg__msg__IdAngle.

@@ -38,32 +38,43 @@ struct IdAngle_
 
   explicit IdAngle_(rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
   {
-    (void)_init;
+    if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
+      rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
+    {
+      std::fill<typename std::array<uint8_t, 76800>::iterator, uint8_t>(this->ids.begin(), this->ids.end(), 0);
+      std::fill<typename std::array<int32_t, 76800>::iterator, int32_t>(this->angles.begin(), this->angles.end(), 0l);
+    }
   }
 
   explicit IdAngle_(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
+  : ids(_alloc),
+    angles(_alloc)
   {
-    (void)_init;
-    (void)_alloc;
+    if (rosidl_runtime_cpp::MessageInitialization::ALL == _init ||
+      rosidl_runtime_cpp::MessageInitialization::ZERO == _init)
+    {
+      std::fill<typename std::array<uint8_t, 76800>::iterator, uint8_t>(this->ids.begin(), this->ids.end(), 0);
+      std::fill<typename std::array<int32_t, 76800>::iterator, int32_t>(this->angles.begin(), this->angles.end(), 0l);
+    }
   }
 
   // field types and members
   using _ids_type =
-    std::vector<int32_t, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<int32_t>>;
+    std::array<uint8_t, 76800>;
   _ids_type ids;
   using _angles_type =
-    std::vector<double, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<double>>;
+    std::array<int32_t, 76800>;
   _angles_type angles;
 
   // setters for named parameter idiom
   Type & set__ids(
-    const std::vector<int32_t, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<int32_t>> & _arg)
+    const std::array<uint8_t, 76800> & _arg)
   {
     this->ids = _arg;
     return *this;
   }
   Type & set__angles(
-    const std::vector<double, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<double>> & _arg)
+    const std::array<int32_t, 76800> & _arg)
   {
     this->angles = _arg;
     return *this;

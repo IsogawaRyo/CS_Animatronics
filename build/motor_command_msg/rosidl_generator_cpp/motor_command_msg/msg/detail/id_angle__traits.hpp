@@ -156,11 +156,11 @@ inline const char * name<motor_command_msg::msg::IdAngle>()
 
 template<>
 struct has_fixed_size<motor_command_msg::msg::IdAngle>
-  : std::integral_constant<bool, false> {};
+  : std::integral_constant<bool, true> {};
 
 template<>
 struct has_bounded_size<motor_command_msg::msg::IdAngle>
-  : std::integral_constant<bool, false> {};
+  : std::integral_constant<bool, true> {};
 
 template<>
 struct is_message<motor_command_msg::msg::IdAngle>

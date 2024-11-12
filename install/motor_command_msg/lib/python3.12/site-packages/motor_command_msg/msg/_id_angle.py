@@ -12,13 +12,11 @@ ros_python_check_fields = getenv('ROS_PYTHON_CHECK_FIELDS', default='')
 
 # Import statements for member types
 
-# Member 'ids'
-# Member 'angles'
-import array  # noqa: E402, I100
-
 import builtins  # noqa: E402, I100
 
-import math  # noqa: E402, I100
+# Member 'ids'
+# Member 'angles'
+import numpy  # noqa: E402, I100
 
 import rosidl_parser.definition  # noqa: E402, I100
 
@@ -74,15 +72,15 @@ class IdAngle(metaclass=Metaclass_IdAngle):
     ]
 
     _fields_and_field_types = {
-        'ids': 'sequence<int32>',
-        'angles': 'sequence<double>',
+        'ids': 'uint8[76800]',
+        'angles': 'int32[76800]',
     }
 
     # This attribute is used to store an rosidl_parser.definition variable
     # related to the data type of each of the components the message.
     SLOT_TYPES = (
-        rosidl_parser.definition.UnboundedSequence(rosidl_parser.definition.BasicType('int32')),  # noqa: E501
-        rosidl_parser.definition.UnboundedSequence(rosidl_parser.definition.BasicType('double')),  # noqa: E501
+        rosidl_parser.definition.Array(rosidl_parser.definition.BasicType('uint8'), 76800),  # noqa: E501
+        rosidl_parser.definition.Array(rosidl_parser.definition.BasicType('int32'), 76800),  # noqa: E501
     )
 
     def __init__(self, **kwargs):
@@ -94,8 +92,16 @@ class IdAngle(metaclass=Metaclass_IdAngle):
             assert all('_' + key in self.__slots__ for key in kwargs.keys()), \
                 'Invalid arguments passed to constructor: %s' % \
                 ', '.join(sorted(k for k in kwargs.keys() if '_' + k not in self.__slots__))
-        self.ids = array.array('i', kwargs.get('ids', []))
-        self.angles = array.array('d', kwargs.get('angles', []))
+        if 'ids' not in kwargs:
+            self.ids = numpy.zeros(76800, dtype=numpy.uint8)
+        else:
+            self.ids = numpy.array(kwargs.get('ids'), dtype=numpy.uint8)
+            assert self.ids.shape == (76800, )
+        if 'angles' not in kwargs:
+            self.angles = numpy.zeros(76800, dtype=numpy.int32)
+        else:
+            self.angles = numpy.array(kwargs.get('angles'), dtype=numpy.int32)
+            assert self.angles.shape == (76800, )
 
     def __repr__(self):
         typename = self.__class__.__module__.split('.')
@@ -127,9 +133,9 @@ class IdAngle(metaclass=Metaclass_IdAngle):
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return False
-        if self.ids != other.ids:
+        if all(self.ids != other.ids):
             return False
-        if self.angles != other.angles:
+        if all(self.angles != other.angles):
             return False
         return True
 
@@ -146,9 +152,11 @@ class IdAngle(metaclass=Metaclass_IdAngle):
     @ids.setter
     def ids(self, value):
         if self._check_fields:
-            if isinstance(value, array.array):
-                assert value.typecode == 'i', \
-                    "The 'ids' array.array() must have the type code of 'i'"
+            if isinstance(value, numpy.ndarray):
+                assert value.dtype == numpy.uint8, \
+                    "The 'ids' numpy.ndarray() must have the dtype of 'numpy.uint8'"
+                assert value.size == 76800, \
+                    "The 'ids' numpy.ndarray() must have a size of 76800"
                 self._ids = value
                 return
             from collections.abc import Sequence
@@ -161,10 +169,11 @@ class IdAngle(metaclass=Metaclass_IdAngle):
                   isinstance(value, UserList)) and
                  not isinstance(value, str) and
                  not isinstance(value, UserString) and
+                 len(value) == 76800 and
                  all(isinstance(v, int) for v in value) and
-                 all(val >= -2147483648 and val < 2147483648 for val in value)), \
-                "The 'ids' field must be a set or sequence and each value of type 'int' and each integer in [-2147483648, 2147483647]"
-        self._ids = array.array('i', value)
+                 all(val >= 0 and val < 256 for val in value)), \
+                "The 'ids' field must be a set or sequence with length 76800 and each value of type 'int' and each unsigned integer in [0, 255]"
+        self._ids = numpy.array(value, dtype=numpy.uint8)
 
     @builtins.property
     def angles(self):
@@ -174,9 +183,11 @@ class IdAngle(metaclass=Metaclass_IdAngle):
     @angles.setter
     def angles(self, value):
         if self._check_fields:
-            if isinstance(value, array.array):
-                assert value.typecode == 'd', \
-                    "The 'angles' array.array() must have the type code of 'd'"
+            if isinstance(value, numpy.ndarray):
+                assert value.dtype == numpy.int32, \
+                    "The 'angles' numpy.ndarray() must have the dtype of 'numpy.int32'"
+                assert value.size == 76800, \
+                    "The 'angles' numpy.ndarray() must have a size of 76800"
                 self._angles = value
                 return
             from collections.abc import Sequence
@@ -189,7 +200,8 @@ class IdAngle(metaclass=Metaclass_IdAngle):
                   isinstance(value, UserList)) and
                  not isinstance(value, str) and
                  not isinstance(value, UserString) and
-                 all(isinstance(v, float) for v in value) and
-                 all(not (val < -1.7976931348623157e+308 or val > 1.7976931348623157e+308) or math.isinf(val) for val in value)), \
-                "The 'angles' field must be a set or sequence and each value of type 'float' and each double in [-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000, 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000]"
-        self._angles = array.array('d', value)
+                 len(value) == 76800 and
+                 all(isinstance(v, int) for v in value) and
+                 all(val >= -2147483648 and val < 2147483648 for val in value)), \
+                "The 'angles' field must be a set or sequence with length 76800 and each value of type 'int' and each integer in [-2147483648, 2147483647]"
+        self._angles = numpy.array(value, dtype=numpy.int32)

@@ -5,10 +5,14 @@
 
 module motor_command_msg {
   module msg {
+    typedef uint8 uint8__76800[76800];
+    typedef int32 int32__76800[76800];
+    @verbatim (language="comment", text=
+      "Messages")
     struct IdAngle {
-      sequence<int32> ids;
+      uint8__76800 ids;
 
-      sequence<double> angles;
+      int32__76800 angles;
     };
   };
 };

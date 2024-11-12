@@ -40,103 +40,89 @@ void IdAngle_fini_function(void * message_memory)
 
 size_t size_function__IdAngle__ids(const void * untyped_member)
 {
-  const auto * member = reinterpret_cast<const std::vector<int32_t> *>(untyped_member);
-  return member->size();
+  (void)untyped_member;
+  return 76800;
 }
 
 const void * get_const_function__IdAngle__ids(const void * untyped_member, size_t index)
 {
   const auto & member =
-    *reinterpret_cast<const std::vector<int32_t> *>(untyped_member);
+    *reinterpret_cast<const std::array<uint8_t, 76800> *>(untyped_member);
   return &member[index];
 }
 
 void * get_function__IdAngle__ids(void * untyped_member, size_t index)
 {
   auto & member =
-    *reinterpret_cast<std::vector<int32_t> *>(untyped_member);
+    *reinterpret_cast<std::array<uint8_t, 76800> *>(untyped_member);
   return &member[index];
 }
 
 void fetch_function__IdAngle__ids(
   const void * untyped_member, size_t index, void * untyped_value)
 {
-  const auto & item = *reinterpret_cast<const int32_t *>(
+  const auto & item = *reinterpret_cast<const uint8_t *>(
     get_const_function__IdAngle__ids(untyped_member, index));
-  auto & value = *reinterpret_cast<int32_t *>(untyped_value);
+  auto & value = *reinterpret_cast<uint8_t *>(untyped_value);
   value = item;
 }
 
 void assign_function__IdAngle__ids(
   void * untyped_member, size_t index, const void * untyped_value)
 {
-  auto & item = *reinterpret_cast<int32_t *>(
+  auto & item = *reinterpret_cast<uint8_t *>(
     get_function__IdAngle__ids(untyped_member, index));
-  const auto & value = *reinterpret_cast<const int32_t *>(untyped_value);
+  const auto & value = *reinterpret_cast<const uint8_t *>(untyped_value);
   item = value;
-}
-
-void resize_function__IdAngle__ids(void * untyped_member, size_t size)
-{
-  auto * member =
-    reinterpret_cast<std::vector<int32_t> *>(untyped_member);
-  member->resize(size);
 }
 
 size_t size_function__IdAngle__angles(const void * untyped_member)
 {
-  const auto * member = reinterpret_cast<const std::vector<double> *>(untyped_member);
-  return member->size();
+  (void)untyped_member;
+  return 76800;
 }
 
 const void * get_const_function__IdAngle__angles(const void * untyped_member, size_t index)
 {
   const auto & member =
-    *reinterpret_cast<const std::vector<double> *>(untyped_member);
+    *reinterpret_cast<const std::array<int32_t, 76800> *>(untyped_member);
   return &member[index];
 }
 
 void * get_function__IdAngle__angles(void * untyped_member, size_t index)
 {
   auto & member =
-    *reinterpret_cast<std::vector<double> *>(untyped_member);
+    *reinterpret_cast<std::array<int32_t, 76800> *>(untyped_member);
   return &member[index];
 }
 
 void fetch_function__IdAngle__angles(
   const void * untyped_member, size_t index, void * untyped_value)
 {
-  const auto & item = *reinterpret_cast<const double *>(
+  const auto & item = *reinterpret_cast<const int32_t *>(
     get_const_function__IdAngle__angles(untyped_member, index));
-  auto & value = *reinterpret_cast<double *>(untyped_value);
+  auto & value = *reinterpret_cast<int32_t *>(untyped_value);
   value = item;
 }
 
 void assign_function__IdAngle__angles(
   void * untyped_member, size_t index, const void * untyped_value)
 {
-  auto & item = *reinterpret_cast<double *>(
+  auto & item = *reinterpret_cast<int32_t *>(
     get_function__IdAngle__angles(untyped_member, index));
-  const auto & value = *reinterpret_cast<const double *>(untyped_value);
+  const auto & value = *reinterpret_cast<const int32_t *>(untyped_value);
   item = value;
-}
-
-void resize_function__IdAngle__angles(void * untyped_member, size_t size)
-{
-  auto * member =
-    reinterpret_cast<std::vector<double> *>(untyped_member);
-  member->resize(size);
 }
 
 static const ::rosidl_typesupport_introspection_cpp::MessageMember IdAngle_message_member_array[2] = {
   {
     "ids",  // name
-    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_INT32,  // type
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_UINT8,  // type
     0,  // upper bound of string
     nullptr,  // members of sub message
     false,  // is key
     true,  // is array
-    0,  // array size
+    76800,  // array size
     false,  // is upper bound
     offsetof(motor_command_msg::msg::IdAngle, ids),  // bytes offset in struct
     nullptr,  // default value
@@ -145,16 +131,16 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember IdAngle_messa
     get_function__IdAngle__ids,  // get(index) function pointer
     fetch_function__IdAngle__ids,  // fetch(index, &value) function pointer
     assign_function__IdAngle__ids,  // assign(index, value) function pointer
-    resize_function__IdAngle__ids  // resize(index) function pointer
+    nullptr  // resize(index) function pointer
   },
   {
     "angles",  // name
-    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_DOUBLE,  // type
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_INT32,  // type
     0,  // upper bound of string
     nullptr,  // members of sub message
     false,  // is key
     true,  // is array
-    0,  // array size
+    76800,  // array size
     false,  // is upper bound
     offsetof(motor_command_msg::msg::IdAngle, angles),  // bytes offset in struct
     nullptr,  // default value
@@ -163,7 +149,7 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember IdAngle_messa
     get_function__IdAngle__angles,  // get(index) function pointer
     fetch_function__IdAngle__angles,  // fetch(index, &value) function pointer
     assign_function__IdAngle__angles,  // assign(index, value) function pointer
-    resize_function__IdAngle__angles  // resize(index) function pointer
+    nullptr  // resize(index) function pointer
   }
 };
 

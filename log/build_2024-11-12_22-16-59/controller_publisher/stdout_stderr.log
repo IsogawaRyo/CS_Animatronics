@@ -1,0 +1,23 @@
+running egg_info
+writing ../../build/controller_publisher/controller_publisher.egg-info/PKG-INFO
+writing dependency_links to ../../build/controller_publisher/controller_publisher.egg-info/dependency_links.txt
+writing entry points to ../../build/controller_publisher/controller_publisher.egg-info/entry_points.txt
+writing requirements to ../../build/controller_publisher/controller_publisher.egg-info/requires.txt
+writing top-level names to ../../build/controller_publisher/controller_publisher.egg-info/top_level.txt
+reading manifest file '../../build/controller_publisher/controller_publisher.egg-info/SOURCES.txt'
+writing manifest file '../../build/controller_publisher/controller_publisher.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+copying /home/csanimatronics/CS_Animatronics/build/controller_publisher/build/lib/controller_publisher/__init__.py -> /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher
+copying /home/csanimatronics/CS_Animatronics/build/controller_publisher/build/lib/controller_publisher/controller_publisher.py -> /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher
+byte-compiling /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher/__init__.py to __init__.cpython-312.pyc
+byte-compiling /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher/controller_publisher.py to controller_publisher.cpython-312.pyc
+running install_data
+running install_egg_info
+removing '/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher-0.0.0-py3.12.egg-info' (and everything under it)
+Copying ../../build/controller_publisher/controller_publisher.egg-info to /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher-0.0.0-py3.12.egg-info
+running install_scripts
+Installing controller_publisher script to /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/controller_publisher
+writing list of installed files to '/home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log'

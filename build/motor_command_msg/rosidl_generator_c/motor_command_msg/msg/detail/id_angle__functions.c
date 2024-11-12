@@ -11,11 +11,6 @@
 #include "rcutils/allocator.h"
 
 
-// Include directives for member types
-// Member `ids`
-// Member `angles`
-#include "rosidl_runtime_c/primitives_sequence_functions.h"
-
 bool
 motor_command_msg__msg__IdAngle__init(motor_command_msg__msg__IdAngle * msg)
 {
@@ -23,15 +18,7 @@ motor_command_msg__msg__IdAngle__init(motor_command_msg__msg__IdAngle * msg)
     return false;
   }
   // ids
-  if (!rosidl_runtime_c__int32__Sequence__init(&msg->ids, 0)) {
-    motor_command_msg__msg__IdAngle__fini(msg);
-    return false;
-  }
   // angles
-  if (!rosidl_runtime_c__double__Sequence__init(&msg->angles, 0)) {
-    motor_command_msg__msg__IdAngle__fini(msg);
-    return false;
-  }
   return true;
 }
 
@@ -42,9 +29,7 @@ motor_command_msg__msg__IdAngle__fini(motor_command_msg__msg__IdAngle * msg)
     return;
   }
   // ids
-  rosidl_runtime_c__int32__Sequence__fini(&msg->ids);
   // angles
-  rosidl_runtime_c__double__Sequence__fini(&msg->angles);
 }
 
 bool
@@ -54,16 +39,16 @@ motor_command_msg__msg__IdAngle__are_equal(const motor_command_msg__msg__IdAngle
     return false;
   }
   // ids
-  if (!rosidl_runtime_c__int32__Sequence__are_equal(
-      &(lhs->ids), &(rhs->ids)))
-  {
-    return false;
+  for (size_t i = 0; i < 76800; ++i) {
+    if (lhs->ids[i] != rhs->ids[i]) {
+      return false;
+    }
   }
   // angles
-  if (!rosidl_runtime_c__double__Sequence__are_equal(
-      &(lhs->angles), &(rhs->angles)))
-  {
-    return false;
+  for (size_t i = 0; i < 76800; ++i) {
+    if (lhs->angles[i] != rhs->angles[i]) {
+      return false;
+    }
   }
   return true;
 }
@@ -77,16 +62,12 @@ motor_command_msg__msg__IdAngle__copy(
     return false;
   }
   // ids
-  if (!rosidl_runtime_c__int32__Sequence__copy(
-      &(input->ids), &(output->ids)))
-  {
-    return false;
+  for (size_t i = 0; i < 76800; ++i) {
+    output->ids[i] = input->ids[i];
   }
   // angles
-  if (!rosidl_runtime_c__double__Sequence__copy(
-      &(input->angles), &(output->angles)))
-  {
-    return false;
+  for (size_t i = 0; i < 76800; ++i) {
+    output->angles[i] = input->angles[i];
   }
   return true;
 }

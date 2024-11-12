@@ -227,5 +227,4 @@ CMakeFiles/motor_command_msg__rosidl_typesupport_fastrtps_c.dir/rosidl_typesuppo
  /usr/include/c++/13/stdlib.h \
  /opt/ros/jazzy/include/rosidl_runtime_c/rosidl_runtime_c/action_type_support_struct.h \
  /opt/ros/jazzy/include/rosidl_runtime_c/rosidl_runtime_c/service_type_support_struct.h \
- /home/csanimatronics/CS_Animatronics/build/motor_command_msg/rosidl_generator_c/motor_command_msg/msg/rosidl_generator_c__visibility_control.h \
- /opt/ros/jazzy/include/rosidl_runtime_c/rosidl_runtime_c/primitives_sequence_functions.h
+ /home/csanimatronics/CS_Animatronics/build/motor_command_msg/rosidl_generator_c/motor_command_msg/msg/rosidl_generator_c__visibility_control.h
