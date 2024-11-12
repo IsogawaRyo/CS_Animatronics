@@ -1,1 +1,1 @@
-rclpy:sensor_msgs
+motor_command_msg:rclpy:sensor_msgs
