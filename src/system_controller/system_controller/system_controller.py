@@ -28,7 +28,7 @@ class SystemController(Node):
         # Setting for publisher
         self.publisher = self.create_publisher(
             IdAngle,
-            'output_topic',
+            'IdAngle',
             10
         )
 
