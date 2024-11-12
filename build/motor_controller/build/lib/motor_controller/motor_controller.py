@@ -52,8 +52,8 @@ class MotorController(Node):
         self.get_logger().info(f'Ids: {msg.ids}')
         self.get_logger().info(f'Angles: {msg.angles}')
 
-        id = [31]
-        angle = [3000]
+        id = 31
+        angle = 3000
         
         new_msg = SetPosition()
         new_msg.id = id
