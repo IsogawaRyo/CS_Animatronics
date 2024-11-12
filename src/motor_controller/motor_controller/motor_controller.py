@@ -37,17 +37,16 @@ class MotorController(Node):
         self.subscription  # prevent unused variable warning  
 
         # Subscription set position
-        self.set_position_subscriber_ = self.create_subscription(
+        self.set_position_subscriber_ = self.create_publisher(
             SetPosition,
             'set_position',
-            self.listener_callback,
             10)
 
         # Service get position
         self.get_position_server_ = self.create_service(
             GetPosition,
             'get_position',
-            self.listener_callback)
+            self.get_position_callback)
 
     def listener_callback(self, msg):
         self.get_logger().info(f'Ids: {msg.ids}')
@@ -62,6 +61,12 @@ class MotorController(Node):
 
         self.set_position_subscriber_.publish(new_msg)
         self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
+
+    def get_position_callback(self, request, response):
+        ####### Example ######
+        response.position = 0
+        self.get_logger().info(f'Responding with position: {response.position}')
+        return response
 
 def main(args=None):
     rclpy.init(args=args)
