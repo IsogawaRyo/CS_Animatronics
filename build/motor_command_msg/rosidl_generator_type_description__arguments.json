@@ -1,7 +1,0 @@
-{
-  "package_name": "motor_command_msg",
-  "output_dir": "/home/csanimatronics/CS_Animatronics/build/motor_command_msg/rosidl_generator_type_description/motor_command_msg",
-  "idl_tuples": [
-    "/home/csanimatronics/CS_Animatronics/build/motor_command_msg/rosidl_adapter/motor_command_msg:msg/IdAngle.idl"
-  ]
-}

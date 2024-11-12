@@ -1,5 +1,0 @@
-dynamixel_sdk
-dynamixel_sdk_custom_interfaces
-motor_command_msg
-rclpy
-setuptools
