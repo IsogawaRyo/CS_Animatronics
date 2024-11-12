@@ -28,6 +28,7 @@ setup(
     entry_points={
         'console_scripts': [
             'motor_controller = motor_controller.motor_controller:main',
+            'system_controller = system_controller.system_controller:main',
         ],
     },
 )
