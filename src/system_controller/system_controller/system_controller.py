@@ -41,8 +41,8 @@ class SystemController(Node):
         # Hat/D-pad [X:down-up, Y:left-right]
         self.get_logger().info(f'Axes: {msg.axes}')
         self.get_logger().info(f'Buttons: {msg.buttons}')
-       
-        ###############################
+
+        # translate values
         ids, angles = self.translate(msg.axes, msg.buttons)
  
         new_msg = IdAngle()
@@ -124,7 +124,7 @@ class SystemController(Node):
             blinkU, blinkL = self.blink(axes[5])
             
             ids = [31, 32, 41, 42, 43, 44]
-            angles = [jaw, blinkU, blinkL, angle, angle, angle]
+            angles = [jaw, blinkU, blinkL, blinkU, blinkL, angle]
 
         return ids, angles
 
