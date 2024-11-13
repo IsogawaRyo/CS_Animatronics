@@ -150,7 +150,7 @@ class SystemController(Node):
         angle = math.floor((0.5*(angle + 1))*range)
         return angle
 
-    def eyes(self):
+    def eyes(self, angle):
         eyeR_min = 0
         eyeR_max = 4095
         rangeR = eyeR_max - eyeR_min
