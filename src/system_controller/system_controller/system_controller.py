@@ -6,7 +6,6 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from motor_command_msg.msg import IdAngle
-import math
 
 # Operation Mode
 # -1: Test
@@ -123,7 +122,7 @@ class SystemController(Node):
 
         # FullMaual
         elif MODE == 1:
-            angle = math.floor((0.5*(axes[0] + 1))*4095)
+            angle = int((0.5*(axes[0] + 1))*4095)
 
             jaw = self.jaw(axes[2])
             blinkU, blinkL = self.blink(axes[5])
@@ -143,8 +142,8 @@ class SystemController(Node):
         blinkL_max = 4095
         rangeL = blinkL_max - blinkL_min
         
-        angleU = int(math.floor((0.5*(angle + 1))*rangeU))
-        angleL = int(math.floor((0.5*(angle + 1))*rangeL))
+        angleU = int((0.5*(angle + 1))*rangeU)
+        angleL = int((0.5*(angle + 1))*rangeL)
         return angleU, angleL
 
     def jaw(self, angle):
@@ -152,7 +151,7 @@ class SystemController(Node):
         jaw_max = 4095
         range = jaw_max - jaw_min
         
-        angle = int(math.floor((0.5*(angle + 1))*range))
+        angle = int((0.5*(angle + 1))*range))
         return angle
 
     def eyes(self, angle):
@@ -164,8 +163,8 @@ class SystemController(Node):
         eyeL_max = 4095
         rangeL = eyeL_max - eyeL_min
 
-        angleR = int(math.floor((0.5*(angle + 1))*rangeR))
-        angleL = int(math.floor((0.5*(angle + 1))*rangeL))
+        angleR = int((0.5*(angle + 1))*rangeR))
+        angleL = int((0.5*(angle + 1))*rangeL))
         return angleR,angleL
 
     def neck(self):
