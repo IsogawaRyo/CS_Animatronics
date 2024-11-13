@@ -68,43 +68,43 @@ class SystemController(Node):
 
         # Triangle
         elif buttons[3]:
-            pass
+            self.get_logger().info(f'Triangle was pressed')
 
         # LeftBumper
         elif buttons[4]:
-            pass
+            self.get_logger().info(f'LeftBumper was pressed')
 
         # RightBumper
         elif buttons[5]:
-            pass
+            self.get_logger().info(f'RightBumper was pressed')
 
         # LeftTrigger
         elif buttons[6]:
-            pass
+            self.get_logger().info(f'LeftTrigger was pressed')
 
         # RightTrigger
         elif buttons[7]:
-            pass
+            self.get_logger().info(f'RightTrigger was pressed')
 
         # Share
         elif buttons[8]:
-            pass
+            self.get_logger().info(f'Share was pressed')
 
         # Options
         elif buttons[9]:
-            pass
+            self.get_logger().info(f'Options was pressed')
 
         # PS
         elif buttons[10]:
-            pass
+            self.get_logger().info(f'PS was pressed')
 
         # LeftStick
         elif buttons[11]:
-            pass
+            self.get_logger().info(f'LeftStick was pressed')
 
         # RightStick
         elif buttons[12]:
-            pass
+            self.get_logger().info(f'RightStick was pressed')
 
         # Test
         if MODE == -1:
@@ -120,16 +120,22 @@ class SystemController(Node):
         elif MODE == 1:
             angle = math.floor((0.5*(axes[0] + 1))*4095)
 
+            jaw = self.jaw(axes[2])
+            blinkU, blinkL = self.blink(axes[5])
+            
             ids = [31, 32, 41, 42, 43, 44]
-            angles = [angle, angle, angle, angle, angle, angle]
+            angles = [jaw, blinkU, blinkL, angle, angle, angle]
 
         return ids, angles
 
-    def blink(self):
-        pass
+    def blink(self, angle):
+        angleU = math.floor((0.5*(angle + 1))*4095)
+        angleL = math.floor((0.5*(angle + 1))*4095)
+        return angleU, angleL
 
-    def jaw(self):
-        pass
+    def jaw(self, angle):
+        angle = math.floor((0.5*(angle + 1))*4095)
+        return angle
 
     def eyes(self):
         pass
