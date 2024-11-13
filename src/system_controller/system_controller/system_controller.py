@@ -96,6 +96,10 @@ class SystemController(Node):
 
         # PS
         elif buttons[10]:
+            if MODE == 1:
+                MODE = -1
+            elif MODE == -1:
+                MODE = 1
             self.get_logger().info(f'PS was pressed')
 
         # LeftStick
