@@ -54,7 +54,6 @@ class MotorController(Node):
 
         i = 0 
         for id in msg.ids:
-            id = id
             angle = msg.angles[i]
             print(id)
             print(angle)
