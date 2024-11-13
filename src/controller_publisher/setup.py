@@ -18,7 +18,7 @@ setup(
     zip_safe=True,
     maintainer='Ryo Isogawa',
     maintainer_email='2023m002@kuas.ac.jp',
-    description='a package for controller',
+    description='a package for publishing controller state',
     license='BSD-3-Clause',
     tests_require=['pytest'],
     entry_points={
