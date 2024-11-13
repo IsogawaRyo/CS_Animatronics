@@ -52,15 +52,18 @@ class MotorController(Node):
         self.get_logger().info(f'Ids: {msg.ids}')
         self.get_logger().info(f'Angles: {msg.angles}')
 
-        id = 31
-        angle = 3000
+        i = 0 
+        for id in msg.ids:
+            id = id
+            angle = msg.angles[i]
         
-        new_msg = SetPosition()
-        new_msg.id = id
-        new_msg.position = angle
+            new_msg = SetPosition()
+            new_msg.id = id
+            new_msg.position = angle
 
-        self.set_position_subscriber_.publish(new_msg)
-        self.get_logger().info(f'Publishing IDs: {new_msg.id}, Angles: {new_msg.position}')
+            self.set_position_subscriber_.publish(new_msg)
+            self.get_logger().info(f'Publishing IDs: {new_msg.id}, Angles: {new_msg.position}')
+            i = i + 1
 
     def get_position_callback(self, request, response):
         ####### Example ######
