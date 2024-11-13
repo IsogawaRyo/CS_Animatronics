@@ -125,7 +125,7 @@ class SystemController(Node):
             eyeR, eyeL = self.eyes(axes[3])
             
             ids = [11, 21, 22, 23, 31, 32, 41, 42, 43, 44]
-            angles = [jaw, angle, angle, angle, , eyeR, eyeL, blinkU, blinkL, blinkU, blinkL]
+            angles = [jaw, angle, angle, angle, eyeR, eyeL, blinkU, blinkL, blinkU, blinkL]
 
         return ids, angles
 
