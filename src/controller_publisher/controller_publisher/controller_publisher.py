@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2024 Ryo Isogawa 　　　　　
+# SPDX-License-Identifier: BSD-3-Claus
+
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
