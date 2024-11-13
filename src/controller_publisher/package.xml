@@ -3,7 +3,7 @@
 <package format="3">
   <name>controller_publisher</name>
   <version>0.0.0</version>
-  <description>a package for controller</description>
+  <description>a package for publishing controller state</description>
   <maintainer email="2023m002@kuas.ac.jp">Ryo Isogawa</maintainer>
   <license>BSD-3-Clause</license>
 
