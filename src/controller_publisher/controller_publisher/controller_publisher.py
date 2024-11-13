@@ -11,6 +11,7 @@ class ControllerPublisher(Node):
         pygame.init()
         pygame.joystick.init()
 
+        # check connections 
         if pygame.joystick.get_count() == 0:
             self.get_logger().error('No joystick detected. Please connect a PS5 controller.')
             exit()
@@ -23,7 +24,7 @@ class ControllerPublisher(Node):
         pygame.event.pump()
         msg = Joy()
 
-        # Joy Axes(L, R)
+        # Joy Axes(RStickx, RSticky, RTriger, LStickx, ,LSticky, LTriger)
         axes = []
         for i in range(self.controller.get_numaxes()):
             axes.append(self.controller.get_axis(i))
