@@ -52,6 +52,7 @@ class MotorController(Node):
         self.get_logger().info(f'Ids: {msg.ids}')
         self.get_logger().info(f'Angles: {msg.angles}')
         
+        # publish SetPosition for each id
         i = 0 
         for id in msg.ids:
             angle = msg.angles[i]
