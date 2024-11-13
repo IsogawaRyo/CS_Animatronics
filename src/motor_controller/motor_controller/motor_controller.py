@@ -60,20 +60,19 @@ class MotorController(Node):
             self.set_position_subscriber_.publish(new_msg)
             self.get_logger().info(f'Publishing ID: {new_msg.id}, Angle: {new_msg.position}')
 
-        break
-        i = 0 
-        for id in msg.ids:
-            angle = msg.angles[i]
-            print(id)
-            print(angle)
+        #i = 0 
+        #for id in msg.ids:
+            #angle = msg.angles[i]
+            #print(id)
+            #print(angle)
         
-            new_msg = SetPosition()
-            new_msg.id = int(id)
-            new_msg.position = int(angle)
+            #new_msg = SetPosition()
+            #new_msg.id = int(id)
+            #new_msg.position = int(angle)
 
-            self.set_position_subscriber_.publish(new_msg)
-            self.get_logger().info(f'Publishing IDs: {new_msg.id}, Angles: {new_msg.position}')
-            i = i + 1
+            #self.set_position_subscriber_.publish(new_msg)
+            #self.get_logger().info(f'Publishing IDs: {new_msg.id}, Angles: {new_msg.position}')
+            #i = i + 1
 
     def get_position_callback(self, request, response):
         ####### Example ######
