@@ -129,12 +129,24 @@ class SystemController(Node):
         return ids, angles
 
     def blink(self, angle):
-        angleU = math.floor((0.5*(angle + 1))*4095)
-        angleL = math.floor((0.5*(angle + 1))*4095)
+        blinkU_min = 0
+        blinkU_max = 4095
+        rangeU = blinkU_max - blinkU_min
+
+        blinkL_min = 0
+        blinkL_max = 4095
+        rangeL = blinkL_max - blinkL_min
+        
+        angleU = math.floor((0.5*(angle + 1))*rangeU)
+        angleL = math.floor((0.5*(angle + 1))*rangeL)
         return angleU, angleL
 
     def jaw(self, angle):
-        angle = math.floor((0.5*(angle + 1))*4095)
+        jaw_min = 0
+        jaw_max = 4095
+        range = jaw_max - jaw_min
+        
+        angle = math.floor((0.5*(angle + 1))*range)
         return angle
 
     def eyes(self):
