@@ -6,6 +6,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from motor_command_msg.msg import IdAngle
+import math
 
 # Operation Mode
 # -1: Test
@@ -59,6 +60,12 @@ class SystemController(Node):
         elif MODE == 0:
             ids = [31, 32, 41, 42, 43, 44]
             angles = [0, 0, 0, 0, 0, 0]
+
+        elif MODE == 1:
+            angle = math.floor((0.5*(msg.axes[0] + 1))*4095)
+
+            ids = [31, 32, 41, 42, 43, 44]
+            angles = [angle, angle, angle, angle, angle, angle]
 
         return ids, angles
 
