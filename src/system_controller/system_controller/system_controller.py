@@ -2,16 +2,16 @@
 # SPDX-FileCopyrightText: 2024 Ryo Isogawa 　　　　　
 # SPDX-License-Identifier: BSD-3-Clause
 
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import Joy
+from motor_command_msg.msg import IdAngle
+
 # Operation Mode
 # 0: InitialPosition
 # 1: Full Manual
 # 2: Assist
 MODE = 0
-
-import rclpy
-from rclpy.node import Node
-from sensor_msgs.msg import Joy
-from motor_command_msg.msg import IdAngle
 
 class SystemController(Node):
     def __init__(self):
@@ -52,8 +52,8 @@ class SystemController(Node):
 
     def translate(self, axes, buttons):
         if MODE == 0:
-            ids = [0, 0]
-            angles = [100, 100]
+            ids = [31, 32, 41, 42, 43, 44]
+            angles = [0, 0, 0, 0, 0, 0]
 
         return ids, angles
 
