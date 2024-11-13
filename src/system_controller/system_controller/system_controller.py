@@ -8,10 +8,11 @@ from sensor_msgs.msg import Joy
 from motor_command_msg.msg import IdAngle
 
 # Operation Mode
+# -1: Test
 # 0: InitialPosition
 # 1: Full Manual
 # 2: Assist
-MODE = 0
+MODE = -1
 
 class SystemController(Node):
     def __init__(self):
@@ -51,7 +52,11 @@ class SystemController(Node):
         self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
 
     def translate(self, axes, buttons):
-        if MODE == 0:
+        if MODE == -1:
+            ids = [31, 32, 41, 42, 43, 44]
+            angles = [3000, 3000, 3000, 3000, 3000, 3000]
+            
+        elif MODE == 0:
             ids = [31, 32, 41, 42, 43, 44]
             angles = [0, 0, 0, 0, 0, 0]
 
