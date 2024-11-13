@@ -62,7 +62,7 @@ class SystemController(Node):
             angles = [0, 0, 0, 0, 0, 0]
 
         elif MODE == 1:
-            angle = math.floor((0.5*(msg.axes[0] + 1))*4095)
+            angle = math.floor((0.5*(axes[0] + 1))*4095)
 
             ids = [31, 32, 41, 42, 43, 44]
             angles = [angle, angle, angle, angle, angle, angle]
