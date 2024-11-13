@@ -60,8 +60,8 @@ class MotorController(Node):
             print(angle)
         
             new_msg = SetPosition()
-            new_msg.id = id
-            new_msg.position = angle
+            new_msg.id = int(id)
+            new_msg.position = int(angle)
 
             self.set_position_subscriber_.publish(new_msg)
             self.get_logger().info(f'Publishing IDs: {new_msg.id}, Angles: {new_msg.position}')
