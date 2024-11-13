@@ -33,7 +33,7 @@ class SystemController(Node):
             'IdAngle',
             10
         )
-
+    
     def listener_callback(self, msg):
         # Log axes and buttons
         # Axes [0:LeftStick_X, 1:LeftStick_Y, 2:LeftTrigger, 3:RightStick_X, 4:RightStick_Y, 5:RightTrigger]
@@ -45,6 +45,7 @@ class SystemController(Node):
         # translate values
         ids, angles = self.translate(msg.axes, msg.buttons)
  
+        # publish IdAngle
         new_msg = IdAngle()
         new_msg.ids = ids
         new_msg.angles = angles
