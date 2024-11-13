@@ -96,6 +96,7 @@ class SystemController(Node):
 
         # PS
         elif buttons[10]:
+            global MODE
             if MODE == 1:
                 MODE = -1
             elif MODE == -1:
