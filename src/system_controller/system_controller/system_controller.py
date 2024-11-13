@@ -108,13 +108,13 @@ class SystemController(Node):
 
         # Test
         if MODE == -1:
-            ids = [31, 32, 41, 42, 43, 44]
-            angles = [3000, 3000, 3000, 3000, 3000, 3000]
+            ids = [11, 21, 22, 23, 31, 32, 41, 42, 43, 44]
+            angles = [3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000]
 
         # Initialize
         elif MODE == 0:
-            ids = [31, 32, 41, 42, 43, 44]
-            angles = [0, 0, 0, 0, 0, 0]
+            ids = [11, 21, 22, 23, 31, 32, 41, 42, 43, 44]
+            angles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
         # FullMaual
         elif MODE == 1:
@@ -122,9 +122,10 @@ class SystemController(Node):
 
             jaw = self.jaw(axes[2])
             blinkU, blinkL = self.blink(axes[5])
+            eyeR, eyeL = self.eyes(axes[3])
             
-            ids = [31, 32, 41, 42, 43, 44]
-            angles = [jaw, blinkU, blinkL, blinkU, blinkL, angle]
+            ids = [11, 21, 22, 23, 31, 32, 41, 42, 43, 44]
+            angles = [jaw, angle, angle, angle, , eyeR, eyeL, blinkU, blinkL, blinkU, blinkL]
 
         return ids, angles
 
@@ -150,7 +151,17 @@ class SystemController(Node):
         return angle
 
     def eyes(self):
-        pass
+        eyeR_min = 0
+        eyeR_max = 4095
+        rangeR = eyeR_max - eyeR_min
+
+        eyeL_min = 0
+        eyeL_max = 4095
+        rangeL = eyeL_max - eyeL_min
+
+        angleR = math.floor((0.5*(angle + 1))*rangeR)
+        angleL = math.floor((0.5*(angle + 1))*rangeL)
+        return angleR,angleL
 
     def neck(self):
         pass
