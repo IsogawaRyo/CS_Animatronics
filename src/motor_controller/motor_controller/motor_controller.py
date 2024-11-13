@@ -51,7 +51,16 @@ class MotorController(Node):
     def listener_callback(self, msg):
         self.get_logger().info(f'Ids: {msg.ids}')
         self.get_logger().info(f'Angles: {msg.angles}')
+        
+        for id, angle in zip(msg.ids, msg.angles):
+            new_msg = SetPosition()
+            new_msg.id = int(id)
+            new_msg.position = int(angle)
+    
+            self.set_position_subscriber_.publish(new_msg)
+            self.get_logger().info(f'Publishing ID: {new_msg.id}, Angle: {new_msg.position}')
 
+        break
         i = 0 
         for id in msg.ids:
             angle = msg.angles[i]
