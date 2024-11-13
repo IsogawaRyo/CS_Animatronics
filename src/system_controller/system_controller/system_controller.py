@@ -6,6 +6,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from motor_command_msg.msg import IdAngle
+import numpy as np
 
 # Operation Mode
 # -1: Test
@@ -112,12 +113,12 @@ class SystemController(Node):
 
         # Test
         if MODE == -1:
-            ids = [11, 21, 22, 23, 31, 32, 41, 42, 43, 44]
+            ids = np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8)
             angles = [3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000]
 
         # Initialize
         elif MODE == 0:
-            ids = [11, 21, 22, 23, 31, 32, 41, 42, 43, 44]
+            ids = np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8)
             angles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
         # FullMaual
@@ -128,7 +129,7 @@ class SystemController(Node):
             blinkU, blinkL = self.blink(axes[5])
             eyeR, eyeL = self.eyes(axes[3])
             
-            ids = [11, 21, 22, 23, 31, 32, 41, 42, 43, 44]
+            ids = np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8)
             angles = [jaw, angle, angle, angle, eyeR, eyeL, blinkU, blinkL, blinkU, blinkL]
 
         return ids, angles
@@ -142,8 +143,8 @@ class SystemController(Node):
         blinkL_max = 4095
         rangeL = blinkL_max - blinkL_min
         
-        angleU = int((0.5*(angle + 1))*rangeU)
-        angleL = int((0.5*(angle + 1))*rangeL)
+        angleU = np.int32((0.5*(angle + 1))*rangeU)
+        angleL = np.int32((0.5*(angle + 1))*rangeL)
         return angleU, angleL
 
     def jaw(self, angle):
@@ -151,7 +152,7 @@ class SystemController(Node):
         jaw_max = 4095
         range = jaw_max - jaw_min
         
-        angle = int((0.5*(angle + 1))*range)
+        angle = np.int32((0.5*(angle + 1))*range)
         return angle
 
     def eyes(self, angle):
@@ -163,8 +164,8 @@ class SystemController(Node):
         eyeL_max = 4095
         rangeL = eyeL_max - eyeL_min
 
-        angleR = int((0.5*(angle + 1))*rangeR)
-        angleL = int((0.5*(angle + 1))*rangeL)
+        angleR = np.int32((0.5*(angle + 1))*rangeR)
+        angleL = np.int32((0.5*(angle + 1))*rangeL)
         return angleR,angleL
 
     def neck(self):
