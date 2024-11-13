@@ -151,7 +151,7 @@ class SystemController(Node):
         jaw_max = 4095
         range = jaw_max - jaw_min
         
-        angle = int((0.5*(angle + 1))*range))
+        angle = int((0.5*(angle + 1))*range)
         return angle
 
     def eyes(self, angle):
@@ -163,8 +163,8 @@ class SystemController(Node):
         eyeL_max = 4095
         rangeL = eyeL_max - eyeL_min
 
-        angleR = int((0.5*(angle + 1))*rangeR))
-        angleL = int((0.5*(angle + 1))*rangeL))
+        angleR = int((0.5*(angle + 1))*rangeR)
+        angleL = int((0.5*(angle + 1))*rangeL)
         return angleR,angleL
 
     def neck(self):
