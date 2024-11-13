@@ -11,7 +11,7 @@ import math
 # Operation Mode
 # -1: Test
 # 0: InitialPosition
-# 1: Full Manual
+# 1: FullManual
 # 2: Assist
 MODE = 1
 
@@ -35,7 +35,7 @@ class SystemController(Node):
         )
 
     def listener_callback(self, msg):
-        # Log the axes and buttons
+        # Log axes and buttons
         # Axes [0:LeftStick_X, 1:LeftStick_Y, 2:LeftTrigger, 3:RightStick_X, 4:RightStick_Y, 5:RightTrigger]
         # Buttons [0:Cross, 1:Circle, 2:Square, 3:Triangle, 4:LeftBumper, 5:RightBumper, 6:LeftTrigger, 7:RightTrigger, 8:Share, 9:Options, 10:PS, 11:LeftStick, 12:RightStick]
         # Hat/D-pad [X:down-up, Y:left-right]
@@ -53,14 +53,70 @@ class SystemController(Node):
         self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
 
     def translate(self, axes, buttons):
+        # Buttons event
+        # Cross
+        if buttons[0]:
+            self.get_logger().info(f'Cross was pressed')
+
+        # Circle
+        elif buttons[1]:
+            self.get_logger().info(f'Circle was pressed')
+
+        # Square
+        elif buttons[2]:
+            self.get_logger().info(f'Square was pressed')
+
+        # Triangle
+        elif buttons[3]:
+            pass
+
+        # LeftBumper
+        elif buttons[4]:
+            pass
+
+        # RightBumper
+        elif buttons[5]:
+            pass
+
+        # LeftTrigger
+        elif buttons[6]:
+            pass
+
+        # RightTrigger
+        elif buttons[7]:
+            pass
+
+        # Share
+        elif buttons[8]:
+            pass
+
+        # Options
+        elif buttons[9]:
+            pass
+
+        # PS
+        elif buttons[10]:
+            pass
+
+        # LeftStick
+        elif buttons[11]:
+            pass
+
+        # RightStick
+        elif buttons[12]:
+            pass
+
+        # Test
         if MODE == -1:
             ids = [31, 32, 41, 42, 43, 44]
             angles = [3000, 3000, 3000, 3000, 3000, 3000]
-            
+
+        # Initialize
         elif MODE == 0:
             ids = [31, 32, 41, 42, 43, 44]
             angles = [0, 0, 0, 0, 0, 0]
 
+        # FullMaual
         elif MODE == 1:
             angle = math.floor((0.5*(axes[0] + 1))*4095)
 
