@@ -45,13 +45,6 @@ class MotorController(Node):
         qos_depth = self.get_parameter('qos_depth').get_parameter_value().integer_value
         qos_profile = QoSProfile(depth=qos_depth, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.VOLATILE)
 
-        # Subscribe to SetPosition topic
-        self.set_position_subscriber_ = self.create_subscription(
-            SetPosition, 
-            'set_position', 
-            self.set_position_callback, 
-            qos_profile)
-
         # Create GetPosition service
         self.get_position_server_ = self.create_service(
             GetPosition, 
@@ -99,6 +92,19 @@ class MotorController(Node):
         ####### Example ######
         response.position = 0
         self.get_logger().info(f'Responding with position: {response.position}')
+        return response
+
+    def get_present_position(self, request, response):
+        present_position, dxl_error = packet_handler.read4ByteTxRx(port_handler, request.id, ADDR_PRESENT_POSITION)
+        
+        if dxl_comm_result != COMM_SUCCESS:
+            self.get_logger().info(f"Communication error: {packet_handler.getTxRxResult(dxl_comm_result)}")
+        elif dxl_error != 0:
+            self.get_logger().info(f"Error: {packet_handler.getRxPacketError(dxl_error)}")
+        else:
+            self.get_logger().info(f"Get [ID: {request.id}] [Present Position: {present_position}]")
+        
+        response.position = present_position
         return response
 
 def setup_dynamixel(dxl_id):
