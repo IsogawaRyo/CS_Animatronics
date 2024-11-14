@@ -18,7 +18,8 @@ MODE = 1
 class SystemController(Node):
     def __init__(self):
         super().__init__('system_controller')
-
+        self.get_logger().info('Run system controller node')
+        
         # Setting for subscriber
         self.subscription = self.create_subscription(
             Joy,
@@ -39,8 +40,8 @@ class SystemController(Node):
         # Axes [0:LeftStick_X, 1:LeftStick_Y, 2:LeftTrigger, 3:RightStick_X, 4:RightStick_Y, 5:RightTrigger]
         # Buttons [0:Cross, 1:Circle, 2:Square, 3:Triangle, 4:LeftBumper, 5:RightBumper, 6:LeftTrigger, 7:RightTrigger, 8:Share, 9:Options, 10:PS, 11:LeftStick, 12:RightStick]
         # Hat/D-pad [X:down-up, Y:left-right]
-        self.get_logger().info(f'Axes: {msg.axes}')
-        self.get_logger().info(f'Buttons: {msg.buttons}')
+        #self.get_logger().info(f'Axes: {msg.axes}')
+        #self.get_logger().info(f'Buttons: {msg.buttons}')
 
         # translate values
         ids, angles = self.translate(msg.axes, msg.buttons)
