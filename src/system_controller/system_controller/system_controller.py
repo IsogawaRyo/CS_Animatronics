@@ -130,9 +130,10 @@ class SystemController(Node):
             jaw = self.jaw(axes[2])
             blinkU, blinkL = self.blink(axes[5])
             eyeR, eyeL = self.eyes(axes[3])
+            neckX, neckY, neckZ = self.neck(axes[0])
             
             ids = np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8)
-            angles = [jaw, angle, angle, angle, eyeR, eyeL, blinkU, blinkL, blinkU, blinkL]
+            angles = [jaw, neckX, neckY, neckZ, eyeR, eyeL, blinkU, blinkL, blinkU, blinkL]
 
         return ids, angles
 
@@ -170,8 +171,11 @@ class SystemController(Node):
         angleL = np.int32((0.5*(angle + 1))*rangeL)
         return angleR,angleL
 
-    def neck(self):
-        pass
+    def neck(self, angle):
+        neckX = np.int32((0.5*(angle + 1))*4095)
+        neckY = np.int32((0.5*(angle + 1))*4095)
+        neckZ = np.int32((0.5*(angle + 1))*4095)
+        return neckX, neckY, neckZ
 
 def main(args=None):
     rclpy.init(args=args)
