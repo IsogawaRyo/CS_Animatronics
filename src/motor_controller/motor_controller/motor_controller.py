@@ -128,7 +128,7 @@ def main(args=None):
         return
     print("Succeeded to set the baudrate.")
     
-    setup_dynamixel(1)
+    setup_dynamixel(31)
     
     rclpy.init(args=args)
     node = MotorController()
