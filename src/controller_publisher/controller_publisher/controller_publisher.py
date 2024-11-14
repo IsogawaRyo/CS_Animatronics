@@ -10,19 +10,22 @@ import pygame
 class ControllerPublisher(Node):
     def __init__(self):
         super().__init__('controller_publisher')
+        self.get_logger().info('Run controller publisher node')
+        
         self.publisher_ = self.create_publisher(Joy, 'controller_input', 10)
+        
         self.timer = self.create_timer(0.05, self.timer_callback)
         pygame.init()
         pygame.joystick.init()
 
         # check connections 
         if pygame.joystick.get_count() == 0:
-            self.get_logger().error('No joystick detected. Please connect a PS5 controller.')
+            self.get_logger().error('No joystick detected. Please connect a controller!')
             exit()
 
         self.controller = pygame.joystick.Joystick(0)
         self.controller.init()
-        self.get_logger().info('PS5 controller initialized')
+        self.get_logger().info('controller initialized')
 
     def timer_callback(self):
         pygame.event.pump()
