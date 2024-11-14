@@ -42,7 +42,7 @@ class MotorController(Node):
         # Declare and get QoS depth parameter
         self.declare_parameter('qos_depth', 10)
         qos_depth = self.get_parameter('qos_depth').get_parameter_value().integer_value
-        qos_profile = QoSProfile(depth=qos_depth, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.VOLATILE)
+        qos_profile = qos_profile(depth=qos_depth, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.VOLATILE)
 
         # Subscribe to SetPosition topic
         self.set_position_subscriber_ = self.create_subscription(
