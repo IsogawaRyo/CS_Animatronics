@@ -10,6 +10,7 @@ from motor_command_msg.msg import IdAngle
 from dynamixel_sdk import *
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
 from dynamixel_sdk_custom_interfaces.srv import GetPosition
+import numpy as np
 
 # Control table address for X series (except XL-320)
 ADDR_OPERATING_MODE = 11
