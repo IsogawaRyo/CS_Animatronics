@@ -128,7 +128,7 @@ def main(args=None):
         return
     print("Succeeded to set the baudrate.")
 
-    for id in np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8)
+    for id in np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8):
         setup_dynamixel(id)
     
     rclpy.init(args=args)
