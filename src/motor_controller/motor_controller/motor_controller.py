@@ -29,11 +29,25 @@ port_handler = PortHandler(DEVICE_NAME)
 # Initialize PacketHandler instance (specify protocol version)
 packet_handler = PacketHandler(PROTOCOL_VERSION)
 
+# Define variables
+dxl_error = 0  # Equivalent to uint8_t for error checking
+goal_position = 0  # Equivalent to uint32_t for goal position
+dxl_comm_result = COMM_TX_FAIL  # Initialize with COMM_TX_FAIL status
+
 class MotorController(Node):
     def __init__(self):
         super().__init__('motor_controller')
         self.get_logger().info('Run motor controller node')
 
+        # Declare and initialize the parameter with a default value
+        self.declare_parameter('qos_depth', 10)
+        
+        # Retrieve the parameter's value
+        qos_depth = self.get_parameter('qos_depth').get_parameter_value().integer_value
+
+        # Now you can use qos_depth as an int
+        self.get_logger().info(f'QoS Depth: {qos_depth}')
+        
         # Setting subscriber
         self.subscription = self.create_subscription(
             IdAngle,
