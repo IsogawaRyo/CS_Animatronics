@@ -10,11 +10,23 @@ from dynamixel_sdk import *
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
 from dynamixel_sdk_custom_interfaces.srv import GetPosition
 
+# Control table address for X series (except XL-320)
+ADDR_OPERATING_MODE = 11
+ADDR_TORQUE_ENABLE = 64
+ADDR_GOAL_POSITION = 116
+ADDR_PRESENT_POSITION = 132
 
-PROTOCOL_VERSION = 2.0
-DEVICE_NAME = '/dev/ttyUSB0'
+# Protocol version
+PROTOCOL_VERSION = 2.0  # Default Protocol version of DYNAMIXEL X series.
 
+# Default setting
+BAUDRATE = 57600  # Default Baudrate of DYNAMIXEL X series
+DEVICE_NAME = "/dev/ttyUSB0"  # [Linux]: "/dev/ttyUSB*", [Windows]: "COM*"
+
+# Initialize PortHandler instance
 port_handler = PortHandler(DEVICE_NAME)
+
+# Initialize PacketHandler instance (specify protocol version)
 packet_handler = PacketHandler(PROTOCOL_VERSION)
 
 class MotorController(Node):
