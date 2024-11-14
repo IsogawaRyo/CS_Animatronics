@@ -60,12 +60,6 @@ class MotorController(Node):
             10)
         self.subscription  # prevent unused variable warning  
 
-        # Subscription set position
-        self.set_position_subscriber_ = self.create_publisher(
-            SetPosition,
-            'set_position',
-            10)
-
     def listener_callback(self, msg):
         self.get_logger().info(f'Ids: {msg.ids}')
         self.get_logger().info(f'Angles: {msg.angles}')
@@ -101,36 +95,34 @@ class MotorController(Node):
         response.position = present_position
         return response
 
-def setup_dynamixel(dxl_id):
-    # Set Position Control Mode
-    dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(port_handler, dxl_id, ADDR_OPERATING_MODE, 3)
-    if dxl_comm_result != COMM_SUCCESS:
-        print("Failed to set Position Control Mode.")
-    else:
-        print("Succeeded to set Position Control Mode.")
-    
-    # Enable Torque
-    dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(port_handler, dxl_id, ADDR_TORQUE_ENABLE, 1)
-    if dxl_comm_result != COMM_SUCCESS:
-        print("Failed to enable torque.")
-    else:
-        print("Succeeded to enable torque.")
-
 def main(args=None):
     # Open Serial Port
     if not port_handler.openPort():
-        print("Failed to open the port!")
+        self.get_logger().info(f"Failed to open the port")
         return
-    print("Succeeded to open the port.")
+    self.get_logger().info(f"Succeeded to open the port")
     
     # Set Baudrate
     if not port_handler.setBaudRate(BAUDRATE):
-        print("Failed to set the baudrate!")
+        self.get_logger().info(f"Failed to set the baudrate")
         return
-    print("Succeeded to set the baudrate.")
+    self.get_logger().info(f"Succeeded to open the port")
 
+    # initialize each id
     for id in np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8):
-        setup_dynamixel(id)
+        # Set Position Control Mode
+        dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(port_handler, id, ADDR_OPERATING_MODE, 3)
+        if dxl_comm_result != COMM_SUCCESS:
+            self.get_logger().info(f"Failed to set Position Control Mode")
+        else:
+            self.get_logger().info(f"Succeeded to set Position Control Mode")
+        
+        # Enable Torque
+        dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(port_handler, id, ADDR_TORQUE_ENABLE, 1)
+        if dxl_comm_result != COMM_SUCCESS:
+            self.get_logger().info(f"Failed to enable torque")
+        else:
+            self.get_logger().info(f"Succeeded to enable torque")
     
     rclpy.init(args=args)
     node = MotorController()
