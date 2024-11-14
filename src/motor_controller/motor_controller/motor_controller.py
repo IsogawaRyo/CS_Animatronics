@@ -47,6 +47,13 @@ class MotorController(Node):
 
         # Now you can use qos_depth as an int
         self.get_logger().info(f'QoS Depth: {qos_depth}')
+
+        # QoS
+        qos_profile = QoSProfile(
+            depth=qos_depth,
+            reliability=ReliabilityPolicy.RELIABLE,
+            durability=DurabilityPolicy.VOLATILE
+        )
         
         # Setting subscriber
         self.subscription = self.create_subscription(
