@@ -127,8 +127,9 @@ def main(args=None):
         print("Failed to set the baudrate!")
         return
     print("Succeeded to set the baudrate.")
-    
-    setup_dynamixel(31)
+
+    for id in np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8)
+        setup_dynamixel(id)
     
     rclpy.init(args=args)
     node = MotorController()
