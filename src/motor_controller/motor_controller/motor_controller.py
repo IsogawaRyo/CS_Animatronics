@@ -65,12 +65,6 @@ class MotorController(Node):
             'set_position',
             10)
 
-        # Service get position
-        self.get_position_server_ = self.create_service(
-            GetPosition,
-            'get_position',
-            self.get_position_callback)
-
     def listener_callback(self, msg):
         self.get_logger().info(f'Ids: {msg.ids}')
         self.get_logger().info(f'Angles: {msg.angles}')
@@ -80,19 +74,19 @@ class MotorController(Node):
         for id in msg.ids:
             angle = msg.angles[i]
         
-            new_msg = SetPosition()
-            new_msg.id = int(id)
-            new_msg.position = int(angle)
+            goal_position = int(anglle)  # Convert to uint32 in Python automatically
+            dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(port_handler, msg.id, ADDR_GOAL_POSITION, goal_position)
 
-            self.set_position_subscriber_.publish(new_msg)
+            if dxl_comm_result != COMM_SUCCESS:
+                self.get_logger().info(f"Communication error: {packet_handler.getTxRxResult(dxl_comm_result)}")
+            elif dxl_error != 0:
+                self.get_logger().info(f"Error: {packet_handler.getRxPacketError(dxl_error)}")
+            else:
+                self.get_logger().info(f"Set [ID: {msg.id}] [Goal Position: {msg.position}]")
+    
+                
             self.get_logger().info(f'Publishing IDs: {new_msg.id}, Angles: {new_msg.position}')
             i = i + 1
-
-    def get_position_callback(self, request, response):
-        ####### Example ######
-        response.position = 0
-        self.get_logger().info(f'Responding with position: {response.position}')
-        return response
 
     def get_present_position(self, request, response):
         present_position, dxl_error = packet_handler.read4ByteTxRx(port_handler, request.id, ADDR_PRESENT_POSITION)
