@@ -82,7 +82,7 @@ class MotorController(Node):
             elif dxl_error != 0:
                 self.get_logger().info(f"Error: {packet_handler.getRxPacketError(dxl_error)}")
             else:
-                self.get_logger().info(f"Set [ID: {msg.id}] [Goal Position: {msg.position}]")
+                self.get_logger().info(f"Set [ID: {id}] [Goal Position: {goal_position}]")
     
             self.get_logger().info(f'Publishing IDs: {id}, Angles: {goal_position}')
             i = i + 1
