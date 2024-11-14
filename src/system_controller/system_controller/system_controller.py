@@ -115,8 +115,10 @@ class SystemController(Node):
 
         # Test
         if MODE == -1:
-            ids = np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8)
-            angles = [3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000]
+            #ids = np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8)
+            #angles = [3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000]
+            ids=np.uint8(31)
+            angles=np.int32(3000)
 
         # Initialize
         elif MODE == 0:
