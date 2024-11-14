@@ -39,21 +39,23 @@ class MotorController(Node):
         super().__init__('motor_controller')
         self.get_logger().info('Run motor controller node')
 
-        # Declare and initialize the parameter with a default value
+        # Declare and get QoS depth parameter
         self.declare_parameter('qos_depth', 10)
-        
-        # Retrieve the parameter's value
         qos_depth = self.get_parameter('qos_depth').get_parameter_value().integer_value
+        qos_profile = QoSProfile(depth=qos_depth, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.VOLATILE)
 
-        # Now you can use qos_depth as an int
-        self.get_logger().info(f'QoS Depth: {qos_depth}')
+        # Subscribe to SetPosition topic
+        self.set_position_subscriber_ = self.create_subscription(
+            SetPosition, 
+            'set_position', 
+            self.set_position_callback, 
+            qos_profile)
 
-        # QoS
-        qos_profile = QoSProfile(
-            depth=qos_depth,
-            reliability=ReliabilityPolicy.RELIABLE,
-            durability=DurabilityPolicy.VOLATILE
-        )
+        # Create GetPosition service
+        self.get_position_server_ = self.create_service(
+            GetPosition, 
+            'get_position', 
+            self.get_present_position)
         
         # Setting subscriber
         self.subscription = self.create_subscription(
@@ -99,9 +101,23 @@ class MotorController(Node):
         return response
 
 def main(args=None):
+    # Open Serial Port
+    if not port_handler.openPort():
+        print("Failed to open the port!")
+        return
+    print("Succeeded to open the port.")
+    
+    # Set Baudrate
+    if not port_handler.setBaudRate(BAUDRATE):
+        print("Failed to set the baudrate!")
+        return
+    print("Succeeded to set the baudrate.")
+    
     rclpy.init(args=args)
     node = MotorController()
     rclpy.spin(node)
+    
+    packet_handler.write1ByteTxRx(port_handler, 1, ADDR_TORQUE_ENABLE, 0)  # Disable torque
     node.destroy_node()
     rclpy.shutdown()
 
