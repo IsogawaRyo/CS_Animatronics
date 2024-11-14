@@ -4,6 +4,7 @@
 
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
 from sensor_msgs.msg import Joy
 from motor_command_msg.msg import IdAngle
 from dynamixel_sdk import *
@@ -42,7 +43,7 @@ class MotorController(Node):
         # Declare and get QoS depth parameter
         self.declare_parameter('qos_depth', 10)
         qos_depth = self.get_parameter('qos_depth').get_parameter_value().integer_value
-        qos_profile = qos_profile(depth=qos_depth, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.VOLATILE)
+        qos_profile = QoSProfile(depth=qos_depth, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.VOLATILE)
 
         # Subscribe to SetPosition topic
         self.set_position_subscriber_ = self.create_subscription(
@@ -99,6 +100,21 @@ class MotorController(Node):
         response.position = 0
         self.get_logger().info(f'Responding with position: {response.position}')
         return response
+
+def setup_dynamixel(dxl_id):
+    # Set Position Control Mode
+    dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(port_handler, dxl_id, ADDR_OPERATING_MODE, 3)
+    if dxl_comm_result != COMM_SUCCESS:
+        print("Failed to set Position Control Mode.")
+    else:
+        print("Succeeded to set Position Control Mode.")
+    
+    # Enable Torque
+    dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(port_handler, dxl_id, ADDR_TORQUE_ENABLE, 1)
+    if dxl_comm_result != COMM_SUCCESS:
+        print("Failed to enable torque.")
+    else:
+        print("Succeeded to enable torque.")
 
 def main(args=None):
     # Open Serial Port
