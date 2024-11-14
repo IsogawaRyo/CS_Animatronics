@@ -84,8 +84,7 @@ class MotorController(Node):
             else:
                 self.get_logger().info(f"Set [ID: {msg.id}] [Goal Position: {msg.position}]")
     
-                
-            self.get_logger().info(f'Publishing IDs: {new_msg.id}, Angles: {new_msg.position}')
+            self.get_logger().info(f'Publishing IDs: {id}, Angles: {goal_position}')
             i = i + 1
 
     def get_present_position(self, request, response):
