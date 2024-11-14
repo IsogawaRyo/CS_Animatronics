@@ -74,7 +74,7 @@ class MotorController(Node):
         for id in msg.ids:
             angle = msg.angles[i]
         
-            goal_position = int(anglle)  # Convert to uint32 in Python automatically
+            goal_position = int(angle)  # Convert to uint32 in Python automatically
             dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(port_handler, msg.id, ADDR_GOAL_POSITION, goal_position)
 
             if dxl_comm_result != COMM_SUCCESS:
