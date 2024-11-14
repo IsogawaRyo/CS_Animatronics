@@ -13,7 +13,7 @@ import numpy as np
 # 0: InitialPosition
 # 1: FullManual
 # 2: Assist
-MODE = 1
+MODE = -1
 
 class SystemController(Node):
     def __init__(self):
