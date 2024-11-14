@@ -6,18 +6,12 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from motor_command_msg.msg import IdAngle
-from dynamixel_sdk import *  # Uses Dynamixel SDK library
+from dynamixel_sdk import *
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
 from dynamixel_sdk_custom_interfaces.srv import GetPosition
 
-ADDR_OPERATING_MODE = 11
-ADDR_TORQUE_ENABLE = 64
-ADDR_GOAL_POSITION = 116
-ADDR_PRESENT_POSITION = 132
 
 PROTOCOL_VERSION = 2.0
-
-BAUDRATE = 57600
 DEVICE_NAME = '/dev/ttyUSB0'
 
 port_handler = PortHandler(DEVICE_NAME)
