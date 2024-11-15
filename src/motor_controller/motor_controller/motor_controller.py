@@ -11,6 +11,7 @@ from dynamixel_sdk import *
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
 from dynamixel_sdk_custom_interfaces.srv import GetPosition
 import numpy as np
+from time import sleep
 
 # Control table address
 ADDR_OPERATING_MODE = 11
@@ -88,6 +89,7 @@ class MotorController(Node):
             self.get_logger().info(f"Get [ID: {request.id}] [Present Position: {present_position}]")
         
         response.position = present_position
+        sleep(0.1)
         return response
 
 def main(args=None):
