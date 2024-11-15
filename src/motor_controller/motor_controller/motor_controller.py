@@ -77,7 +77,7 @@ class MotorController(Node):
     
             self.get_logger().info(f'Publishing IDs: {id}, Angles: {goal_position}')
             i = i + 1
-            sleep(0.0001)
+            sleep(0.00001)
 
     def get_present_position(self, request, response):
         present_position, dxl_error = packet_handler.read4ByteTxRx(port_handler, request.id, ADDR_PRESENT_POSITION)
