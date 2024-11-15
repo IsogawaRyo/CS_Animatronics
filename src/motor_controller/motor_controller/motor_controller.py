@@ -12,41 +12,36 @@ from dynamixel_sdk_custom_interfaces.msg import SetPosition
 from dynamixel_sdk_custom_interfaces.srv import GetPosition
 import numpy as np
 
-# Control table address for X series (except XL-320)
+# Control table address
 ADDR_OPERATING_MODE = 11
 ADDR_TORQUE_ENABLE = 64
 ADDR_GOAL_POSITION = 116
 ADDR_PRESENT_POSITION = 132
 
 # Protocol version
-PROTOCOL_VERSION = 2.0  # Default Protocol version of DYNAMIXEL X series.
+PROTOCOL_VERSION = 2.0 
 
 # Default setting
-BAUDRATE = 57600  # Default Baudrate of DYNAMIXEL X series
-DEVICE_NAME = "/dev/ttyUSB0"  # [Linux]: "/dev/ttyUSB*", [Windows]: "COM*"
+BAUDRATE = 57600 
+DEVICE_NAME = "/dev/ttyUSB0"
 
-# Initialize PortHandler instance
+# Initialize PortHandler
 port_handler = PortHandler(DEVICE_NAME)
 
-# Initialize PacketHandler instance (specify protocol version)
+# Initialize PacketHandler
 packet_handler = PacketHandler(PROTOCOL_VERSION)
 
 # Define variables
-dxl_error = 0  # Equivalent to uint8_t for error checking
-goal_position = 0  # Equivalent to uint32_t for goal position
-dxl_comm_result = COMM_TX_FAIL  # Initialize with COMM_TX_FAIL status
+dxl_error = 0 
+goal_position = 0  
+dxl_comm_result = COMM_TX_FAIL  
 
 class MotorController(Node):
     def __init__(self):
         super().__init__('motor_controller')
         self.get_logger().info('Run motor controller node')
 
-        # Declare and get QoS depth parameter
-        self.declare_parameter('qos_depth', 10)
-        qos_depth = self.get_parameter('qos_depth').get_parameter_value().integer_value
-        qos_profile = QoSProfile(depth=qos_depth, reliability=ReliabilityPolicy.RELIABLE, durability=DurabilityPolicy.VOLATILE)
-
-        # Create GetPosition service
+        # Setting GetPosition service
         self.get_position_server_ = self.create_service(
             GetPosition, 
             'get_position', 
@@ -58,7 +53,7 @@ class MotorController(Node):
             'IdAngle',
             self.listener_callback,
             10)
-        self.subscription  # prevent unused variable warning  
+        self.subscription
 
     def listener_callback(self, msg):
         self.get_logger().info(f'Ids: {msg.ids}')
@@ -69,7 +64,7 @@ class MotorController(Node):
         for id in msg.ids:
             angle = msg.angles[i]
         
-            goal_position = int(angle)  # Convert to uint32 in Python automatically
+            goal_position = int(angle) 
             dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(port_handler, id, ADDR_GOAL_POSITION, goal_position)
 
             if dxl_comm_result != COMM_SUCCESS:
