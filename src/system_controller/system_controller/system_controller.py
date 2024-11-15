@@ -174,9 +174,21 @@ class SystemController(Node):
         return angleR,angleL
 
     def neck(self, angle):
-        neckX = np.int32((0.5*(angle + 1))*4095)
-        neckY = np.int32((0.5*(angle + 1))*4095)
-        neckZ = np.int32((0.5*(angle + 1))*4095)
+        neckX_min = 0
+        neckX_max = 4095
+        rangeX = neckX_max - eckX_min
+
+        neckY_min = 0
+        neckY_max = 4095
+        rangeY = neckY_max - neckY_min
+
+        neckZ_min = 0
+        neckZ_max = 4095
+        rangeZ = neckZ_max - neckZ_min
+        
+        neckX = np.int32((0.5*(angle + 1))*rangeX)
+        neckY = np.int32((0.5*(angle + 1))*rangeY)
+        neckZ = np.int32((0.5*(angle + 1))*rangeZ)
         return neckX, neckY, neckZ
 
 def main(args=None):
