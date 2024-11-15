@@ -176,7 +176,7 @@ class SystemController(Node):
     def neck(self, angle):
         neckX_min = 0
         neckX_max = 4095
-        rangeX = neckX_max - eckX_min
+        rangeX = neckX_max - neckX_min
 
         neckY_min = 0
         neckY_max = 4095
