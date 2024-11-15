@@ -16,6 +16,7 @@ from time import sleep
 # Control table address
 ADDR_OPERATING_MODE = 11
 ADDR_TORQUE_ENABLE = 64
+ADDR_LED = 65
 ADDR_GOAL_POSITION = 116
 ADDR_PRESENT_POSITION = 132
 
@@ -112,6 +113,7 @@ def main(args=None):
         if dxl_comm_result != COMM_SUCCESS:
             print("Failed to set Position Control Mode")
         else:
+            packet_handler.write1ByteTxRx(port_handler, 1, ADDR_LED, 1)
             print("Succeeded to set Position Control Mode")
         
         # Enable Torque
