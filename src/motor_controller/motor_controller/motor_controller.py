@@ -77,7 +77,7 @@ class MotorController(Node):
                 self.get_logger().info(f"Set [ID: {id}] [Goal Position: {goal_position}]")
     
             i = i + 1
-            sleep(0.000001) # delay to solve time-out issue (1 us)
+            sleep(0.0000001) # delay to solve time-out issue (0.1 us)
 
     def get_present_position(self, request, response):
         present_position, dxl_error = packet_handler.read4ByteTxRx(port_handler, request.id, ADDR_PRESENT_POSITION)
