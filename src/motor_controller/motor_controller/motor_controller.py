@@ -112,7 +112,7 @@ def main(args=None):
         if dxl_comm_result != COMM_SUCCESS:
             print("Failed to set Position Control Mode")
         else:
-            packet_handler.write1ByteTxRx(port_handler, 1, ADDR_LED, 1)
+            packet_handler.write1ByteTxRx(port_handler, id, ADDR_LED, 1)
             print("Succeeded to set Position Control Mode")
         
         # Enable Torque
