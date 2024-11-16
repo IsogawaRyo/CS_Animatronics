@@ -125,8 +125,10 @@ def main(args=None):
     rclpy.init(args=args)
     node = MotorController()
     rclpy.spin(node)
-    
-    packet_handler.write1ByteTxRx(port_handler, 1, ADDR_TORQUE_ENABLE, 0)  # Disable torque
+
+    for id in np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8):
+        packet_handler.write1ByteTxRx(port_handler, id, ADDR_TORQUE_ENABLE, 0)  # Disable torque
+        packet_handler.write1ByteTxRx(port_handler, id, ADDR_LED, 0)
     node.destroy_node()
     rclpy.shutdown()
 
