@@ -25,10 +25,12 @@ PROTOCOL_VERSION = 2.0
 
 # Default setting
 BAUDRATE = 57600 
-DEVICE_NAME = "/dev/ttyUSB0"
+DEVICE_NAME0 = "/dev/ttyUSB0"
+DEVICE_NAME1 = "/dev/ttyUSB1"
 
 # Initialize PortHandler
-port_handler = PortHandler(DEVICE_NAME)
+port_handler0 = PortHandler(DEVICE_NAME0)
+port_handler1 = PortHandler(DEVICE_NAME1)
 
 # Initialize PacketHandler
 packet_handler = PacketHandler(PROTOCOL_VERSION)
@@ -65,9 +67,17 @@ class MotorController(Node):
         i = 0 
         for id in msg.ids:
             angle = msg.angles[i]
-        
+
+            if id in [31, 32, 41, 42, 43, 44]:  # Port1
+                selected_port_handler = port_handler0
+            elif id in [11, 21, 22, 23]:  # Port2
+                selected_port_handler = port_handler1
+            else:
+                self.get_logger().info(f"Unknown ID: {id}")
+                continue
+            
             goal_position = int(angle) 
-            dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(port_handler, id, ADDR_GOAL_POSITION, goal_position)
+            dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(selected_port_handler, id, ADDR_GOAL_POSITION, goal_position)
 
             if dxl_comm_result != COMM_SUCCESS:
                 self.get_logger().info(f"Communication error: {packet_handler.getTxRxResult(dxl_comm_result)}")
@@ -94,13 +104,19 @@ class MotorController(Node):
 
 def main(args=None):
     # Open Serial Port
-    if not port_handler.openPort():
-        print("Failed to open the port")
+    if not port_handler0.openPort():
+        print("Failed to open the port0")
+        return
+    if not port_handler1.openPort():
+        print("Failed to open the port1")
         return
     print("Succeeded to open the port")
     
     # Set Baudrate
-    if not port_handler.setBaudRate(BAUDRATE):
+    if not port_handler0.setBaudRate(BAUDRATE):
+        print("Failed to set the baudrate")
+        return
+    if not port_handler1.setBaudRate(BAUDRATE):
         print("Failed to set the baudrate")
         return
     print("Succeeded to open the port")
