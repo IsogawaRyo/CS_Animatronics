@@ -123,16 +123,24 @@ def main(args=None):
 
     # initialize each id
     for id in np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8):
+        if id in [31, 32, 41, 42, 43, 44]:  # Port1
+            selected_port_handler = port_handler0
+        elif id in [11, 21, 22, 23]:  # Port2
+            selected_port_handler = port_handler1
+        else:
+            self.get_logger().info(f"Unknown ID: {id}")
+            continue
+        
         # Set Position Control Mode
-        dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(port_handler, id, ADDR_OPERATING_MODE, 3)
+        dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_OPERATING_MODE, 3)
         if dxl_comm_result != COMM_SUCCESS:
             print("Failed to set Position Control Mode")
         else:
-            packet_handler.write1ByteTxRx(port_handler, id, ADDR_LED, 1)
+            packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_LED, 1)
             print("Succeeded to set Position Control Mode")
         
         # Enable Torque
-        dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(port_handler, id, ADDR_TORQUE_ENABLE, 1)
+        dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_TORQUE_ENABLE, 1)
         if dxl_comm_result != COMM_SUCCESS:
             print("Failed to enable torque")
         else:
@@ -143,8 +151,16 @@ def main(args=None):
     rclpy.spin(node)
 
     for id in np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8):
-        packet_handler.write1ByteTxRx(port_handler, id, ADDR_TORQUE_ENABLE, 0)  # Disable torque
-        packet_handler.write1ByteTxRx(port_handler, id, ADDR_LED, 0)
+        if id in [31, 32, 41, 42, 43, 44]:  # Port1
+            selected_port_handler = port_handler0
+        elif id in [11, 21, 22, 23]:  # Port2
+            selected_port_handler = port_handler1
+        else:
+            self.get_logger().info(f"Unknown ID: {id}")
+            continue
+        
+        packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_TORQUE_ENABLE, 0)  # Disable torque
+        packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_LED, 0)
     node.destroy_node()
     rclpy.shutdown()
 
