@@ -117,13 +117,13 @@ class SystemController(Node):
         if MODE == -1:
             #ids = np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8)
             #angles = [3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000]
-            ids=np.uint8(31)
-            angles=np.int32(3000)
+            #ids=np.uint8(31)
+            #angles=np.int32(3000)
 
         # Initialize
         elif MODE == 0:
             ids = np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8)
-            angles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            angles = [90, 0, 135, 180, 0, 0, 0, 0, 0, 0]
 
         # FullMaual
         elif MODE == 1:
@@ -153,8 +153,8 @@ class SystemController(Node):
         return angleU, angleL
 
     def jaw(self, angle):
-        jaw_min = 0
-        jaw_max = 4095
+        jaw_min = 170
+        jaw_max = 1024
         range = jaw_max - jaw_min
         
         angle = np.int32((0.5*(angle + 1))*range)
@@ -190,6 +190,9 @@ class SystemController(Node):
         neckY = np.int32((0.5*(angle + 1))*rangeY)
         neckZ = np.int32((0.5*(angle + 1))*rangeZ)
         return neckX, neckY, neckZ
+        
+    def checkRange(angle, max, min):
+        pass
 
 def main(args=None):
     rclpy.init(args=args)
