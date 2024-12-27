@@ -140,7 +140,7 @@ class SystemController(Node):
         return ids, angles
 
     def blink(self, angle):
-        blinkRU_min = -50 *(4095/360)
+        blinkRU_min = -25 *(4095/360)
         blinkRU_max = 34 *(4095/360)
         rangeRU = blinkU_max - blinkU_min
 
@@ -156,10 +156,10 @@ class SystemController(Node):
         blinkLL_max = 213 *(4095/360)
         rangeLL = blinkLL_max - blinkLL_min
  
-        angleRU = np.int32(blinkRU_min + (rangeRU/2) +  ((angle/2)*rangeRU)
-        angleRL = np.int32(blinkRL_min + (0.5*(angle + 1)*rangeRL)
-        angleLU = np.int32(blinkLU_max - (0.5*(angle + 1))*rangeLU)
-        angleLL = np.int32(blinkLL_min + (rangeLL/2) + ((angle/2)*rangeLL)
+        angleRU = np.int32(blinkRU_min + ((angle + 1)/2)*rangeRU)
+        angleRL = np.int32(blinkRL_min + ((angle + 1)/2)*rangeRL)
+        angleLU = np.int32(blinkLU_max - ((angle + 1)/2)*rangeLU)
+        angleLL = np.int32(blinkLL_max - ((angle + 1)/2)*rangeLL)
         return angleRU, angleRL, angleLU, angleLL
 
     def jaw(self, angle):
