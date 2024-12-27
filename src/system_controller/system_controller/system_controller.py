@@ -167,7 +167,7 @@ class SystemController(Node):
         jaw_max = 90 *(4095/360)
         range = jaw_max - jaw_min
         
-        angle = np.int32((0.5*(angle + 1))*range)
+        angle = np.int32(jaw_min + ((angle + 1)/2)*range)
         return angle
 
     def eyes(self, angle):
@@ -196,9 +196,9 @@ class SystemController(Node):
         neckZ_max = 180 *(4095/360)
         rangeZ = neckZ_max - neckZ_min
         
-        neckX = np.int32((0.5*(x + 1))*rangeX)
-        neckY = np.int32((0.5*(y + 1))*rangeY)
-        neckZ = np.int32((0.5*(z + 1))*rangeZ)
+        neckX = np.int32(neckX_min + (rangeX/2) + (x/2)*rangeX)
+        neckY = np.int32(neckY_min + (rangeY/2) + (y/2)*rangeY)
+        neckZ = np.int32(neckZ_min + (rangeZ/2) + (z/2)*rangeZ)
         return neckX, neckY, neckZ
         
     def checkRange(angle, max, min):
