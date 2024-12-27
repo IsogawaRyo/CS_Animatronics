@@ -130,65 +130,75 @@ class SystemController(Node):
             angle = int((0.5*(axes[0] + 1))*4095)
 
             jaw = self.jaw(axes[2])
-            blinkU, blinkL = self.blink(axes[5])
+            blinkRU, blinkRL, blinkLU, blinkLL = self.blink(axes[5])
             eyeR, eyeL = self.eyes(axes[3])
-            neckX, neckY, neckZ = self.neck(axes[0])
+            neckX, neckY, neckZ = self.neck(axes[0], axes[4], axes[1])
             
             ids = np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8)
-            angles = [jaw, neckX, neckY, neckZ, eyeR, eyeL, blinkU, blinkL, blinkU, blinkL]
+            angles = [jaw, neckX, neckY, neckZ, eyeR, eyeL, blinkRU, blinkRL, blinkLU, blinkLL]
 
         return ids, angles
 
     def blink(self, angle):
-        blinkU_min = 0
-        blinkU_max = 4095
-        rangeU = blinkU_max - blinkU_min
+        blinkRU_min = -50 *(4095/360)
+        blinkRU_max = 34 *(4095/360)
+        rangeRU = blinkU_max - blinkU_min
 
-        blinkL_min = 0
-        blinkL_max = 4095
-        rangeL = blinkL_max - blinkL_min
+        blinkRL_min = 145 *(4095/360)
+        blinkRL_max = 174 *(4095/360)
+        rangeRL = blinkL_max - blinkL_min
         
-        angleU = np.int32((0.5*(angle + 1))*rangeU)
-        angleL = np.int32((0.5*(angle + 1))*rangeL)
-        return angleU, angleL
+        blinkLU_min = -35 *(4095/360)
+        blinkLU_max = 40 *(4095/360)
+        rangeLU = blinkLU_max - blinkLU_min
+
+        blinkLL_min = 185 *(4095/360)
+        blinkLL_max = 213 *(4095/360)
+        rangeLL = blinkLL_max - blinkLL_min
+ 
+        angleRU = np.int32(blinkRU_min + (rangeRU/2) +  ((angle/2)*rangeRU)
+        angleRL = np.int32(blinkRL_min + (0.5*(angle + 1)*rangeRL)
+        angleLU = np.int32(blinkLU_max - (0.5*(angle + 1))*rangeLU)
+        angleLL = np.int32(blinkLL_min + (rangeLL/2) + ((angle/2)*rangeLL)
+        return angleRU, angleRL, angleLU, angleLL
 
     def jaw(self, angle):
-        jaw_min = 170
-        jaw_max = 1024
+        jaw_min = 15 *(4095/360)
+        jaw_max = 90 *(4095/360)
         range = jaw_max - jaw_min
         
         angle = np.int32((0.5*(angle + 1))*range)
         return angle
 
     def eyes(self, angle):
-        eyeR_min = 0
-        eyeR_max = 4095
+        eyeR_min = 80 *(4095/360)
+        eyeR_max = 140 *(4095/360)
         rangeR = eyeR_max - eyeR_min
 
-        eyeL_min = 0
-        eyeL_max = 4095
+        eyeL_min = 220 *(4095/360)
+        eyeL_max = 280 *(4095/360)
         rangeL = eyeL_max - eyeL_min
 
-        angleR = np.int32((0.5*(angle + 1))*rangeR)
-        angleL = np.int32((0.5*(angle + 1))*rangeL)
+        angleR = np.int32(eyeR_min + (rangeR/2) + (angle/2)*rangeR)
+        angleL = np.int32(eyeL_min + (rangeL/2) + (angle/2)*rangeL)
         return angleR,angleL
 
-    def neck(self, angle):
-        neckX_min = 0
-        neckX_max = 4095
+    def neck(self, x, y, z):
+        neckX_min = -80 *(4095/360)
+        neckX_max = 80 *(4095/360)
         rangeX = neckX_max - neckX_min
 
-        neckY_min = 0
-        neckY_max = 4095
+        neckY_min = 160 *(4095/360)
+        neckY_max = 200 *(4095/360)
         rangeY = neckY_max - neckY_min
 
-        neckZ_min = 0
-        neckZ_max = 4095
+        neckZ_min = 110 *(4095/360)
+        neckZ_max = 180 *(4095/360)
         rangeZ = neckZ_max - neckZ_min
         
-        neckX = np.int32((0.5*(angle + 1))*rangeX)
-        neckY = np.int32((0.5*(angle + 1))*rangeY)
-        neckZ = np.int32((0.5*(angle + 1))*rangeZ)
+        neckX = np.int32((0.5*(x + 1))*rangeX)
+        neckY = np.int32((0.5*(y + 1))*rangeY)
+        neckZ = np.int32((0.5*(z + 1))*rangeZ)
         return neckX, neckY, neckZ
         
     def checkRange(angle, max, min):
