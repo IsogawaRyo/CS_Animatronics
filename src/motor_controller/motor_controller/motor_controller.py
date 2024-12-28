@@ -84,7 +84,8 @@ class MotorController(Node):
             elif dxl_error != 0:
                 self.get_logger().info(f"Error: {packet_handler.getRxPacketError(dxl_error)}")
             else:
-                self.get_logger().info(f"Set [ID: {id}] [Goal Position: {goal_position}]")
+                #self.get_logger().info(f"Set [ID: {id}] [Goal Position: {goal_position}]")
+                pass
     
             i = i + 1
             sleep(0.00000001) # delay to solve time-out issue (0.01 us)
