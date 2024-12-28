@@ -1,0 +1,37 @@
+[2.522s] Invoking command in '/home/csanimatronics/CS_Animatronics/src/controller_publisher': CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/controller_publisher/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/controller_publisher build --build-base /home/csanimatronics/CS_Animatronics/build/controller_publisher/build install --record /home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log --single-version-externally-managed install_data
+[4.090s] running egg_info
+[4.093s] creating ../../build/controller_publisher/controller_publisher.egg-info
+[4.184s] writing ../../build/controller_publisher/controller_publisher.egg-info/PKG-INFO
+[4.185s] writing dependency_links to ../../build/controller_publisher/controller_publisher.egg-info/dependency_links.txt
+[4.186s] writing entry points to ../../build/controller_publisher/controller_publisher.egg-info/entry_points.txt
+[4.186s] writing requirements to ../../build/controller_publisher/controller_publisher.egg-info/requires.txt
+[4.187s] writing top-level names to ../../build/controller_publisher/controller_publisher.egg-info/top_level.txt
+[4.187s] writing manifest file '../../build/controller_publisher/controller_publisher.egg-info/SOURCES.txt'
+[4.455s] reading manifest file '../../build/controller_publisher/controller_publisher.egg-info/SOURCES.txt'
+[4.459s] writing manifest file '../../build/controller_publisher/controller_publisher.egg-info/SOURCES.txt'
+[4.459s] running build
+[4.460s] running build_py
+[4.461s] creating /home/csanimatronics/CS_Animatronics/build/controller_publisher/build
+[4.462s] creating /home/csanimatronics/CS_Animatronics/build/controller_publisher/build/lib
+[4.462s] creating /home/csanimatronics/CS_Animatronics/build/controller_publisher/build/lib/controller_publisher
+[4.463s] copying controller_publisher/__init__.py -> /home/csanimatronics/CS_Animatronics/build/controller_publisher/build/lib/controller_publisher
+[4.464s] copying controller_publisher/controller_publisher.py -> /home/csanimatronics/CS_Animatronics/build/controller_publisher/build/lib/controller_publisher
+[4.465s] running install
+[4.490s] running install_lib
+[4.647s] creating /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher
+[4.652s] copying /home/csanimatronics/CS_Animatronics/build/controller_publisher/build/lib/controller_publisher/__init__.py -> /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher
+[4.652s] copying /home/csanimatronics/CS_Animatronics/build/controller_publisher/build/lib/controller_publisher/controller_publisher.py -> /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher
+[4.652s] byte-compiling /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher/__init__.py to __init__.cpython-312.pyc
+[4.661s] byte-compiling /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher/controller_publisher.py to controller_publisher.cpython-312.pyc
+[4.662s] running install_data
+[4.662s] creating /home/csanimatronics/CS_Animatronics/install/controller_publisher/share/ament_index
+[4.663s] creating /home/csanimatronics/CS_Animatronics/install/controller_publisher/share/ament_index/resource_index
+[4.663s] creating /home/csanimatronics/CS_Animatronics/install/controller_publisher/share/ament_index/resource_index/packages
+[4.664s] copying resource/controller_publisher -> /home/csanimatronics/CS_Animatronics/install/controller_publisher/share/ament_index/resource_index/packages
+[4.664s] copying package.xml -> /home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher
+[4.664s] running install_egg_info
+[4.760s] Copying ../../build/controller_publisher/controller_publisher.egg-info to /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages/controller_publisher-0.0.0-py3.12.egg-info
+[4.761s] running install_scripts
+[5.193s] Installing controller_publisher script to /home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/controller_publisher
+[5.194s] writing list of installed files to '/home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log'
+[5.372s] Invoked command in '/home/csanimatronics/CS_Animatronics/src/controller_publisher' returned '0': CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/controller_publisher/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/controller_publisher build --build-base /home/csanimatronics/CS_Animatronics/build/controller_publisher/build install --record /home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log --single-version-externally-managed install_data

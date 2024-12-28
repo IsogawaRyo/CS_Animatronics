@@ -1,8 +1,10 @@
 #!/bin/bash
 
-sleep 100
-
 source /opt/ros/jazzy/setup.bash
+
+gnome-terminal -- bash -c "cd CS_Animatronics && rm -rf build log install && colcon build"
+
+sleep 50
 
 sudo -S usermod -aG dialout csanimatronics <<< "KUASECSA"
 
