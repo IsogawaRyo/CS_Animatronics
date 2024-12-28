@@ -141,7 +141,7 @@ class SystemController(Node):
         blinkRU_min = -30 *(4095//360)
         blinkRU_max = 30 *(4095//360)
         rangeRU = blinkRU_max - blinkRU_min
-        print(rangeRU)    
+        
         blinkRL_min = 150 *(4095//360)
         blinkRL_max = 175 *(4095//360)
         rangeRL = blinkRL_max - blinkRL_min
