@@ -58,8 +58,17 @@ class MotorController(Node):
             self.listener_callback,
             10)
         self.subscription
-
+        
     def listener_callback(self, msg):
+        self.get_logger().info(f'Ids: {msg.ids}')
+        self.get_logger().info(f'Angles: {msg.angles}')
+        
+        i = 0
+        
+        for id in msg.ids:
+            angle = msg.angles[i]
+
+    def listener_callback_(self, msg):
         self.get_logger().info(f'Ids: {msg.ids}')
         self.get_logger().info(f'Angles: {msg.angles}')
         
@@ -91,17 +100,7 @@ class MotorController(Node):
             sleep(0.00000001) # delay to solve time-out issue (0.01 us)
 
     def get_present_position(self, request, response):
-        present_position, dxl_error = packet_handler.read4ByteTxRx(port_handler, request.id, ADDR_PRESENT_POSITION)
-        
-        if dxl_comm_result != COMM_SUCCESS:
-            self.get_logger().info(f"Communication error: {packet_handler.getTxRxResult(dxl_comm_result)}")
-        elif dxl_error != 0:
-            self.get_logger().info(f"Error: {packet_handler.getRxPacketError(dxl_error)}")
-        else:
-            self.get_logger().info(f"Get [ID: {request.id}] [Present Position: {present_position}]")
-        
-        response.position = present_position
-        return response
+        pass
 
 def main(args=None):
     # Open Serial Port
