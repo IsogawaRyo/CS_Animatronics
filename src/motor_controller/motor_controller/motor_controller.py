@@ -40,6 +40,10 @@ dxl_error = 0
 goal_position = 0  
 dxl_comm_result = COMM_TX_FAIL  
 
+LEN_GOAL_POSITION = 4
+syncWrite0 = GroupSyncWrite(port_handler0, packet_hundker, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
+syncWrite1 = GroupSyncWrite(port_handler1, packet_hundker, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
+
 class MotorController(Node):
     def __init__(self):
         super().__init__('motor_controller')
@@ -63,10 +67,43 @@ class MotorController(Node):
         self.get_logger().info(f'Ids: {msg.ids}')
         self.get_logger().info(f'Angles: {msg.angles}')
         
-        i = 0
+        groupSyncWrite0.clearParam()
+        groupSyncWrite1.clearParam()
         
-        for id in msg.ids:
-            angle = msg.angles[i]
+        for i, id in enumerate(msg.ids):
+            angle = int(msg.angles[i])
+            
+            # Preparation
+            param_goal_position = [
+                DXL_LOBYTE(DXL_LOWORD(angle)),
+                DXL_HIBYTE(DXL_LOWORD(angle)),
+                DXL_LOBYTE(DXL_HIWORD(angle)),
+                DXL_HIBYTE(DXL_HIWORD(angle))
+            ]
+            
+            # Assigning
+            if id in [31, 32, 41, 42, 43, 44]:
+                if not groupSyncWrite0.addParam(id, param_goal_position):
+                    self.get_logger().error(f"Failed to addParam for ID: {id} on port_handler0")
+            elif id in [11, 21, 22, 23]:
+                if not groupSyncWrite1.addParam(id, param_goal_position):
+                    self.get_logger().error(f"Failed to addParam for ID: {id} on port_handler1")
+            else:
+                self.get_logger().info(f"Unknown ID: {id}")
+                continue
+        
+        # Send Sync Write
+        dxl_comm_result0 = groupSyncWrite0.txPacket()
+        if dxl_comm_result0 != COMM_SUCCESS:
+            self.get_logger().error(f"Sync Write Error on port_handler0: {packet_handler.getTxRxResult(dxl_comm_result0)}")
+        
+        dxl_comm_result1 = groupSyncWrite1.txPacket()
+        if dxl_comm_result1 != COMM_SUCCESS:
+            self.get_logger().error(f"Sync Write Error on port_handler1: {packet_handler.getTxRxResult(dxl_comm_result1)}")
+        
+        # Clear parameter
+        groupSyncWrite0.clearParam()
+        groupSyncWrite1.clearParam()
 
     def listener_callback_(self, msg):
         self.get_logger().info(f'Ids: {msg.ids}')
