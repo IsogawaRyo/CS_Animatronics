@@ -220,9 +220,6 @@ def main(args=None):
             selected_port_handler = port_handler0
         elif id in [11, 21, 22, 23]:  # Port2
             selected_port_handler = port_handler1
-        else:
-            self.get_logger().info(f"Unknown ID: {id}")
-            continue
         
         packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_TORQUE_ENABLE, 0)  # Disable torque
         packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_LED, 0)
