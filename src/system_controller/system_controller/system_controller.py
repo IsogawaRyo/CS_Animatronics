@@ -138,20 +138,20 @@ class SystemController(Node):
         return ids, angles
 
     def blink(self, angle):
-        blinkRU_min = -30 *(4095//360)
-        blinkRU_max = 30 *(4095//360)
+        blinkRU_min = -30 *(4095//360) # close
+        blinkRU_max = 40 *(4095//360) # open
         rangeRU = blinkRU_max - blinkRU_min
         
-        blinkRL_min = 150 *(4095//360)
-        blinkRL_max = 175 *(4095//360)
+        blinkRL_min = 145 *(4095//360) # close
+        blinkRL_max = 180 *(4095//360) # open
         rangeRL = blinkRL_max - blinkRL_min
         
-        blinkLU_min = -35 *(4095//360)
-        blinkLU_max = 40 *(4095//360)
+        blinkLU_min = -35 *(4095//360) # open
+        blinkLU_max = 40 *(4095//360) # close
         rangeLU = blinkLU_max - blinkLU_min
 
-        blinkLL_min = 180 *(4095//360)
-        blinkLL_max = 210 *(4095//360)
+        blinkLL_min = 170 *(4095//360) # open
+        blinkLL_max = 200 *(4095//360) # close
         rangeLL = blinkLL_max - blinkLL_min
  
         angleRU = int(blinkRU_max - ((angle + 1)/2)*rangeRU)
@@ -161,20 +161,20 @@ class SystemController(Node):
         return angleRU, angleRL, angleLU, angleLL
 
     def jaw(self, angle):
-        jaw_min = 15 *(4095//360)
-        jaw_max = 90 *(4095//360)
+        jaw_min = 15 *(4095//360) # open
+        jaw_max = 90 *(4095//360) # close
         range = jaw_max - jaw_min
         
         angle = int(jaw_max - ((angle + 1)/2)*range)
         return angle
 
     def eyes(self, angle):
-        eyeR_min = 70 *(4095//360)
-        eyeR_max = 150 *(4095//360)
+        eyeR_min = 70 *(4095//360) # F
+        eyeR_max = 150 *(4095//360) # R
         rangeR = eyeR_max - eyeR_min
 
-        eyeL_min = 210 *(4095//360)
-        eyeL_max = 290 *(4095//360)
+        eyeL_min = 200 *(4095//360) # F
+        eyeL_max = 300 *(4095//360) # R
         rangeL = eyeL_max - eyeL_min
 
         angleR = int(eyeR_min + (rangeR//2) - (angle/2)*rangeR)
@@ -182,16 +182,16 @@ class SystemController(Node):
         return angleR, angleL
 
     def neck(self, x, y, z):
-        neckX_min = -60 *(4095//360)
-        neckX_max = 60 *(4095//360)
+        neckX_min = -60 *(4095//360) # R
+        neckX_max = 60 *(4095//360) # L
         rangeX = neckX_max - neckX_min
 
         #neckY_min = 160 *(4095//360)
         #neckY_max = 200 *(4095//360)
         #rangeY = neckY_max - neckY_min
 
-        neckZ_min = 154 *(4095//360)
-        neckZ_max = 206 *(4095//360)
+        neckZ_min = 154 *(4095//360) # L
+        neckZ_max = 206 *(4095//360) # R
         rangeZ = neckZ_max - neckZ_min
         
         neckX = int(neckX_min + (rangeX//2) + (x/2)*rangeX)
