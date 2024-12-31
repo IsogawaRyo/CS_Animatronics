@@ -21,6 +21,8 @@ ADDR_GOAL_POSITION = 116
 ADDR_PROFILE_VELOCITY = 112
 ADDR_PROFILE_ACCELERATION = 108
 ADDR_PRESENT_POSITION = 132
+ADDR_MIN = 52
+ADDR_MAX = 48
 
 # Protocol version
 PROTOCOL_VERSION = 2.0 
@@ -46,7 +48,18 @@ LEN_GOAL_POSITION = 4
 groupSyncWrite0 = GroupSyncWrite(port_handler0, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 
-INITIAL_POSITIONS = [1024, 0, 2048, 1593, 1251, 2844, -341, 1706, 455, 2389]
+MOTOR_LIMITS = {
+    11: {"ini": 1024, "min": 171,  "max": 1023},
+    21: {"ini": 0,    "min": -682, "max": 682},
+    22: {"ini": 1592, "min": 1500, "max": 1650},
+    23: {"ini": 1593, "min": 1751, "max": 2343},
+    31: {"ini": 1251, "min": 910,  "max": 1592},
+    32: {"ini": 2844, "min": 2502, "max": 3185},
+    41: {"ini": -341, "min": -341, "max": 341},
+    42: {"ini": 706,  "min": 1706, "max": 1990},
+    43: {"ini": 455,  "min": -398, "max": 455},
+    44: {"ini": 2389, "min": 180,  "max": 210},
+}
 
 class MotorController(Node):
     def __init__(self):
@@ -134,7 +147,6 @@ def main(args=None):
 
 
     # initialize each id
-    i = 0
     for id in np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8):
         if id in [31, 32, 41, 42, 43, 44]:  # Port1
             selected_port_handler = port_handler0
@@ -170,11 +182,26 @@ def main(args=None):
 
 
         # Set Initial Position
-        dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(selected_port_handler, id, ADDR_GOAL_POSITION, INITIAL_POSITIONS[i])
+        dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(selected_port_handler, id, ADDR_GOAL_POSITION, MOTOR_LIMITS[id]["ini"])
         if dxl_comm_result != COMM_SUCCESS:
             print("Failed to set Initial Position")
         else:
             print("Succeeded to set Initial Position")
+
+        # Set Minimum
+        dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(selected_port_handler, id, ADDR_MIN, MOTOR_LIMITS[id]["min"])
+        if dxl_comm_result != COMM_SUCCESS:
+            print("Failed to set Minimum")
+        else:
+            print("Succeeded to set Minimum")
+
+        # Set Maximum
+        dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(selected_port_handler, id, ADDR_MAX, MOTOR_LIMITS[id]["max"])
+        if dxl_comm_result != COMM_SUCCESS:
+            print("Failed to set Maximum")
+        else:
+            print("Succeeded to set Maximum")
+
 
         # Enable Torque
         dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_TORQUE_ENABLE, 1)
@@ -183,8 +210,6 @@ def main(args=None):
         else:
             packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_LED, 1)
             print("Succeeded to enable torque")
-
-        i = i + 1
     
     rclpy.init(args=args)
     node = MotorController()
