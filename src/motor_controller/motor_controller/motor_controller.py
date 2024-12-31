@@ -41,8 +41,8 @@ goal_position = 0
 dxl_comm_result = COMM_TX_FAIL  
 
 LEN_GOAL_POSITION = 4
-syncWrite0 = GroupSyncWrite(port_handler0, packet_hundker, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
-syncWrite1 = GroupSyncWrite(port_handler1, packet_hundker, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
+syncWrite0 = GroupSyncWrite(port_handler0, packet_hundler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
+syncWrite1 = GroupSyncWrite(port_handler1, packet_hundler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 
 class MotorController(Node):
     def __init__(self):
