@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "motor_command_msg__py",
+		"source" : "/home/csanimatronics/CS_Animatronics/build/motor_command_msg/motor_command_msg__py"
+	}
+}
