@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 # SPDX-FileCopyrightText: 2024 Ryo Isogawa 　　　　　
-# SPDX-License-Identifier: BSD-3-Claus
+# SPDX-License-Identifier: BSD-3-Clause
 
 import rclpy
 from rclpy.node import Node
-from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
 from sensor_msgs.msg import Joy
 from motor_command_msg.msg import IdAngle
 from dynamixel_sdk import *
@@ -125,6 +124,50 @@ class MotorController(Node):
     def get_present_position(self, request, response):
         pass
 
+def set_motor1(port_handler, id, addr, num):
+    dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(port_handler, id, addr, num)
+    if dxl_comm_result != COMM_SUCCESS:
+        print("Failed")
+    else:
+        print("Succeeded")
+
+def set_motor4(port_handler, id, addr, num):
+    dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(port_handler, id, addr, num)
+    if dxl_comm_result != COMM_SUCCESS:
+        print("Failed")
+    else:
+        print("Succeeded")
+            
+def initialize_motor():
+     # initialize each id
+    for id in np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8):
+        if id in [31, 32, 41, 42, 43, 44]:  # Port1
+            selected_port_handler = port_handler0
+        elif id in [11, 21, 22, 23]:  # Port2
+            selected_port_handler = port_handler1
+        print(id)
+        
+        # Set Position Control Mode
+        set_motor1(selected_port_handler, id, ADDR_OPERATING_MODE, 4)
+
+        # Set Velocity
+        set_motor1(selected_port_handler, id, ADDR_PROFILE_VELOCITY, 50)
+
+        # Set Acceleration
+        set_motor1(selected_port_handler, id, ADDR_PROFILE_ACCELERATION, 50)
+
+        # Set Initial Position
+        set_motor4(selected_port_handler, id, ADDR_GOAL_POSITION, MOTOR_LIMITS[id]["ini"])
+
+        # Set Minimum
+        set_motor4(selected_port_handler, id, ADDR_MIN, MOTOR_LIMITS[id]["min"])
+
+        # Set Maximum
+        set_motor4(selected_port_handler, id, ADDR_MAX, MOTOR_LIMITS[id]["max"])
+
+        # Enable Torque
+        set_motor1(selected_port_handler, id, ADDR_TORQUE_ENABLE, 1)
+
 def main(args=None):
     # Open Serial Port
     if not port_handler0.openPort():
@@ -134,7 +177,6 @@ def main(args=None):
         print("Failed to open the port1")
         return
     print("Succeeded to open the port")
-    
 
     # Set Baudrate
     if not port_handler0.setBaudRate(BAUDRATE):
@@ -145,71 +187,7 @@ def main(args=None):
         return
     print("Succeeded to open the port")
 
-
-    # initialize each id
-    for id in np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8):
-        if id in [31, 32, 41, 42, 43, 44]:  # Port1
-            selected_port_handler = port_handler0
-        elif id in [11, 21, 22, 23]:  # Port2
-            selected_port_handler = port_handler1
-        else:
-            self.get_logger().info(f"Unknown ID: {id}")
-            continue
-        print(id)
-        
-        # Set Position Control Mode
-        dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_OPERATING_MODE, 4)
-        if dxl_comm_result != COMM_SUCCESS:
-            print("Failed to set Position Control Mode")
-        else:
-            print("Succeeded to set Position Control Mode")
-
-        
-        # Set Velocity
-        dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_PROFILE_VELOCITY, 50)
-        if dxl_comm_result != COMM_SUCCESS:
-            print("Failed to set Maximum Velocity")
-        else:
-            print("Succeeded to set Maximum Velocity")
-
-
-        # Set Acceleration
-        dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_PROFILE_ACCELERATION, 50)
-        if dxl_comm_result != COMM_SUCCESS:
-            print("Failed to set Maximum Acceleration")
-        else:
-            print("Succeeded to set Maximum Acceleration")
-
-
-        # Set Initial Position
-        dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(selected_port_handler, id, ADDR_GOAL_POSITION, MOTOR_LIMITS[id]["ini"])
-        if dxl_comm_result != COMM_SUCCESS:
-            print("Failed to set Initial Position")
-        else:
-            print("Succeeded to set Initial Position")
-
-        # Set Minimum
-        dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(selected_port_handler, id, ADDR_MIN, MOTOR_LIMITS[id]["min"])
-        if dxl_comm_result != COMM_SUCCESS:
-            print("Failed to set Minimum")
-        else:
-            print("Succeeded to set Minimum")
-
-        # Set Maximum
-        dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(selected_port_handler, id, ADDR_MAX, MOTOR_LIMITS[id]["max"])
-        if dxl_comm_result != COMM_SUCCESS:
-            print("Failed to set Maximum")
-        else:
-            print("Succeeded to set Maximum")
-
-
-        # Enable Torque
-        dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_TORQUE_ENABLE, 1)
-        if dxl_comm_result != COMM_SUCCESS:
-            print("Failed to enable torque")
-        else:
-            packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_LED, 1)
-            print("Succeeded to enable torque")
+    initialize_motor()
     
     rclpy.init(args=args)
     node = MotorController()
@@ -225,6 +203,9 @@ def main(args=None):
         packet_handler.write1ByteTxRx(selected_port_handler, id, ADDR_LED, 0)
     node.destroy_node()
     rclpy.shutdown()
+    port_handler0.closePort()
+    port_handler1.closePort()
+
 
 if __name__ == "__main__":
     main()
