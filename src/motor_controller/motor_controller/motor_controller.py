@@ -88,6 +88,10 @@ class MotorController(Node):
         
         for i, id in enumerate(msg.ids):
             angle = int(msg.angles[i])
+            if angle < MOTOR_LIMITS[id]["min"]:
+                angle = MOTOR_LIMITS[id]["min"]
+            elif angle > MOTOR_LIMITS[id]["max"]:
+                angle = MOTOR_LIMITS[id]["max"]
             
             # Preparation
             param_goal_position = [
