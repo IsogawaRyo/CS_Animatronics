@@ -149,15 +149,19 @@ def initialize_motor():
         
         # Set Position Control Mode
         set_motor1(selected_port_handler, id, ADDR_OPERATING_MODE, 4)
+        sleep(0.1)
 
         # Set Velocity
         set_motor1(selected_port_handler, id, ADDR_PROFILE_VELOCITY, 50)
+        sleep(0.1)
 
         # Set Acceleration
         set_motor1(selected_port_handler, id, ADDR_PROFILE_ACCELERATION, 50)
+        sleep(0.1)
 
         # Set Initial Position
         set_motor4(selected_port_handler, id, ADDR_GOAL_POSITION, MOTOR_LIMITS[id]["ini"])
+        sleep(0.1)
 
         # Set Minimum (no use for mode 4)
         #set_motor4(selected_port_handler, id, ADDR_MIN, MOTOR_LIMITS[id]["min"])
@@ -167,6 +171,7 @@ def initialize_motor():
 
         # Enable Torque
         set_motor1(selected_port_handler, id, ADDR_TORQUE_ENABLE, 1)
+        sleep(0.1)
 
 def main(args=None):
     # Open Serial Port
