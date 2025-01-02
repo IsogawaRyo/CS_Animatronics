@@ -114,13 +114,13 @@ class MotorController(Node):
                 continue
         
         # Send Sync Write
-        dxl_comm_result0 = groupSyncWrite0.txPacket()
-        if dxl_comm_result0 != COMM_SUCCESS:
-            self.get_logger().error(f"Sync Write Error on port_handler0: {packet_handler.getTxRxResult(dxl_comm_result0)}")
+        dxl_comm_result = groupSyncWrite0.txPacket()
+        if dxl_comm_result != COMM_SUCCESS:
+            self.get_logger().error(f"Sync Write Error on port_handler0: {packet_handler.getTxRxResult(dxl_comm_result)}")
         
-        dxl_comm_result1 = groupSyncWrite1.txPacket()
-        if dxl_comm_result1 != COMM_SUCCESS:
-            self.get_logger().error(f"Sync Write Error on port_handler1: {packet_handler.getTxRxResult(dxl_comm_result1)}")
+        dxl_comm_result = groupSyncWrite1.txPacket()
+        if dxl_comm_result != COMM_SUCCESS:
+            self.get_logger().error(f"Sync Write Error on port_handler1: {packet_handler.getTxRxResult(dxl_comm_result)}")
         
         # Clear parameter
         groupSyncWrite0.clearParam()
@@ -134,29 +134,30 @@ def set_motor1(port_handler, id, addr, num):
     sleep(0.1)
     dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(port_handler, id, addr, num)
     if dxl_comm_result != COMM_SUCCESS:
-        print(f"Failed: {port_handler}, {id}, {addr}, {num}")
+        print(f"Failed: {packet_handler.getTxRxResult(dxl_comm_result)}")
     else:
-        print("Succeeded")
+        print(f"Succeeded: {packet_handler.getTxRxResult(dxl_comm_result)}")
 
 def set_motor4(port_handler, id, addr, num):
     port_handler.clearPort()
     sleep(0.1)
     dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(port_handler, id, addr, num)
     if dxl_comm_result != COMM_SUCCESS:
-        print("Failed: {port_handler}, {id}, {addr}, {num}")
+        print(f"Failed: {packet_handler.getTxRxResult(dxl_comm_result)}")
     else:
-        print("Succeeded")
+        print(f"Succeeded: {packet_handler.getTxRxResult(dxl_comm_result)}")
 
 def ping(port_handler, id):
     port_handler.clearPort()
     sleep(0.1)
     dxl_comm_number, dxl_comm_result, dxl_error = packet_handler.ping(port_handler, id)
     if dxl_comm_result != COMM_SUCCESS:
-        print(f"Failed: {id}")
+        print(f"Failed: {packet_handler.getTxRxResult(dxl_comm_result)}")
     else:
-        print("Succeeded Ping")
+        print(f"{id} answered")
             
 def initialize_motor():
+    print("Start initializing motors")
      # initialize each id
     for id in [11, 21, 22, 23, 31, 32, 41, 42, 43, 44]:
         if id in [31, 32, 41, 42, 43, 44]:  # Port1
@@ -201,6 +202,9 @@ def initialize_motor():
         # Enable Torque
         set_motor1(selected_port_handler, id, ADDR_TORQUE_ENABLE, 1)
         sleep(0.1)
+        
+        print(f"Done initializng motor for id: {id}")
+    print("Done initializing motors")
 
 def main(args=None):
     # Open Serial Port
@@ -210,7 +214,7 @@ def main(args=None):
     if not port_handler1.openPort():
         print("Failed to open the port1")
         return
-    print("Succeeded to open the port")
+    print("Succeeded to open yhe port")
 
     # Set Baudrate
     if not port_handler0.setBaudRate(BAUDRATE):
