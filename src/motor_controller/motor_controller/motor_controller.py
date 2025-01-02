@@ -87,6 +87,7 @@ class MotorController(Node):
         groupSyncWrite1.clearParam()
         
         for i, id in enumerate(msg.ids):
+        # Check Limits
             angle = int(msg.angles[i])
             if angle < MOTOR_LIMITS[id]["min"]:
                 angle = MOTOR_LIMITS[id]["min"]
@@ -131,28 +132,39 @@ class MotorController(Node):
 def set_motor1(port_handler, id, addr, num):
     dxl_comm_result, dxl_error = packet_handler.write1ByteTxRx(port_handler, id, addr, num)
     if dxl_comm_result != COMM_SUCCESS:
-        print("Failed")
+        print(f"Failed: {port_handler}, {id}, {addr}, {num}")
     else:
         print("Succeeded")
 
 def set_motor4(port_handler, id, addr, num):
     dxl_comm_result, dxl_error = packet_handler.write4ByteTxRx(port_handler, id, addr, num)
     if dxl_comm_result != COMM_SUCCESS:
-        print("Failed")
+        print("Failed: {port_handler}, {id}, {addr}, {num}")
     else:
         print("Succeeded")
+
+def ping(port_handler, id):
+    dxl_comm_number, dxl_comm_result, dxl_error = packet_handler.ping(port_handler, id)
+    if dxl_comm_result != COMM_SUCCESS:
+        print(f"Failed: {id}")
+    else:
+        print("Succeeded Ping")
             
 def initialize_motor():
      # initialize each id
-    for id in np.array([11, 21, 22, 23, 31, 32, 41, 42, 43, 44], dtype=np.uint8):
+    for id in [11, 21, 22, 23, 31, 32, 41, 42, 43, 44]:
         if id in [31, 32, 41, 42, 43, 44]:  # Port1
             selected_port_handler = port_handler0
         elif id in [11, 21, 22, 23]:  # Port2
             selected_port_handler = port_handler1
         print(id)
         
+        # Ceck ping
+        ping(selected_port_handler, id)
+        sleep(0.1)
+
         # Set Position Control Mode
-        set_motor1(selected_port_handler, id, ADDR_OPERATING_MODE, 4)
+        set_motor1(selected_port_handler, id, ADDR_OPERATING_MODE, 4)        
         sleep(0.1)
 
         # Set Velocity
@@ -177,6 +189,27 @@ def initialize_motor():
         set_motor1(selected_port_handler, id, ADDR_TORQUE_ENABLE, 1)
         sleep(0.1)
 
+def scan_motors():
+    found_motors = []
+    for id in range(1,253):
+        dxl_model_number, dxl_comm_result, dxl_error = packet_handler.ping(port_handler0, id)
+        if dxl_comm_result == COMM_SUCCESS:
+            found_motors.append(id)
+        else:
+            pass
+
+    for id in range(1,253):
+        dxl_model_number, dxl_comm_result, dxl_error = packet_handler.ping(port_handler1, id)
+        if dxl_comm_result == COMM_SUCCESS:
+            found_motors.append(id)
+        else:
+            pass
+
+    
+    if found_motors:
+        for id in found_motors:
+            print(f"{id}")
+
 def main(args=None):
     # Open Serial Port
     if not port_handler0.openPort():
@@ -194,7 +227,10 @@ def main(args=None):
     if not port_handler1.setBaudRate(BAUDRATE):
         print("Failed to set the baudrate")
         return
-    print("Succeeded to open the port")
+    print("Succeeded to set baudrate")
+
+    # scan motors
+    scan_motors()
 
     initialize_motor()
     
