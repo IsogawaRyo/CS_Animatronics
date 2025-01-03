@@ -196,7 +196,7 @@ def initialize_motor():
         # Set Minimum (no use for mode 4)
         #set_motor4(selected_port_handler, id, ADDR_MIN, MOTOR_LIMITS[id]["min"])
 
-        # Set Maximum (no ise for mode 4)
+        # Set Maximum (no use for mode 4)
         #set_motor4(selected_port_handler, id, ADDR_MAX, MOTOR_LIMITS[id]["max"])
 
         # Enable Torque
@@ -222,12 +222,12 @@ def main(args=None):
 
     # Set Baudrate
     if not port_handler0.setBaudRate(BAUDRATE):
-        print("Failed to set the baudrate")
+        print(f"Failed to set the baudrate: {BAUDRATE}")
         return
     if not port_handler1.setBaudRate(BAUDRATE):
-        print(f"Failed to set the baudrate {BAUDRATE}")
+        print(f"Failed to set the baudrate: {BAUDRATE}")
         return
-    print("Succeeded to set baudrate")
+    print("Succeeded to set baudrate: {BAUDRATE}")
 
     initialize_motor()
     
