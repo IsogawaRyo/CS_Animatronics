@@ -43,11 +43,9 @@ dxl_error = 0
 goal_position = 0  
 dxl_comm_result = COMM_TX_FAIL  
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 LEN_GOAL_POSITION = 4
-groupSyncWrite0 = GroupSyncWrite(port_handler0, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
-groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
+syncWrite0 = GroupSyncWrite(port_handler0, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
+syncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 
 MOTOR_LIMITS = {
     11: {"ini": 1024, "min": 171,  "max": 1023},
@@ -62,10 +60,6 @@ MOTOR_LIMITS = {
     44: {"ini": 2389, "min": 180,  "max": 210},
 }
 
-=======
->>>>>>> parent of a3d7456 (Update motor_controller.py)
-=======
->>>>>>> parent of a3d7456 (Update motor_controller.py)
 class MotorController(Node):
     def __init__(self):
         super().__init__('motor_controller')
@@ -89,10 +83,6 @@ class MotorController(Node):
         self.get_logger().info(f'Ids: {msg.ids}')
         self.get_logger().info(f'Angles: {msg.angles}')
         
-        i = 0
-        
-<<<<<<< HEAD
-<<<<<<< HEAD
         for i, id in enumerate(msg.ids):
         # Check Limits
             angle = int(msg.angles[i])
@@ -132,21 +122,6 @@ class MotorController(Node):
         # Clear parameter
         groupSyncWrite0.clearParam()
         groupSyncWrite1.clearParam()
-=======
-=======
-        for id in msg.ids:
-            angle = msg.angles[i]
-
-    def listener_callback_(self, msg):
-        self.get_logger().info(f'Ids: {msg.ids}')
-        self.get_logger().info(f'Angles: {msg.angles}')
-        
-        # publish SetPosition for each id
-        i = 0 
->>>>>>> parent of a3d7456 (Update motor_controller.py)
-        for id in msg.ids:
-            angle = msg.angles[i]
->>>>>>> parent of a3d7456 (Update motor_controller.py)
 
     def get_present_position(self, request, response):
         pass

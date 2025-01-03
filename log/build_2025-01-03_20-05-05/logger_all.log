@@ -1,0 +1,530 @@
+[0.619s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.619s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0xffffac4f7740>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffffac4f7500>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffffac4f7500>>, mixin_verb=('build',))
+[0.787s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.787s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.787s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.787s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.787s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.787s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.787s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/csanimatronics/CS_Animatronics'
+[0.787s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.788s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.788s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.788s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.788s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.788s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.788s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.788s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.788s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.910s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.910s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.911s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.911s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.911s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.911s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.911s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.911s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.911s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.911s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.911s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.912s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.912s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.912s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.912s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.913s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extensions ['ignore', 'ignore_ament_install']
+[0.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extension 'ignore'
+[0.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extension 'ignore_ament_install'
+[0.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extensions ['colcon_pkg']
+[0.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extension 'colcon_pkg'
+[0.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extensions ['colcon_meta']
+[0.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extension 'colcon_meta'
+[0.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extensions ['ros']
+[0.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extension 'ros'
+[0.921s] DEBUG:colcon.colcon_core.package_identification:Package 'src/controller_publisher' with type 'ros.ament_python' and name 'controller_publisher'
+[0.928s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extensions ['ignore', 'ignore_ament_install']
+[0.928s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extension 'ignore'
+[0.928s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extension 'ignore_ament_install'
+[0.929s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extensions ['colcon_pkg']
+[0.929s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extension 'colcon_pkg'
+[0.929s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extensions ['colcon_meta']
+[0.929s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extension 'colcon_meta'
+[0.929s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extensions ['ros']
+[0.929s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extension 'ros'
+[0.930s] DEBUG:colcon.colcon_core.package_identification:Package 'src/dynamixel_sdk' with type 'ros.ament_cmake' and name 'dynamixel_sdk'
+[0.930s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.930s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extension 'ignore'
+[0.930s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extension 'ignore_ament_install'
+[0.931s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extensions ['colcon_pkg']
+[0.931s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extension 'colcon_pkg'
+[0.931s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extensions ['colcon_meta']
+[0.931s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extension 'colcon_meta'
+[0.931s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extensions ['ros']
+[0.931s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extension 'ros'
+[0.932s] DEBUG:colcon.colcon_core.package_identification:Package 'src/dynamixel_sdk_custom_interfaces' with type 'ros.ament_cmake' and name 'dynamixel_sdk_custom_interfaces'
+[0.932s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_examples) by extensions ['ignore', 'ignore_ament_install']
+[0.932s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_examples) by extension 'ignore'
+[0.932s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_examples) by extension 'ignore_ament_install'
+[0.932s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_examples) by extensions ['colcon_pkg']
+[0.932s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_examples) by extension 'colcon_pkg'
+[0.932s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_examples) by extensions ['colcon_meta']
+[0.933s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_examples) by extension 'colcon_meta'
+[0.933s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_examples) by extensions ['ros']
+[0.933s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_examples) by extension 'ros'
+[0.934s] DEBUG:colcon.colcon_core.package_identification:Package 'src/dynamixel_sdk_examples' with type 'ros.ament_cmake' and name 'dynamixel_sdk_examples'
+[0.934s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extensions ['ignore', 'ignore_ament_install']
+[0.934s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extension 'ignore'
+[0.935s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extension 'ignore_ament_install'
+[0.935s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extensions ['colcon_pkg']
+[0.935s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extension 'colcon_pkg'
+[0.935s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extensions ['colcon_meta']
+[0.935s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extension 'colcon_meta'
+[0.935s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extensions ['ros']
+[0.935s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extension 'ros'
+[0.936s] DEBUG:colcon.colcon_core.package_identification:Package 'src/motor_command_msg' with type 'ros.ament_cmake' and name 'motor_command_msg'
+[0.936s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extensions ['ignore', 'ignore_ament_install']
+[0.936s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extension 'ignore'
+[0.936s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extension 'ignore_ament_install'
+[0.937s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extensions ['colcon_pkg']
+[0.937s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extension 'colcon_pkg'
+[0.937s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extensions ['colcon_meta']
+[0.937s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extension 'colcon_meta'
+[0.937s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extensions ['ros']
+[0.937s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extension 'ros'
+[0.938s] DEBUG:colcon.colcon_core.package_identification:Package 'src/motor_controller' with type 'ros.ament_python' and name 'motor_controller'
+[0.939s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extensions ['ignore', 'ignore_ament_install']
+[0.939s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extension 'ignore'
+[0.939s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extension 'ignore_ament_install'
+[0.939s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extensions ['colcon_pkg']
+[0.939s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extension 'colcon_pkg'
+[0.939s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extensions ['colcon_meta']
+[0.939s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extension 'colcon_meta'
+[0.939s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extensions ['ros']
+[0.939s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extension 'ros'
+[0.940s] DEBUG:colcon.colcon_core.package_identification:Package 'src/system_controller' with type 'ros.ament_python' and name 'system_controller'
+[0.940s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.940s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.940s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.940s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.940s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.988s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.988s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.994s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 285 installed packages in /opt/ros/jazzy
+[0.997s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'cmake_args' from command line to 'None'
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'cmake_target' from command line to 'None'
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'cmake_clean_cache' from command line to 'False'
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'cmake_clean_first' from command line to 'False'
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'cmake_force_configure' from command line to 'False'
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'ament_cmake_args' from command line to 'None'
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'catkin_cmake_args' from command line to 'None'
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.060s] DEBUG:colcon.colcon_core.verb:Building package 'controller_publisher' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/controller_publisher', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/controller_publisher', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/controller_publisher', 'symlink_install': False, 'test_result_base': None}
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'cmake_args' from command line to 'None'
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'cmake_target' from command line to 'None'
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.060s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'cmake_clean_cache' from command line to 'False'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'cmake_clean_first' from command line to 'False'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'cmake_force_configure' from command line to 'False'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'ament_cmake_args' from command line to 'None'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'catkin_cmake_args' from command line to 'None'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.061s] DEBUG:colcon.colcon_core.verb:Building package 'dynamixel_sdk' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk', 'symlink_install': False, 'test_result_base': None}
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'cmake_args' from command line to 'None'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'cmake_target' from command line to 'None'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.061s] DEBUG:colcon.colcon_core.verb:Building package 'dynamixel_sdk_custom_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_custom_interfaces', 'symlink_install': False, 'test_result_base': None}
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'cmake_args' from command line to 'None'
+[1.061s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'cmake_target' from command line to 'None'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'cmake_clean_cache' from command line to 'False'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'cmake_clean_first' from command line to 'False'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'cmake_force_configure' from command line to 'False'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'ament_cmake_args' from command line to 'None'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'catkin_cmake_args' from command line to 'None'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.062s] DEBUG:colcon.colcon_core.verb:Building package 'motor_command_msg' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/motor_command_msg', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/motor_command_msg', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/motor_command_msg', 'symlink_install': False, 'test_result_base': None}
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_examples' build argument 'cmake_args' from command line to 'None'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_examples' build argument 'cmake_target' from command line to 'None'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_examples' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_examples' build argument 'cmake_clean_cache' from command line to 'False'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_examples' build argument 'cmake_clean_first' from command line to 'False'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_examples' build argument 'cmake_force_configure' from command line to 'False'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_examples' build argument 'ament_cmake_args' from command line to 'None'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_examples' build argument 'catkin_cmake_args' from command line to 'None'
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_examples' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.062s] DEBUG:colcon.colcon_core.verb:Building package 'dynamixel_sdk_examples' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples', 'symlink_install': False, 'test_result_base': None}
+[1.062s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'cmake_args' from command line to 'None'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'cmake_target' from command line to 'None'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'cmake_clean_cache' from command line to 'False'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'cmake_clean_first' from command line to 'False'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'cmake_force_configure' from command line to 'False'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'ament_cmake_args' from command line to 'None'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'catkin_cmake_args' from command line to 'None'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.063s] DEBUG:colcon.colcon_core.verb:Building package 'motor_controller' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/motor_controller', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/motor_controller', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/motor_controller', 'symlink_install': False, 'test_result_base': None}
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'cmake_args' from command line to 'None'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'cmake_target' from command line to 'None'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'cmake_clean_cache' from command line to 'False'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'cmake_clean_first' from command line to 'False'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'cmake_force_configure' from command line to 'False'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'ament_cmake_args' from command line to 'None'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'catkin_cmake_args' from command line to 'None'
+[1.063s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.063s] DEBUG:colcon.colcon_core.verb:Building package 'system_controller' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/system_controller', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/system_controller', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/system_controller', 'symlink_install': False, 'test_result_base': None}
+[1.063s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.065s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.065s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk' with build type 'ament_cmake'
+[1.066s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk'
+[1.085s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.085s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.085s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.090s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_custom_interfaces' with build type 'ament_cmake'
+[1.091s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_custom_interfaces'
+[1.091s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.091s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.095s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/motor_command_msg' with build type 'ament_cmake'
+[1.095s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/csanimatronics/CS_Animatronics/src/motor_command_msg'
+[1.096s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.096s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.102s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/controller_publisher' with build type 'ament_python'
+[1.102s] Level 1:colcon.colcon_core.shell:create_environment_hook('controller_publisher', 'ament_prefix_path')
+[1.104s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/hook/ament_prefix_path.ps1'
+[1.107s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/hook/ament_prefix_path.dsv'
+[1.109s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/hook/ament_prefix_path.sh'
+[1.115s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.116s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.126s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk
+[1.133s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_custom_interfaces -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces
+[1.136s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/motor_command_msg -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/motor_command_msg
+[1.539s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/csanimatronics/CS_Animatronics/src/controller_publisher'
+[1.539s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.539s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[5.543s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk
+[5.545s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk -- -j4 -l4
+[5.695s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/src/controller_publisher': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/controller_publisher/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/controller_publisher build --build-base /home/csanimatronics/CS_Animatronics/build/controller_publisher/build install --record /home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log --single-version-externally-managed install_data
+[7.171s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/src/controller_publisher' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/controller_publisher/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/controller_publisher build --build-base /home/csanimatronics/CS_Animatronics/build/controller_publisher/build install --record /home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log --single-version-externally-managed install_data
+[7.194s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher' for CMake module files
+[7.195s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher' for CMake config files
+[7.196s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib'
+[7.196s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher/bin'
+[7.197s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/pkgconfig/controller_publisher.pc'
+[7.197s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages'
+[7.198s] Level 1:colcon.colcon_core.shell:create_environment_hook('controller_publisher', 'pythonpath')
+[7.198s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/hook/pythonpath.ps1'
+[7.199s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/hook/pythonpath.dsv'
+[7.201s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/hook/pythonpath.sh'
+[7.202s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher/bin'
+[7.203s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(controller_publisher)
+[7.203s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/package.ps1'
+[7.206s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/package.dsv'
+[7.209s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/package.sh'
+[7.211s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/package.bash'
+[7.214s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/package.zsh'
+[7.217s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/colcon-core/packages/controller_publisher)
+[11.151s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk -- -j4 -l4
+[11.170s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk
+[11.219s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dynamixel_sdk)
+[11.219s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk' for CMake module files
+[11.220s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk
+[11.220s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk' for CMake config files
+[11.220s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk', 'cmake_prefix_path')
+[11.221s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/cmake_prefix_path.ps1'
+[11.221s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/cmake_prefix_path.dsv'
+[11.222s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/cmake_prefix_path.sh'
+[11.222s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib'
+[11.222s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk', 'ld_library_path_lib')
+[11.222s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/ld_library_path_lib.ps1'
+[11.223s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/ld_library_path_lib.dsv'
+[11.223s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/ld_library_path_lib.sh'
+[11.224s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/bin'
+[11.224s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib/pkgconfig/dynamixel_sdk.pc'
+[11.224s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib/python3.12/site-packages'
+[11.224s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/bin'
+[11.225s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.ps1'
+[11.225s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.dsv'
+[11.226s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.sh'
+[11.226s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.bash'
+[11.227s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.zsh'
+[11.227s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/colcon-core/packages/dynamixel_sdk)
+[11.228s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dynamixel_sdk)
+[11.228s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk' for CMake module files
+[11.228s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk' for CMake config files
+[11.229s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk', 'cmake_prefix_path')
+[11.229s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/cmake_prefix_path.ps1'
+[11.229s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/cmake_prefix_path.dsv'
+[11.230s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/cmake_prefix_path.sh'
+[11.230s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib'
+[11.230s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk', 'ld_library_path_lib')
+[11.231s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/ld_library_path_lib.ps1'
+[11.231s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/ld_library_path_lib.dsv'
+[11.231s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/ld_library_path_lib.sh'
+[11.232s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/bin'
+[11.232s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib/pkgconfig/dynamixel_sdk.pc'
+[11.232s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib/python3.12/site-packages'
+[11.232s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/bin'
+[11.233s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.ps1'
+[11.233s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.dsv'
+[11.248s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.sh'
+[11.259s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.bash'
+[11.260s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.zsh'
+[11.261s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/colcon-core/packages/dynamixel_sdk)
+[12.095s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/motor_command_msg -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/motor_command_msg
+[12.097s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/motor_command_msg -- -j4 -l4
+[12.099s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_custom_interfaces -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces
+[12.101s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces -- -j4 -l4
+[22.634s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/motor_command_msg -- -j4 -l4
+[22.636s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/motor_command_msg
+[22.797s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(motor_command_msg)
+[22.797s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg' for CMake module files
+[22.798s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/motor_command_msg
+[22.799s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg' for CMake config files
+[22.799s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_command_msg', 'cmake_prefix_path')
+[22.800s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/cmake_prefix_path.ps1'
+[22.800s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/cmake_prefix_path.dsv'
+[22.801s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/cmake_prefix_path.sh'
+[22.802s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib'
+[22.802s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_command_msg', 'ld_library_path_lib')
+[22.802s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/ld_library_path_lib.ps1'
+[22.803s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/ld_library_path_lib.dsv'
+[22.803s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/ld_library_path_lib.sh'
+[22.804s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/bin'
+[22.804s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/pkgconfig/motor_command_msg.pc'
+[22.804s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages'
+[22.804s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_command_msg', 'pythonpath')
+[22.805s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/pythonpath.ps1'
+[22.805s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/pythonpath.dsv'
+[22.805s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/pythonpath.sh'
+[22.806s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/bin'
+[22.807s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.ps1'
+[22.807s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.dsv'
+[22.808s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.sh'
+[22.809s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.bash'
+[22.809s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.zsh'
+[22.810s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/colcon-core/packages/motor_command_msg)
+[22.810s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(motor_command_msg)
+[22.811s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg' for CMake module files
+[22.812s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg' for CMake config files
+[22.812s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_command_msg', 'cmake_prefix_path')
+[22.812s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/cmake_prefix_path.ps1'
+[22.813s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/cmake_prefix_path.dsv'
+[22.814s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/cmake_prefix_path.sh'
+[22.814s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib'
+[22.815s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_command_msg', 'ld_library_path_lib')
+[22.815s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/ld_library_path_lib.ps1'
+[22.815s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/ld_library_path_lib.dsv'
+[22.816s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/ld_library_path_lib.sh'
+[22.816s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/bin'
+[22.816s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/pkgconfig/motor_command_msg.pc'
+[22.817s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages'
+[22.817s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_command_msg', 'pythonpath')
+[22.817s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/pythonpath.ps1'
+[22.818s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/pythonpath.dsv'
+[22.818s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/pythonpath.sh'
+[22.819s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/bin'
+[22.819s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.ps1'
+[22.820s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.dsv'
+[22.821s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.sh'
+[22.822s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.bash'
+[22.822s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.zsh'
+[22.823s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/colcon-core/packages/motor_command_msg)
+[22.823s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/system_controller' with build type 'ament_python'
+[22.823s] Level 1:colcon.colcon_core.shell:create_environment_hook('system_controller', 'ament_prefix_path')
+[22.824s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/hook/ament_prefix_path.ps1'
+[22.825s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/hook/ament_prefix_path.dsv'
+[22.826s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/hook/ament_prefix_path.sh'
+[22.830s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[22.830s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[23.334s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/csanimatronics/CS_Animatronics/src/system_controller'
+[23.335s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[23.335s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[24.326s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/src/system_controller': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/system_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/system_controller build --build-base /home/csanimatronics/CS_Animatronics/build/system_controller/build install --record /home/csanimatronics/CS_Animatronics/build/system_controller/install.log --single-version-externally-managed install_data
+[25.118s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces -- -j4 -l4
+[25.120s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces
+[25.252s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dynamixel_sdk_custom_interfaces)
+[25.252s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces' for CMake module files
+[25.253s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces
+[25.253s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces' for CMake config files
+[25.254s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_custom_interfaces', 'cmake_prefix_path')
+[25.254s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/cmake_prefix_path.ps1'
+[25.255s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/cmake_prefix_path.dsv'
+[25.255s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/cmake_prefix_path.sh'
+[25.256s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib'
+[25.256s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_custom_interfaces', 'ld_library_path_lib')
+[25.256s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/ld_library_path_lib.ps1'
+[25.256s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/ld_library_path_lib.dsv'
+[25.257s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/ld_library_path_lib.sh'
+[25.257s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/bin'
+[25.257s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/pkgconfig/dynamixel_sdk_custom_interfaces.pc'
+[25.258s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages'
+[25.258s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_custom_interfaces', 'pythonpath')
+[25.258s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/pythonpath.ps1'
+[25.258s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/pythonpath.dsv'
+[25.259s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/pythonpath.sh'
+[25.259s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/bin'
+[25.260s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.ps1'
+[25.260s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.dsv'
+[25.261s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.sh'
+[25.261s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.bash'
+[25.262s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.zsh'
+[25.262s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/colcon-core/packages/dynamixel_sdk_custom_interfaces)
+[25.263s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dynamixel_sdk_custom_interfaces)
+[25.263s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces' for CMake module files
+[25.264s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces' for CMake config files
+[25.264s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_custom_interfaces', 'cmake_prefix_path')
+[25.265s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/cmake_prefix_path.ps1'
+[25.265s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/cmake_prefix_path.dsv'
+[25.266s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/cmake_prefix_path.sh'
+[25.266s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib'
+[25.267s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_custom_interfaces', 'ld_library_path_lib')
+[25.267s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/ld_library_path_lib.ps1'
+[25.267s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/ld_library_path_lib.dsv'
+[25.268s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/ld_library_path_lib.sh'
+[25.268s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/bin'
+[25.269s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/pkgconfig/dynamixel_sdk_custom_interfaces.pc'
+[25.269s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages'
+[25.269s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_custom_interfaces', 'pythonpath')
+[25.269s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/pythonpath.ps1'
+[25.271s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/pythonpath.dsv'
+[25.273s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/pythonpath.sh'
+[25.275s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/bin'
+[25.276s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.ps1'
+[25.278s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.dsv'
+[25.281s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.sh'
+[25.283s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.bash'
+[25.285s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.zsh'
+[25.286s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/colcon-core/packages/dynamixel_sdk_custom_interfaces)
+[25.287s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples' with build type 'ament_cmake'
+[25.287s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples'
+[25.288s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[25.288s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[25.293s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/motor_controller' with build type 'ament_python'
+[25.293s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_controller', 'ament_prefix_path')
+[25.294s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/hook/ament_prefix_path.ps1'
+[25.295s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/hook/ament_prefix_path.dsv'
+[25.296s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/hook/ament_prefix_path.sh'
+[25.297s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[25.297s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[25.315s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples
+[25.766s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/csanimatronics/CS_Animatronics/src/motor_controller'
+[25.767s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[25.767s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[25.776s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller' for CMake module files
+[25.777s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/src/system_controller' returned '0': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/system_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/system_controller build --build-base /home/csanimatronics/CS_Animatronics/build/system_controller/build install --record /home/csanimatronics/CS_Animatronics/build/system_controller/install.log --single-version-externally-managed install_data
+[25.778s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller' for CMake config files
+[25.779s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller/lib'
+[25.779s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller/bin'
+[25.779s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller/lib/pkgconfig/system_controller.pc'
+[25.780s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages'
+[25.780s] Level 1:colcon.colcon_core.shell:create_environment_hook('system_controller', 'pythonpath')
+[25.780s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/hook/pythonpath.ps1'
+[25.781s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/hook/pythonpath.dsv'
+[25.781s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/hook/pythonpath.sh'
+[25.782s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller/bin'
+[25.782s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(system_controller)
+[25.783s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/package.ps1'
+[25.784s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/package.dsv'
+[25.785s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/package.sh'
+[25.786s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/package.bash'
+[25.787s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/package.zsh'
+[25.787s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/system_controller/share/colcon-core/packages/system_controller)
+[26.764s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/src/motor_controller': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/motor_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/motor_controller build --build-base /home/csanimatronics/CS_Animatronics/build/motor_controller/build install --record /home/csanimatronics/CS_Animatronics/build/motor_controller/install.log --single-version-externally-managed install_data
+[27.566s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples' returned '0': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples
+[27.568s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples -- -j4 -l4
+[27.637s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller' for CMake module files
+[27.638s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/src/motor_controller' returned '0': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/motor_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/motor_controller build --build-base /home/csanimatronics/CS_Animatronics/build/motor_controller/build install --record /home/csanimatronics/CS_Animatronics/build/motor_controller/install.log --single-version-externally-managed install_data
+[27.638s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller' for CMake config files
+[27.639s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller/lib'
+[27.639s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller/bin'
+[27.639s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/pkgconfig/motor_controller.pc'
+[27.639s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages'
+[27.640s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_controller', 'pythonpath')
+[27.640s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/hook/pythonpath.ps1'
+[27.640s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/hook/pythonpath.dsv'
+[27.641s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/hook/pythonpath.sh'
+[27.641s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller/bin'
+[27.642s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(motor_controller)
+[27.642s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/package.ps1'
+[27.642s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/package.dsv'
+[27.643s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/package.sh'
+[27.643s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/package.bash'
+[27.644s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/package.zsh'
+[27.644s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/motor_controller/share/colcon-core/packages/motor_controller)
+[41.504s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples' returned '0': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples -- -j4 -l4
+[41.506s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples
+[41.541s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dynamixel_sdk_examples)
+[41.541s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples' for CMake module files
+[41.541s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples' returned '0': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples
+[41.542s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples' for CMake config files
+[41.542s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_examples', 'cmake_prefix_path')
+[41.542s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/hook/cmake_prefix_path.ps1'
+[41.543s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/hook/cmake_prefix_path.dsv'
+[41.543s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/hook/cmake_prefix_path.sh'
+[41.544s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/lib'
+[41.544s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/bin'
+[41.544s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/lib/pkgconfig/dynamixel_sdk_examples.pc'
+[41.544s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/lib/python3.12/site-packages'
+[41.545s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/bin'
+[41.545s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/package.ps1'
+[41.545s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/package.dsv'
+[41.546s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/package.sh'
+[41.546s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/package.bash'
+[41.547s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/package.zsh'
+[41.547s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/colcon-core/packages/dynamixel_sdk_examples)
+[41.548s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dynamixel_sdk_examples)
+[41.548s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples' for CMake module files
+[41.549s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples' for CMake config files
+[41.549s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_examples', 'cmake_prefix_path')
+[41.549s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/hook/cmake_prefix_path.ps1'
+[41.550s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/hook/cmake_prefix_path.dsv'
+[41.550s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/hook/cmake_prefix_path.sh'
+[41.551s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/lib'
+[41.551s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/bin'
+[41.551s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/lib/pkgconfig/dynamixel_sdk_examples.pc'
+[41.551s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/lib/python3.12/site-packages'
+[41.552s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/bin'
+[41.552s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/package.ps1'
+[41.553s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/package.dsv'
+[41.553s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/package.sh'
+[41.554s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/package.bash'
+[41.554s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/package.zsh'
+[41.555s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/colcon-core/packages/dynamixel_sdk_examples)
+[41.555s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[41.556s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[41.556s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[41.556s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[41.577s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[41.578s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[41.578s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[41.623s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[41.624s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/csanimatronics/CS_Animatronics/install/local_setup.ps1'
+[41.627s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/csanimatronics/CS_Animatronics/install/_local_setup_util_ps1.py'
+[41.631s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/csanimatronics/CS_Animatronics/install/setup.ps1'
+[41.634s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/csanimatronics/CS_Animatronics/install/local_setup.sh'
+[41.635s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/csanimatronics/CS_Animatronics/install/_local_setup_util_sh.py'
+[41.636s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/csanimatronics/CS_Animatronics/install/setup.sh'
+[41.638s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/csanimatronics/CS_Animatronics/install/local_setup.bash'
+[41.639s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/csanimatronics/CS_Animatronics/install/setup.bash'
+[41.641s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/csanimatronics/CS_Animatronics/install/local_setup.zsh'
+[41.642s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/csanimatronics/CS_Animatronics/install/setup.zsh'
