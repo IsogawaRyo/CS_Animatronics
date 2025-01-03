@@ -44,8 +44,8 @@ goal_position = 0
 dxl_comm_result = COMM_TX_FAIL  
 
 LEN_GOAL_POSITION = 4
-syncWrite0 = GroupSyncWrite(port_handler0, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
-syncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
+groupSyncWrite0 = GroupSyncWrite(port_handler0, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
+groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 
 MOTOR_LIMITS = {
     11: {"ini": 1024, "min": 171,  "max": 1023},
@@ -55,9 +55,9 @@ MOTOR_LIMITS = {
     31: {"ini": 1251, "min": 910,  "max": 1592},
     32: {"ini": 2844, "min": 2502, "max": 3185},
     41: {"ini": -341, "min": -341, "max": 341},
-    42: {"ini": 706,  "min": 1706, "max": 1990},
+    42: {"ini": 1706,  "min": 1706, "max": 1990},
     43: {"ini": 455,  "min": -398, "max": 455},
-    44: {"ini": 2389, "min": 180,  "max": 210},
+    44: {"ini": 210, "min": 180,  "max": 210}
 }
 
 class MotorController(Node):
@@ -83,6 +83,9 @@ class MotorController(Node):
         self.get_logger().info(f'Ids: {msg.ids}')
         self.get_logger().info(f'Angles: {msg.angles}')
         
+        groupSyncWrite0.clearParam()
+        groupSyncWrite1.clearParam()
+
         for i, id in enumerate(msg.ids):
         # Check Limits
             angle = int(msg.angles[i])
@@ -102,10 +105,10 @@ class MotorController(Node):
             # Assigning
             if id in [31, 32, 41, 42, 43, 44]:
                 if not groupSyncWrite0.addParam(id, param_goal_position):
-                    self.get_logger().error(f"Failed to addParam for ID: {id} on port_handler0")
+                    self.get_logger().error(f"Failed to addParam for ID: {id}")
             elif id in [11, 21, 22, 23]:
                 if not groupSyncWrite1.addParam(id, param_goal_position):
-                    self.get_logger().error(f"Failed to addParam for ID: {id} on port_handler1")
+                    self.get_logger().error(f"Failed to addParam for ID: {id}")
             else:
                 self.get_logger().info(f"Unknown ID: {id}")
                 continue
@@ -113,11 +116,11 @@ class MotorController(Node):
         # Send Sync Write
         dxl_comm_result = groupSyncWrite0.txPacket()
         if dxl_comm_result != COMM_SUCCESS:
-            self.get_logger().error(f"Sync Write Error on port_handler0: {packet_handler.getTxRxResult(dxl_comm_result)}")
+            self.get_logger().error(f"Sync Write Error: {packet_handler.getTxRxResult(dxl_comm_result)}")
         
         dxl_comm_result = groupSyncWrite1.txPacket()
         if dxl_comm_result != COMM_SUCCESS:
-            self.get_logger().error(f"Sync Write Error on port_handler1: {packet_handler.getTxRxResult(dxl_comm_result)}")
+            self.get_logger().error(f"Sync Write Error: {packet_handler.getTxRxResult(dxl_comm_result)}")
         
         # Clear parameter
         groupSyncWrite0.clearParam()
@@ -164,7 +167,7 @@ def initialize_motor():
         else:
             pass
         
-        print(f"Start initializing motor for id: {id}")
+        print(f"\nStart initializing motor for id: {id}")
 
         # Disable Torque
         set_motor1(selected_port_handler, id, ADDR_TORQUE_ENABLE, 0)
@@ -193,11 +196,15 @@ def initialize_motor():
         # Set Minimum (no use for mode 4)
         #set_motor4(selected_port_handler, id, ADDR_MIN, MOTOR_LIMITS[id]["min"])
 
-        # Set Maximum no ise for mode 4)
+        # Set Maximum (no ise for mode 4)
         #set_motor4(selected_port_handler, id, ADDR_MAX, MOTOR_LIMITS[id]["max"])
 
         # Enable Torque
         set_motor1(selected_port_handler, id, ADDR_TORQUE_ENABLE, 1)
+        sleep(0.1)
+
+        # LED on
+        set_motor1(selected_port_handler, id, ADDR_LED, 1)
         sleep(0.1)
         
         print(f"Done initializng motor for id: {id}")
@@ -211,14 +218,14 @@ def main(args=None):
     if not port_handler1.openPort():
         print("Failed to open the port1")
         return
-    print("Succeeded to open yhe port")
+    print("Succeeded to open the port")
 
     # Set Baudrate
     if not port_handler0.setBaudRate(BAUDRATE):
         print("Failed to set the baudrate")
         return
     if not port_handler1.setBaudRate(BAUDRATE):
-        print("Failed to set the baudrate")
+        print(f"Failed to set the baudrate {BAUDRATE}")
         return
     print("Succeeded to set baudrate")
 

@@ -10,10 +10,9 @@ from motor_command_msg.msg import IdAngle
 
 # Operation Mode
 # -1: Test
-# 0: InitialPosition
-# 1: FullManual
+# 0: FullManual
 # 2: Assist
-MODE = 1
+MODE = 0
 
 class SystemController(Node):
     def __init__(self):
@@ -98,11 +97,6 @@ class SystemController(Node):
 
         # PS
         elif buttons[10]:
-            global MODE
-            if MODE == 1:
-                MODE = -1
-            elif MODE == -1:
-                MODE = 1
             self.get_logger().info(f'PS was pressed')
 
         # LeftStick
@@ -120,13 +114,8 @@ class SystemController(Node):
             ids = 31
             angles = 3000
 
-        # Initialize
-        elif MODE == 0:
-            ids = [11, 21, 22, 23, 31, 32, 41, 42, 43, 44]
-            angles = [90, 0, 135, 180, 0, 0, 0, 0, 0, 0]
-
         # FullMaual
-        elif MODE == 1:
+        elif MODE == 0:
             jaw = self.jaw(axes[2])
             blinkRU, blinkRL, blinkLU, blinkLL = self.blink(axes[5])
             eyeR, eyeL = self.eyes(axes[3])
