@@ -1,0 +1,242 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-2cb1ecedf5ebc429a336.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				},
+				{
+					"build" : "motor_command_msg__py",
+					"jsonFile" : "directory-motor_command_msg__py-72017a71a259dca07548.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/csanimatronics/CS_Animatronics/build/motor_command_msg/motor_command_msg__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "motor_command_msg",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_motor_command_msg_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_motor_command_msg_egg-5bb9cfa447203909a738.json",
+					"name" : "ament_cmake_python_build_motor_command_msg_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_motor_command_msg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_motor_command_msg-3185d5597770dfb2726a.json",
+					"name" : "ament_cmake_python_copy_motor_command_msg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg-28e2f7847b49cc386f95.json",
+					"name" : "motor_command_msg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg__cpp-98838eb24dda924906b4.json",
+					"name" : "motor_command_msg__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "motor_command_msg__py::@b7cabeb944ea237c0140",
+					"jsonFile" : "target-motor_command_msg__py-6957a3fd51f81b57b9fc.json",
+					"name" : "motor_command_msg__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg__rosidl_generator_c-bed79aeb73e09d6fc81c.json",
+					"name" : "motor_command_msg__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg__rosidl_generator_py-32df863634122d8ec88c.json",
+					"name" : "motor_command_msg__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg__rosidl_generator_type_description::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg__rosidl_generator_type_description-73c9ac20266f7dbf68b9.json",
+					"name" : "motor_command_msg__rosidl_generator_type_description",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg__rosidl_typesupport_c-233eccc50cb71d56c590.json",
+					"name" : "motor_command_msg__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg__rosidl_typesupport_cpp-84adef46c90790e602e8.json",
+					"name" : "motor_command_msg__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg__rosidl_typesupport_fastrtps_c-9a037395785f046eb01f.json",
+					"name" : "motor_command_msg__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg__rosidl_typesupport_fastrtps_cpp-9ee212c82e3085b0afda.json",
+					"name" : "motor_command_msg__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg__rosidl_typesupport_introspection_c-c8b9262e62f5e5d99a68.json",
+					"name" : "motor_command_msg__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg__rosidl_typesupport_introspection_cpp-887385ad644ce70c50cc.json",
+					"name" : "motor_command_msg__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg_s__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg_s__rosidl_typesupport_c-7c3f80ae8ee67eef1da0.json",
+					"name" : "motor_command_msg_s__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg_s__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg_s__rosidl_typesupport_fastrtps_c-71f7cf9dec2db76e09bc.json",
+					"name" : "motor_command_msg_s__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg_s__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg_s__rosidl_typesupport_introspection_c-4d33008156afe149568f.json",
+					"name" : "motor_command_msg_s__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motor_command_msg_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motor_command_msg_uninstall-b53f85224366be22a80f.json",
+					"name" : "motor_command_msg_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-913c5352155db42f5f1b.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/csanimatronics/CS_Animatronics/build/motor_command_msg",
+		"source" : "/home/csanimatronics/CS_Animatronics/src/motor_command_msg"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
