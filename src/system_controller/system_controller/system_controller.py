@@ -135,8 +135,8 @@ class SystemController(Node):
         blinkRL_max = 180 *(4095//360) # open
         rangeRL = blinkRL_max - blinkRL_min
         
-        blinkLU_min = -35 *(4095//360) # open
-        blinkLU_max = 40 *(4095//360) # close
+        blinkLU_min = 320 *(4095//360) # open
+        blinkLU_max = 400 *(4095//360) # close
         rangeLU = blinkLU_max - blinkLU_min
 
         blinkLL_min = 170 *(4095//360) # open
@@ -171,8 +171,8 @@ class SystemController(Node):
         return angleR, angleL
 
     def neck(self, x, y, z):
-        neckX_min = -60 *(4095//360) # R
-        neckX_max = 60 *(4095//360) # L
+        neckX_min = 300 *(4095//360) # R
+        neckX_max = 420 *(4095//360) # L
         rangeX = neckX_max - neckX_min
 
         #neckY_min = 160 *(4095//360)
