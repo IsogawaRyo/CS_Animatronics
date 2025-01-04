@@ -60,7 +60,7 @@ MOTOR_LIMITS = {
     41: {"ini": -341, "min": -341, "max": 341},
     42: {"ini": 1706,  "min": 1706, "max": 1990},
     43: {"ini": 455,  "min": -398, "max": 455},
-    44: {"ini": 210, "min": 180,  "max": 210}
+    44: {"ini": 2388, "min": 2047,  "max": 2388}
 }
 
 class MotorController(Node):
@@ -92,11 +92,17 @@ class MotorController(Node):
         for i, id in enumerate(msg.ids):
         # Check Limits
             angle = int(msg.angles[i])
-            if angle < MOTOR_LIMITS[id]["min"]:
+            if angle <= MOTOR_LIMITS[id]["min"]:
+                angleP = angle
                 angle = MOTOR_LIMITS[id]["min"]
-            elif angle > MOTOR_LIMITS[id]["max"]:
+                self.get_logger().error(f"Exceed minimum motor {id}: {angleP} => {angle}")
+
+            elif angle >= MOTOR_LIMITS[id]["max"]:
+                angleP = angle
                 angle = MOTOR_LIMITS[id]["max"]
-            
+                self.get_logger().error(f"Exceed maximum motor {id}: {angleP} => {angle}")
+            self.get_logger().info(f"{id}: {angle}")
+
             # Preparation
             param_goal_position = [
                 DXL_LOBYTE(DXL_LOWORD(angle)),
@@ -226,6 +232,8 @@ def scan_motors():
         dxl_model_number, dxl_comm_result, dxl_error = packet_handler.ping(port_handler0, id)
         if dxl_comm_result == COMM_SUCCESS:
             PORT0.append(id)
+        prog = id/254 *100
+        print(f"\rScaning /dev/ttyUSB0 [{prog} %]", end="")
     print(f"{PORT0} was found on /dev/ttyUSB0")
 
     print("\nStart scaning motors on /dev/ttyUSB1")
@@ -233,6 +241,8 @@ def scan_motors():
         dxl_model_number, dxl_comm_result, dxl_error = packet_handler.ping(port_handler1, id)
         if dxl_comm_result == COMM_SUCCESS:
             PORT1.append(id)
+        prog = id/254 *100
+        print(f"\rScaning /dev/ttyUSB1 [{prog} %]", end="")
     print(f"{PORT1} was found on /dev/ttyUSB1")
 
 def main(args=None):
@@ -252,7 +262,7 @@ def main(args=None):
     if not port_handler1.setBaudRate(BAUDRATE):
         print(f"Failed to set the baudrate: {BAUDRATE}")
         return
-    print("Succeeded to set baudrate: {BAUDRATE}")
+    print(f"Succeeded to set baudrate: {BAUDRATE}")
 
     scan_motors()
 
