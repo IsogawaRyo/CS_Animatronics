@@ -14,3 +14,6 @@ A controller_publisher is node that receives signals from DualScence and publish
 # Descriptions of messages
 ## IdAngle
 id: uint8[10], angle: int32[10]
+
+## SetPositions
+id: uint8, position: int32
