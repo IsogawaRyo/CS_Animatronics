@@ -1,0 +1,67 @@
+[0.034s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples
+[0.151s] -- The C compiler identification is GNU 13.3.0
+[0.268s] -- The CXX compiler identification is GNU 13.3.0
+[0.297s] -- Detecting C compiler ABI info
+[0.476s] -- Detecting C compiler ABI info - done
+[0.491s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.491s] -- Detecting C compile features
+[0.492s] -- Detecting C compile features - done
+[0.517s] -- Detecting CXX compiler ABI info
+[0.712s] -- Detecting CXX compiler ABI info - done
+[0.726s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.727s] -- Detecting CXX compile features
+[0.727s] -- Detecting CXX compile features - done
+[0.731s] -- Found ament_cmake: 2.5.2 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.972s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[1.143s] -- Found dynamixel_sdk: 3.7.60 (/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/cmake)
+[1.145s] -- Found dynamixel_sdk_custom_interfaces: 3.7.60 (/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/cmake)
+[1.201s] -- Found rosidl_generator_c: 4.6.4 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[1.220s] -- Found rosidl_generator_cpp: 4.6.4 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[1.244s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.275s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.350s] -- Found rclcpp: 28.1.5 (/opt/ros/jazzy/share/rclcpp/cmake)
+[1.426s] -- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[1.431s] -- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[1.580s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[1.607s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[1.641s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.740s] -- Found ament_lint_auto: 0.17.1 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[1.933s] -- Added test 'copyright' to check source files copyright and LICENSE
+[1.934s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.934s] -- Configured cppcheck include dirs: /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples/include
+[1.935s] -- Configured cppcheck exclude dirs and/or files: 
+[1.936s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[1.936s] -- Configured cpplint exclude dirs and/or files: 
+[1.937s] -- Added test 'lint_cmake' to check CMake code style
+[1.938s] -- Added test 'uncrustify' to check C / C++ code style
+[1.938s] -- Configured uncrustify additional arguments: 
+[1.939s] -- Added test 'xmllint' to check XML markup files
+[1.941s] -- Configuring done (1.9s)
+[1.957s] -- Generating done (0.0s)
+[1.965s] -- Build files have been written to: /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples
+[1.989s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples' returned '0': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_examples -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples
+[1.991s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples -- -j4 -l4
+[2.085s] [ 50%] [32mBuilding CXX object CMakeFiles/read_write_node.dir/src/read_write_node.cpp.o[0m
+[14.284s] [100%] [32m[1mLinking CXX executable read_write_node[0m
+[15.017s] [100%] Built target read_write_node
+[15.039s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples' returned '0': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples -- -j4 -l4
+[15.041s] Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples
+[15.055s] -- Install configuration: ""
+[15.055s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/lib/dynamixel_sdk_examples/read_write_node
+[15.066s] -- Set non-toolchain portion of runtime path of "/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/lib/dynamixel_sdk_examples/read_write_node" to ""
+[15.066s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/ament_index/resource_index/package_run_dependencies/dynamixel_sdk_examples
+[15.067s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/ament_index/resource_index/parent_prefix_path/dynamixel_sdk_examples
+[15.067s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/environment/ament_prefix_path.sh
+[15.067s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/environment/ament_prefix_path.dsv
+[15.067s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/environment/path.sh
+[15.068s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/environment/path.dsv
+[15.068s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/local_setup.bash
+[15.068s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/local_setup.sh
+[15.068s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/local_setup.zsh
+[15.068s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/local_setup.dsv
+[15.068s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/package.dsv
+[15.069s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/ament_index/resource_index/packages/dynamixel_sdk_examples
+[15.069s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/cmake/dynamixel_sdk_examplesConfig.cmake
+[15.069s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/cmake/dynamixel_sdk_examplesConfig-version.cmake
+[15.069s] -- Installing: /home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_examples/share/dynamixel_sdk_examples/package.xml
+[15.072s] Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples' returned '0': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_examples
