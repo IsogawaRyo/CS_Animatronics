@@ -6,7 +6,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from motor_command_msg.msg import IdAngle
-#import numpy as np
+import os
 
 # Operation Mode
 # -1: Test
