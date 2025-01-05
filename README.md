@@ -3,13 +3,13 @@ Practice for ROS2.
 
 # Description of nodes
 ## system_controller
-A system_controller is node that subscribes states of controller and publishes list of ID and Angle.
+A system_controller is ROS2 node that subscribes Joy message and publishes IdAngle.
 
 ## motor_controller
-A motor_controller is node that subscribes list of ID and Angle and operate motors safely.
+A motor_controller is ROS2 node that subscribes IdAngle message and Angle and operate motors safely.
 
 ## controller_publisher
-A controller_publisher is node that receives signals from DualScence and publish state of buttons and angles of axes.
+A controller_publisher is ROS2 node that receives signals from DualScence and publish Joy message.
 
 # Descriptions of messages
 ## IdAngle
