@@ -2,13 +2,13 @@
 Practice for ROS2. 
 
 # Description of nodes
-## system_controller
+## 👨‍💻system_controller
 A system_controller is ROS2 node that subscribes Joy message and publishes IdAngle.
 
-## motor_controller
+## 👨‍🔧motor_controller
 A motor_controller is ROS2 node that subscribes IdAngle message and Angle and operate motors safely.
 
-## controller_publisher
+## 🎮controller_publisher
 A controller_publisher is ROS2 node that receives signals from DualScence and publish Joy message.
 
 # Descriptions of messages
