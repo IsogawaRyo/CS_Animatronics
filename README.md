@@ -7,6 +7,7 @@ A system_controller is ROS2 node that subscribes Joy message and publishes IdAng
 
 ## 👨‍🔧motor_controller
 A motor_controller is ROS2 node that subscribes IdAngle message and Angle and operate motors safely.
+As a initialization, this node searches motors on /dev/ttyUSB0 and /dev/ttyUSB1 and creates list of IDs for each port.
 
 ## 🎮controller_publisher
 A controller_publisher is ROS2 node that receives signals from DualScence and publish Joy message.
