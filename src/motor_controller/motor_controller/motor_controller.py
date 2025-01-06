@@ -215,9 +215,9 @@ def initialize_motor():
         sleep(0.1)
 
         # Set Initial Position
-        #print(f"{id}: {MOTOR_LIMITS[id]["ini"]}")
-        #set_motor4(selected_port_handler, id, ADDR_GOAL_POSITION, MOTOR_LIMITS[id]["ini"])
-        #sleep(0.1)
+        print(f"Set {id} to {MOTOR_LIMITS[id]["ini"]}. [MIN]: {MOTOR_LIMITS[id]["min"]}, [MAX]: {MOTOR_LIMITS[id]["max"]} ")
+        set_motor4(selected_port_handler, id, ADDR_GOAL_POSITION, MOTOR_LIMITS[id]["ini"])
+        sleep(0.1)
 
         # LED on
         set_motor1(selected_port_handler, id, ADDR_LED, 1)
