@@ -17,6 +17,7 @@ MODE = 0
 # Recording Check
 # 0: not recording
 # 1: recording
+# 2: signal for starting
 IS_RECORDING = 0
 
 class SystemController(Node):
@@ -50,6 +51,17 @@ class SystemController(Node):
         # translate values
         ids, angles = self.translate(msg.axes, msg.buttons)
  
+        # Record
+        if IS_RECORD != 0:
+            # Initialize
+            if IS_RECORD == 2:
+                IS_RECORD = 1
+                time_stat = 0
+                self.get_logger().info(f"Start recording")
+            
+            time_passed = 0
+            self.get_logger().info(f"On recording [{time_passed}]")
+
         # publish IdAngle
         new_msg = IdAngle()
         new_msg.ids = ids
@@ -103,7 +115,10 @@ class SystemController(Node):
         # PS
         elif buttons[10]:
             self.get_logger().info(f'PS was pressed')
-　　　　　　　　record()
+　　　　　  if IS_RECORD == 0:
+                IS_RECORD = 2
+            else:
+                IS_RECORD = 0
 
         # LeftStick
         elif buttons[11]:
@@ -193,12 +208,6 @@ class SystemController(Node):
         neckZ = int(neckZ_min + (rangeZ//2) + (z/2)*rangeZ)
         neckY = 140 *(4095//360)
         return neckX, neckY, neckZ
-        
-    def record(self):
-        if IS_RECORDING == 0:
-            self.get_logger().info(f"Start Recording")
-        else:
-            self.get_logger().info(f"Finish Recording")
 
 def main(args=None):
     rclpy.init(args=args)
