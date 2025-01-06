@@ -14,6 +14,11 @@ import os
 # 2: Assist
 MODE = 0
 
+# Recording Check
+# 0: not recording
+# 1: recording
+IS_RECORDING = 0
+
 class SystemController(Node):
     def __init__(self):
         super().__init__('system_controller')
@@ -98,6 +103,7 @@ class SystemController(Node):
         # PS
         elif buttons[10]:
             self.get_logger().info(f'PS was pressed')
+　　　　　　record()
 
         # LeftStick
         elif buttons[11]:
@@ -188,8 +194,11 @@ class SystemController(Node):
         neckY = 140 *(4095//360)
         return neckX, neckY, neckZ
         
-    def checkRange(angle, max, min):
-        pass
+    def record(self):
+        if IS_RECORDING == 0:
+            self.get_logger().info(f"Start Recording")
+        else:
+            self.get_logger().info(f"Finish Recording")
 
 def main(args=None):
     rclpy.init(args=args)
