@@ -103,7 +103,7 @@ class SystemController(Node):
         # PS
         elif buttons[10]:
             self.get_logger().info(f'PS was pressed')
-　　　　　　record()
+　　　　　　　　record()
 
         # LeftStick
         elif buttons[11]:
