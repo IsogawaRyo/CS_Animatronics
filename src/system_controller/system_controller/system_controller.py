@@ -52,10 +52,11 @@ class SystemController(Node):
         ids, angles = self.translate(msg.axes, msg.buttons)
  
         # Record
-        if IS_RECORD != 0:
+        global IS_RECORDING
+        if IS_RECORDING != 0:
             # Initialize
-            if IS_RECORD == 2:
-                IS_RECORD = 1
+            if IS_RECORDING == 2:
+                IS_RECORDING = 1
                 time_stat = 0
                 self.get_logger().info(f"Start recording")
             
@@ -115,10 +116,10 @@ class SystemController(Node):
         # PS
         elif buttons[10]:
             self.get_logger().info(f'PS was pressed')
-　　　　　  if IS_RECORD == 0:
-                IS_RECORD = 2
+            if IS_RECORDING == 0:
+                IS_RECORDING = 2
             else:
-                IS_RECORD = 0
+                IS_RECORDING = 0
 
         # LeftStick
         elif buttons[11]:
