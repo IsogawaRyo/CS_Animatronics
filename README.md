@@ -3,7 +3,7 @@ Practice for ROS2.
 
 # Description of nodes
 ## 👨‍💻system_controller
-A system_controller is ROS2 node that subscribes Joy message and publishes IdAngle.
+A system_controller is ROS2 node that subscribes Joy message and publishes IdAngle. This node als has motion recording and playback features. Recorded motion will be stored under the CS_Animatronics/RecordedLog.
 
 ## 👨‍🔧motor_controller
 A motor_controller is ROS2 node that subscribes IdAngle message and Angle and operate motors safely.
