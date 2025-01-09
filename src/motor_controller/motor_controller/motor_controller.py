@@ -136,7 +136,38 @@ class MotorController(Node):
         groupSyncWrite1.clearParam()
 
     def get_present_position(self, request, response):
-        pass
+        positions = []
+        ids = []
+
+        # Get position of motors on PORT0
+        for id in PORT0:
+            position, dxl_comm_result, dxl_error = self.packet_handler.read4ByteTxRx(port_handler0, id, ADDR_PRESENT_POSITION)
+            if dxl_comm_result == COMM_SUCCESS:
+                positions.append(position)
+                ids.append(id)
+                self.get_logger().info(f"ID {id}: {position}")
+            else:
+                self.get_logger().error(f"ID {id} Failed: {self.packet_handler.getTxRxResult(dxl_comm_result)}")
+
+        # Get position of motors on PORT1
+        for id in PORT1:
+            position, dxl_comm_result, dxl_error = self.packet_handler.read4ByteTxRx(port_handler1, id, ADDR_PRESENT_POSITION)
+            if dxl_comm_result == COMM_SUCCESS:
+                positions.append(position)
+                ids.append(id)
+                self.get_logger().info(f"ID {id}: {position}")
+            else:
+                self.get_logger().error(f"ID {id} Failed: {self.packet_handler.getTxRxResult(dxl_comm_result)}")
+
+        # Prepare data
+        response.header = Header()
+        response.header.stamp = self.get_clock().now().to_msg()
+        response.ids = ids
+        response.positions = positions
+
+        self.get_logger().info(f"Get current positions")
+        return response
+
 
 def set_motor1(port_handler, id, addr, num):
     port_handler.clearPort()
