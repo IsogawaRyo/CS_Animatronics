@@ -7,6 +7,9 @@ from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from motor_command_msg.msg import IdAngle
 import os
+import time
+from datetime import datetime
+import json
 
 # Operation Mode
 # -1: Test
@@ -25,6 +28,10 @@ class SystemController(Node):
         super().__init__('system_controller')
         self.get_logger().info('Run system controller node')
         
+        self.start_time = None
+        self.recorded_data = []
+        self.record_file = None
+
         # Setting for subscriber
         self.subscription = self.create_subscription(
             Joy,
@@ -57,11 +64,29 @@ class SystemController(Node):
             # Initialize
             if IS_RECORDING == 2:
                 IS_RECORDING = 1
-                time_stat = 0
-                self.get_logger().info(f"Start recording")
-            
-            time_passed = 0
+                self.start_time = time.time()
+                self.recorded_data = []
+             
+                # Open recording file
+                filename = datetime.now().strftime("record_%Y%m%d_%H%M%S.json")
+                self.record_file = open(filename, "w")
+                self.get_logger().info(f"Start recording {self.start_time}")
+
+            time_passed = time.time() - self.start_time
             self.get_logger().info(f"On recording [{time_passed}]")
+            
+            # Save data
+            entry = {
+                "timestamp": time_passed,
+                "axes": list(msg.axes),
+                "buttons": list(msg.buttons)
+            }
+            self.recorded_data.append(entry)
+
+        if IS_RECORDING == 1 and self.record_file:
+            json.dump(self.recorded_data, self.record_file, indent=4)
+            # Write buffa
+            self.record_file.flush()
 
         # publish IdAngle
         new_msg = IdAngle()
@@ -116,10 +141,14 @@ class SystemController(Node):
         # PS
         elif buttons[10]:
             self.get_logger().info(f'PS was pressed')
+            global IS_RECORDING
             if IS_RECORDING == 0:
                 IS_RECORDING = 2
             else:
                 IS_RECORDING = 0
+                self.record_file.close()
+                self.start_time = None
+                self.record_file = None
 
         # LeftStick
         elif buttons[11]:
