@@ -69,7 +69,7 @@ class SystemController(Node):
              
                 # Open recording file
                 filename = datetime.now().strftime("record_%Y%m%d_%H%M%S.json")
-                self.record_file = open(filename, "w")
+                self.record_file = open(f"/home/csanimatronics/CS_Animatronics/RecordedLog/{filename}", "w")
                 self.get_logger().info(f"Start recording {self.start_time}")
 
             time_passed = time.time() - self.start_time
@@ -141,6 +141,7 @@ class SystemController(Node):
         # PS
         elif buttons[10]:
             self.get_logger().info(f'PS was pressed')
+            time.sleep(1)
             global IS_RECORDING
             if IS_RECORDING == 0:
                 IS_RECORDING = 2
