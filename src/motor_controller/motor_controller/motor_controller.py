@@ -35,6 +35,7 @@ DEVICE_NAME1 = "/dev/ttyUSB1"
 port_handler0 = PortHandler(DEVICE_NAME0)
 port_handler1 = PortHandler(DEVICE_NAME1)
 
+# Initialize list ofmotor on each port
 PORT0 = []
 PORT1 = []
 

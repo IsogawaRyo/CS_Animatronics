@@ -32,6 +32,8 @@ class SystemController(Node):
         self.recorded_data = []
         self.record_file = None
 
+        self.controllerMap = "/home/csanimatronics/CS_Animatronics/ControllerMap.json"
+
         # Setting for subscriber
         self.subscription = self.create_subscription(
             Joy,
@@ -59,34 +61,7 @@ class SystemController(Node):
         ids, angles = self.translate(msg.axes, msg.buttons)
  
         # Record
-        global IS_RECORDING
-        if IS_RECORDING != 0:
-            # Initialize
-            if IS_RECORDING == 2:
-                IS_RECORDING = 1
-                self.start_time = time.time()
-                self.recorded_data = []
-             
-                # Open recording file
-                filename = datetime.now().strftime("record_%Y%m%d_%H%M%S.json")
-                self.record_file = open(f"/home/csanimatronics/CS_Animatronics/RecordedLog/{filename}", "w")
-                self.get_logger().info(f"Start recording {self.start_time}")
-
-            time_passed = time.time() - self.start_time
-            self.get_logger().info(f"On recording [{time_passed}]")
-            
-            # Save data
-            entry = {
-                "timestamp": time_passed,
-                "axes": list(msg.axes),
-                "buttons": list(msg.buttons)
-            }
-            self.recorded_data.append(entry)
-
-        if IS_RECORDING == 1 and self.record_file:
-            json.dump(self.recorded_data, self.record_file, indent=4)
-            # Write buffa
-            self.record_file.flush()
+        self.record(msg.axes)
 
         # publish IdAngle
         new_msg = IdAngle()
@@ -96,27 +71,100 @@ class SystemController(Node):
         self.publisher.publish(new_msg)
         self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
 
+    def record(self, axes):
+        # Record
+        global IS_RECORDING
+        if IS_RECORDING != 0:
+            # Initialize
+            if IS_RECORDING == 2:
+                IS_RECORDING = 1 
+                self.start_time = time.time()
+                self.recorded_data = []
+
+                # Open recording file
+                filename = datetime.now().strftime("record_%Y%m%d_%H%M%S.json")
+                self.record_file = open(f"/home/csanimatronics/CS_Animatronics/RecordedLog/{filename}", "w")
+                self.get_logger().info(f"Start recording {self.start_time}")
+
+            time_passed = time.time() - self.start_time
+            self.get_logger().info(f"On recording [{time_passed}]")
+
+        # Save data
+            entry = {
+                "timestamp": time_passed,
+                "axes": list(axes),
+            }
+            self.recorded_data.append(entry)
+            print(self.recorded_data)
+
+            #if IS_RECORDING == 0 and self.record_file:
+                #json.dump(self.recorded_data, self.record_file, indent=4)
+                # Write buffa
+                #self.record_file.flush()
+
+    def AssignMotion(self):
+        file = open(self.controllerMap, "r")
+        data = json.load(file)
+        self.get_logger().info(f"Currently motions areassigned like this: {data}")
+
+        selectedButton = input("Select button to assign motion [0:Cross, 1:Circle, 2:Square, 3:Triangle, 4:LeftBumper, 5:RightBumper, 6:LeftTrigger, 7:RightTrigger, 8:Share, 9:Options, 10:PS, 11:LeftStick, 12:RightStick]: ")
+
+        if int(selectedButton) not in range(0,12):
+            pass
+
+        else:
+            fileFounded = os.listdir("/home/csanimatronics/CS_Animatronics/RecordedLog")
+            fileSelected = input(f"Chose file to assign {fileFounded}: ")
+            path = os.path.join("/home/csanimatronics/CS_Animatronics/RecordedLog", fileSelected)
+            data[selectedButton] = path
+            # path to 
+            file = open("/home/csanimatronics/CS_Animatronics/ControllerMap.json", "w")
+            self.get_logger().info(f"{fileFounded}")
+            json.dump(data, file, indent=4)
+            self.get_logger().info(f"Update: {data}")
+
+    def PlayMotion(self, button):
+        # load motion file
+        file = open(self.controllerMap, "r")
+        data = json.load(file)
+        print(data)
+        path = data[button]
+        print(path)
+
+        # play motion
+        file = open(path, "r")
+        data = json.load(file)
+
+        timestamps = [entry["timestamp"] for entry in data]
+        axes = [entry["axes"] for entry in data]
+        self.get_logger().info(f"timestamps: {timestamps}\naxes: {axes}") 
+
     def translate(self, axes, buttons):
         # Buttons event
         # Cross
         if buttons[0]:
             self.get_logger().info(f'Cross was pressed')
+            self.PlayMotion("0")
 
         # Circle
         elif buttons[1]:
             self.get_logger().info(f'Circle was pressed')
+            self.PlayMotion("1")
 
         # Square
         elif buttons[2]:
             self.get_logger().info(f'Square was pressed')
+            self.PlayMotion("2")
 
         # Triangle
         elif buttons[3]:
             self.get_logger().info(f'Triangle was pressed')
+            self.PlayMotion("3")
 
         # LeftBumper
         elif buttons[4]:
             self.get_logger().info(f'LeftBumper was pressed')
+ 
 
         # RightBumper
         elif buttons[5]:
@@ -133,6 +181,7 @@ class SystemController(Node):
         # Share
         elif buttons[8]:
             self.get_logger().info(f'Share was pressed')
+            self.AssignMotion()
 
         # Options
         elif buttons[9]:
@@ -147,9 +196,13 @@ class SystemController(Node):
                 IS_RECORDING = 2
             else:
                 IS_RECORDING = 0
+                json.dump(self.recorded_data, self.record_file, indent=4)
+                # Write buffa
+                self.record_file.flush()
                 self.record_file.close()
                 self.start_time = None
                 self.record_file = None
+                self.recorded_data = []
 
         # LeftStick
         elif buttons[11]:
