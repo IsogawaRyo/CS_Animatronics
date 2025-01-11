@@ -124,6 +124,7 @@ class SystemController(Node):
             self.get_logger().info(f"Update: {data}")
 
     def PlayMotion(self, button):
+        self.get_logger().info(f"Start playing recorded motion")
         # load motion file
         file = open(self.controllerMap, "r")
         data = json.load(file)
@@ -137,7 +138,28 @@ class SystemController(Node):
 
         timestamps = [entry["timestamp"] for entry in data]
         axes = [entry["axes"] for entry in data]
-        self.get_logger().info(f"timestamps: {timestamps}\naxes: {axes}") 
+
+        # Caluculate time diff
+        timediffs = [timestamps[0]]
+        for i in range(len(timestamps) - 1):
+            timediffs.append(timestamps[i+1] - timestamps[i])
+        print(timediffs)
+ 
+        for i, timediff in enumerate(timediffs):
+            time.sleep(timediff)
+            buttons = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            ids, angles = self.translate(axes[i], buttons)
+
+            # publish IdAngle
+            new_msg = IdAngle()
+            new_msg.ids = ids
+            new_msg.angles = angles
+
+            self.publisher.publish(new_msg)
+            self.get_logger().info(f'Playing recorded motion: {new_msg.ids}, Angles: {new_msg.angles}')
+
+
+        self.get_logger().info(f"Finish playing recorded moiton") 
 
     def translate(self, axes, buttons):
         # Buttons event
