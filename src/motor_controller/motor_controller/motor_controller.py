@@ -53,7 +53,7 @@ groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITI
 
 MOTOR_LIMITS = {
     11: {"ini": 1024, "min": 171,  "max": 1023},
-    21: {"ini": 0,    "min": 3412, "max": 4777},
+    21: {"ini": 0,    "min": -682, "max": 682},
     22: {"ini": 1592, "min": 1500, "max": 1650},
     23: {"ini": 1593, "min": 1751, "max": 2343},
     31: {"ini": 1251, "min": 910,  "max": 1592},

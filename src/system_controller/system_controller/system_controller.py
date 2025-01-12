@@ -299,8 +299,8 @@ class SystemController(Node):
         return angleR, angleL
 
     def neck(self, x, y, z):
-        neckX_min = 300 *(4095//360) # R
-        neckX_max = 420 *(4095//360) # L
+        neckX_min = -60 *(4095//360) # R
+        neckX_max = 60 *(4095//360) # L
         rangeX = neckX_max - neckX_min
 
         #neckY_min = 160 *(4095//360)
