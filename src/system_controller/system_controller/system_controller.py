@@ -28,10 +28,10 @@ class SystemController(Node):
         super().__init__('system_controller')
         self.get_logger().info('Run system controller node')
         
+        # Initialize variables used for record function 
         self.start_time = None
         self.recorded_data = []
         self.record_file = None
-
         self.controllerMap = "/home/csanimatronics/CS_Animatronics/ControllerMap.json"
 
         # Setting for subscriber
@@ -72,11 +72,12 @@ class SystemController(Node):
         self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
 
     def record(self, axes):
-        # Record
+        # Record motion
         global IS_RECORDING
         if IS_RECORDING != 0:
             # Initialize
             if IS_RECORDING == 2:
+                # This event called once when recording started
                 IS_RECORDING = 1 
                 self.start_time = time.time()
                 self.recorded_data = []
@@ -96,11 +97,6 @@ class SystemController(Node):
             }
             self.recorded_data.append(entry)
             print(self.recorded_data)
-
-            #if IS_RECORDING == 0 and self.record_file:
-                #json.dump(self.recorded_data, self.record_file, indent=4)
-                # Write buffa
-                #self.record_file.flush()
 
     def AssignMotion(self):
         file = open(self.controllerMap, "r")
