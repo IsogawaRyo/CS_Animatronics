@@ -99,6 +99,9 @@ class SystemController(Node):
             print(self.recorded_data)
 
     def AssignMotion(self):
+        # Assign recorded motion to a button
+        
+        # Show current mapping of controller
         file = open(self.controllerMap, "r")
         data = json.load(file)
         self.get_logger().info(f"Currently motions areassigned like this: {data}")
