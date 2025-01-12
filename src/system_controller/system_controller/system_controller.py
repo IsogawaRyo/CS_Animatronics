@@ -108,15 +108,14 @@ class SystemController(Node):
 
         selectedButton = input("Select button to assign motion [0:Cross, 1:Circle, 2:Square, 3:Triangle, 4:LeftBumper, 5:RightBumper, 6:LeftTrigger, 7:RightTrigger, 8:Share, 9:Options, 10:PS, 11:LeftStick, 12:RightStick]: ")
 
-        if int(selectedButton) not in range(0,12):
-            pass
-
-        else:
+        if int(selectedButton) in range(0,12):
+            # Search recorded motion files
             fileFounded = os.listdir("/home/csanimatronics/CS_Animatronics/RecordedLog")
+            # Chose a file to assign
             fileSelected = input(f"Chose file to assign {fileFounded}: ")
             path = os.path.join("/home/csanimatronics/CS_Animatronics/RecordedLog", fileSelected)
             data[selectedButton] = path
-            # path to 
+            # path to assign
             file = open("/home/csanimatronics/CS_Animatronics/ControllerMap.json", "w")
             self.get_logger().info(f"{fileFounded}")
             json.dump(data, file, indent=4)
@@ -124,7 +123,7 @@ class SystemController(Node):
 
     def PlayMotion(self, button):
         self.get_logger().info(f"Start playing recorded motion")
-        # load motion file
+        # Load motion file
         file = open(self.controllerMap, "r")
         data = json.load(file)
         print(data)
@@ -185,11 +184,12 @@ class SystemController(Node):
         # LeftBumper
         elif buttons[4]:
             self.get_logger().info(f'LeftBumper was pressed')
- 
+            self.PlayMotion("4")
 
         # RightBumper
         elif buttons[5]:
             self.get_logger().info(f'RightBumper was pressed')
+            self.PlayMotion("5")
 
         # LeftTrigger
         elif buttons[6]:
@@ -218,7 +218,7 @@ class SystemController(Node):
             else:
                 IS_RECORDING = 0
                 json.dump(self.recorded_data, self.record_file, indent=4)
-                # Write buffa
+                # Write buffa to record file
                 self.record_file.flush()
                 self.record_file.close()
                 self.start_time = None
@@ -228,10 +228,12 @@ class SystemController(Node):
         # LeftStick
         elif buttons[11]:
             self.get_logger().info(f'LeftStick was pressed')
+            self.PlayMotion("11")
 
         # RightStick
         elif buttons[12]:
             self.get_logger().info(f'RightStick was pressed')
+            self.PlayMotion("12")
 
         # Test
         if MODE == -1:
