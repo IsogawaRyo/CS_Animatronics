@@ -1,0 +1,2 @@
+[console_scripts]
+controller_publisher = controller_publisher.controller_publisher:main
