@@ -278,7 +278,7 @@ class SystemController(Node):
         return angleRU, angleRL, angleLU, angleLL
 
     def jaw(self, angle):
-        jaw_min = 15 *(4095//360) # open
+        jaw_min = 600 # open
         jaw_max = 90 *(4095//360) # close
         range = jaw_max - jaw_min
         
@@ -303,8 +303,8 @@ class SystemController(Node):
         neckX_max = 60 *(4095//360) # L
         rangeX = neckX_max - neckX_min
 
-        neckY_min = 160 *(4095//360)
-        neckY_max = 200 *(4095//360)
+        neckY_min = 1500
+        neckY_max = 2000
         rangeY = neckY_max - neckY_min
 
         neckZ_min = 154 *(4095//360) # L

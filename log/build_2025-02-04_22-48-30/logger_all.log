@@ -1,0 +1,982 @@
+[0.212s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.212s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0xffff8cbf7ce0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffff8cbf7a70>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffff8cbf7a70>>, mixin_verb=('build',))
+[0.271s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.271s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.271s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.271s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.271s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.271s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.271s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/csanimatronics/CS_Animatronics'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.310s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extensions ['ignore', 'ignore_ament_install']
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extension 'ignore'
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extension 'ignore_ament_install'
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extensions ['colcon_pkg']
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extension 'colcon_pkg'
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extensions ['colcon_meta']
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extension 'colcon_meta'
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extensions ['ros']
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extension 'ros'
+[0.311s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extensions ['cmake', 'python']
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extension 'cmake'
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extension 'python'
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extensions ['python_setup_py']
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(RecordedLog) by extension 'python_setup_py'
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extensions ['ignore', 'ignore_ament_install']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extension 'ignore'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extension 'ignore_ament_install'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extensions ['colcon_pkg']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extension 'colcon_pkg'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extensions ['colcon_meta']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extension 'colcon_meta'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extensions ['ros']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extension 'ros'
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extensions ['cmake', 'python']
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extension 'cmake'
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extension 'python'
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extensions ['python_setup_py']
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut) by extension 'python_setup_py'
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extensions ['ignore', 'ignore_ament_install']
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extension 'ignore'
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extension 'ignore_ament_install'
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extensions ['colcon_pkg']
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extension 'colcon_pkg'
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extensions ['colcon_meta']
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extension 'colcon_meta'
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extensions ['ros']
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extension 'ros'
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extensions ['cmake', 'python']
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extension 'cmake'
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extension 'python'
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extensions ['python_setup_py']
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17) by extension 'python_setup_py'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extensions ['ignore', 'ignore_ament_install']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extension 'ignore'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extension 'ignore_ament_install'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extensions ['colcon_pkg']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extension 'colcon_pkg'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extensions ['colcon_meta']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extension 'colcon_meta'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extensions ['ros']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extension 'ros'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extensions ['cmake', 'python']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extension 'cmake'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extension 'python'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extensions ['python_setup_py']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch) by extension 'python_setup_py'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extensions ['ignore', 'ignore_ament_install']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extension 'ignore'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extension 'ignore_ament_install'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extensions ['colcon_pkg']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extension 'colcon_pkg'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extensions ['colcon_meta']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extension 'colcon_meta'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extensions ['ros']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extension 'ros'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extensions ['cmake', 'python']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extension 'cmake'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extension 'python'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extensions ['python_setup_py']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0) by extension 'python_setup_py'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extensions ['ignore', 'ignore_ament_install']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'ignore'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'ignore_ament_install'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extensions ['colcon_pkg']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'colcon_pkg'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extensions ['colcon_meta']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'colcon_meta'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extensions ['ros']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'ros'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extensions ['cmake', 'python']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'cmake'
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'python'
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extensions ['python_setup_py']
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'python_setup_py'
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extensions ['ignore', 'ignore_ament_install']
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extension 'ignore'
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extension 'ignore_ament_install'
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extensions ['colcon_pkg']
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extension 'colcon_pkg'
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extensions ['colcon_meta']
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extension 'colcon_meta'
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extensions ['ros']
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extension 'ros'
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extensions ['cmake', 'python']
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extension 'cmake'
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extension 'python'
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extensions ['python_setup_py']
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/test) by extension 'python_setup_py'
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extensions ['ignore', 'ignore_ament_install']
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extension 'ignore'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extension 'ignore_ament_install'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extensions ['colcon_pkg']
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extension 'colcon_pkg'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extensions ['colcon_meta']
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extension 'colcon_meta'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extensions ['ros']
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extension 'ros'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extensions ['cmake', 'python']
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extension 'cmake'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extension 'python'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extensions ['python_setup_py']
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/dlc-models-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1/train) by extension 'python_setup_py'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extensions ['ignore', 'ignore_ament_install']
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extension 'ignore'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extension 'ignore_ament_install'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extensions ['colcon_pkg']
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extension 'colcon_pkg'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extensions ['colcon_meta']
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extension 'colcon_meta'
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extensions ['ros']
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extension 'ros'
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extensions ['cmake', 'python']
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extension 'cmake'
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extension 'python'
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extensions ['python_setup_py']
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch) by extension 'python_setup_py'
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extensions ['ignore', 'ignore_ament_install']
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extension 'ignore'
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extension 'ignore_ament_install'
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extensions ['colcon_pkg']
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extension 'colcon_pkg'
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extensions ['colcon_meta']
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extension 'colcon_meta'
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extensions ['ros']
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extension 'ros'
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extensions ['cmake', 'python']
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extension 'cmake'
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extension 'python'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extensions ['python_setup_py']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0) by extension 'python_setup_py'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extensions ['ignore', 'ignore_ament_install']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'ignore'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'ignore_ament_install'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extensions ['colcon_pkg']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'colcon_pkg'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extensions ['colcon_meta']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'colcon_meta'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extensions ['ros']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'ros'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extensions ['cmake', 'python']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'cmake'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'python'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extensions ['python_setup_py']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/evaluation-results-pytorch/iteration-0/AnimatronicsDec17-trainset95shuffle1) by extension 'python_setup_py'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extensions ['ignore', 'ignore_ament_install']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extension 'ignore'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extension 'ignore_ament_install'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extensions ['colcon_pkg']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extension 'colcon_pkg'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extensions ['colcon_meta']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extension 'colcon_meta'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extensions ['ros']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extension 'ros'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extensions ['cmake', 'python']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extension 'cmake'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extension 'python'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extensions ['python_setup_py']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data) by extension 'python_setup_py'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extensions ['ignore', 'ignore_ament_install']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extension 'ignore'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extension 'ignore_ament_install'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extensions ['colcon_pkg']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extension 'colcon_pkg'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extensions ['colcon_meta']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extension 'colcon_meta'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extensions ['ros']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extension 'ros'
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extensions ['cmake', 'python']
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extension 'cmake'
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extension 'python'
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extensions ['python_setup_py']
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1) by extension 'python_setup_py'
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extensions ['ignore', 'ignore_ament_install']
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extension 'ignore'
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extension 'ignore_ament_install'
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extensions ['colcon_pkg']
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extension 'colcon_pkg'
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extensions ['colcon_meta']
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extension 'colcon_meta'
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extensions ['ros']
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extension 'ros'
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extensions ['cmake', 'python']
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extension 'cmake'
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extension 'python'
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extensions ['python_setup_py']
+[0.322s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/labeled-data/Raptor1_labeled) by extension 'python_setup_py'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extensions ['ignore', 'ignore_ament_install']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extension 'ignore'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extension 'ignore_ament_install'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extensions ['colcon_pkg']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extension 'colcon_pkg'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extensions ['colcon_meta']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extension 'colcon_meta'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extensions ['ros']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extension 'ros'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extensions ['cmake', 'python']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extension 'cmake'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extension 'python'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extensions ['python_setup_py']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets) by extension 'python_setup_py'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extensions ['ignore', 'ignore_ament_install']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extension 'ignore'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extension 'ignore_ament_install'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extensions ['colcon_pkg']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extension 'colcon_pkg'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extensions ['colcon_meta']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extension 'colcon_meta'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extensions ['ros']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extension 'ros'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extensions ['cmake', 'python']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extension 'cmake'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extension 'python'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extensions ['python_setup_py']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0) by extension 'python_setup_py'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extensions ['ignore', 'ignore_ament_install']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extension 'ignore'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extension 'ignore_ament_install'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extensions ['colcon_pkg']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extension 'colcon_pkg'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extensions ['colcon_meta']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extension 'colcon_meta'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extensions ['ros']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extension 'ros'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extensions ['cmake', 'python']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extension 'cmake'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extension 'python'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extensions ['python_setup_py']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/training-datasets/iteration-0/UnaugmentedDataSet_AnimatronicsDec17) by extension 'python_setup_py'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extensions ['ignore', 'ignore_ament_install']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extension 'ignore'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extension 'ignore_ament_install'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extensions ['colcon_pkg']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extension 'colcon_pkg'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extensions ['colcon_meta']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extension 'colcon_meta'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extensions ['ros']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extension 'ros'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extensions ['cmake', 'python']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extension 'cmake'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extension 'python'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extensions ['python_setup_py']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Animatronics-Ryo-2024-12-17/videos) by extension 'python_setup_py'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extensions ['ignore', 'ignore_ament_install']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extension 'ignore'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extension 'ignore_ament_install'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extensions ['colcon_pkg']
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extension 'colcon_pkg'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extensions ['colcon_meta']
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extension 'colcon_meta'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extensions ['ros']
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extension 'ros'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extensions ['cmake', 'python']
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extension 'cmake'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extension 'python'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extensions ['python_setup_py']
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/Videos) by extension 'python_setup_py'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extensions ['ignore', 'ignore_ament_install']
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extension 'ignore'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extension 'ignore_ament_install'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extensions ['colcon_pkg']
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extension 'colcon_pkg'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extensions ['colcon_meta']
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extension 'colcon_meta'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extensions ['ros']
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extension 'ros'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extensions ['cmake', 'python']
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extension 'cmake'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extension 'python'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extensions ['python_setup_py']
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/__pycache__) by extension 'python_setup_py'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extensions ['ignore', 'ignore_ament_install']
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extension 'ignore'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extension 'ignore_ament_install'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extensions ['colcon_pkg']
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extension 'colcon_pkg'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extensions ['colcon_meta']
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extension 'colcon_meta'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extensions ['ros']
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extension 'ros'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extensions ['cmake', 'python']
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extension 'cmake'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extension 'python'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extensions ['python_setup_py']
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18) by extension 'python_setup_py'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extensions ['ignore', 'ignore_ament_install']
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extension 'ignore'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extension 'ignore_ament_install'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extensions ['colcon_pkg']
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extension 'colcon_pkg'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extensions ['colcon_meta']
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extension 'colcon_meta'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extensions ['ros']
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extension 'ros'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extensions ['cmake', 'python']
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extension 'cmake'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extension 'python'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extensions ['python_setup_py']
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch) by extension 'python_setup_py'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extensions ['ignore', 'ignore_ament_install']
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extension 'ignore'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extension 'ignore_ament_install'
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extensions ['colcon_pkg']
+[0.328s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extension 'colcon_pkg'
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extensions ['colcon_meta']
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extension 'colcon_meta'
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extensions ['ros']
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extension 'ros'
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extensions ['cmake', 'python']
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extension 'cmake'
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extension 'python'
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extensions ['python_setup_py']
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0) by extension 'python_setup_py'
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extensions ['ignore', 'ignore_ament_install']
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'ignore'
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'ignore_ament_install'
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extensions ['colcon_pkg']
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'colcon_pkg'
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extensions ['colcon_meta']
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'colcon_meta'
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extensions ['ros']
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'ros'
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extensions ['cmake', 'python']
+[0.329s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'cmake'
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'python'
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extensions ['python_setup_py']
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'python_setup_py'
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extensions ['ignore', 'ignore_ament_install']
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extension 'ignore'
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extension 'ignore_ament_install'
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extensions ['colcon_pkg']
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extension 'colcon_pkg'
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extensions ['colcon_meta']
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extension 'colcon_meta'
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extensions ['ros']
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extension 'ros'
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extensions ['cmake', 'python']
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extension 'cmake'
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extension 'python'
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extensions ['python_setup_py']
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/test) by extension 'python_setup_py'
+[0.330s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extensions ['ignore', 'ignore_ament_install']
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extension 'ignore'
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extension 'ignore_ament_install'
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extensions ['colcon_pkg']
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extension 'colcon_pkg'
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extensions ['colcon_meta']
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extension 'colcon_meta'
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extensions ['ros']
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extension 'ros'
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extensions ['cmake', 'python']
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extension 'cmake'
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extension 'python'
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extensions ['python_setup_py']
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/dlc-models-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1/train) by extension 'python_setup_py'
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extensions ['ignore', 'ignore_ament_install']
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extension 'ignore'
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extension 'ignore_ament_install'
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extensions ['colcon_pkg']
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extension 'colcon_pkg'
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extensions ['colcon_meta']
+[0.331s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extension 'colcon_meta'
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extensions ['ros']
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extension 'ros'
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extensions ['cmake', 'python']
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extension 'cmake'
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extension 'python'
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extensions ['python_setup_py']
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch) by extension 'python_setup_py'
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extensions ['ignore', 'ignore_ament_install']
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extension 'ignore'
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extension 'ignore_ament_install'
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extensions ['colcon_pkg']
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extension 'colcon_pkg'
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extensions ['colcon_meta']
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extension 'colcon_meta'
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extensions ['ros']
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extension 'ros'
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extensions ['cmake', 'python']
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extension 'cmake'
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extension 'python'
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extensions ['python_setup_py']
+[0.332s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0) by extension 'python_setup_py'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extensions ['ignore', 'ignore_ament_install']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'ignore'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'ignore_ament_install'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extensions ['colcon_pkg']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'colcon_pkg'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extensions ['colcon_meta']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'colcon_meta'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extensions ['ros']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'ros'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extensions ['cmake', 'python']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'cmake'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'python'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extensions ['python_setup_py']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/evaluation-results-pytorch/iteration-0/animatronicsDec18-trainset95shuffle1) by extension 'python_setup_py'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extensions ['ignore', 'ignore_ament_install']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extension 'ignore'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extension 'ignore_ament_install'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extensions ['colcon_pkg']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extension 'colcon_pkg'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extensions ['colcon_meta']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extension 'colcon_meta'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extensions ['ros']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extension 'ros'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extensions ['cmake', 'python']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extension 'cmake'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extension 'python'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extensions ['python_setup_py']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data) by extension 'python_setup_py'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extensions ['ignore', 'ignore_ament_install']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extension 'ignore'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extension 'ignore_ament_install'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extensions ['colcon_pkg']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extension 'colcon_pkg'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extensions ['colcon_meta']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extension 'colcon_meta'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extensions ['ros']
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extension 'ros'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extensions ['cmake', 'python']
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extension 'cmake'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extension 'python'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extensions ['python_setup_py']
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy) by extension 'python_setup_py'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extensions ['ignore', 'ignore_ament_install']
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extension 'ignore'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extension 'ignore_ament_install'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extensions ['colcon_pkg']
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extension 'colcon_pkg'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extensions ['colcon_meta']
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extension 'colcon_meta'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extensions ['ros']
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extension 'ros'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extensions ['cmake', 'python']
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extension 'cmake'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extension 'python'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extensions ['python_setup_py']
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/4B0CCEC3-B219-4C7F-A07C-F0ACDF82976E Copy_labeled) by extension 'python_setup_py'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extensions ['ignore', 'ignore_ament_install']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extension 'ignore'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extension 'ignore_ament_install'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extensions ['colcon_pkg']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extension 'colcon_pkg'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extensions ['colcon_meta']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extension 'colcon_meta'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extensions ['ros']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extension 'ros'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extensions ['cmake', 'python']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extension 'cmake'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extension 'python'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extensions ['python_setup_py']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/labeled-data/Raptor1) by extension 'python_setup_py'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extensions ['ignore', 'ignore_ament_install']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extension 'ignore'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extension 'ignore_ament_install'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extensions ['colcon_pkg']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extension 'colcon_pkg'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extensions ['colcon_meta']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extension 'colcon_meta'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extensions ['ros']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extension 'ros'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extensions ['cmake', 'python']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extension 'cmake'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extension 'python'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extensions ['python_setup_py']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets) by extension 'python_setup_py'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extensions ['ignore', 'ignore_ament_install']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extension 'ignore'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extension 'ignore_ament_install'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extensions ['colcon_pkg']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extension 'colcon_pkg'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extensions ['colcon_meta']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extension 'colcon_meta'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extensions ['ros']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extension 'ros'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extensions ['cmake', 'python']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extension 'cmake'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extension 'python'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extensions ['python_setup_py']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0) by extension 'python_setup_py'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extensions ['ignore', 'ignore_ament_install']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extension 'ignore'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extension 'ignore_ament_install'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extensions ['colcon_pkg']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extension 'colcon_pkg'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extensions ['colcon_meta']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extension 'colcon_meta'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extensions ['ros']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extension 'ros'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extensions ['cmake', 'python']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extension 'cmake'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extension 'python'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extensions ['python_setup_py']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/training-datasets/iteration-0/UnaugmentedDataSet_animatronicsDec18) by extension 'python_setup_py'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extensions ['ignore', 'ignore_ament_install']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extension 'ignore'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extension 'ignore_ament_install'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extensions ['colcon_pkg']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extension 'colcon_pkg'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extensions ['colcon_meta']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extension 'colcon_meta'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extensions ['ros']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extension 'ros'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extensions ['cmake', 'python']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extension 'cmake'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extension 'python'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extensions ['python_setup_py']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/DeepLabCut/animatronics-ryo-2024-12-18/videos) by extension 'python_setup_py'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extensions ['ignore', 'ignore_ament_install']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extension 'ignore'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extension 'ignore_ament_install'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extensions ['colcon_pkg']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extension 'colcon_pkg'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extensions ['colcon_meta']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extension 'colcon_meta'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extensions ['ros']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(src/controller_publisher) by extension 'ros'
+[0.343s] DEBUG:colcon.colcon_core.package_identification:Package 'src/controller_publisher' with type 'ros.ament_python' and name 'controller_publisher'
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extensions ['ignore', 'ignore_ament_install']
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extension 'ignore'
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extension 'ignore_ament_install'
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extensions ['colcon_pkg']
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extension 'colcon_pkg'
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extensions ['colcon_meta']
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extension 'colcon_meta'
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extensions ['ros']
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk) by extension 'ros'
+[0.344s] DEBUG:colcon.colcon_core.package_identification:Package 'src/dynamixel_sdk' with type 'ros.ament_cmake' and name 'dynamixel_sdk'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extension 'ignore'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extension 'ignore_ament_install'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extensions ['colcon_pkg']
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extension 'colcon_pkg'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extensions ['colcon_meta']
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extension 'colcon_meta'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extensions ['ros']
+[0.345s] Level 1:colcon.colcon_core.package_identification:_identify(src/dynamixel_sdk_custom_interfaces) by extension 'ros'
+[0.345s] DEBUG:colcon.colcon_core.package_identification:Package 'src/dynamixel_sdk_custom_interfaces' with type 'ros.ament_cmake' and name 'dynamixel_sdk_custom_interfaces'
+[0.345s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extensions ['ignore', 'ignore_ament_install']
+[0.345s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extension 'ignore'
+[0.345s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extension 'ignore_ament_install'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extensions ['colcon_pkg']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extension 'colcon_pkg'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extensions ['colcon_meta']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extension 'colcon_meta'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extensions ['ros']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_command_msg) by extension 'ros'
+[0.346s] DEBUG:colcon.colcon_core.package_identification:Package 'src/motor_command_msg' with type 'ros.ament_cmake' and name 'motor_command_msg'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extensions ['ignore', 'ignore_ament_install']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extension 'ignore'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extension 'ignore_ament_install'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extensions ['colcon_pkg']
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extension 'colcon_pkg'
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extensions ['colcon_meta']
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extension 'colcon_meta'
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extensions ['ros']
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(src/motor_controller) by extension 'ros'
+[0.347s] DEBUG:colcon.colcon_core.package_identification:Package 'src/motor_controller' with type 'ros.ament_python' and name 'motor_controller'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extensions ['ignore', 'ignore_ament_install']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extension 'ignore'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extension 'ignore_ament_install'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extensions ['colcon_pkg']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extension 'colcon_pkg'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extensions ['colcon_meta']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extension 'colcon_meta'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extensions ['ros']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(src/system_controller) by extension 'ros'
+[0.349s] DEBUG:colcon.colcon_core.package_identification:Package 'src/system_controller' with type 'ros.ament_python' and name 'system_controller'
+[0.349s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.349s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.349s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.349s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.349s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.374s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.374s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.378s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 285 installed packages in /opt/ros/jazzy
+[0.380s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'cmake_args' from command line to 'None'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'cmake_target' from command line to 'None'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'cmake_clean_cache' from command line to 'False'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'cmake_clean_first' from command line to 'False'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'cmake_force_configure' from command line to 'False'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'ament_cmake_args' from command line to 'None'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'catkin_cmake_args' from command line to 'None'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'controller_publisher' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.439s] DEBUG:colcon.colcon_core.verb:Building package 'controller_publisher' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/controller_publisher', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/controller_publisher', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/controller_publisher', 'symlink_install': False, 'test_result_base': None}
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'cmake_args' from command line to 'None'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'cmake_target' from command line to 'None'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'cmake_clean_cache' from command line to 'False'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'cmake_clean_first' from command line to 'False'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'cmake_force_configure' from command line to 'False'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'ament_cmake_args' from command line to 'None'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'catkin_cmake_args' from command line to 'None'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.440s] DEBUG:colcon.colcon_core.verb:Building package 'dynamixel_sdk' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk', 'symlink_install': False, 'test_result_base': None}
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'cmake_args' from command line to 'None'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'cmake_target' from command line to 'None'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'dynamixel_sdk_custom_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.440s] DEBUG:colcon.colcon_core.verb:Building package 'dynamixel_sdk_custom_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_custom_interfaces', 'symlink_install': False, 'test_result_base': None}
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'cmake_args' from command line to 'None'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'cmake_target' from command line to 'None'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'cmake_clean_cache' from command line to 'False'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'cmake_clean_first' from command line to 'False'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'cmake_force_configure' from command line to 'False'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'ament_cmake_args' from command line to 'None'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'catkin_cmake_args' from command line to 'None'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_command_msg' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.441s] DEBUG:colcon.colcon_core.verb:Building package 'motor_command_msg' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/motor_command_msg', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/motor_command_msg', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/motor_command_msg', 'symlink_install': False, 'test_result_base': None}
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'cmake_args' from command line to 'None'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'cmake_target' from command line to 'None'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'cmake_clean_cache' from command line to 'False'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'cmake_clean_first' from command line to 'False'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'cmake_force_configure' from command line to 'False'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'ament_cmake_args' from command line to 'None'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'catkin_cmake_args' from command line to 'None'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'motor_controller' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.441s] DEBUG:colcon.colcon_core.verb:Building package 'motor_controller' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/motor_controller', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/motor_controller', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/motor_controller', 'symlink_install': False, 'test_result_base': None}
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'cmake_args' from command line to 'None'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'cmake_target' from command line to 'None'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'cmake_clean_cache' from command line to 'False'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'cmake_clean_first' from command line to 'False'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'cmake_force_configure' from command line to 'False'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'ament_cmake_args' from command line to 'None'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'catkin_cmake_args' from command line to 'None'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'system_controller' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.442s] DEBUG:colcon.colcon_core.verb:Building package 'system_controller' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/csanimatronics/CS_Animatronics/build/system_controller', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/csanimatronics/CS_Animatronics/install/system_controller', 'merge_install': False, 'path': '/home/csanimatronics/CS_Animatronics/src/system_controller', 'symlink_install': False, 'test_result_base': None}
+[0.442s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.443s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.444s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/motor_command_msg' with build type 'ament_cmake'
+[0.445s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/csanimatronics/CS_Animatronics/src/motor_command_msg'
+[0.450s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.450s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.450s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.459s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk' with build type 'ament_cmake'
+[0.460s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk'
+[0.460s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.461s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.466s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_custom_interfaces' with build type 'ament_cmake'
+[0.467s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_custom_interfaces'
+[0.469s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.469s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.475s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/controller_publisher' with build type 'ament_python'
+[0.475s] Level 1:colcon.colcon_core.shell:create_environment_hook('controller_publisher', 'ament_prefix_path')
+[0.475s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/hook/ament_prefix_path.ps1'
+[0.477s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/hook/ament_prefix_path.dsv'
+[0.478s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/hook/ament_prefix_path.sh'
+[0.478s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.478s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.494s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/motor_command_msg -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/motor_command_msg
+[0.499s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk
+[0.504s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_custom_interfaces -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces
+[1.207s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/csanimatronics/CS_Animatronics/src/controller_publisher'
+[1.208s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.208s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.575s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk
+[2.577s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk -- -j4 -l4
+[2.797s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/src/controller_publisher': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/controller_publisher/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/controller_publisher build --build-base /home/csanimatronics/CS_Animatronics/build/controller_publisher/build install --record /home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log --single-version-externally-managed install_data
+[6.231s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/src/controller_publisher' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/controller_publisher/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/controller_publisher build --build-base /home/csanimatronics/CS_Animatronics/build/controller_publisher/build install --record /home/csanimatronics/CS_Animatronics/build/controller_publisher/install.log --single-version-externally-managed install_data
+[6.236s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher' for CMake module files
+[6.237s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher' for CMake config files
+[6.239s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib'
+[6.240s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher/bin'
+[6.240s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/pkgconfig/controller_publisher.pc'
+[6.241s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher/lib/python3.12/site-packages'
+[6.241s] Level 1:colcon.colcon_core.shell:create_environment_hook('controller_publisher', 'pythonpath')
+[6.242s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/hook/pythonpath.ps1'
+[6.243s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/hook/pythonpath.dsv'
+[6.244s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/hook/pythonpath.sh'
+[6.246s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/controller_publisher/bin'
+[6.246s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(controller_publisher)
+[6.247s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/package.ps1'
+[6.250s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/package.dsv'
+[6.253s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/package.sh'
+[6.266s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/package.bash'
+[6.269s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/controller_publisher/package.zsh'
+[6.270s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/controller_publisher/share/colcon-core/packages/controller_publisher)
+[6.647s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk -- -j4 -l4
+[6.682s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk
+[6.717s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dynamixel_sdk)
+[6.718s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk' for CMake module files
+[6.718s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk
+[6.719s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk' for CMake config files
+[6.719s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk', 'cmake_prefix_path')
+[6.720s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/cmake_prefix_path.ps1'
+[6.721s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/cmake_prefix_path.dsv'
+[6.721s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/cmake_prefix_path.sh'
+[6.723s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib'
+[6.723s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk', 'ld_library_path_lib')
+[6.723s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/ld_library_path_lib.ps1'
+[6.724s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/ld_library_path_lib.dsv'
+[6.725s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/ld_library_path_lib.sh'
+[6.726s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/bin'
+[6.727s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib/pkgconfig/dynamixel_sdk.pc'
+[6.727s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib/python3.12/site-packages'
+[6.728s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/bin'
+[6.728s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.ps1'
+[6.730s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.dsv'
+[6.732s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.sh'
+[6.734s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.bash'
+[6.735s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.zsh'
+[6.736s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/colcon-core/packages/dynamixel_sdk)
+[6.738s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dynamixel_sdk)
+[6.739s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk' for CMake module files
+[6.740s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk' for CMake config files
+[6.741s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk', 'cmake_prefix_path')
+[6.742s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/cmake_prefix_path.ps1'
+[6.744s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/cmake_prefix_path.dsv'
+[6.746s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/cmake_prefix_path.sh'
+[6.749s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib'
+[6.749s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk', 'ld_library_path_lib')
+[6.749s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/ld_library_path_lib.ps1'
+[6.751s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/ld_library_path_lib.dsv'
+[6.752s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/hook/ld_library_path_lib.sh'
+[6.753s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/bin'
+[6.753s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib/pkgconfig/dynamixel_sdk.pc'
+[6.754s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib/python3.12/site-packages'
+[6.754s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/bin'
+[6.754s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.ps1'
+[6.756s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.dsv'
+[6.757s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.sh'
+[6.758s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.bash'
+[6.759s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/dynamixel_sdk/package.zsh'
+[6.761s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/share/colcon-core/packages/dynamixel_sdk)
+[9.237s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/dynamixel_sdk_custom_interfaces -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces
+[9.239s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces -- -j4 -l4
+[9.941s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/csanimatronics/CS_Animatronics/src/motor_command_msg -DCMAKE_INSTALL_PREFIX=/home/csanimatronics/CS_Animatronics/install/motor_command_msg
+[9.942s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/motor_command_msg -- -j4 -l4
+[20.349s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/motor_command_msg -- -j4 -l4
+[20.352s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/motor_command_msg
+[20.502s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(motor_command_msg)
+[20.503s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/motor_command_msg' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/motor_command_msg
+[20.503s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg' for CMake module files
+[20.504s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg' for CMake config files
+[20.505s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_command_msg', 'cmake_prefix_path')
+[20.505s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/cmake_prefix_path.ps1'
+[20.506s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/cmake_prefix_path.dsv'
+[20.506s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/cmake_prefix_path.sh'
+[20.507s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib'
+[20.507s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_command_msg', 'ld_library_path_lib')
+[20.507s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/ld_library_path_lib.ps1'
+[20.508s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/ld_library_path_lib.dsv'
+[20.508s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/ld_library_path_lib.sh'
+[20.509s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/bin'
+[20.509s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/pkgconfig/motor_command_msg.pc'
+[20.509s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages'
+[20.509s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_command_msg', 'pythonpath')
+[20.510s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/pythonpath.ps1'
+[20.511s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/pythonpath.dsv'
+[20.512s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/pythonpath.sh'
+[20.514s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/bin'
+[20.515s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.ps1'
+[20.515s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.dsv'
+[20.516s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.sh'
+[20.516s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.bash'
+[20.517s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.zsh'
+[20.517s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/colcon-core/packages/motor_command_msg)
+[20.518s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(motor_command_msg)
+[20.518s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg' for CMake module files
+[20.519s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg' for CMake config files
+[20.520s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_command_msg', 'cmake_prefix_path')
+[20.520s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/cmake_prefix_path.ps1'
+[20.521s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/cmake_prefix_path.dsv'
+[20.522s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/cmake_prefix_path.sh'
+[20.523s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib'
+[20.523s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_command_msg', 'ld_library_path_lib')
+[20.523s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/ld_library_path_lib.ps1'
+[20.524s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/ld_library_path_lib.dsv'
+[20.524s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/ld_library_path_lib.sh'
+[20.525s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/bin'
+[20.525s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/pkgconfig/motor_command_msg.pc'
+[20.525s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages'
+[20.526s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_command_msg', 'pythonpath')
+[20.526s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/pythonpath.ps1'
+[20.527s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/pythonpath.dsv'
+[20.527s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/hook/pythonpath.sh'
+[20.528s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/bin'
+[20.529s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.ps1'
+[20.530s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.dsv'
+[20.531s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.sh'
+[20.531s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.bash'
+[20.532s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/motor_command_msg/package.zsh'
+[20.533s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/motor_command_msg/share/colcon-core/packages/motor_command_msg)
+[20.536s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/system_controller' with build type 'ament_python'
+[20.537s] Level 1:colcon.colcon_core.shell:create_environment_hook('system_controller', 'ament_prefix_path')
+[20.537s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/hook/ament_prefix_path.ps1'
+[20.541s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/hook/ament_prefix_path.dsv'
+[20.543s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/hook/ament_prefix_path.sh'
+[20.546s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[20.546s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[21.042s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/csanimatronics/CS_Animatronics/src/system_controller'
+[21.043s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[21.043s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[21.247s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces -- -j4 -l4
+[21.249s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces
+[21.422s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dynamixel_sdk_custom_interfaces)
+[21.422s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces' for CMake module files
+[21.423s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/csanimatronics/CS_Animatronics/build/dynamixel_sdk_custom_interfaces
+[21.423s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces' for CMake config files
+[21.424s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_custom_interfaces', 'cmake_prefix_path')
+[21.424s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/cmake_prefix_path.ps1'
+[21.425s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/cmake_prefix_path.dsv'
+[21.425s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/cmake_prefix_path.sh'
+[21.426s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib'
+[21.426s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_custom_interfaces', 'ld_library_path_lib')
+[21.427s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/ld_library_path_lib.ps1'
+[21.427s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/ld_library_path_lib.dsv'
+[21.427s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/ld_library_path_lib.sh'
+[21.428s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/bin'
+[21.428s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/pkgconfig/dynamixel_sdk_custom_interfaces.pc'
+[21.428s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages'
+[21.428s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_custom_interfaces', 'pythonpath')
+[21.429s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/pythonpath.ps1'
+[21.429s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/pythonpath.dsv'
+[21.429s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/pythonpath.sh'
+[21.430s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/bin'
+[21.430s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.ps1'
+[21.431s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.dsv'
+[21.432s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.sh'
+[21.432s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.bash'
+[21.433s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.zsh'
+[21.433s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/colcon-core/packages/dynamixel_sdk_custom_interfaces)
+[21.434s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dynamixel_sdk_custom_interfaces)
+[21.434s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces' for CMake module files
+[21.435s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces' for CMake config files
+[21.436s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_custom_interfaces', 'cmake_prefix_path')
+[21.436s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/cmake_prefix_path.ps1'
+[21.436s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/cmake_prefix_path.dsv'
+[21.437s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/cmake_prefix_path.sh'
+[21.437s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib'
+[21.438s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_custom_interfaces', 'ld_library_path_lib')
+[21.438s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/ld_library_path_lib.ps1'
+[21.438s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/ld_library_path_lib.dsv'
+[21.439s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/ld_library_path_lib.sh'
+[21.439s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/bin'
+[21.439s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/pkgconfig/dynamixel_sdk_custom_interfaces.pc'
+[21.439s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages'
+[21.440s] Level 1:colcon.colcon_core.shell:create_environment_hook('dynamixel_sdk_custom_interfaces', 'pythonpath')
+[21.440s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/pythonpath.ps1'
+[21.440s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/pythonpath.dsv'
+[21.441s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/hook/pythonpath.sh'
+[21.441s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/bin'
+[21.442s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.ps1'
+[21.443s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.dsv'
+[21.443s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.sh'
+[21.444s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.bash'
+[21.444s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/dynamixel_sdk_custom_interfaces/package.zsh'
+[21.445s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/share/colcon-core/packages/dynamixel_sdk_custom_interfaces)
+[21.445s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/csanimatronics/CS_Animatronics/src/motor_controller' with build type 'ament_python'
+[21.445s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_controller', 'ament_prefix_path')
+[21.446s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/hook/ament_prefix_path.ps1'
+[21.447s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/hook/ament_prefix_path.dsv'
+[21.450s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/hook/ament_prefix_path.sh'
+[21.452s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[21.452s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[21.854s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/csanimatronics/CS_Animatronics/src/motor_controller'
+[21.854s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[21.854s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[22.135s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/src/system_controller': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/system_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/system_controller build --build-base /home/csanimatronics/CS_Animatronics/build/system_controller/build install --record /home/csanimatronics/CS_Animatronics/build/system_controller/install.log --single-version-externally-managed install_data
+[22.864s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/csanimatronics/CS_Animatronics/src/motor_controller': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/motor_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/motor_controller build --build-base /home/csanimatronics/CS_Animatronics/build/motor_controller/build install --record /home/csanimatronics/CS_Animatronics/build/motor_controller/install.log --single-version-externally-managed install_data
+[22.997s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller' for CMake module files
+[22.997s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/src/system_controller' returned '0': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/system_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/system_controller build --build-base /home/csanimatronics/CS_Animatronics/build/system_controller/build install --record /home/csanimatronics/CS_Animatronics/build/system_controller/install.log --single-version-externally-managed install_data
+[22.998s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller' for CMake config files
+[22.998s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller/lib'
+[22.998s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller/bin'
+[22.999s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller/lib/pkgconfig/system_controller.pc'
+[22.999s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller/lib/python3.12/site-packages'
+[22.999s] Level 1:colcon.colcon_core.shell:create_environment_hook('system_controller', 'pythonpath')
+[22.999s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/hook/pythonpath.ps1'
+[23.000s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/hook/pythonpath.dsv'
+[23.000s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/hook/pythonpath.sh'
+[23.001s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/system_controller/bin'
+[23.001s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(system_controller)
+[23.001s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/package.ps1'
+[23.002s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/package.dsv'
+[23.003s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/package.sh'
+[23.003s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/package.bash'
+[23.003s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/system_controller/share/system_controller/package.zsh'
+[23.004s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/system_controller/share/colcon-core/packages/system_controller)
+[23.703s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller' for CMake module files
+[23.704s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/csanimatronics/CS_Animatronics/src/motor_controller' returned '0': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/motor_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_command_msg/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/dynamixel_sdk_custom_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/motor_controller build --build-base /home/csanimatronics/CS_Animatronics/build/motor_controller/build install --record /home/csanimatronics/CS_Animatronics/build/motor_controller/install.log --single-version-externally-managed install_data
+[23.705s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller' for CMake config files
+[23.705s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller/lib'
+[23.705s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller/bin'
+[23.705s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/pkgconfig/motor_controller.pc'
+[23.706s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller/lib/python3.12/site-packages'
+[23.706s] Level 1:colcon.colcon_core.shell:create_environment_hook('motor_controller', 'pythonpath')
+[23.706s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/hook/pythonpath.ps1'
+[23.707s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/hook/pythonpath.dsv'
+[23.707s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/hook/pythonpath.sh'
+[23.708s] Level 1:colcon.colcon_core.environment:checking '/home/csanimatronics/CS_Animatronics/install/motor_controller/bin'
+[23.708s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(motor_controller)
+[23.708s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/package.ps1'
+[23.709s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/package.dsv'
+[23.709s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/package.sh'
+[23.710s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/package.bash'
+[23.710s] INFO:colcon.colcon_core.shell:Creating package script '/home/csanimatronics/CS_Animatronics/install/motor_controller/share/motor_controller/package.zsh'
+[23.710s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/csanimatronics/CS_Animatronics/install/motor_controller/share/colcon-core/packages/motor_controller)
+[23.711s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[23.711s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[23.711s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[23.711s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[23.729s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[23.729s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[23.729s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[23.753s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[23.754s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/csanimatronics/CS_Animatronics/install/local_setup.ps1'
+[23.755s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/csanimatronics/CS_Animatronics/install/_local_setup_util_ps1.py'
+[23.757s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/csanimatronics/CS_Animatronics/install/setup.ps1'
+[23.758s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/csanimatronics/CS_Animatronics/install/local_setup.sh'
+[23.759s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/csanimatronics/CS_Animatronics/install/_local_setup_util_sh.py'
+[23.760s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/csanimatronics/CS_Animatronics/install/setup.sh'
+[23.761s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/csanimatronics/CS_Animatronics/install/local_setup.bash'
+[23.761s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/csanimatronics/CS_Animatronics/install/setup.bash'
+[23.762s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/csanimatronics/CS_Animatronics/install/local_setup.zsh'
+[23.763s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/csanimatronics/CS_Animatronics/install/setup.zsh'
