@@ -71,6 +71,9 @@ class MotorController(Node):
         super().__init__('motor_controller')
         self.get_logger().info('Run motor controller node')
 
+        # Load motor limit
+        self.motorLimits = json.load(open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r"))
+
         # Setting GetPosition service
         self.get_position_server_ = self.create_service(
             GetPosition, 
