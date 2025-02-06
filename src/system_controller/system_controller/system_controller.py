@@ -15,7 +15,7 @@ import json
 # -1: Test
 # 0: FullManual
 # 2: Assist
-MODE = 0
+MODE = -1
 
 # Recording Check
 # 0: not recording
@@ -34,6 +34,9 @@ class SystemController(Node):
         self.record_file = None
         self.controllerMap = "/home/csanimatronics/CS_Animatronics/ControllerMap.json"
 
+        # Load motor limit
+        self.motorLimits = json.load(open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r"))
+        
         # Setting for subscriber
         self.subscription = self.create_subscription(
             Joy,
@@ -70,7 +73,7 @@ class SystemController(Node):
 
         self.publisher.publish(new_msg)
         self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
-
+    
     def record(self, axes):
         # Record motion
         global IS_RECORDING
@@ -237,10 +240,11 @@ class SystemController(Node):
 
         # Test
         if MODE == -1:
-            ids = [11, 21, 22, 23, 31, 32, 41, 42, 43, 44]
-            angles = [3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000]
-            ids = 31
-            angles = 3000
+            #ids = [11, 21, 22, 23, 24, 31, 32, 41, 42, 43, 44]
+            #angles = [3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000]
+            print(f"{self.motorLimits}")
+            ids = 11
+            angles = 1024
 
         # FullMaual
         elif MODE == 0:
