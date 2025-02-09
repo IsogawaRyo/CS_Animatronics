@@ -15,7 +15,7 @@ import json
 # -1: Test
 # 0: FullManual
 # 2: Assist
-MODE = -1
+MODE = 0
 
 # Recording Check
 # 0: not recording
@@ -50,7 +50,7 @@ class SystemController(Node):
         self.publisher = self.create_publisher(
             IdAngle,
             'IdAngle',
-            10
+            11
         )
     
     def listener_callback(self, msg):
@@ -77,16 +77,14 @@ class SystemController(Node):
 
     def loadMotorLimits(self):
         with open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r", encoding="utf-8") as file:
-        data = json.load(file)
+            data = json.load(file)
 
-        # 辞書内の各値を int に変換する
         for key, subdict in data.items():
             subdict["ini"] = int(subdict["ini"])
             subdict["min"] = int(subdict["min"])
             subdict["max"] = int(subdict["max"])
 
         self.motorLimits = data
-        print(f"{self.motorLimits}")
     
     def record(self, axes):
         # Record motion
