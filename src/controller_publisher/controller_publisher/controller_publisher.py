@@ -6,6 +6,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
 import pygame
+from time import sleep
 
 class ControllerPublisher(Node):
     def __init__(self):
@@ -19,9 +20,9 @@ class ControllerPublisher(Node):
         pygame.joystick.init()
 
         # check connections 
-        if pygame.joystick.get_count() == 0:
+        while pygame.joystick.get_count() == 0:
             self.get_logger().error('No joystick detected. Please connect a controller!')
-            exit()
+            sleep(1)
 
         self.controller = pygame.joystick.Joystick(0)
         self.controller.init()
