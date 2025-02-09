@@ -240,11 +240,11 @@ def initialize_motor():
         sleep(0.1)
 
         # Set Minimum (no use for mode 4)
-        set_motor4(selected_port_handler, id, ADDR_MIN, MOTOR_LIMITS[id]["min"])
+        set_motor4(selected_port_handler, id, ADDR_MIN_POSITION_LIMIT, MOTOR_LIMITS[id]["min"])
         sleep(0.1)
 
         # Set Maximum (no use for mode 4)
-        set_motor4(selected_port_handler, id, ADDR_MAX, MOTOR_LIMITS[id]["max"])
+        set_motor4(selected_port_handler, id, ADDR_MAX_POSITION_LIMIT, MOTOR_LIMITS[id]["max"])
         sleep(0.1)
 
         # Enable Torque
