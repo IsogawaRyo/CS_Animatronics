@@ -55,7 +55,7 @@ groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITI
 
 MOTOR_LIMITS = {
     11: {"ini": 1024, "min": 171,  "max": 1023},
-    21: {"ini": 0,    "min": -682, "max": 682},
+    21: {"ini": 4095,    "min": 3413, "max": 4777},
     22: {"ini": 1592, "min": 1500, "max": 2000},
     23: {"ini": 1593, "min": 1751, "max": 2343},
     24: {"ini": 1592, "min": 1500, "max": 2000},
@@ -73,7 +73,8 @@ class MotorController(Node):
         self.get_logger().info('Run motor controller node')
 
         # Load motor limit
-        self.motorLimits = json.load(open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r"))
+        self.motorLimits = {}
+        self.loadMotorLimits() 
 
         # Setting GetPosition service
         self.get_position_server_ = self.create_service(
@@ -88,6 +89,19 @@ class MotorController(Node):
             self.listener_callback,
             10)
         self.subscription
+
+    def loadMotorLimits(self):
+        with open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r", encoding="utf-8") as file:
+            data = json.load(file)
+
+        for key, subdict in data.items():
+            subdict["ini"] = int(subdict["ini"])
+            subdict["min"] = int(subdict["min"])
+            subdict["max"] = int(subdict["max"])
+
+        self.motorLimits = data
+        print(f"{self.motorLimits}")
+
         
     def listener_callback(self, msg):
         self.get_logger().info(f'Ids: {msg.ids}')
@@ -99,14 +113,14 @@ class MotorController(Node):
         for i, id in enumerate(msg.ids):
         # Check Limits
             angle = int(msg.angles[i])
-            if angle <= MOTOR_LIMITS[id]["min"]:
+            if angle <= self.motorLimits[f"{id}"]["min"]:
                 angleP = angle
-                angle = MOTOR_LIMITS[id]["min"]
+                angle = self.motorLimits[f"{id}"]["min"]
                 self.get_logger().error(f"Exceed minimum motor {id}: {angleP} => {angle}")
 
-            elif angle >= MOTOR_LIMITS[id]["max"]:
+            elif angle >= self.motorLimits[f"{id}"]["max"]:
                 angleP = angle
-                angle = MOTOR_LIMITS[id]["max"]
+                angle = self.motorLimits[f"{id}"]["max"]
                 self.get_logger().error(f"Exceed maximum motor {id}: {angleP} => {angle}")
             self.get_logger().info(f"{id}: {angle}")
 
@@ -225,27 +239,27 @@ def initialize_motor():
         #sleep(0.1)
 
         # Set Position Control Mode
-        set_motor1(selected_port_handler, id, ADDR_OPERATING_MODE, 4)        
+        set_motor1(selected_port_handler, id, ADDR_OPERATING_MODE, 3)        
         sleep(0.1)
 
-        # Set Maximum Velocity
-        set_motor1(selected_port_handler, id, ADDR_PROFILE_VELOCITY, 50)
-        sleep(0.1)
+        # Set Profile Velocity
+        #set_motor1(selected_port_handler, id, ADDR_PROFILE_VELOCITY, 50)
+        #sleep(0.1)
 
-        # Set Maximum Acceleration
-        set_motor1(selected_port_handler, id, ADDR_PROFILE_ACCELERATION, 50)
+        # Set Profile Acceleration
+        set_motor1(selected_port_handler, id, ADDR_PROFILE_ACCELERATION, 100)
         sleep(0.1)
 
         # Set Initial Position
-        set_motor4(selected_port_handler, id, ADDR_GOAL_POSITION, MOTOR_LIMITS[id]["ini"])
+        set_motor4(selected_port_handler, id, ADDR_GOAL_POSITION, self.motorLimits[f"{id}"]["ini"])
         sleep(0.1)
 
         # Set Minimum (no use for mode 4)
-        set_motor4(selected_port_handler, id, ADDR_MIN_POSITION_LIMIT, MOTOR_LIMITS[id]["min"])
+        set_motor4(selected_port_handler, id, ADDR_MIN_POSITION_LIMIT, self.motorLimits[f"{id}"]["min"])
         sleep(0.1)
 
         # Set Maximum (no use for mode 4)
-        set_motor4(selected_port_handler, id, ADDR_MAX_POSITION_LIMIT, MOTOR_LIMITS[id]["max"])
+        set_motor4(selected_port_handler, id, ADDR_MAX_POSITION_LIMIT, self.motorLimits[f"{id}"]["max"])
         sleep(0.1)
 
         # Enable Torque

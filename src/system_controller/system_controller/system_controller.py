@@ -85,6 +85,7 @@ class SystemController(Node):
             subdict["max"] = int(subdict["max"])
 
         self.motorLimits = data
+        print(f"{self.motorLimits}")
     
     def record(self, axes):
         # Record motion
@@ -271,20 +272,20 @@ class SystemController(Node):
         return ids, angles
 
     def blink(self, angle):
-        blinkRU_min = -30 *(4095//360) # close
-        blinkRU_max = 40 *(4095//360) # open
+        blinkRU_min = self.motorLimits["43"]["min"] # close
+        blinkRU_max = self.motorLimits["43"]["max"] # open
         rangeRU = blinkRU_max - blinkRU_min
         
-        blinkRL_min = 145 *(4095//360) # close
-        blinkRL_max = 180 *(4095//360) # open
+        blinkRL_min = self.motorLimits["44"]["min"] # close
+        blinkRL_max = self.motorLimits["44"]["max"] # open
         rangeRL = blinkRL_max - blinkRL_min
         
-        blinkLU_min = 320 *(4095//360) # open
-        blinkLU_max = 400 *(4095//360) # close
+        blinkLU_min = self.motorLimits["41"]["min"] # open
+        blinkLU_max = self.motorLimits["41"]["max"] # close
         rangeLU = blinkLU_max - blinkLU_min
 
-        blinkLL_min = 170 *(4095//360) # open
-        blinkLL_max = 200 *(4095//360) # close
+        blinkLL_min = self.motorLimits["42"]["min"] # open
+        blinkLL_max = self.motorLimits["42"]["max"] # close
         rangeLL = blinkLL_max - blinkLL_min
  
         angleRU = int(blinkRU_max - ((angle + 1)/2)*rangeRU)
@@ -294,20 +295,20 @@ class SystemController(Node):
         return angleRU, angleRL, angleLU, angleLL
 
     def jaw(self, angle):
-        jaw_min = 600 # open
-        jaw_max = 90 *(4095//360) # close
+        jaw_min = self.motorLimits["11"]["min"] # open
+        jaw_max = self.motorLimits["11"]["max"] # close
         range = jaw_max - jaw_min
         
         angle = int(jaw_max - ((angle + 1)/2)*range)
         return angle
 
     def eyes(self, angle):
-        eyeR_min = 70 *(4095//360) # F
-        eyeR_max = 150 *(4095//360) # R
+        eyeR_min = self.motorLimits["31"]["min"] # F
+        eyeR_max = self.motorLimits["31"]["max"] # R
         rangeR = eyeR_max - eyeR_min
 
-        eyeL_min = 200 *(4095//360) # F
-        eyeL_max = 300 *(4095//360) # R
+        eyeL_min = self.motorLimits["32"]["min"] # F
+        eyeL_max = self.motorLimits["32"]["max"] # R
         rangeL = eyeL_max - eyeL_min
 
         angleR = int(eyeR_min + (rangeR//2) - (angle/2)*rangeR)
@@ -315,16 +316,16 @@ class SystemController(Node):
         return angleR, angleL
 
     def neck(self, x, y, z):
-        neckX_min = -60 *(4095//360) # R
-        neckX_max = 60 *(4095//360) # L
+        neckX_min = self.motorLimits["21"]["min"] # R
+        neckX_max = self.motorLimits["21"]["max"] # L
         rangeX = neckX_max - neckX_min
 
-        neckY_min = 1500
-        neckY_max = 2000
+        neckY_min = self.motorLimits["22"]["min"]
+        neckY_max = self.motorLimits["22"]["max"]
         rangeY = neckY_max - neckY_min
 
-        neckZ_min = 154 *(4095//360) # L
-        neckZ_max = 206 *(4095//360) # R
+        neckZ_min = self.motorLimits["23"]["min"] # L
+        neckZ_max = self.motorLimits["23"]["max"] # R
         rangeZ = neckZ_max - neckZ_min
         
         neckX = int(neckX_min + (rangeX//2) + (x/2)*rangeX)
