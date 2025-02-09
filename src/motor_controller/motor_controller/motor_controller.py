@@ -53,20 +53,6 @@ LEN_GOAL_POSITION = 4
 groupSyncWrite0 = GroupSyncWrite(port_handler0, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 
-MOTOR_LIMITS = {
-    11: {"ini": 1024, "min": 171,  "max": 1023},
-    21: {"ini": 4095,    "min": 3413, "max": 4777},
-    22: {"ini": 1592, "min": 1500, "max": 2000},
-    23: {"ini": 1593, "min": 1751, "max": 2343},
-    24: {"ini": 1592, "min": 1500, "max": 2000},
-    31: {"ini": 1251, "min": 910,  "max": 1592},
-    32: {"ini": 2844, "min": 2502, "max": 3185},
-    41: {"ini": -341, "min": -341, "max": 341},
-    42: {"ini": 1706,  "min": 1706, "max": 1990},
-    43: {"ini": 455,  "min": 3640, "max": 4550},
-    44: {"ini": 2388, "min": 2047,  "max": 2388}
-}
-
 class MotorController(Node):
     def __init__(self):
         super().__init__('motor_controller')
@@ -218,6 +204,16 @@ def ping(port_handler, id):
         print(f"{id} answered")
             
 def initialize_motor():
+    with open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r", encoding="utf-8") as file:
+        data = json.load(file)
+
+    for key, subdict in data.items():
+        subdict["ini"] = int(subdict["ini"])
+        subdict["min"] = int(subdict["min"])
+        subdict["max"] = int(subdict["max"])
+
+    motorLimits = data
+
     print("Start initializing motors")
      # initialize each id
     for id in [11, 21, 22, 23, 24, 31, 32, 41, 42, 43, 44]:
@@ -247,19 +243,19 @@ def initialize_motor():
         #sleep(0.1)
 
         # Set Profile Acceleration
-        set_motor1(selected_port_handler, id, ADDR_PROFILE_ACCELERATION, 100)
+        set_motor1(selected_port_handler, id, ADDR_PROFILE_ACCELERATION, 250)
         sleep(0.1)
 
         # Set Initial Position
-        set_motor4(selected_port_handler, id, ADDR_GOAL_POSITION, self.motorLimits[f"{id}"]["ini"])
+        set_motor4(selected_port_handler, id, ADDR_GOAL_POSITION, motorLimits[f"{id}"]["ini"])
         sleep(0.1)
 
         # Set Minimum (no use for mode 4)
-        set_motor4(selected_port_handler, id, ADDR_MIN_POSITION_LIMIT, self.motorLimits[f"{id}"]["min"])
+        set_motor4(selected_port_handler, id, ADDR_MIN_POSITION_LIMIT, motorLimits[f"{id}"]["min"])
         sleep(0.1)
 
         # Set Maximum (no use for mode 4)
-        set_motor4(selected_port_handler, id, ADDR_MAX_POSITION_LIMIT, self.motorLimits[f"{id}"]["max"])
+        set_motor4(selected_port_handler, id, ADDR_MAX_POSITION_LIMIT, motorLimits[f"{id}"]["max"])
         sleep(0.1)
 
         # Enable Torque
