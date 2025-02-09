@@ -35,7 +35,8 @@ class SystemController(Node):
         self.controllerMap = "/home/csanimatronics/CS_Animatronics/ControllerMap.json"
 
         # Load motor limit
-        self.motorLimits = json.load(open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r"))
+        self.motorLimits = {}
+        self.loadMotorLimits()
         
         # Setting for subscriber
         self.subscription = self.create_subscription(
@@ -73,6 +74,19 @@ class SystemController(Node):
 
         self.publisher.publish(new_msg)
         self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
+
+    def loadMotorLimits(self):
+        with open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r", encoding="utf-8") as file:
+        data = json.load(file)
+
+        # 辞書内の各値を int に変換する
+        for key, subdict in data.items():
+            subdict["ini"] = int(subdict["ini"])
+            subdict["min"] = int(subdict["min"])
+            subdict["max"] = int(subdict["max"])
+
+        self.motorLimits = data
+        print(f"{self.motorLimits}")
     
     def record(self, axes):
         # Record motion
