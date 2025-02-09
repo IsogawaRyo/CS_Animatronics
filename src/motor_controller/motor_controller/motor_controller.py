@@ -239,11 +239,11 @@ def initialize_motor():
         sleep(0.1)
 
         # Set Profile Velocity
-        #set_motor1(selected_port_handler, id, ADDR_PROFILE_VELOCITY, 50)
-        #sleep(0.1)
+        set_motor4(selected_port_handler, id, ADDR_PROFILE_VELOCITY, 60)
+        sleep(0.1)
 
         # Set Profile Acceleration
-        set_motor1(selected_port_handler, id, ADDR_PROFILE_ACCELERATION, 250)
+        set_motor4(selected_port_handler, id, ADDR_PROFILE_ACCELERATION, 40)
         sleep(0.1)
 
         # Set Initial Position
