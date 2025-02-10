@@ -84,6 +84,8 @@ class MotorController(Node):
             subdict["ini"] = int(subdict["ini"])
             subdict["min"] = int(subdict["min"])
             subdict["max"] = int(subdict["max"])
+            subdict["acc"] = int(subdict["acc"])
+            subdict["vel"] = int(subdict["vel"])
 
         self.motorLimits = data
         print(f"{self.motorLimits}")
@@ -211,8 +213,11 @@ def initialize_motor():
         subdict["ini"] = int(subdict["ini"])
         subdict["min"] = int(subdict["min"])
         subdict["max"] = int(subdict["max"])
+        subdict["acc"] = int(subdict["acc"])
+        subdict["vel"] = int(subdict["vel"])
 
     motorLimits = data
+    print(f"{motorLimits}")
 
     print("Start initializing motors")
      # initialize each id

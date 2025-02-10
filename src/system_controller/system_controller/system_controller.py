@@ -83,6 +83,8 @@ class SystemController(Node):
             subdict["ini"] = int(subdict["ini"])
             subdict["min"] = int(subdict["min"])
             subdict["max"] = int(subdict["max"])
+            subdict["acc"] = int(subdict["acc"])
+            subdict["vel"] = int(subdict["vel"])
 
         self.motorLimits = data
         print(f"{self.motorLimits}")
@@ -147,8 +149,12 @@ class SystemController(Node):
         print(path)
 
         # play motion
-        file = open(path, "r")
-        data = json.load(file)
+        try:
+            file = open(path, "r")
+            data = json.load(file)
+        except FileNotFoundError:
+            print(f"No motion has assigned to this button")
+            return
 
         timestamps = [entry["timestamp"] for entry in data]
         axes = [entry["axes"] for entry in data]
@@ -266,7 +272,7 @@ class SystemController(Node):
             eyeR, eyeL = self.eyes(axes[3])
             neckX, neckY, neckZ = self.neck(axes[0], axes[4], axes[1])
             
-            ids = [11, 21, 22, 23, 24,  31, 32, 41, 42, 43, 44]
+            ids = [11, 21, 22, 23, 24,  31, 32, 43, 44, 41, 42]
             angles = [jaw, neckX, neckY, neckZ, neckY, eyeR, eyeL, blinkRU, blinkRL, blinkLU, blinkLL]
 
         return ids, angles
@@ -288,10 +294,13 @@ class SystemController(Node):
         blinkLL_max = self.motorLimits["42"]["max"] # close
         rangeLL = blinkLL_max - blinkLL_min
  
-        angleRU = int(blinkRU_max - ((angle + 1)/2)*rangeRU)
-        angleRL = int(blinkRL_max - ((angle + 1)/2)*rangeRL)
-        angleLU = int(blinkLU_min + ((angle + 1)/2)*rangeLU)
-        angleLL = int(blinkLL_min + ((angle + 1)/2)*rangeLL)
+        angleRU = int(self.motorLimits["43"]["ini"] + ((angle + 1)/2)*rangeRU)
+        angleRL = int(self.motorLimits["44"]["ini"] - ((angle + 1)/2)*rangeRL)
+        angleLU = int(self.motorLimits["41"]["ini"] - ((angle + 1)/2)*rangeLU)
+        angleLL = int(self.motorLimits["42"]["ini"] + ((angle + 1)/2)*rangeLL)
+   
+        print(f"{self.motorLimits["42"]["ini"]} - {(angle+1)/2} * {rangeLL} = {angleLL}")
+
         return angleRU, angleRL, angleLU, angleLL
 
     def jaw(self, angle):
