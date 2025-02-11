@@ -27,8 +27,12 @@ class MotionEditor:
         # Settings Frame
         self.frame_settings = tk.Frame(root)
         
+        # Monitor Frame 
+        self.frame_monitor = tk.Frame(root)
+        
         # Operations Frame
         self.frame_operations = tk.Frame(root)
+    
     
         # Seleced File Label
         self.label_selectedFile = tk.Label(root, text=self.selectedFile)
@@ -56,6 +60,7 @@ class MotionEditor:
 
 
         self.frame_settings.grid(row=0, column=0)
+        self.frame_monitor.grid(row=1, column=0)
         self.frame_operations.grid(row=3, column=0)
         root.mainloop()
         
