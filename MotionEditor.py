@@ -35,12 +35,12 @@ class MotionEditor:
     
     
         # Seleced File Label
-        self.label_selectedFile = tk.Label(root, text=self.selectedFile)
-        self.label_selectedFile.pack(pady=10)
+        self.label_selectedFile = tk.Label(self.frame_settings, text=self.selectedFile)
+        self.label_selectedFile.grid(row=0, column=0)
         
         # Selected File Button
-        self.button_selectedFile = tk.Button(root, text="Open filedialog", command=self.fileDialog, width=24, height=1)
-        self.button_selectedFile.pack(pady=0)
+        self.button_selectedFile = tk.Button(self.frame_settings, text="Open filedialog", command=self.fileDialog, width=24, height=1)
+        self.button_selectedFile.grid(row=0, colmun=0)
 
         # loop to make elements for each ID
         for id in self.motorLimits:
