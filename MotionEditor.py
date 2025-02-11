@@ -53,10 +53,8 @@ class MotionEditor:
             # Angle Slider
             min = self.motorLimits[id]["min"]
             max = self.motorLimits[id]["max"]
-            command = f"self.scale_angle_{id} = tk.Scale(self.frame_monitor, from_=min, to_=max, orient=tk.HORIZONTAL, label='Angle')"
-            exec(command)
-            command = f"self.scale_angle_{id}.grid(row=i, colmun=1)"
-            exec(command)
+            self.scale_angle[id] = tk.Scale(self.frame_monitor, from_=min, to_=max, orient=tk.HORIZONTAL, label='Angle')
+            self.scale_angle[id].grid(row=i, colmun=1)
 
 
         self.frame_settings.grid(row=0, column=0)
