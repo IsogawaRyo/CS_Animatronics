@@ -6,38 +6,48 @@ import json
 
 class MotionEditor:
     def __init__(self):
-        # time at edit point
+        # Time at Edit Point
         self.timestamp = 0
         
-        # load motor limits
+        # Load Motor Limits
         self.motorLimits = {}
         self.loadMotorLimits()
         for id in self.motorLimits:
             print(id)
 
-        # selected file to edit
+        # Selected File to Edit
         self.selectedFile = "Not Selected"
 
 
-        # main loop
+        # Main Loop
         root = tk.Tk()
         root.title("Motion Editor")
-        root.geometry("800x400")
+        root.geometry("1000x1600")
        
-        # seleced file label
+        # Seleced File Label
         self.label_selectedFile = tk.Label(root, text=self.selectedFile)
         self.label_selectedFile.pack(pady=10)
         
-        # selected file button
+        # Selected File Button
         self.button_selectedFile = tk.Button(root, text="Open filedialog", command=self.fileDialog, width=24, height=1)
         self.button_selectedFile.pack(pady=0)
 
-        # ID labels
-        self.labels_ID = {}
+        # loop to make elements for each ID
         for id in self.motorLimits:
-            dict = {}
-            dict["label"] = tk.Label(root, text=f"{id}")
+            # ID Label
+            command = f"self.label_ID_{id} = tk.Label(root, text={id})"
+            exec(command)
+            command = f"self.label_ID_{id}.pack(pady=0)"
+            exec(command)
             
+            # Angle Slider
+            min = self.motorLimits[id]["min"]
+            max = self.motorLimits[id]["max"]
+            command = f"self.scale_angle_{id} = tk.Scale(root, from_=min, to_=max, orient=tk.HORIZONTAL, label='Angle')"
+            exec(command)
+            command = f"self.scale_angle_{id}.pack(pady=0)"
+            exec(command)
+
 
         root.mainloop()
         
