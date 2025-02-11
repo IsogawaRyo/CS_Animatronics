@@ -2,12 +2,19 @@ import sys
 import os
 import tkinter as tk
 import tkinter.filedialog
+import tkinter.ttk
 import json
 
 class MotionEditor:
     def __init__(self):
         # Time at Edit Point
         self.timestamp = 0
+        
+        # Mode
+        # 0: Read
+        # 1: Read & Write
+        # 2: Edit
+        self.mode = 0
         
         # Load Motor Limits
         self.motorLimits = {}
@@ -33,15 +40,28 @@ class MotionEditor:
         # Operations Frame
         self.frame_operations = tk.Frame(root)
     
-    
+        ## Setting Frame
         # Seleced File Label
         self.label_selectedFile = tk.Label(self.frame_settings, text=self.selectedFile)
         self.label_selectedFile.grid(row=0, column=0)
         
         # Selected File Button
         self.button_selectedFile = tk.Button(self.frame_settings, text="Open filedialog", command=self.fileDialog, width=24, height=1)
-        self.button_selectedFile.grid(row=0, column=0)
+        self.button_selectedFile.grid(row=0, column=1)
+        
+        # Mode Label
+        self.label_mode = tk.Label(self.frame_settings, text="Current Mode")
+        self.label_mode.grid(row=0, column=2)
+        
+        # Mode Dropbox
+        self.combobox_mode = ttk.Combobox(self.frame_settings, state="readonly", values=("Read", "Read & Write", "Mode"))
+        self.combobox_mode.grid(row=0, column=3)
+        
+        # Mode Chose Button
+        self.button_mode = tk.Button(self.frame_settings, text="Change Mode", command=self.changeMode)
+        self.button_mode.grid(row=0, column=4)
 
+        ## Monitor Frame
         # loop to make elements for each ID
         self.labels_ID = {}
         self.scales_angle = {}
@@ -55,6 +75,8 @@ class MotionEditor:
             max = self.motorLimits[id]["max"]
             self.scale_angle[id] = tk.Scale(self.frame_monitor, from_=min, to_=max, orient=tk.HORIZONTAL, label='Angle')
             self.scale_angle[id].grid(row=i, colmun=1)
+
+        ## Operations Frame
 
 
         self.frame_settings.grid(row=0, column=0)
@@ -86,6 +108,10 @@ class MotionEditor:
         else:
             self.selectedFile = file_name
         self.label_selectedFile["text"] = self.selectedFile
+
+    def changeMode(self):
+        self.mode = self.combobox_mode.current()
+        self.label_mode["text"] = "Mode: " + self.mode
 
     def main(self):
         print("main")
