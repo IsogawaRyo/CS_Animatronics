@@ -43,19 +43,19 @@ class MotionEditor:
         self.button_selectedFile.grid(row=0, colmun=0)
 
         # loop to make elements for each ID
-        for id in self.motorLimits:
+        for i, id in enumerate(self.motorLimits):
             # ID Label
-            command = f"self.label_ID_{id} = tk.Label(root, text={id})"
+            command = f"self.label_ID_{id} = tk.Label(self.frame_monitor, text={id})"
             exec(command)
-            command = f"self.label_ID_{id}.pack(pady=0)"
+            command = f"self.label_ID_{id}.grid(row=i, colmun=0)"
             exec(command)
             
             # Angle Slider
             min = self.motorLimits[id]["min"]
             max = self.motorLimits[id]["max"]
-            command = f"self.scale_angle_{id} = tk.Scale(root, from_=min, to_=max, orient=tk.HORIZONTAL, label='Angle')"
+            command = f"self.scale_angle_{id} = tk.Scale(self.frame_monitor, from_=min, to_=max, orient=tk.HORIZONTAL, label='Angle')"
             exec(command)
-            command = f"self.scale_angle_{id}.pack(pady=0)"
+            command = f"self.scale_angle_{id}.grid(row=i, colmun=1)"
             exec(command)
 
 
