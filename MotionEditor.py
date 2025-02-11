@@ -24,6 +24,12 @@ class MotionEditor:
         root.title("Motion Editor")
         root.geometry("1000x1600")
        
+        # Settings Frame
+        self.frame_settings = tk.Frame(root)
+        
+        # Operations Frame
+        self.frame_operations = tk.Frame(root)
+    
         # Seleced File Label
         self.label_selectedFile = tk.Label(root, text=self.selectedFile)
         self.label_selectedFile.pack(pady=10)
@@ -49,6 +55,8 @@ class MotionEditor:
             exec(command)
 
 
+        self.frame_settings.grid(row=0, column=0)
+        self.frame_operations.grid(row=3, column=0)
         root.mainloop()
         
     def loadMotorLimits(self):
