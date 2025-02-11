@@ -110,12 +110,20 @@ class MotionEditor:
         self.label_selectedFile["text"] = self.selectedFile
 
     def changeMode(self):
+        # change mode and show it
         self.mode = self.combobox_mode.current()
         self.label_mode["text"] = "Mode: " + self.mode
 
     def main(self):
         print("main")
-
+        while True:
+            if self.mode == 0:
+                print(mode)
+            elif self.mode == 1:
+                print(mode)
+            elif self.mode == 2:
+                print(mode)
+    
 if __name__ == "__main__":
     editor = MotionEditor()
     editor.main()
