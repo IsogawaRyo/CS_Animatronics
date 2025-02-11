@@ -40,16 +40,16 @@ class MotionEditor:
         
         # Selected File Button
         self.button_selectedFile = tk.Button(self.frame_settings, text="Open filedialog", command=self.fileDialog, width=24, height=1)
-        self.button_selectedFile.grid(row=0, colmun=0)
+        self.button_selectedFile.grid(row=0, column=0)
 
         # loop to make elements for each ID
+        self.labels_ID = {}
+        self.scales_angle = {}
         for i, id in enumerate(self.motorLimits):
             # ID Label
-            command = f"self.label_ID_{id} = tk.Label(self.frame_monitor, text={id})"
-            exec(command)
-            command = f"self.label_ID_{id}.grid(row=i, colmun=0)"
-            exec(command)
-            
+            self.label_ID[id] = tk.Label(self.frame_monitor, text={id})
+            self.label_ID[id].grid(row=i, colmun=0)
+        
             # Angle Slider
             min = self.motorLimits[id]["min"]
             max = self.motorLimits[id]["max"]
