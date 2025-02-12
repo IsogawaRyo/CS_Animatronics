@@ -10,7 +10,13 @@ class MotionEditor:
         # Main Loop
         self.root = tk.Tk()
         self.root.title("Motion Editor")
-        self.root.geometry("1000x600")
+        self.root.geometry("1000x700")
+
+        ########################
+        ### Define Variables ###
+        ########################
+        # Motion JSON
+        self.motionFile = None
 
         # Start Time of Motion
         self.timeStartMotion = tk.IntVar(self.root)
@@ -48,7 +54,9 @@ class MotionEditor:
         self.selectedFile.set("Selected File")
 
 
+        ########################
         #### Prepare Frames ####
+        ########################
         # Settings Frame
         self.frame_settings = tk.LabelFrame(self.root, text="Settings", foreground="green")
         self.frame_settings.grid(sticky="W", row=0, column=0)
@@ -61,8 +69,10 @@ class MotionEditor:
         self.frame_operations = tk.LabelFrame(self.root, text="Operations", foreground="green")
         self.frame_operations.grid(sticky="W", row=3, column=0)
    
- 
+
+        ####################### 
         #### Setting Frame ####
+        #######################
         # Seleced File Label
         self.label_selectedFile = tk.Label(self.frame_settings, textvariable=self.selectedFile)
         self.label_selectedFile.grid(row=0, column=2, columnspan=2)
@@ -96,25 +106,36 @@ class MotionEditor:
         self.entry_time_end_motion.grid(row=1, column=4)
 
 
+        #######################
         #### Monitor Frame ####
+        #######################
         # loop to make elements for each ID
-        self.labels_ID = {}
-        self.scales_angle = {}
-        self.positions = {}
+        self.labels_ID = {}  # contains labels of ID
+        self.scales_angle = {}  # contains scales of angles
+        self.positions = {}  # contains position values from scale_angle
+        self.state_checkBox = {}  # contains state of checkBox
+        self.checkBox = {}  # contains checkBox
         for i, id in enumerate(self.motorLimits):
             # ID Label
             self.labels_ID[id] = tk.Label(self.frame_monitor, text="ID: " + id)
-            self.labels_ID[id].grid(row=i, column=0)
+            self.labels_ID[id].grid(row=2*i, column=0)
         
             # Angle Slider
             min = self.motorLimits[id]["min"]
             max = self.motorLimits[id]["max"]
             self.positions[id] = tk.IntVar(self.root)
             self.scales_angle[id] = tk.Scale(self.frame_monitor, from_=min, to_=max, variable=self.positions[id], orient=tk.HORIZONTAL)
-            self.scales_angle[id].grid(row=i, column=1)
+            self.scales_angle[id].grid(row=2*i, column=1, rowspan=2)
+
+            # Check box
+            self.state_checkBox[id] = tk.BooleanVar(self.root)
+            self.checkBox[id] = tk.Checkbutton(self.frame_monitor, text="target", variable=self.state_checkBox[id])
+            self.checkBox[id].grid(row=2*i+1, column=0)
 
 
+        ##########################
         #### Operations Frame ####
+        ##########################
         # Go Back Button
         self.button_goBack = tk.Button(self.frame_operations, text="<", command=self.moveBackward)
         self.button_goBack.grid(row=0, column=0)
@@ -174,12 +195,14 @@ class MotionEditor:
         self.label_mode["text"] = "Mode: " + str(self.mode)
 
     def moveForward(self):
+        # Move Forward
         self.timeMin.set(self.timeMin.get() + self.timeSpan)
         self.timeMax.set(self.timeMax.get() + self.timeSpan)
         self.scale_time["from_"] = self.timeMin.get()
         self.scale_time["to_"] = self.timeMax.get()
 
     def moveBackward(self):
+        # Move Backward
         self.timeMin.set(self.timeMin.get() - self.timeSpan)
         self.timeMax.set(self.timeMax.get() - self.timeSpan)
         self.scale_time["from_"] = self.timeMin.get()
@@ -190,16 +213,40 @@ class MotionEditor:
         file = open(self.selectedFile.get(), "r")
         data = json.load(file)
         
-        # load Timestamops
+        # load Timestamps
         timestamps = [entry["timestamp"] for entry in data]
         len_timestamps = len(timestamps)
         self.timeEndMotion.set(int(timestamps[len_timestamps-1]))
 
         #load ID&Angles
-        
+        self.motionFile = data
 
     def operateRead(self):
         print("read")
+        # Get current time
+        time_ = self.timestamp.get()
+        for data in self.motionFile:
+            if time_ == data["timestamp"]:
+                # id used on this time
+                used_id = []
+                for id in data["angles"]:
+                    used_id.append(id)
+                    # Get angle
+                    angle = data["angles"][id]
+                    print(f"id: {id}, angle: {angle}") 
+                    # Set checkBox
+                    self.state_checkBox[id].set(True)
+
+                for id in self.motorLimits:
+                    found = False
+                    for id_ in used_id:
+                        if id == id_:
+                            found = True
+                    self.state_checkBox[id].set(found)
+            else:
+                for id in self.motorLimits:
+                    self.state_checkBox[id].set(False)
+                        
 
     def operateReadandWrite(self):
         print("Read&Write")
