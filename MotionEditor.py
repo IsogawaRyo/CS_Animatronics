@@ -228,25 +228,25 @@ class MotionEditor:
         for data in self.motionFile:
             if time_ == data["timestamp"]:
                 # id used on this time
-                used_id = []
+                used_id = list(data["angles"].keys())
                 for id in data["angles"]:
                     used_id.append(id)
-                    # Get angle
-                    angle = data["angles"][id]
-                    print(f"id: {id}, angle: {angle}") 
-                    # Set checkBox
-                    self.state_checkBox[id].set(True)
 
-                for id in self.motorLimits:
-                    found = False
-                    for id_ in used_id:
-                        if id == id_:
-                            found = True
-                    self.state_checkBox[id].set(found)
+                    # Get angle
+                    for id, angle in data["angles"].items():
+                        print(f"id: {id}, angle: {angle}")
+                        self.positions[id].set(angle)
+                        self.state_checkBox[id].set(True)
+ 
+                    # Set checkBox
+                    for id in self.motorLimits:
+                        self.state_checkBox[id].set(id in used_id)
+
+                break
+
             else:
-                for id in self.motorLimits:
-                    self.state_checkBox[id].set(False)
-                        
+                 for id in self.motorLimits:
+                     self.state_checkBox[id].set(False) 
 
     def operateReadandWrite(self):
         print("Read&Write")
