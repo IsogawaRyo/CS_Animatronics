@@ -240,6 +240,9 @@ class MotionEditor:
         print("read")
         current_time = self.timestamp.get()
         found_entry = None
+
+        if self.motionFile is None:
+            return
         
         # search entry mach current_time
         for entry in self.motionFile:
@@ -286,11 +289,11 @@ class MotionEditor:
             print(id)
             print(self.positions[id].get())
 
-        if self.mode == 0:
+        if self.mode.get() == 0:
             self.operateRead()
-        elif self.mode == 1:
+        elif self.mode.get() == 1:
             self.operateReadandWrite()
-        elif self.mode == 2:
+        elif self.mode.get() == 2:
             self.operateEdit()
 
 
