@@ -6,8 +6,22 @@ import tkinter.ttk as ttk
 import json
 import time
 
+#import rclpy
+#from rclpy.node import Node
+#from motor_command_msg.msg import IdAngle
+
 class MotionEditor:
     def __init__(self):
+        ##########################
+        #### Setting for ROS2 ####
+        ##########################
+        # Setting for publisher
+        #self.publisher = self.create_publisher(
+        #    IdAngle,
+        #    'IdAngle',
+        #    11
+        #)
+
         # Main Loop
         self.root = tk.Tk()
         self.root.title("Motion Editor")
@@ -97,7 +111,7 @@ class MotionEditor:
         self.label_mode.grid(row=0, column=0)
         
         # Mode Dropbox
-        self.combobox_mode = ttk.Combobox(self.frame_settings, state="readonly", values=("Read", "Read & Write", "Edit"))
+        self.combobox_mode = ttk.Combobox(self.frame_settings, state="readonly", values=("Send", "Write", "Edit"))
         self.combobox_mode.grid(row=0, column=1)
         
         # Mode Chose Button
@@ -227,6 +241,12 @@ class MotionEditor:
         #load ID&Angles
         self.motionFile = data
 
+    def saveMotionFile(self, timestamp, angles):
+        # save motion file
+        with open(self.selectedFile.get(), "w") as f:
+            self.motionFile[timestamp]["angles"] = angles
+            json.dump(self.motionFile, f)
+
     def playMotion(self):
         # set Play Flag True
         self.is_playing = True
@@ -236,9 +256,10 @@ class MotionEditor:
         # set Play Flag False
         self.is_playing = False
 
-    def operateRead(self):
-        print("read")
-        current_time = self.timestamp.get()
+    def operateSend(self):
+        # Send Id&Angle as topic
+        print("send")
+        now = self.timestamp.get()
         found_entry = None
 
         if self.motionFile is None:
@@ -246,7 +267,7 @@ class MotionEditor:
         
         # search entry mach current_time
         for entry in self.motionFile:
-            if current_time == entry["timestamp"]:
+            if now == entry["timestamp"]:
                 found_entry = entry
                 break
 
@@ -256,7 +277,6 @@ class MotionEditor:
             for motor_id in self.motorLimits:
                 if motor_id in angles:
                     angle = angles[motor_id]
-                    print(f"id: {motor_id}, angle: {angle}")
                     self.positions[motor_id].set(angle)
                     self.state_checkBox[motor_id].set(True)
                 else:
@@ -267,8 +287,36 @@ class MotionEditor:
                 self.state_checkBox[motor_id].set(False)
 
 
-    def operateReadandWrite(self):
-        print("Read&Write")
+    def operateWrite(self):
+        # Write ID angle to JSON file
+        print("Write")
+        for now in range(self.timeEndMotion.get()):
+            found_entry = None
+
+            if self.motionFile is None:
+                return
+
+            # search entry mach current_time
+            for entry in self.motionFile:
+                if now == entry["timestamp"]:
+                    found_entry = entry
+                    break
+
+            if found_entry:
+                angles = found_entry.get("angles", {})
+                # set angles if its exist
+                for motor_id in self.motorLimits:
+                    if motor_id in angles:
+                        angle = angles[motor_id]
+                        self.positions[motor_id].set(angle)
+                        self.state_checkBox[motor_id].set(True)
+                    else:
+                        self.state_checkBox[motor_id].set(False)
+                self.saveMotionFile(now, angles)
+
+        self.mode.set(0)
+        tk.messagebox.showerror("Write Mode", "motion file has benn saved")
+        print("Saved")
 
     def operateEdit(self):
         print("Edit")
@@ -277,10 +325,12 @@ class MotionEditor:
         print("main")
         if self.is_playing:
             now = time.time()
-            if now - self.last_updated_time >= 10:
+            print(now)
+            print(self.last_updated_time)
+            if now - self.last_updated_time >= 1:
                 new_time = self.timestamp.get() + 1
                 self.timestamp.set(new_time)
-                self.last_update_time = now
+                self.last_updated_time = now
 
                 if new_time > self.timeMax.get() and new_time < self.timeEndMotion.get():
                     self.moveForward()
@@ -290,9 +340,9 @@ class MotionEditor:
             print(self.positions[id].get())
 
         if self.mode.get() == 0:
-            self.operateRead()
+            self.operateSend()
         elif self.mode.get() == 1:
-            self.operateReadandWrite()
+            self.operateWrite()
         elif self.mode.get() == 2:
             self.operateEdit()
 
