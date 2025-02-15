@@ -184,15 +184,14 @@ class MotionEditor:
         iDir = os.path.abspath(os.path.dirname(__file__))
         file_name = tk.filedialog.askopenfilename(filetypes=fTyp, initialdir=iDir)
         if len(file_name) == 0:
-            self.selectedFile = "Not selected"
+            self.selectedFile.set("Not selected")
         else:
             self.selectedFile.set(file_name)
-        self.label_selectedFile["text"] = self.selectedFile
 
     def changeMode(self):
         # change mode and show it
-        self.mode = self.combobox_mode.current()
-        self.label_mode["text"] = "Mode: " + str(self.mode)
+        self.mode.set(self.combobox_mode.current())
+        self.label_mode["text"] = "Mode: " + str(self.mode.get())
 
     def moveForward(self):
         # Move Forward
@@ -223,30 +222,31 @@ class MotionEditor:
 
     def operateRead(self):
         print("read")
-        # Get current time
-        time_ = self.timestamp.get()
-        for data in self.motionFile:
-            if time_ == data["timestamp"]:
-                # id used on this time
-                used_id = list(data["angles"].keys())
-                for id in data["angles"]:
-                    used_id.append(id)
-
-                    # Get angle
-                    for id, angle in data["angles"].items():
-                        print(f"id: {id}, angle: {angle}")
-                        self.positions[id].set(angle)
-                        self.state_checkBox[id].set(True)
- 
-                    # Set checkBox
-                    for id in self.motorLimits:
-                        self.state_checkBox[id].set(id in used_id)
-
+        current_time = self.timestamp.get()
+        found_entry = None
+        
+        # search entry mach current_time
+        for entry in self.motionFile:
+            if current_time == entry["timestamp"]:
+                found_entry = entry
                 break
 
-            else:
-                 for id in self.motorLimits:
-                     self.state_checkBox[id].set(False) 
+        if found_entry:
+            angles = found_entry.get("angles", {})
+            # set angles if its exist 
+            for motor_id in self.motorLimits:
+                if motor_id in angles:
+                    angle = angles[motor_id]
+                    print(f"id: {motor_id}, angle: {angle}")
+                    self.positions[motor_id].set(angle)
+                    self.state_checkBox[motor_id].set(True)
+                else:
+                    self.state_checkBox[motor_id].set(False)
+        else:
+            # set False to others
+            for motor_id in self.motorLimits:
+                self.state_checkBox[motor_id].set(False)
+
 
     def operateReadandWrite(self):
         print("Read&Write")
