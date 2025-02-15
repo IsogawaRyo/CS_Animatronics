@@ -277,7 +277,7 @@ class MotionEditor:
         print("main")
         if self.is_playing:
             now = time.time()
-            if now - self.last_updated_time >= 1:
+            if now - self.last_updated_time >= 10:
                 new_time = self.timestamp.get() + 1
                 self.timestamp.set(new_time)
                 self.last_update_time = now
