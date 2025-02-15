@@ -4,6 +4,7 @@ import tkinter as tk
 import tkinter.filedialog
 import tkinter.ttk as ttk
 import json
+import time
 
 class MotionEditor:
     def __init__(self):
@@ -17,6 +18,12 @@ class MotionEditor:
         ########################
         # Motion JSON
         self.motionFile = None
+
+        # Play Flag
+        self.is_playing = False
+
+        # Last updated time
+        self.last_updated_time = time.time()
 
         # Start Time of Motion
         self.timeStartMotion = tk.IntVar(self.root)
@@ -145,11 +152,11 @@ class MotionEditor:
         self.button_goForward.grid(row=0, column=2)
 
         # Play Button
-        self.button_play = tk.Button(self.frame_operations, text="play")
+        self.button_play = tk.Button(self.frame_operations, text="play", command=self.playMotion)
         self.button_play.grid(row=1, column=1)
 
         # Stop Button
-        self.button_stop = tk.Button(self.frame_operations, text="stop")
+        self.button_stop = tk.Button(self.frame_operations, text="stop", command=self.stopMotion)
         self.button_stop.grid(row=1, column=0)
 
         # Minimum Time
@@ -220,6 +227,15 @@ class MotionEditor:
         #load ID&Angles
         self.motionFile = data
 
+    def playMotion(self):
+        # set Play Flag True
+        self.is_playing = True
+        #self.updateTimestamp()
+
+    def stopMotion(self):
+        # set Play Flag False
+        self.is_playing = False
+
     def operateRead(self):
         print("read")
         current_time = self.timestamp.get()
@@ -256,6 +272,15 @@ class MotionEditor:
 
     def main(self):
         print("main")
+        if self.is_playing:
+            now = time.time()
+            if now - self.last_updated_time >= 1:
+                new_time = self.timestamp.get() + 1
+                self.timestamp.set(new_time)
+                self.last_update_time = now
+
+                if new_time > self.timeMax.get() and new_time < self.timeEndMotion.get():
+                    self.moveForward()
 
         for id in self.positions:
             print(id)
