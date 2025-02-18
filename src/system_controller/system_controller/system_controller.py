@@ -65,7 +65,7 @@ class SystemController(Node):
         ids, angles = self.translate(msg.axes, msg.buttons)
  
         # Record
-        self.record(msg.axes)
+        self.record(ids, angles)
 
         # publish IdAngle
         new_msg = IdAngle()
@@ -89,7 +89,7 @@ class SystemController(Node):
         self.motorLimits = data
         print(f"{self.motorLimits}")
     
-    def record(self, axes):
+    def record(self, ids, angles):
         # Record motion
         global IS_RECORDING
         if IS_RECORDING != 0:
@@ -109,6 +109,7 @@ class SystemController(Node):
             self.get_logger().info(f"On recording [{time_passed}]")
 
         # Save data
+            dict = {str(motor_id): angle for motor_id, angle in zip(ids, angles)}
             entry = {
                 "timestamp": time_passed,
                 "axes": list(axes),
