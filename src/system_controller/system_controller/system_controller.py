@@ -294,10 +294,10 @@ class SystemController(Node):
         blinkLL_max = self.motorLimits["42"]["max"] # close
         rangeLL = blinkLL_max - blinkLL_min
  
-        angleRU = int(self.motorLimits["43"]["ini"] + ((angle + 1)/2)*rangeRU)
-        angleRL = int(self.motorLimits["44"]["ini"] - ((angle + 1)/2)*rangeRL)
-        angleLU = int(self.motorLimits["41"]["ini"] - ((angle + 1)/2)*rangeLU)
-        angleLL = int(self.motorLimits["42"]["ini"] + ((angle + 1)/2)*rangeLL)
+        angleRU = int(self.motorLimits["43"]["ini"] - ((angle+1)/2*rangeRU))
+        angleRL = int(self.motorLimits["44"]["ini"] - ((angle+1)/2*rangeRL))
+        angleLU = int(self.motorLimits["41"]["ini"] + ((angle+1)/2*rangeLU))
+        angleLL = int(self.motorLimits["42"]["ini"] + ((angle+1)/2*rangeLL))
    
         print(f"{self.motorLimits["42"]["ini"]} - {(angle+1)/2} * {rangeLL} = {angleLL}")
 
