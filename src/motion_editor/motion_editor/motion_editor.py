@@ -3,6 +3,7 @@ import os
 import tkinter as tk
 import tkinter.filedialog
 import tkinter.ttk as ttk
+import tkinter.messagebox as messagebox
 import json
 import time
 
@@ -243,9 +244,12 @@ class MotionEditor:
 
     def saveMotionFile(self, timestamp, angles):
         # save motion file
-        with open(self.selectedFile.get(), "w") as f:
-            self.motionFile[timestamp]["angles"] = angles
-            json.dump(self.motionFile, f)
+        for entry in self.motionFile:
+        if entry["timestamp"] == timestamp:
+            entry["angles"] = angles
+            break
+    with open(self.selectedFile.get(), "w", encoding="utf-8") as f:
+        json.dump(self.motionFile, f, indent=2)
 
     def playMotion(self):
         # set Play Flag True
