@@ -182,7 +182,7 @@ class SystemController(Node):
             # publish IdAngle
             new_msg = IdAngle()
             new_msg.ids = ids
-            new_msg.angles = angles
+            new_msg.angles = angles_
 
             self.publisher.publish(new_msg)
             self.get_logger().info(f'Playing recorded motion: {new_msg.ids}, Angles: {new_msg.angles}')
