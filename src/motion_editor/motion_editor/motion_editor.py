@@ -188,7 +188,7 @@ class MotionEditor:
         
     def loadMotorLimits(self):
         # load motor limits
-        with open("./Motor_Limits.json", "r", encoding="utf-8") as file:
+        with open("../../../Motor_Limits.json", "r", encoding="utf-8") as file:
             data = json.load(file)
             
         for key, subdict in data.items():
@@ -245,11 +245,11 @@ class MotionEditor:
     def saveMotionFile(self, timestamp, angles):
         # save motion file
         for entry in self.motionFile:
-        if entry["timestamp"] == timestamp:
-            entry["angles"] = angles
-            break
-    with open(self.selectedFile.get(), "w", encoding="utf-8") as f:
-        json.dump(self.motionFile, f, indent=2)
+            if entry["timestamp"] == timestamp:
+                entry["angles"] = angles
+                break
+        with open(self.selectedFile.get(), "w", encoding="utf-8") as f:
+            json.dump(self.motionFile, f, indent=2)
 
     def playMotion(self):
         # set Play Flag True
