@@ -161,7 +161,7 @@ class SystemController(Node):
             return
 
         timestamps = [entry["timestamp"] for entry in data]
-        axes = [entry["axes"] for entry in data]
+        angles = [entry["angles"] for entry in data]
 
         # Caluculate time diff
         timediffs = [timestamps[0]]
@@ -172,7 +172,11 @@ class SystemController(Node):
         for i, timediff in enumerate(timediffs):
             time.sleep(timediff)
             buttons = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            ids, angles = self.translate(axes[i], buttons)
+            ids = []
+            angles_ = []
+            for id in angles:
+                ids.append(id)
+                angles_.append(angles[id])
 
             # publish IdAngle
             new_msg = IdAngle()
