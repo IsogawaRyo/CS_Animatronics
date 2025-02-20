@@ -48,7 +48,8 @@ class MotionEditor:
 
         # Time at Edit Point
         self.timestamp = tk.IntVar(self.root)
-       
+        self.last_timestamp = tk.IntVar(self.root)     
+  
         # Time Min
         self.timeMin = tk.IntVar(self.root)
         self.timeMin.set(0)
@@ -183,7 +184,7 @@ class MotionEditor:
         self.scale_time.grid(row=0, column=3, rowspan=2)
 
 
-        self.root.after(10, self.main)
+        self.root.after(100, self.main)
         self.root.mainloop()
         
     def loadMotorLimits(self):
@@ -244,10 +245,21 @@ class MotionEditor:
 
     def saveMotionFile(self, timestamp, angles):
         # save motion file
+        # overwrite data
+        is_updated = False
         for entry in self.motionFile:
             if entry["timestamp"] == timestamp:
                 entry["angles"] = angles
+                is_updated = True
                 break
+
+        if not is_updated:
+            new_entry = {
+                "timestamp": timestamp,
+                "angles": angles
+            }
+            self.motionFile.append(new_entry)
+
         with open(self.selectedFile.get(), "w", encoding="utf-8") as f:
             json.dump(self.motionFile, f, indent=2)
 
@@ -324,6 +336,65 @@ class MotionEditor:
 
     def operateEdit(self):
         print("Edit")
+        now = self.timestamp.get()
+
+        if self.last_timestamp.get() != now:
+            found_entry = None
+
+            if self.motionFile is None:
+                return
+
+            # search entry mach current_time
+            for entry in self.motionFile:
+                if now == entry["timestamp"]:
+                    found_entry = entry
+                    break
+
+            if found_entry:
+                angles = found_entry.get("angles", {})
+                # set angles if its exist
+                for motor_id in self.motorLimits:
+                    if motor_id in angles:
+                        angle = angles[motor_id]
+                        self.positions[motor_id].set(angle)
+                        self.state_checkBox[motor_id].set(True)
+                    else:
+                        self.state_checkBox[motor_id].set(False)
+            else:
+                # set False to others
+                for motor_id in self.motorLimits:
+                    self.state_checkBox[motor_id].set(False)
+            
+        found_entry = None
+        # break if motionFile is NOT selected
+        if self.motionFile is None:
+            return
+    
+        # search tiestamp
+        for entry in self.motionFile:
+            if now == entry["timestamp"]:
+                found_entry = entry
+                break
+
+        # create time stamp
+        if found_entry is None:
+            found_entry = {
+                "timestamp": now,
+                "angles": {}
+            }    
+            self.motionFile.append(found_entry)
+
+        # GUI
+        angles = found_entry.get("angles", {})
+
+        for motor_id in self.motorLimits:
+            if self.state_checkBox[motor_id].get():
+                # update checked ID
+                angles[motor_id] = self.positions[motor_id].get()
+            else:
+                # delete unchecked ID
+                if motor_id in angles:
+                    del angles[motor_id]
 
     def main(self):
         print("main")
@@ -333,6 +404,7 @@ class MotionEditor:
             print(self.last_updated_time)
             if now - self.last_updated_time >= 1:
                 new_time = self.timestamp.get() + 1
+                self.last_timestamp.set(self.timestamp)
                 self.timestamp.set(new_time)
                 self.last_updated_time = now
 
@@ -351,7 +423,7 @@ class MotionEditor:
             self.operateEdit()
 
 
-        self.root.after(10, self.main)
+        self.root.after(100, self.main)
 
     def start(self):
         print("start")
