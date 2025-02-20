@@ -73,7 +73,7 @@ class MotorController(Node):
             IdAngle,
             'IdAngle',
             self.listener_callback,
-            10)
+            12)
         self.subscription
 
     def loadMotorLimits(self):
