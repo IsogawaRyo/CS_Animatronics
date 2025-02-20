@@ -109,13 +109,13 @@ class SystemController(Node):
             self.get_logger().info(f"On recording [{time_passed}]")
 
         # Save data
-            angles_ =[]
+            angles_ = {}
             for i, id in enumerate(ids):
-                angles_[id] = angle[i]
-            dict = {str(motor_id): angle for motor_id, angle in zip(ids, angles)}
+                angles_[id] = angles[i]
+            dict_ = {str(motor_id): angle for motor_id, angle in zip(ids, angles)}
             entry = {
                 "timestamp": time_passed,
-                "angles": angles_,
+                "angles": dict_,
             }
             self.recorded_data.append(entry)
             print(self.recorded_data)
@@ -174,9 +174,9 @@ class SystemController(Node):
             buttons = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             ids = []
             angles_ = []
-            for id in angles:
-                ids.append(id)
-                angles_.append(angles[id])
+            for id, angle in angles.items():
+                ids.append(int(id))
+                angles_.append(angle)
 
             # publish IdAngle
             new_msg = IdAngle()
