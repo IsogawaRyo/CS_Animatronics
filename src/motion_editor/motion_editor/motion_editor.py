@@ -404,7 +404,7 @@ class MotionEditor:
             print(self.last_updated_time)
             if now - self.last_updated_time >= 1:
                 new_time = self.timestamp.get() + 1
-                self.last_timestamp.set(self.timestamp)
+                self.last_timestamp.set(self.timestamp.get())
                 self.timestamp.set(new_time)
                 self.last_updated_time = now
 
