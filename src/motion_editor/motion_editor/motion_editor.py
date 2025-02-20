@@ -7,9 +7,9 @@ import tkinter.messagebox as messagebox
 import json
 import time
 
-#import rclpy
-#from rclpy.node import Node
-#from motor_command_msg.msg import IdAngle
+import rclpy
+from rclpy.node import Node
+from motor_command_msg.msg import IdAngle
 
 class MotionEditor:
     def __init__(self):
@@ -17,11 +17,11 @@ class MotionEditor:
         #### Setting for ROS2 ####
         ##########################
         # Setting for publisher
-        #self.publisher = self.create_publisher(
-        #    IdAngle,
-        #    'IdAngle',
-        #    11
-        #)
+        self.publisher = self.create_publisher(
+            IdAngle,
+            'IdAngle',
+            12
+        )
 
         # Main Loop
         self.root = tk.Tk()
