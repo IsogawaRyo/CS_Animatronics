@@ -1,3 +1,3 @@
 # Messages
-uint8[11] ids
-int32[11] angles
+uint8[12] ids
+int32[12] angles
