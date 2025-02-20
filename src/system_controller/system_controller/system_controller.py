@@ -50,7 +50,7 @@ class SystemController(Node):
         self.publisher = self.create_publisher(
             IdAngle,
             'IdAngle',
-            11
+            12
         )
     
     def listener_callback(self, msg):
