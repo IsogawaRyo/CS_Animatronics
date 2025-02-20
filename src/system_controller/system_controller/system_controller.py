@@ -171,10 +171,11 @@ class SystemController(Node):
  
         for i, timediff in enumerate(timediffs):
             time.sleep(timediff)
+            dict_ = angles[i]
             buttons = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             ids = []
             angles_ = []
-            for id, angle in angles.items():
+            for id, angle in dict_.items():
                 ids.append(int(id))
                 angles_.append(angle)
 
