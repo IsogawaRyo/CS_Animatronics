@@ -26,15 +26,15 @@ class ROSManager(Node):
         #while not self.get_position_client.wait_for_service(timeout_sec=1.0):
             #self.get_logger().info('Waiting for get_position service...')
     
-    def call_get_position(self):
-        req = GetPosition.Request()
-        future = self.get_position_client.call_async(req)
-        rclpy.spin_until_future_complete(self, future)
-        if future.result() is not None:
-            return future.result()
-        else:
-            self.get_logger().error('Service call failed')
-            return None
+    #def call_get_position(self):
+        #req = GetPosition.Request()
+        #future = self.get_position_client.call_async(req)
+        #rclpy.spin_until_future_complete(self, future)
+        #if future.result() is not None:
+            #return future.result()
+        #else:
+            #self.get_logger().error('Service call failed')
+            #return None
             
     def set_postions(self, ids, angles):
         new_msg = IdAngle()
