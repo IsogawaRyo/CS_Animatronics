@@ -6,22 +6,48 @@ import tkinter.ttk as ttk
 import tkinter.messagebox as messagebox
 import json
 import time
+import threading
 
 import rclpy
 from rclpy.node import Node
 from motor_command_msg.msg import IdAngle
 
-class MotionEditor:
+class ROSManager:
     def __init__(self):
-        ##########################
-        #### Setting for ROS2 ####
-        ##########################
-        # Setting for publisher
+        super().__init__('motion_editor_ros_client')
+        
         self.publisher = self.create_publisher(
             IdAngle,
             'IdAngle',
             12
         )
+        
+        self.get_position_client = self.create_client(GetPosition, 'get_position')
+        while not self.get_position_client.wait_for_service(timeout_sec=1.0):
+            self.get_logger().info('Waiting for get_position service...')
+    
+    def call_get_position(self):
+        req = GetPosition.Request()
+        future = self.get_position_client.call_async(req)
+        rclpy.spin_until_future_complete(self, future)
+        if future.result() is not None:
+            return future.result()
+        else:
+            self.get_logger().error('Service call failed')
+            return None
+
+class MotionEditor:
+    def __init__(self):
+        ##################
+        #### ROS init ####
+        ##################
+        rclpy.init(args=None)
+        self.ros_manager = ROSManager()
+        self.publisher = self.ros_manager.create_publisher(IdAngle, 'IdAngle', 12)
+        self.client = self.ros_manager.create_client(IdAngle, 'IdAngle', 12)
+        
+        self.ros_thread = threading.Thread(target=rclpy.spin, args=(self.ros_manager,), daemon=True)
+        self.ros_thread.start()
 
         # Main Loop
         self.root = tk.Tk()
