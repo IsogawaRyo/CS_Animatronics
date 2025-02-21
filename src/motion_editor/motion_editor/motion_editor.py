@@ -43,8 +43,6 @@ class MotionEditor:
         ##################
         rclpy.init(args=None)
         self.ros_manager = ROSManager()
-        self.publisher = self.ros_manager.create_publisher(IdAngle, 'IdAngle', 12)
-        self.client = self.ros_manager.create_client(IdAngle, 'IdAngle', 12)
         
         self.ros_thread = threading.Thread(target=rclpy.spin, args=(self.ros_manager,), daemon=True)
         self.ros_thread.start()
