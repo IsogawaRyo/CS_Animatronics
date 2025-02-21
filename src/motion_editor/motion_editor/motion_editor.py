@@ -12,7 +12,7 @@ import rclpy
 from rclpy.node import Node
 from motor_command_msg.msg import IdAngle
 
-class ROSManager:
+class ROSManager(Node):
     def __init__(self):
         super().__init__('motion_editor_ros_client')
         
