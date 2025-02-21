@@ -35,6 +35,14 @@ class ROSManager(Node):
         else:
             self.get_logger().error('Service call failed')
             return None
+            
+    def set_postions(self, ids, angles):
+        new_msg = IdAngle()
+        new_msg.ids = ids
+        new_msg.angles = angles
+        
+        self.publisher.publish(new_msg)
+        self.get_logger().info(f'Publishing  IDs: {ids}, Angles: {angles})
 
 class MotionEditor:
     def __init__(self):
