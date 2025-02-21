@@ -22,9 +22,9 @@ class ROSManager(Node):
             12
         )
         
-        self.get_position_client = self.create_client(GetPosition, 'get_position')
-        while not self.get_position_client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info('Waiting for get_position service...')
+        #self.get_position_client = self.create_client(GetPosition, 'get_position')
+        #while not self.get_position_client.wait_for_service(timeout_sec=1.0):
+            #self.get_logger().info('Waiting for get_position service...')
     
     def call_get_position(self):
         req = GetPosition.Request()
