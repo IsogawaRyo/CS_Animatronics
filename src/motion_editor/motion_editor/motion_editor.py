@@ -42,19 +42,11 @@ class ROSManager(Node):
         new_msg.angles = angles
         
         self.publisher.publish(new_msg)
-        self.get_logger().info(f'Publishing  IDs: {ids}, Angles: {angles})
+        self.get_logger().info(f'Publishing  IDs: {ids}, Angles: {angles}')
 
 class MotionEditor:
-    def __init__(self):
-        ##################
-        #### ROS init ####
-        ##################
-        rclpy.init(args=None)
-        self.ros_manager = ROSManager()
-        
-        self.ros_thread = threading.Thread(target=rclpy.spin, args=(self.ros_manager,), daemon=True)
-        self.ros_thread.start()
-
+    def __init__(self, ros_manager):
+        self.ros_manager = ros_manager
         # Main Loop
         self.root = tk.Tk()
         self.root.title("Motion Editor")
@@ -221,7 +213,7 @@ class MotionEditor:
         
     def loadMotorLimits(self):
         # load motor limits
-        with open("../../../Motor_Limits.json", "r", encoding="utf-8") as file:
+        with open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r", encoding="utf-8") as file:
             data = json.load(file)
             
         for key, subdict in data.items():
@@ -459,6 +451,20 @@ class MotionEditor:
 
     def start(self):
         print("start")
+
+def main():
+    rclpy.init()
+
+    ros_manager = ROSManager()
+
+    ros_thread = threading.Thread(target=rclpy.spin, args=(ros_manager,), daemon=True)
+    ros_thread.start()
+
+    motion_editor = MotionEditor(ros_manager)
+    motion_editor.run()
+
+    rclpy.shutdown()
+    ros_thread.join()
     
 if __name__ == "__main__":
     editor = MotionEditor()
