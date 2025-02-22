@@ -54,7 +54,10 @@ groupSyncWrite0 = GroupSyncWrite(port_handler0, packet_handler, ADDR_GOAL_POSITI
 groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 
 class MotorController(Node):
-    def __init__(self):
+    def __init__(self, is_open_port0, is_open_port1):
+        self.is_open_port0 = is_open_port0
+        self.is_open_port1 = is_open_port1
+
         super().__init__('motor_controller')
         self.get_logger().info('Run motor controller node')
 
@@ -111,6 +114,11 @@ class MotorController(Node):
                 angle = self.motorLimits[f"{id}"]["max"]
                 self.get_logger().error(f"Exceed maximum motor {id}: {angleP} => {angle}")
             self.get_logger().info(f"{id}: {angle}")
+
+            if not is_open_port0:
+                return
+            if not is_open_port1:
+                return
 
             # Preparation
             param_goal_position = [
@@ -302,30 +310,41 @@ def scan_motors():
         print("PORT IS NOT OPENED")
 
 def main(args=None):
+    is_open_port0 = False
+    is_open_port1 = False    
+
     # Open Serial Port
-    if not port_handler0.openPort():
-        print("Failed to open the port0")
-        return
-    if not port_handler1.openPort():
-        print("Failed to open the port1")
-        return
-    print("Succeeded to open the port")
+    try:
+        if not port_handler0.openPort():
+            print("Failed to open the port0")
+            is_open_port0 = True
+            return
+        if not port_handler1.openPort():
+            print("Failed to open the port1")
+            is_open_port1 = True
+            return
+        print("Succeeded to open the port")
+    except:
+        print("Failed to open port")
 
     # Set Baudrate
-    if not port_handler0.setBaudRate(BAUDRATE):
+    if is_open_port0 and not port_handler0.setBaudRate(BAUDRATE):
         print(f"Failed to set the baudrate: {BAUDRATE}")
         return
-    if not port_handler1.setBaudRate(BAUDRATE):
+    if is_open_port1 and not port_handler1.setBaudRate(BAUDRATE):
         print(f"Failed to set the baudrate: {BAUDRATE}")
         return
     print(f"Succeeded to set baudrate: {BAUDRATE}")
 
     scan_motors()
 
-    initialize_motor()
-    
+    try:
+        initialize_motor()
+    except:
+        print("Failed to initialize motor")    
+
     rclpy.init(args=args)
-    node = MotorController()
+    node = MotorController(is_open_port0, is_open_port1)
     rclpy.spin(node)
 
     for id in np.array([11, 21, 22, 23, 24, 31, 32, 41, 42, 43, 44], dtype=np.uint8):
