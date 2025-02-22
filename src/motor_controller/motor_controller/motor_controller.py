@@ -280,23 +280,26 @@ def initialize_motor():
     print("Done initializing motors")
 
 def scan_motors():
-    print("\nStart scaning motors on /dev/ttyUSB0")
-    for id in range(0,254):
-        dxl_model_number, dxl_comm_result, dxl_error = packet_handler.ping(port_handler0, id)
-        if dxl_comm_result == COMM_SUCCESS:
-            PORT0.append(id)
-        prog = id/254 *100
-        print(f"\rScaning /dev/ttyUSB0 [{prog} %]", end="")
-    print(f"{PORT0} was found on /dev/ttyUSB0")
+    try:
+        print("\nStart scaning motors on /dev/ttyUSB0")
+        for id in range(0,254):
+            dxl_model_number, dxl_comm_result, dxl_error = packet_handler.ping(port_handler0, id)
+            if dxl_comm_result == COMM_SUCCESS:
+                PORT0.append(id)
+            prog = id/254 *100
+            print(f"\rScaning /dev/ttyUSB0 [{prog} %]", end="")
+        print(f"{PORT0} was found on /dev/ttyUSB0")
 
-    print("\nStart scaning motors on /dev/ttyUSB1")
-    for id in range(0,254):
-        dxl_model_number, dxl_comm_result, dxl_error = packet_handler.ping(port_handler1, id)
-        if dxl_comm_result == COMM_SUCCESS:
-            PORT1.append(id)
-        prog = id/254 *100
-        print(f"\rScaning /dev/ttyUSB1 [{prog} %]", end="")
-    print(f"{PORT1} was found on /dev/ttyUSB1")
+        print("\nStart scaning motors on /dev/ttyUSB1")
+        for id in range(0,254):
+            dxl_model_number, dxl_comm_result, dxl_error = packet_handler.ping(port_handler1, id)
+            if dxl_comm_result == COMM_SUCCESS:
+                PORT1.append(id)
+            prog = id/254 *100
+            print(f"\rScaning /dev/ttyUSB1 [{prog} %]", end="")
+        print(f"{PORT1} was found on /dev/ttyUSB1")
+    except:
+        print("PORT IS NOT OPENED")
 
 def main(args=None):
     # Open Serial Port
