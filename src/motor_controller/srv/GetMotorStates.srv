@@ -1,0 +1,6 @@
+# servise
+uint8[] ids
+----------
+int32[] angles
+int32[] temperatures
+int32[] torques

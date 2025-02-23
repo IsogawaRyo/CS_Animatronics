@@ -66,7 +66,7 @@ class MotorController(Node):
         self.loadMotorLimits() 
 
         # Setting GetPosition service
-        self.get_position_server_ = self.create_service(
+        self.get_position_service = self.create_service(
             GetPosition, 
             'get_position', 
             self.get_present_position)
