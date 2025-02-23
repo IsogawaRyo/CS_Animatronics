@@ -9,6 +9,7 @@ from motor_command_msg.msg import IdAngle
 from dynamixel_sdk import *
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
 from dynamixel_sdk_custom_interfaces.srv import GetPosition
+from motor_controller.srv import GetMotorStates
 import numpy as np
 from time import sleep
 import json
