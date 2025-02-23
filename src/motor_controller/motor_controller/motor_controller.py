@@ -115,9 +115,9 @@ class MotorController(Node):
                 self.get_logger().error(f"Exceed maximum motor {id}: {angleP} => {angle}")
             self.get_logger().info(f"{id}: {angle}")
 
-            if not is_open_port0:
+            if not self.is_open_port0:
                 return
-            if not is_open_port1:
+            if not self.is_open_port1:
                 return
 
             # Preparation

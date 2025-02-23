@@ -36,7 +36,7 @@ class ROSManager(Node):
             #self.get_logger().error('Service call failed')
             #return None
             
-    def set_postions(self, ids, angles):
+    def set_positions(self, ids, angles):
         new_msg = IdAngle()
         new_msg.ids = ids
         new_msg.angles = angles
@@ -361,7 +361,7 @@ class MotionEditor:
     def operateEdit(self):
         print("Edit")
         now = self.timestamp.get()
-
+        print(f"{now}, {self.last_timestamp.get()}")
         if self.last_timestamp.get() != now:
             found_entry = None
 
@@ -420,6 +420,18 @@ class MotionEditor:
                 if motor_id in angles:
                     del angles[motor_id]
 
+        # Publish topic
+        ids = []
+        angles_ = []
+        for motor_id in self.motorLimits:
+            if self.state_checkBox[motor_id].get():
+               ids.append(motor_id)
+               angles_.append(self.positions[motor_id].get())
+        self.ros_manager.set_positions(ids, angles_)
+
+        # Update last_timestamp
+        self.last_timestamp.set(now)
+
     def main(self):
         print("main")
         if self.is_playing:
@@ -436,8 +448,9 @@ class MotionEditor:
                     self.moveForward()
 
         for id in self.positions:
-            print(id)
-            print(self.positions[id].get())
+            #print(id)
+            #print(self.positions[id].get())
+            pass
 
         if self.mode.get() == 0:
             self.operateSend()
