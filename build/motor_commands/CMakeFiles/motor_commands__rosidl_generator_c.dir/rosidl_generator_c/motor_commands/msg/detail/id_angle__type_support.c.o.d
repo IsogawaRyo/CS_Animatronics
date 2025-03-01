@@ -13,8 +13,8 @@ CMakeFiles/motor_commands__rosidl_generator_c.dir/rosidl_generator_c/motor_comma
  /usr/include/aarch64-linux-gnu/bits/types/locale_t.h \
  /usr/include/aarch64-linux-gnu/bits/types/__locale_t.h \
  /usr/include/strings.h \
- /home/csanimatronics/CS_Animatronics/build/motor_commands/rosidl_generator_c/motor_commands/msg/detail/id_angle__type_support.h \
  /opt/ros/jazzy/include/rosidl_typesupport_interface/rosidl_typesupport_interface/macros.h \
+ /home/csanimatronics/CS_Animatronics/build/motor_commands/rosidl_generator_c/motor_commands/msg/detail/id_angle__type_support.h \
  /home/csanimatronics/CS_Animatronics/build/motor_commands/rosidl_generator_c/motor_commands/msg/rosidl_generator_c__visibility_control.h \
  /opt/ros/jazzy/include/rosidl_runtime_c/rosidl_runtime_c/message_type_support_struct.h \
  /opt/ros/jazzy/include/rosidl_runtime_c/rosidl_runtime_c/type_description/type_description__struct.h \
@@ -41,7 +41,6 @@ CMakeFiles/motor_commands__rosidl_generator_c.dir/rosidl_generator_c/motor_comma
  /opt/ros/jazzy/include/rcutils/rcutils/visibility_control_macros.h \
  /opt/ros/jazzy/include/rcutils/rcutils/sha256.h \
  /opt/ros/jazzy/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
- /home/csanimatronics/CS_Animatronics/build/motor_commands/rosidl_generator_c/motor_commands/msg/detail/id_angle__struct.h \
  /home/csanimatronics/CS_Animatronics/build/motor_commands/rosidl_generator_c/motor_commands/msg/detail/id_angle__functions.h \
  /usr/include/stdlib.h /usr/include/aarch64-linux-gnu/bits/waitflags.h \
  /usr/include/aarch64-linux-gnu/bits/waitstatus.h \
@@ -70,4 +69,5 @@ CMakeFiles/motor_commands__rosidl_generator_c.dir/rosidl_generator_c/motor_comma
  /usr/include/aarch64-linux-gnu/bits/struct_rwlock.h \
  /usr/include/alloca.h /usr/include/aarch64-linux-gnu/bits/stdlib-float.h \
  /opt/ros/jazzy/include/rosidl_runtime_c/rosidl_runtime_c/action_type_support_struct.h \
- /opt/ros/jazzy/include/rosidl_runtime_c/rosidl_runtime_c/service_type_support_struct.h
+ /opt/ros/jazzy/include/rosidl_runtime_c/rosidl_runtime_c/service_type_support_struct.h \
+ /home/csanimatronics/CS_Animatronics/build/motor_commands/rosidl_generator_c/motor_commands/msg/detail/id_angle__struct.h

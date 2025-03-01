@@ -23,6 +23,7 @@ setup(
     entry_points={
         'console_scripts': [
             'motion_editor = motion_editor.motion_editor:main',
+            'motor_controller = motor_controller.motor_controller:main',
             'system_controller = system_controller.system_controller:main',
         ],
     },

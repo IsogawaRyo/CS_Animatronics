@@ -69,9 +69,10 @@ class MotorController(Node):
         # Setting GetPosition service
         self.get_motor_states_service = self.create_service(
             GetMotorStates, 
-            'get_motor_states_service', 
+            'get_motor_states', 
             self.get_motor_states)
-        
+        self.get_logger().info('Run GetMotorStates server')       
+ 
         # Setting subscriber
         self.subscription = self.create_subscription(
             IdAngle,

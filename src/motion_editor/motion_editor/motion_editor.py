@@ -488,7 +488,6 @@ def main():
     motion_editor = MotionEditor(ros_manager)
     motion_editor.run()
 
-    rclpy.shutdown()
     ros_thread.join()
     
 if __name__ == "__main__":
