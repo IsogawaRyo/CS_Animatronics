@@ -45,7 +45,7 @@ class ROSManager(Node):
         except Exception as e:
             self.get_logger().error('Service called failed')
         else:
-            self.get_logger().info(f"Recived motor states\nIDs: {response.id}"\nPositions: {response.positions}) 
+            self.get_logger().info(f"Recived motor states\nIDs: {response.id}\nPositions: {response.positions}") 
 
 
     def set_positions(self, ids, angles):

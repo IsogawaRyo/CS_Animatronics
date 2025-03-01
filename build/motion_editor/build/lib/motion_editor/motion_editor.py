@@ -42,7 +42,7 @@ class ROSManager(Node):
     def response_callback(self, future):
         try:
             response = future.result()
-        excrpt Exception as e:
+        except Exception as e:
             self.get_logger().error('Service called failed')
         else:
             self.get_logger().info(f"Recived motor states\nIDs: {response.id}"\nPositions: {response.positions}) 

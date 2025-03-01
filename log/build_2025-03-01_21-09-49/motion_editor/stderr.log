@@ -1,0 +1,5 @@
+  File "/home/csanimatronics/CS_Animatronics/install/motion_editor/lib/python3.12/site-packages/motion_editor/motion_editor.py", line 48
+    self.get_logger().info(f"Recived motor states\nIDs: {response.id}"\nPositions: {response.positions}) 
+                                                                       ^
+SyntaxError: unexpected character after line continuation character
+

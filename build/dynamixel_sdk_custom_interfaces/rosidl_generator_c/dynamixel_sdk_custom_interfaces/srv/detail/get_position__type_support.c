@@ -5,8 +5,8 @@
 #include <string.h>
 
 #include "dynamixel_sdk_custom_interfaces/srv/detail/get_position__struct.h"
-#include "dynamixel_sdk_custom_interfaces/srv/detail/get_position__functions.h"
 #include "dynamixel_sdk_custom_interfaces/srv/detail/get_position__type_support.h"
+#include "dynamixel_sdk_custom_interfaces/srv/detail/get_position__functions.h"
 #include "rosidl_typesupport_interface/macros.h"
 
 #ifdef __cplusplus

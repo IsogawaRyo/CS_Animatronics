@@ -1,0 +1,43 @@
+[2.114s] Invoking command in '/home/csanimatronics/CS_Animatronics/src/motion_editor': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_commands:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_commands:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/motor_commands/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/motion_editor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/motion_editor/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_commands/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/motion_editor build --build-base /home/csanimatronics/CS_Animatronics/build/motion_editor/build install --record /home/csanimatronics/CS_Animatronics/build/motion_editor/install.log --single-version-externally-managed install_data
+[2.526s] running egg_info
+[2.527s] creating ../../build/motion_editor/motion_editor.egg-info
+[2.555s] writing ../../build/motion_editor/motion_editor.egg-info/PKG-INFO
+[2.556s] writing dependency_links to ../../build/motion_editor/motion_editor.egg-info/dependency_links.txt
+[2.556s] writing entry points to ../../build/motion_editor/motion_editor.egg-info/entry_points.txt
+[2.556s] writing requirements to ../../build/motion_editor/motion_editor.egg-info/requires.txt
+[2.556s] writing top-level names to ../../build/motion_editor/motion_editor.egg-info/top_level.txt
+[2.557s] writing manifest file '../../build/motion_editor/motion_editor.egg-info/SOURCES.txt'
+[2.609s] reading manifest file '../../build/motion_editor/motion_editor.egg-info/SOURCES.txt'
+[2.610s] writing manifest file '../../build/motion_editor/motion_editor.egg-info/SOURCES.txt'
+[2.610s] running build
+[2.610s] running build_py
+[2.611s] creating /home/csanimatronics/CS_Animatronics/build/motion_editor/build
+[2.611s] creating /home/csanimatronics/CS_Animatronics/build/motion_editor/build/lib
+[2.612s] creating /home/csanimatronics/CS_Animatronics/build/motion_editor/build/lib/motion_editor
+[2.612s] copying motion_editor/motion_editor.py -> /home/csanimatronics/CS_Animatronics/build/motion_editor/build/lib/motion_editor
+[2.612s] copying motion_editor/__init__.py -> /home/csanimatronics/CS_Animatronics/build/motion_editor/build/lib/motion_editor
+[2.612s] running install
+[2.621s] running install_lib
+[2.651s] creating /home/csanimatronics/CS_Animatronics/install/motion_editor/lib/python3.12/site-packages/motion_editor
+[2.652s] copying /home/csanimatronics/CS_Animatronics/build/motion_editor/build/lib/motion_editor/motion_editor.py -> /home/csanimatronics/CS_Animatronics/install/motion_editor/lib/python3.12/site-packages/motion_editor
+[2.652s] copying /home/csanimatronics/CS_Animatronics/build/motion_editor/build/lib/motion_editor/__init__.py -> /home/csanimatronics/CS_Animatronics/install/motion_editor/lib/python3.12/site-packages/motion_editor
+[2.652s] byte-compiling /home/csanimatronics/CS_Animatronics/install/motion_editor/lib/python3.12/site-packages/motion_editor/motion_editor.py to motion_editor.cpython-312.pyc
+[2.653s]   File "/home/csanimatronics/CS_Animatronics/install/motion_editor/lib/python3.12/site-packages/motion_editor/motion_editor.py", line 48
+[2.653s]     self.get_logger().info(f"Recived motor states\nIDs: {response.id}"\nPositions: {response.positions}) 
+[2.653s]                                                                        ^
+[2.654s] SyntaxError: unexpected character after line continuation character
+[2.654s] 
+[2.654s] byte-compiling /home/csanimatronics/CS_Animatronics/install/motion_editor/lib/python3.12/site-packages/motion_editor/__init__.py to __init__.cpython-312.pyc
+[2.654s] running install_data
+[2.654s] creating /home/csanimatronics/CS_Animatronics/install/motion_editor/share/ament_index
+[2.654s] creating /home/csanimatronics/CS_Animatronics/install/motion_editor/share/ament_index/resource_index
+[2.655s] creating /home/csanimatronics/CS_Animatronics/install/motion_editor/share/ament_index/resource_index/packages
+[2.655s] copying resource/motion_editor -> /home/csanimatronics/CS_Animatronics/install/motion_editor/share/ament_index/resource_index/packages
+[2.655s] copying package.xml -> /home/csanimatronics/CS_Animatronics/install/motion_editor/share/motion_editor
+[2.655s] running install_egg_info
+[2.684s] Copying ../../build/motion_editor/motion_editor.egg-info to /home/csanimatronics/CS_Animatronics/install/motion_editor/lib/python3.12/site-packages/motion_editor-0.0.0-py3.12.egg-info
+[2.685s] running install_scripts
+[2.885s] Installing motion_editor script to /home/csanimatronics/CS_Animatronics/install/motion_editor/lib/motion_editor
+[2.885s] Installing system_controller script to /home/csanimatronics/CS_Animatronics/install/motion_editor/lib/motion_editor
+[2.886s] writing list of installed files to '/home/csanimatronics/CS_Animatronics/build/motion_editor/install.log'
+[3.030s] Invoked command in '/home/csanimatronics/CS_Animatronics/src/motion_editor' returned '0': AMENT_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_commands:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/csanimatronics/CS_Animatronics/install/motor_commands:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/csanimatronics/CS_Animatronics/install/motor_commands/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/motion_editor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/motion_editor/lib/python3.12/site-packages:/home/csanimatronics/CS_Animatronics/install/motor_commands/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/motion_editor build --build-base /home/csanimatronics/CS_Animatronics/build/motion_editor/build install --record /home/csanimatronics/CS_Animatronics/build/motion_editor/install.log --single-version-externally-managed install_data
