@@ -22,21 +22,32 @@ class ROSManager(Node):
             'IdAngle',
             12
         )
-        
-        #self.get_position_client = self.create_client(GetPosition, 'get_position')
-        #while not self.get_position_client.wait_for_service(timeout_sec=1.0):
-            #self.get_logger().info('Waiting for get_position service...')
+
+        self.get_motor_states_client = self.create_client(
+            GetMotorStates,
+            "get_motor_states"
+        )
     
-    #def call_get_position(self):
-        #req = GetPosition.Request()
-        #future = self.get_position_client.call_async(req)
-        #rclpy.spin_until_future_complete(self, future)
-        #if future.result() is not None:
-            #return future.result()
-        #else:
-            #self.get_logger().error('Service call failed')
-            #return None
-            
+        while not self.get_motor_states_client(timeout_sec=1.0):
+            self.get_logger().info('Waiting for serviceto be available...')
+        self.request = GetMotorStates.Request()
+
+    def call_get_motor_states(self, ids):
+        self.request.id = ids
+        self.get_logger().info(f"Sending request")
+      
+        self.future = self.get_motor_states_client.call_async(self.request)
+        self.future.add_done_callback(self.response_cllback)
+
+    def response_callback(self, future):
+        try:
+            response = future.result()
+        excrpt Exception as e:
+            self.get_logger().error('Service called failed')
+        else:
+            self.get_logger().info(f"Recived motor states\nIDs: {response.id}"\nPositions: {response.positions}) 
+
+
     def set_positions(self, ids, angles):
         new_msg = IdAngle()
         new_msg.ids = ids

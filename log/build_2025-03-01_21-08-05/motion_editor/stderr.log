@@ -1,0 +1,5 @@
+  File "/home/csanimatronics/CS_Animatronics/install/motion_editor/lib/python3.12/site-packages/motion_editor/motion_editor.py", line 45
+    excrpt Exception as e:
+    ^^^^^^
+SyntaxError: expected 'except' or 'finally' block
+
