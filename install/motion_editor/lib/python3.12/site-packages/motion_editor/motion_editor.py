@@ -28,7 +28,7 @@ class ROSManager(Node):
             "get_motor_states"
         )
     
-        while not self.get_motor_states_client(timeout_sec=1.0):
+        while not self.get_motor_states_client.wait_for_service(timeout_sec=2.0):
             self.get_logger().info('Waiting for serviceto be available...')
         self.request = GetMotorStates.Request()
 
@@ -45,7 +45,7 @@ class ROSManager(Node):
         except Exception as e:
             self.get_logger().error('Service called failed')
         else:
-            self.get_logger().info(f"Recived motor states\nIDs: {response.id}"\nPositions: {response.positions}) 
+            self.get_logger().info(f"Recived motor states\nIDs: {response.id}\nPositions: {response.positions}") 
 
 
     def set_positions(self, ids, angles):

@@ -8,7 +8,6 @@ from sensor_msgs.msg import Joy
 from motor_commands.msg import IdAngle
 from dynamixel_sdk import *
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
-from dynamixel_sdk_custom_interfaces.srv import GetPosition
 from motor_commands.srv import GetMotorStates
 import numpy as np
 from time import sleep
@@ -187,8 +186,6 @@ class MotorController(Node):
                 self.get_logger().error(f"ERROR on ID: {id}")
                 torque = 0
             torques.append(torque)
-
-
 
         # Prepare data
         response.ids = ids
