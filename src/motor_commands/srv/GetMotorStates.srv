@@ -1,0 +1,5 @@
+uint8[] ids
+-----------
+int32[] positions
+int32[] temperatures
+int32[] torques

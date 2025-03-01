@@ -19,7 +19,7 @@ setup(
                       'dynamixel_sdk',
                       'rclpy',
                       'dynamixel_sdk_custom_interfaces',
-                      'motor_command_msg',],
+                      'motor_commands',],
     zip_safe=True,
     maintainer='Ryo Isogawa',
     maintainer_email='2023m002@kuas.ac.jp',
