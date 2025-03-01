@@ -13,7 +13,7 @@ setup(
     ],
     install_requires=['setuptools',
                      'rclpy',
-                     'motor_command_msg',],
+                     'motor_commands',],
     zip_safe=True,
     maintainer='csanimatronics',
     maintainer_email='2023m002@kuas.ac.jp',

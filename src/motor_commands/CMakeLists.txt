@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(motor_command_msg)
+project(motor_commands)
 
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 17)
@@ -24,6 +24,7 @@ set(srv_files
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   ${msg_files}
+  ${srv_files}
   DEPENDENCIES builtin_interfaces
 )
 
