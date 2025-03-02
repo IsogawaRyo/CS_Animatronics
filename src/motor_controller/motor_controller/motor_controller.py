@@ -184,19 +184,19 @@ class MotorController(Node):
             position, comm_result, error = packet_handler.read4ByteTxRx(selected_port_handler, id, ADDR_PRESENT_POSITION)
             if comm_result != dxl.COMM_SUCCESS:
                 self.get_logger().error(f"ERROR on ID: {id}")
-                position = self.MotorLimits[f"id"]["ini"]
+                position = self.motorLimits[f"id"]["ini"]
             positions.append(position)
 
             # Get temperature
             temperature, comm_result, error = packet_handler.read1ByteTxRx(selected_port_handler, id, ADDR_PRESENT_TEMPERATURE)
-            if comm_result == dxl.COMM_SUCCESS:
+            if comm_result != dxl.COMM_SUCCESS:
                 self.get_logger().error(f"ERROR on ID: {id}")
                 temperature = 0
             temperatures.append(temperature)
 
             # Get torque
             torque, comm_result, error = packet_handler.read2ByteTxRx(selected_port_handler, id, ADDR_PRESENT_LOAD)
-            if comm_result == dxl.COMM_SUCCESS:
+            if comm_result != dxl.COMM_SUCCESS:
                 self.get_logger().error(f"ERROR on ID: {id}")
                 torque = 0
             torques.append(torque)

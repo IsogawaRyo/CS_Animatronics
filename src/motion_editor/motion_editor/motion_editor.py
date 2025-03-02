@@ -37,7 +37,7 @@ class ROSManager(Node):
         self.get_logger().info(f"Sending request")
       
         self.future = self.get_motor_states_client.call_async(self.request)
-        self.future.add_done_callback(self.response_callback)
+        self.future.add_done_callback(callback)
 
     def response_callback(self, future):
         try:
@@ -45,7 +45,7 @@ class ROSManager(Node):
         except Exception as e:
             self.get_logger().error('Service called failed')
         else:
-            self.get_logger().info(f"Recived motor states\nIDs: {response.id}\nPositions: {response.positions}") 
+            self.get_logger().info(f"Recived motor states\nIDs: {response.ids}\nPositions: {response.positions}") 
 
 
     def set_positions(self, ids, angles):
@@ -468,15 +468,15 @@ class MotionEditor:
         ids = list(self.motorLimits.keys())
         ids = [int(x) for x in ids]
         def on_response(future):
-            print(response)
             try:
                 response = future.result()
                 for i, id in enumerate(response.ids):
                     self.positions[id].set(response.positions[i])
                     self.temperatures[id].set(response.temperatures[i])
                     self.torques[id].set(response.torques[i])
+                    print(f"ID: {id}\nposition: {self.positions[id]}\ntemperature: {temperatures[id]}")
             except Exception as e:
-                self.get_logger().info('Faoled to call service')
+                print('Faoled to call service')
         self.ros_manager.call_get_motor_states(ids, lambda fut: self.root.after(0, lambda: on_response(fut)))
 
     def main(self):
