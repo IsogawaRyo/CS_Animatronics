@@ -186,10 +186,10 @@ class MotionEditor:
             self.labels_ID[id].grid(row=2*i, column=0)
         
             # Angle Slider
-            min = self.motorLimits[id]["min"]
-            max = self.motorLimits[id]["max"]
+            min_ = self.motorLimits[id]["min"]
+            max_ = self.motorLimits[id]["max"]
             self.positions[id] = tk.IntVar(self.root)
-            self.scales_angle[id] = tk.Scale(self.frame_monitor, from_=min, to_=max, variable=self.positions[id], orient=tk.HORIZONTAL)
+            self.scales_angle[id] = tk.Scale(self.frame_monitor, from_=min_, to_=max_, variable=self.positions[id], orient=tk.HORIZONTAL)
             self.scales_angle[id].grid(row=2*i, column=1, rowspan=2)
 
             # Check box
@@ -200,13 +200,13 @@ class MotionEditor:
             # torque label
             self.torques[id] = tk.IntVar(self.root)
             self.torques[id].set(0)
-            self.labels_torque[id] = tk.Label(self.frame_monitor, textvariable=self.torques[id])
+            self.labels_torque[id] = tk.Label(self.frame_monitor, textvariable=self.torques[id], fg="white")
             self.labels_torque[id].grid(row=2*i, column=2)
 
             # temperature label
             self.temperatures[id] = tk.IntVar(self.root)
             self.temperatures[id].set(0)
-            self.labels_temperature[id] = tk.Label(self.frame_monitor, textvariable=self.temperatures[id])
+            self.labels_temperature[id] = tk.Label(self.frame_monitor, textvariable=self.temperatures[id], fg="white")
             self.labels_temperature[id].grid(row=2*i+1, column=2)
 
 
@@ -317,6 +317,14 @@ class MotionEditor:
 
         with open(self.selectedFile.get(), "w", encoding="utf-8") as f:
             json.dump(self.motionFile, f, indent=2)
+
+    def val_to_color(self, val, min_val=0, max_val=100):
+        norm = (val - min_val) / (max_val - min_val)
+        norm = max(0.0, min(1.0, norm))
+        r = int(255 * norm)
+        g = 0
+        b = int(255 * (1 - norm))
+        return f"#{r:02x}{g:02x}{b:02x}"
 
     def playMotion(self):
         # set Play Flag True
@@ -473,10 +481,18 @@ class MotionEditor:
                 response = future.result()
                 print(f"recived response {response.ids}")
                 for i, id in enumerate(response.ids):
-                    self.positions[id].set(response.positions[i])
-                    self.temperatures[id].set(response.temperatures[i])
-                    self.torques[id].set(response.torques[i])
-                    print(f"ID: {id}\nposition: {self.positions[id].get()}\ntemperature: {self.temperatures[id].get()}")
+                    # Set position
+                    self.positions[f"{id}"].set(response.positions[i])
+
+                    # Set temperature
+                    self.temperatures[f"{id}"].set(response.temperatures[i])
+                    color = self.val_to_color(response.temperatures[i])
+                    self.labels_temperature[f"{id}"].configure(bg=color)
+
+                    # Set torques
+                    self.torques[f"{id}"].set(response.torques[i])
+                    color = self.val_to_color(response.torques[i])
+                    self.labels_torque[f"{id}"].configure(bg=color)
             except Exception as e:
                 print(f"Failed to call service {e}")
         self.ros_manager.call_get_motor_states(ids_, lambda fut: self.root.after(0, lambda: on_response(fut)))

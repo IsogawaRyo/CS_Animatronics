@@ -175,7 +175,7 @@ class MotorController(Node):
             response.positions = positions
             response.temperatures = temperatures
             response.torques = torques
-            print(response)
+            print(f"IDs: {response.ids}\npositions: {response.positions}\ntemperatures: {response.temperatures}\ntorques: {response.torques}")
             return response
 
         for id in request.ids:
