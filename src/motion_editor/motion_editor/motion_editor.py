@@ -176,7 +176,10 @@ class MotionEditor:
         self.state_checkBox = {}  # contains state of checkBox
         self.checkBox = {}  # contains checkBoxi
         self.labels_torque = {} # contains labels of torques
+        self.torques = {} # contains torqies
         self.labels_temperature = {} # contains labels of temperatures
+        self.temperatures = {}
+
         for i, id in enumerate(self.motorLimits):
             # ID Label
             self.labels_ID[id] = tk.Label(self.frame_monitor, text="ID: " + id)
@@ -195,11 +198,15 @@ class MotionEditor:
             self.checkBox[id].grid(row=2*i+1, column=0)
 
             # torque label
-            self.labels_torque[id] = tk.Label(self.frame_monitor, text="torque")
+            self.torques[id] = tk.IntVar(self.root)
+            self.torques[id].set(0)
+            self.labels_torque[id] = tk.Label(self.frame_monitor, textvariable=self.torques[id])
             self.labels_torque[id].grid(row=2*i, column=2)
 
             # temperature label
-            self.labels_tempwrature[id] = tk.label(self.frame_monitor, text="temperature")
+            self.temperatures[id] = tk.IntVar(self.root)
+            self.temperatures[id].set(0)
+            self.labels_temperature[id] = tk.Label(self.frame_monitor, textvariable=self.temperatures[id])
             self.labels_temperature[id].grid(row=2*i+1, column=2)
 
 
