@@ -150,7 +150,7 @@ class MotionEditor:
         self.label_mode.grid(row=0, column=0)
         
         # Mode Dropbox
-        self.combobox_mode = ttk.Combobox(self.frame_settings, state="readonly", values=("Send", "Write", "Edit"))
+        self.combobox_mode = ttk.Combobox(self.frame_settings, state="readonly", values=("Send", "Write", "Edit", "Observe"))
         self.combobox_mode.grid(row=0, column=1)
         
         # Mode Chose Button
@@ -239,7 +239,7 @@ class MotionEditor:
         self.scale_time.grid(row=0, column=3, rowspan=2)
 
 
-        self.root.after(100, self.main)
+        self.root.after(self.timeSpan, self.main)
         self.root.mainloop()
         
     def loadMotorLimits(self):
@@ -463,6 +463,19 @@ class MotionEditor:
         # Update last_timestamp
         self.last_timestamp.set(now)
 
+    def operateObserve(self):
+        ids = list(self.motorLimits.keys())
+        def on_response(future):
+            try:
+                response = future.result()
+                for i, id in enumerate(response.id):
+                    self.positions[id].set(response.position[i])
+                    self.temperatures[id].set(response.temperatures[i])
+                    self.torques[id].set(response.torques[i])
+            except Exception as e:
+                self.get_logger().info('Faoled to call service')
+        self.ros_manager.call_get_motor_states(ids, lambda fut: self.root.after(0, lambda: on_response(fut)))
+
     def main(self):
         print("main")
         if self.is_playing:
@@ -489,9 +502,10 @@ class MotionEditor:
             self.operateWrite()
         elif self.mode.get() == 2:
             self.operateEdit()
+        elif self.mode.get() == 3:
+            self.operateObserve()
 
-
-        self.root.after(100, self.main)
+        self.root.after(self.timeSpan, self.main)
 
     def start(self):
         print("start")
