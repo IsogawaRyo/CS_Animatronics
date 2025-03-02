@@ -161,8 +161,12 @@ class MotorController(Node):
         temperatures = []
         torques = []
 
+        self.get_logger().info(f"get motor service called: {request}")
+
         if not self.is_open_port0 or not self.is_open_port1:
+            self.get_logger().info('Port is not opend')
             for id in request.ids:
+                print(type(id))
                 ids.append(id)
                 positions.append(random.randint(self.motorLimits[f"{id}"]["min"], self.motorLimits[f"{id}"]["max"]))
                 temperatures.append(random.randint(0, 80))
@@ -171,7 +175,8 @@ class MotorController(Node):
             response.positions = positions
             response.temperatures = temperatures
             response.torques = torques
-            return response 
+            print(response)
+            return response
 
         for id in request.ids:
             # Select PORT
@@ -184,7 +189,7 @@ class MotorController(Node):
             position, comm_result, error = packet_handler.read4ByteTxRx(selected_port_handler, id, ADDR_PRESENT_POSITION)
             if comm_result != dxl.COMM_SUCCESS:
                 self.get_logger().error(f"ERROR on ID: {id}")
-                position = self.motorLimits[f"id"]["ini"]
+                position = self.motorLimits[f"{id}"]["ini"]
             positions.append(position)
 
             # Get temperature

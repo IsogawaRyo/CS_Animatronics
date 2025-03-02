@@ -465,19 +465,21 @@ class MotionEditor:
         self.last_timestamp.set(now)
 
     def operateObserve(self):
-        ids = list(self.motorLimits.keys())
-        ids = [int(x) for x in ids]
+        ids_ = list(self.motorLimits.keys())
+        ids_ = [int(x) for x in ids_]
         def on_response(future):
+            print('on_response called')
             try:
                 response = future.result()
+                print(f"recived response {response.ids}")
                 for i, id in enumerate(response.ids):
                     self.positions[id].set(response.positions[i])
                     self.temperatures[id].set(response.temperatures[i])
                     self.torques[id].set(response.torques[i])
-                    print(f"ID: {id}\nposition: {self.positions[id]}\ntemperature: {temperatures[id]}")
+                    print(f"ID: {id}\nposition: {self.positions[id].get()}\ntemperature: {self.temperatures[id].get()}")
             except Exception as e:
-                print('Faoled to call service')
-        self.ros_manager.call_get_motor_states(ids, lambda fut: self.root.after(0, lambda: on_response(fut)))
+                print(f"Failed to call service {e}")
+        self.ros_manager.call_get_motor_states(ids_, lambda fut: self.root.after(0, lambda: on_response(fut)))
 
     def main(self):
         print("main")
