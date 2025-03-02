@@ -12,6 +12,7 @@ from motor_commands.srv import GetMotorStates
 import numpy as np
 from time import sleep
 import json
+import random
 
 # Control table address
 ADDR_OPERATING_MODE = 11
@@ -160,7 +161,19 @@ class MotorController(Node):
         temperatures = []
         torques = []
 
-        for id in request.id:
+        if not self.is_open_port0 or not self.is_open_port1:
+            for id in request.ids:
+                ids.append(id)
+                positions.append(random.randint(self.motorLimits[f"{id}"]["min"], self.motorLimits[f"{id}"]["max"]))
+                temperatures.append(random.randint(0, 80))
+                torques.append(random.randint(0, 100))
+            response.ids = ids
+            response.positions = positions
+            response.temperatures = temperatures
+            response.torques = torques
+            return response 
+
+        for id in request.ids:
             # Select PORT
             if id in PORT0:
                 selected_port_handler = port_handler0
@@ -168,21 +181,21 @@ class MotorController(Node):
                 selected_port_handler = port_handler1
 
             # Get positon
-            position, comm_result, error = self.packet_handler.raed4ByteTxRx(selected_port_handler, id, ADDR_PRESENT_POSITION)
+            position, comm_result, error = packet_handler.read4ByteTxRx(selected_port_handler, id, ADDR_PRESENT_POSITION)
             if comm_result != dxl.COMM_SUCCESS:
                 self.get_logger().error(f"ERROR on ID: {id}")
                 position = self.MotorLimits[f"id"]["ini"]
             positions.append(position)
 
             # Get temperature
-            temperature, comm_result, error = self.packet_handler.raed1ByteTxRx(selected_port_handler, id, ADDR_PRESENT_TEMPERATURE)
+            temperature, comm_result, error = packet_handler.read1ByteTxRx(selected_port_handler, id, ADDR_PRESENT_TEMPERATURE)
             if comm_result == dxl.COMM_SUCCESS:
                 self.get_logger().error(f"ERROR on ID: {id}")
                 temperature = 0
             temperatures.append(temperature)
 
             # Get torque
-            torque, comm_result, error = self.packet_handler.raed2ByteTxRx(selected_port_handler, id, ADDR_PRESENT_LOAD)
+            torque, comm_result, error = packet_handler.read2ByteTxRx(selected_port_handler, id, ADDR_PRESENT_LOAD)
             if comm_result == dxl.COMM_SUCCESS:
                 self.get_logger().error(f"ERROR on ID: {id}")
                 torque = 0

@@ -32,12 +32,12 @@ class ROSManager(Node):
             self.get_logger().info('Waiting for serviceto be available...')
         self.request = GetMotorStates.Request()
 
-    def call_get_motor_states(self, ids):
-        self.request.id = ids
+    def call_get_motor_states(self, ids, callback):
+        self.request.ids = ids
         self.get_logger().info(f"Sending request")
       
         self.future = self.get_motor_states_client.call_async(self.request)
-        self.future.add_done_callback(self.response_cllback)
+        self.future.add_done_callback(self.response_callback)
 
     def response_callback(self, future):
         try:
@@ -458,18 +458,21 @@ class MotionEditor:
             if self.state_checkBox[motor_id].get():
                ids.append(motor_id)
                angles_.append(self.positions[motor_id].get())
-        self.ros_manager.set_positions(ids, angles_)
+        if ids != []:
+            self.ros_manager.set_positions(ids, angles_)
 
         # Update last_timestamp
         self.last_timestamp.set(now)
 
     def operateObserve(self):
         ids = list(self.motorLimits.keys())
+        ids = [int(x) for x in ids]
         def on_response(future):
+            print(response)
             try:
                 response = future.result()
-                for i, id in enumerate(response.id):
-                    self.positions[id].set(response.position[i])
+                for i, id in enumerate(response.ids):
+                    self.positions[id].set(response.positions[i])
                     self.temperatures[id].set(response.temperatures[i])
                     self.torques[id].set(response.torques[i])
             except Exception as e:
