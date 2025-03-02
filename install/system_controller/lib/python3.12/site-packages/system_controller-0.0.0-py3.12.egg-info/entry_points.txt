@@ -1,3 +1,0 @@
-[console_scripts]
-controller_publisher = controller_publisher:main
-system_controller = system_controller.system_controller:main

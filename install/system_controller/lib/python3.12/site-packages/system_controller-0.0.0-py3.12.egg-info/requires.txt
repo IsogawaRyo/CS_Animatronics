@@ -1,4 +1,0 @@
-motor_commands
-rclpy
-sensor_msg
-setuptools

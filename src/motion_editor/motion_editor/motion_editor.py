@@ -101,6 +101,7 @@ class MotionEditor:
         # 0: Read
         # 1: Read & Write
         # 2: Edit
+        # 3: Observe
         self.mode = tk.IntVar(self.root)
         self.mode.set(0)
         
@@ -173,7 +174,9 @@ class MotionEditor:
         self.scales_angle = {}  # contains scales of angles
         self.positions = {}  # contains position values from scale_angle
         self.state_checkBox = {}  # contains state of checkBox
-        self.checkBox = {}  # contains checkBox
+        self.checkBox = {}  # contains checkBoxi
+        self.labels_torque = {} # contains labels of torques
+        self.labels_temperature = {} # contains labels of temperatures
         for i, id in enumerate(self.motorLimits):
             # ID Label
             self.labels_ID[id] = tk.Label(self.frame_monitor, text="ID: " + id)
@@ -190,6 +193,15 @@ class MotionEditor:
             self.state_checkBox[id] = tk.BooleanVar(self.root)
             self.checkBox[id] = tk.Checkbutton(self.frame_monitor, text="target", variable=self.state_checkBox[id])
             self.checkBox[id].grid(row=2*i+1, column=0)
+
+            # torque label
+            self.labels_torque[id] = tk.Label(self.frame_monitor, text="torque")
+            self.labels_torque[id].grid(row=2*i, column=2)
+
+            # temperature label
+            self.labels_tempwrature[id] = tk.label(self.frame_monitor, text="temperature")
+            self.labels_temperature[id].grid(row=2*i+1, column=2)
+
 
 
         ##########################
