@@ -68,7 +68,7 @@ class MotorController(Node):
         # Initialize dummy motor states (simulation)
         self.dummy_motor_states = {}
         for motor_id in MOTOR_IDS:
-            # 初期値はJSONで定義された初期位置、設定がなければ0
+            # 初期値はJSONで定義された初期位置、なければ0
             self.dummy_motor_states[motor_id] = self.motor_limits.get(f"{motor_id}", {}).get("ini", 0)
 
         # Service: GetMotorStates
@@ -140,7 +140,7 @@ class MotorController(Node):
                 self.get_logger().error(f"Above maximum motor {motor_id}: {original_angle} => {angle}")
             self.get_logger().info(f"Motor {motor_id}: angle set to {angle}")
 
-            # Prepare parameter (little endian conversion)
+            # little endian conversion
             param_goal_position = [
                 DXL_LOBYTE(DXL_LOWORD(angle)),
                 DXL_HIBYTE(DXL_LOWORD(angle)),
@@ -176,7 +176,7 @@ class MotorController(Node):
             self.get_logger().warn("Simulation mode: returning dummy motor states.")
             for motor_id in request.ids:
                 ids.append(motor_id)
-                # シミュレーション用に内部状態から角度を返す（存在しない場合は乱数で補完）
+                # シミュレーション用に内部状態から角度を返す（なければ乱数）
                 positions.append(self.dummy_motor_states.get(motor_id, random.randint(0, 4095)))
                 temperatures.append(random.randint(0, 80))
                 torques.append(random.randint(0, 100))
@@ -317,21 +317,34 @@ def scan_motors():
         print(f"Scanning error: {e}")
 
 def main(args=None):
-    # Try to open serial ports; if fail, remain in simulation mode.
-    port0_open = port_handler0.openPort()
+    # シリアルポートのオープン処理をtry/exceptで行い、例外発生時にもフラグを更新
+    try:
+        port0_open = port_handler0.openPort()
+    except Exception as e:
+        print(f"Exception opening port0: {e}")
+        port0_open = False
+
     if not port0_open:
         print("Failed to open port0. Running in simulation mode.")
-    port1_open = port_handler1.openPort()
+
+    try:
+        port1_open = port_handler1.openPort()
+    except Exception as e:
+        print(f"Exception opening port1: {e}")
+        port1_open = False
+
     if not port1_open:
         print("Failed to open port1. Running in simulation mode.")
 
-    # Only set baudrate if port open succeeded.
-    if port0_open and not port_handler0.setBaudRate(BAUDRATE):
-        print(f"Failed to set baudrate {BAUDRATE} on port0")
-        port0_open = False
-    if port1_open and not port_handler1.setBaudRate(BAUDRATE):
-        print(f"Failed to set baudrate {BAUDRATE} on port1")
-        port1_open = False
+    # 各ポートがオープンしている場合のみbaudrate設定
+    if port0_open:
+        if not port_handler0.setBaudRate(BAUDRATE):
+            print(f"Failed to set baudrate {BAUDRATE} on port0")
+            port0_open = False
+    if port1_open:
+        if not port_handler1.setBaudRate(BAUDRATE):
+            print(f"Failed to set baudrate {BAUDRATE} on port1")
+            port1_open = False
 
     if port0_open and port1_open:
         print(f"Baudrate set to {BAUDRATE} on both ports.")
