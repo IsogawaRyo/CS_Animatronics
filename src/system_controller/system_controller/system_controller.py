@@ -282,8 +282,8 @@ class SystemController(Node):
             eyeR, eyeL = self.eyes(axes[3])
             neckX, neckY, neckZ = self.neck(axes[0], axes[4], axes[1])
             
-            ids = [11, 21, 22, 23, 24,  31, 32, 43, 44, 41, 42]
-            angles = [jaw, neckX, neckY, neckZ, neckY, eyeR, eyeL, blinkRU, blinkRL, blinkLU, blinkLL]
+            ids = [11, 21, 22, 23, 24, 25, 31, 32, 43, 44, 41, 42]
+            angles = [jaw, neckX, neckY, neckZ, neckY, neckY, eyeR, eyeL, blinkRU, blinkRL, blinkLU, blinkLL]
 
         return ids, angles
 
