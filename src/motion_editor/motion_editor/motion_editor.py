@@ -91,7 +91,7 @@ class MotionEditor:
         self.timeMin.set(0)
 
         # Scale span
-        self.timeSpan = 100
+        self.timeSpan = 500
 
         # Time Max
         self.timeMax = tk.IntVar(self.root)
