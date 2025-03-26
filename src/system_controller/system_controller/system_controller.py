@@ -103,7 +103,7 @@ class SystemController(Node):
 
                 # Open recording file
                 filename = datetime.now().strftime("record_%Y%m%d_%H%M%S.json")
-                self.record_file = open(f"/home/csanimatronics/CS_Animatronics/RecordedLog/{filename}", "w")
+                self.record_file = open(f"/home/csanimatronics/CS_Animatronics/MotionFiles/{filename}", "w")
                 self.get_logger().info(f"Start recording {self.start_time}")
 
             time_passed = time.time() - self.start_time
@@ -136,7 +136,7 @@ class SystemController(Node):
             fileFounded = os.listdir("/home/csanimatronics/CS_Animatronics/RecordedLog")
             # Chose a file to assign
             fileSelected = input(f"Chose file to assign {fileFounded}: ")
-            path = os.path.join("/home/csanimatronics/CS_Animatronics/RecordedLog", fileSelected)
+            path = os.path.join("/home/csanimatronics/CS_Animatronics/MotionFiles", fileSelected)
             data[selectedButton] = path
             # path to assign
             file = open("/home/csanimatronics/CS_Animatronics/ControllerMap.json", "w")
