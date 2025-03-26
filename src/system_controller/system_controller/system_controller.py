@@ -319,7 +319,7 @@ class SystemController(Node):
         self.print_selection()
         self.get_logger().info("Enter file selection mode")
 
-     def print_selection(self):
+    def print_selection(self):
         os.system('clear')
         for i, fname in enumerate(self.file_list):
             prefix = "▶ " if i == self.cursor_index else "  "
