@@ -53,6 +53,13 @@ class SystemController(Node):
             'IdAngle',
             12
         )
+
+        # Selection mode
+        self.selecting = False
+        self.file_list = []
+        self.cursor_index = 0
+        self.record_dir = "/home/csanimatronics/CS_Animatronics/MotionFiles"
+
     
     def listener_callback(self, msg):
         # Log axes and buttons
@@ -75,6 +82,22 @@ class SystemController(Node):
 
         self.publisher.publish(new_msg)
         self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
+
+        # Selecting mode
+        if self.selecting:
+            dp = msg.axes[7]
+            # ↑
+            if dp < -0.5 and self.cursor_index > 0:
+                self.cursor_index -= 1; self.print_selection()
+            # ↓
+            elif dp > 0.5 and self.cursor_index < len(self.file_list)-1:
+                self.cursor_index += 1; self.print_selection()
+            # Cross
+            if msg.buttons[0]:
+                self.assign_selected_file(self.file_list[self.cursor_index])
+                self.selecting = False
+                self.get_logger().info("Exit file selection mode")
+            return
 
     def loadMotorLimits(self):
         with open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r", encoding="utf-8") as file:
@@ -256,6 +279,8 @@ class SystemController(Node):
                 self.start_time = None
                 self.record_file = None
                 self.recorded_data = []
+                # Start selection mode
+                self.enter_selection_mode()
 
         # LeftStick
         elif buttons[11]:
@@ -286,6 +311,30 @@ class SystemController(Node):
             angles = [jaw, neckX, neckY, neckZ, neckY, neckY, eyeR, eyeL, blinkRU, blinkRL, blinkLU, blinkLL]
 
         return ids, angles
+
+    def enter_selection_mode(self):
+        self.selecting = True
+        self.file_list = sorted(os.listdir(self.record_dir))
+        self.cursor_index = 0
+        self.print_selection()
+        self.get_logger().info("Enter file selection mode")
+
+     def print_selection(self):
+        os.system('clear')
+        for i, fname in enumerate(self.file_list):
+            prefix = "▶ " if i == self.cursor_index else "  "
+            print(f"{prefix}{fname}")
+
+    def assign_selected_file(self, filename):
+        path = os.path.join(self.record_dir, filename)
+        with open(self.controllerMap, "r+") as f:
+            data = json.load(f)
+            # PS ボタン終了直後は「最後に録画したボタン」に割当可
+            # ここでは例として「Circle(1)」に固定
+            data["1"] = path  
+            f.seek(0); json.dump(data, f, indent=4); f.truncate()
+        self.get_logger().info(f"Assigned '{filename}' to Circle button")
+
 
     def blink(self, angle):
         blinkRU_min = self.motorLimits["43"]["min"] # close
