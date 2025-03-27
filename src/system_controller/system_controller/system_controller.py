@@ -72,11 +72,11 @@ class SystemController(Node):
         # Select motion file
         if self.selecting:
             # press R1 to move up
-            if msg.buttons[12] and self.cursor_index > 0:
+            if msg.buttons[5] and self.cursor_index > 0:
                 self.cursor_index -= 1
                 self.print_selection()
             # press L1 to move down
-            elif msg.buttons[11] and self.cursor_index < len(self.file_list)-1:
+            elif msg.buttons[4] and self.cursor_index < len(self.file_list)-1:
                 self.cursor_index += 1
                 self.print_selection()
             # Cross ボタン（buttons[0]）で選択確定
