@@ -169,7 +169,7 @@ class SystemController(Node):
 
         if int(selectedButton) in range(0,12):
             # Search recorded motion files
-            fileFounded = os.listdir("/home/csanimatronics/CS_Animatronics/RecordedLog")
+            fileFounded = os.listdir("/home/csanimatronics/CS_Animatronics/MotionFiles")
             # Chose a file to assign
             fileSelected = input(f"Chose file to assign {fileFounded}: ")
             path = os.path.join("/home/csanimatronics/CS_Animatronics/MotionFiles", fileSelected)
