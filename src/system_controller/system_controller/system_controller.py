@@ -70,6 +70,12 @@ class SystemController(Node):
         #self.get_logger().info(f'Axes: {msg.axes}')
         #self.get_logger().info(f'Buttons: {msg.buttons}')
 
+        # Cross 決定後、リリースを待
+        if self.ignore_cross:
+            if not msg.buttons[0]:
+                self.ignore_cross = False
+            return
+
         # Select motion file
         if self.selecting:
             now = time.time()
@@ -87,6 +93,7 @@ class SystemController(Node):
             # Cross ボタン（buttons[0]）で選択確定
             if msg.buttons[0]:
                 self.selecting = False
+                self.ignore_cross = True 
                 self.get_logger().info("Exit file selection mode")
             return
 
