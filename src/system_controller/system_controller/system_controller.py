@@ -60,6 +60,7 @@ class SystemController(Node):
         self.cursor_index = 0
         self.record_dir = "/home/csanimatronics/CS_Animatronics/MotionFiles"
         self.last_nav_time = 0.0
+        self.ignore_cross = False
 
     
     def listener_callback(self, msg):
