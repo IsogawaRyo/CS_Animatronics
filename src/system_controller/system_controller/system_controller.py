@@ -75,15 +75,18 @@ class SystemController(Node):
             if msg.buttons[5] and self.cursor_index > 0:
                 self.cursor_index -= 1
                 self.print_selection()
+                sleep(0.5)
             # press L1 to move down
             elif msg.buttons[4] and self.cursor_index < len(self.file_list)-1:
                 self.cursor_index += 1
                 self.print_selection()
+                sleep(0.5)
             # Cross ボタン（buttons[0]）で選択確定
             if msg.buttons[0]:
                 self.assign_selected_file(self.file_list[self.cursor_index])
                 self.selecting = False
                 self.get_logger().info("Exit file selection mode")
+                sleep(0.5)
             return
 
         # translate values
