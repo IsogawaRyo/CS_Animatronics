@@ -69,14 +69,14 @@ class SystemController(Node):
         #self.get_logger().info(f'Axes: {msg.axes}')
         #self.get_logger().info(f'Buttons: {msg.buttons}')
 
-        # もしファイル選択モード中なら、通常の処理をスキップして選択処理に入る
+        # Select motion file
         if self.selecting:
-            # D‑pad 上（例: buttons[13] が1なら上移動）
-            if msg.buttons[13] and self.cursor_index > 0:
+            # press R1 to move up
+            if msg.buttons[12] and self.cursor_index > 0:
                 self.cursor_index -= 1
                 self.print_selection()
-            # D‑pad 下（例: buttons[14] が1なら下移動）
-            elif msg.buttons[14] and self.cursor_index < len(self.file_list)-1:
+            # press L1 to move down
+            elif msg.buttons[11] and self.cursor_index < len(self.file_list)-1:
                 self.cursor_index += 1
                 self.print_selection()
             # Cross ボタン（buttons[0]）で選択確定
