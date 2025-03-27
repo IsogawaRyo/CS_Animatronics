@@ -102,13 +102,11 @@ class SystemController(Node):
                 self.get_logger().info("Exit file selection mode")
             return
 
-        """
         # Share 押下で割当モード開始
         if not self.selecting and not self.assigning and msg.buttons[8]:
             self.assigning = True; self.assign_stage = 0; self.cursor_index = 0
             self.file_list = self.button_list
             self.print_selection(); return
-        """
 
         if self.assigning:
             now = time.time()
