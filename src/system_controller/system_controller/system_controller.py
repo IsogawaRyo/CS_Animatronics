@@ -59,6 +59,7 @@ class SystemController(Node):
         self.file_list = []
         self.cursor_index = 0
         self.record_dir = "/home/csanimatronics/CS_Animatronics/MotionFiles"
+        self.last_nav_time = 0.0
 
     
     def listener_callback(self, msg):
@@ -71,22 +72,22 @@ class SystemController(Node):
 
         # Select motion file
         if self.selecting:
+            now = time.time()
             # press R1 to move up
-            if msg.buttons[5] and self.cursor_index > 0:
-                self.cursor_index -= 1
-                self.print_selection()
-                time.sleep(0.5)
-            # press L1 to move down
-            elif msg.buttons[4] and self.cursor_index < len(self.file_list)-1:
-                self.cursor_index += 1
-                self.print_selection()
-                time.sleep(0.5)
+            if now -self.last_nav_time > 0.3:
+                if msg.buttons[5] and self.cursor_index > 0:
+                    self.cursor_index -= 1
+                    self.print_selection()
+                    self.last_nav_time = now
+                # press L1 to move down
+                elif msg.buttons[4] and self.cursor_index < len(self.file_list)-1:
+                    self.cursor_index += 1
+                    self.print_selection()
+                    self.last_nav_time = now
             # Cross ボタン（buttons[0]）で選択確定
             if msg.buttons[0]:
-                self.assign_selected_file(self.file_list[self.cursor_index])
                 self.selecting = False
                 self.get_logger().info("Exit file selection mode")
-                time.sleep(0.5)
             return
 
         # translate values
@@ -147,7 +148,7 @@ class SystemController(Node):
             }
             self.recorded_data.append(entry)
             print(self.recorded_data)
-
+        
     def AssignMotion(self):
         # Assign recorded motion to a button
         
@@ -328,17 +329,6 @@ class SystemController(Node):
         for i, fname in enumerate(self.file_list):
             prefix = "▶ " if i == self.cursor_index else "  "
             print(f"{prefix}{fname}")
-
-    def assign_selected_file(self, filename):
-        path = os.path.join(self.record_dir, filename)
-        with open(self.controllerMap, "r+") as f:
-            data = json.load(f)
-            # PS ボタン終了直後は「最後に録画したボタン」に割当可
-            # ここでは例として「Circle(1)」に固定
-            data["1"] = path  
-            f.seek(0); json.dump(data, f, indent=4); f.truncate()
-        self.get_logger().info(f"Assigned '{filename}' to Circle button")
-
 
     def blink(self, angle):
         blinkRU_min = self.motorLimits["43"]["min"] # close
