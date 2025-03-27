@@ -102,11 +102,13 @@ class SystemController(Node):
                 self.get_logger().info("Exit file selection mode")
             return
 
+        """
         # Share 押下で割当モード開始
         if not self.selecting and not self.assigning and msg.buttons[8]:
             self.assigning = True; self.assign_stage = 0; self.cursor_index = 0
             self.file_list = self.button_list
             self.print_selection(); return
+        """
 
         if self.assigning:
             now = time.time()
@@ -188,7 +190,7 @@ class SystemController(Node):
             self.recorded_data.append(entry)
             print(self.recorded_data)
 
-"""
+    """
     def AssignMotion(self):
         # Assign recorded motion to a button
         
@@ -211,7 +213,7 @@ class SystemController(Node):
             self.get_logger().info(f"{fileFounded}")
             json.dump(data, file, indent=4)
             self.get_logger().info(f"Update: {data}")
-"""
+    """
             
     def assign_motion(self, filepath, button):
         with open(self.controllerMap, "r+") as f:
@@ -310,7 +312,9 @@ class SystemController(Node):
         # Share
         elif buttons[8]:
             self.get_logger().info(f'Share was pressed')
+            """
             self.AssignMotion()
+            """
 
         # Options
         elif buttons[9]:
