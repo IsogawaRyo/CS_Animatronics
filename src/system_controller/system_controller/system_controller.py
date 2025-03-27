@@ -61,6 +61,10 @@ class SystemController(Node):
         self.record_dir = "/home/csanimatronics/CS_Animatronics/MotionFiles"
         self.last_nav_time = 0.0
         self.ignore_cross = False
+        self.assigning = False
+        self.assign_stage = 0  # 0=button選択, 1=file選択
+        self.button_list = ["0","1","2","3","4","5","6","7","8","9","11","12"]
+        self.selected_button = None
 
     
     def listener_callback(self, msg):
@@ -96,6 +100,33 @@ class SystemController(Node):
                 self.selecting = False
                 self.ignore_cross = True 
                 self.get_logger().info("Exit file selection mode")
+            return
+
+        # Share 押下で割当モード開始
+        if not self.selecting and not self.assigning and msg.buttons[8]:
+            self.assigning = True; self.assign_stage = 0; self.cursor_index = 0
+            self.file_list = self.button_list
+            self.print_selection(); return
+
+        if self.assigning:
+            now = time.time()
+            if now - self.last_nav_time > 0.3:
+                if msg.buttons[5] and self.cursor_index > 0:
+                    self.cursor_index -= 1; self.print_selection(); self.last_nav_time = now
+                elif msg.buttons[4] and self.cursor_index < len(self.file_list)-1:
+                    self.cursor_index += 1; self.print_selection(); self.last_nav_time = now
+
+            if msg.buttons[0]:  # Cross
+                if self.assign_stage == 0:
+                    self.selected_button = self.file_list[self.cursor_index]
+                    self.assign_stage = 1
+                    self.file_list = sorted(os.listdir(self.record_dir))
+                    self.cursor_index = 0
+                    self.print_selection()
+                else:
+                    self.assign_motion(os.path.join(self.record_dir, self.file_list[self.cursor_index]), self.selected_button)
+                    self.assigning = False
+                time.sleep(0.2)
             return
 
         # translate values
@@ -156,7 +187,8 @@ class SystemController(Node):
             }
             self.recorded_data.append(entry)
             print(self.recorded_data)
-        
+
+"""
     def AssignMotion(self):
         # Assign recorded motion to a button
         
@@ -179,6 +211,14 @@ class SystemController(Node):
             self.get_logger().info(f"{fileFounded}")
             json.dump(data, file, indent=4)
             self.get_logger().info(f"Update: {data}")
+"""
+            
+    def assign_motion(self, filepath, button):
+        with open(self.controllerMap, "r+") as f:
+            data = json.load(f)
+            data[button] = filepath
+            f.seek(0); json.dump(data, f, indent=4); f.truncate()
+        self.get_logger().info(f"Assigned '{os.path.basename(filepath)}' → Button {button}")
 
     def PlayMotion(self, button):
         self.get_logger().info(f"Start playing recorded motion")
