@@ -247,6 +247,9 @@ class SystemController(Node):
         print(timediffs)
  
         for i, timediff in enumerate(timediffs):
+            ###
+            timediffs = 0.2
+            ###
             time.sleep(timediff)
             dict_ = angles[i]
             buttons = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
