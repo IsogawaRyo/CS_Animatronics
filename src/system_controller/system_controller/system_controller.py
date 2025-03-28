@@ -248,7 +248,7 @@ class SystemController(Node):
  
         for i, timediff in enumerate(timediffs):
             ###
-            timediffs = 0.2
+            timediffs = 0.02
             ###
             time.sleep(timediff)
             dict_ = angles[i]
