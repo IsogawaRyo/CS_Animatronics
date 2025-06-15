@@ -73,7 +73,8 @@ class IMUPublisher(Node):
     def __init__(self):
         super().__init__('imu_publisher')
         self.receiver = IMUReceiver()
-        self.publishers = [
+        # Avoid name collision with the Node.publishers property
+        self.imu_publishers = [
             self.create_publisher(Imu, f'imu{i}', 10) for i in range(3)
         ]
         self.timer = self.create_timer(0.02, self.timer_callback)
@@ -94,7 +95,7 @@ class IMUPublisher(Node):
             msg.orientation.y = qy
             msg.orientation.z = qz
             msg.orientation.w = qw
-            self.publishers[i].publish(msg)
+            self.imu_publishers[i].publish(msg)
 
 
 def main(args=None):
