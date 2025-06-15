@@ -13,12 +13,16 @@ from sensor_msgs.msg import Imu
 class IMUReceiver:
     HEADER = b'\xAA\x55'
     FOOTER = b'\x55\xAA'
-    PACKET_SIZE = 44  # 2(header) + 1 + (13*3) + 2(footer)
+    # 2(header) + 1(count) + (1 + 9*4)*3 + 2(footer) = 116 bytes
+    PACKET_SIZE = 116
 
     def __init__(self, port='/dev/ttyACM1', baudrate=115200):
         self.ser = serial.Serial(port, baudrate, timeout=1)
         self.buffer = b''
-        self.data = [None, None, None]
+        # Each element is a dict with keys: euler, accel, gyro
+        self.data = [
+            {'euler': None, 'accel': None, 'gyro': None} for _ in range(3)
+        ]
 
     def update(self):
         self.buffer += self.ser.read(128)
@@ -41,10 +45,15 @@ class IMUReceiver:
         count = packet[2]
         offset = 3
         for _ in range(count):
-            ch, heading, roll, pitch = struct.unpack_from("<Bfff", packet, offset)
+            unpacked = struct.unpack_from("<Bfffffffff", packet, offset)
+            ch = unpacked[0]
             if 0 <= ch < 3:
-                self.data[ch] = (heading, roll, pitch)
-            offset += 13
+                self.data[ch] = {
+                    'euler': unpacked[1:4],
+                    'accel': unpacked[4:7],
+                    'gyro': unpacked[7:10],
+                }
+            offset += 37
 
     def get_data(self):
         return self.data
@@ -83,18 +92,31 @@ class IMUPublisher(Node):
     def timer_callback(self):
         self.receiver.update()
         data = self.receiver.get_data()
-        for i, euler in enumerate(data):
-            if euler is None:
+        for i, sensor in enumerate(data):
+            if sensor is None:
                 continue
-            heading, roll, pitch = euler
-            if not all(math.isfinite(v) for v in (heading, roll, pitch)):
+            euler = sensor.get('euler')
+            if euler is None or not all(math.isfinite(v) for v in euler):
                 continue
-            qx, qy, qz, qw = euler_to_quaternion(heading, roll, pitch)
+            accel = sensor.get('accel')
+            gyro = sensor.get('gyro')
+
+            qx, qy, qz, qw = euler_to_quaternion(*euler)
             msg = Imu()
             msg.orientation.x = qx
             msg.orientation.y = qy
             msg.orientation.z = qz
             msg.orientation.w = qw
+
+            if accel and all(math.isfinite(v) for v in accel):
+                msg.linear_acceleration.x = accel[0]
+                msg.linear_acceleration.y = accel[1]
+                msg.linear_acceleration.z = accel[2]
+            if gyro and all(math.isfinite(v) for v in gyro):
+                msg.angular_velocity.x = gyro[0]
+                msg.angular_velocity.y = gyro[1]
+                msg.angular_velocity.z = gyro[2]
+
             self.imu_publishers[i].publish(msg)
 
 

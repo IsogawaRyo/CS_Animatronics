@@ -14,7 +14,8 @@ class IMUReceiver:
 
     FOOTER = b'\x55\xAA'
 
-    PACKET_SIZE = 44  # 2(header) + 1 + (13*3) + 2(footer)
+    # 2(header) + 1(count) + (1 + 9*4)*3 + 2(footer) = 116 bytes
+    PACKET_SIZE = 116
  
     def __init__(self, port='/dev/ttyACM1', baudrate=115200):
 
@@ -22,7 +23,10 @@ class IMUReceiver:
 
         self.buffer = b''
 
-        self.data = [None, None, None]
+        # Each element stores orientation, acceleration and gyro
+        self.data = [
+            {'euler': None, 'accel': None, 'gyro': None} for _ in range(3)
+        ]
  
     def update(self):
 
@@ -63,14 +67,15 @@ class IMUReceiver:
         offset = 3
 
         for _ in range(count):
-
-            ch, heading, roll, pitch = struct.unpack_from("<Bfff", packet, offset)
-
+            unpacked = struct.unpack_from("<Bfffffffff", packet, offset)
+            ch = unpacked[0]
             if 0 <= ch < 3:
-
-                self.data[ch] = (heading, roll, pitch)
-
-            offset += 13
+                self.data[ch] = {
+                    'euler': unpacked[1:4],
+                    'accel': unpacked[4:7],
+                    'gyro': unpacked[7:10],
+                }
+            offset += 37
  
     def get_data(self):
 
@@ -168,20 +173,16 @@ class IMUVisualizer:
 
         self.ax.set_title("BNO055 Orientation (Latest Only)")
  
-        for i, euler in enumerate(all_data):
-
+        for i, sensor in enumerate(all_data):
+            euler = None
+            if sensor:
+                euler = sensor.get('euler')
             if euler:
-
                 h, r, p = euler
-
                 matrix = self.euler_to_matrix(h, r, p)
-
                 center = np.array(self.positions[i])
-
                 self.draw_cube(center, matrix)
-
                 label = f"CH{i}\nH:{h:.1f}\nR:{r:.1f}\nP:{p:.1f}"
-
                 self.ax.text(center[0], center[1], center[2] + 1.0, label, fontsize=9, color='black')
  
         plt.draw()
