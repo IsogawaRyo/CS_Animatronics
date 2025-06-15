@@ -14,8 +14,8 @@ tca = adafruit_tca9548a.TCA9548A(i2c)
 sensors = []
 for i in range(3):
     try:
-        sensor  = adafruit_bno055.BNO055_I2C(tca[i])
-        time.sleep(0.2)  # 各センサごとに待機（安定化）
+        sensor = adafruit_bno055.BNO055_I2C(tca[i])
+        time.sleep(0.2)
         sensors.append(sensor)
     except ValueError:
         sensors.append(None)
@@ -23,30 +23,24 @@ for i in range(3):
 # データ送信ループ
 while True:
     packet = bytearray()
-
-    # ヘッダー
-    packet += b'\xAA\x55'
+    packet += b'\xAA\x55'  # ヘッダー
     packet += struct.pack("<B", 3)  # センサ数
 
-    # 各センサデータ
     for ch, sensor in enumerate(sensors):
+        def safe_tuple(value, length):
+            return tuple(v if v is not None else float('nan') for v in (value or (float('nan'),)*length))
+
         if sensor is None:
-            # センサがない場合は NaN を送る
-            packet += struct.pack("<Bfff", ch, float('nan'), float('nan'), float('nan'))
+            data = [float('nan')] * 9
         else:
-            euler = sensor.euler
-            if euler is not None:
-                heading, roll, pitch = euler
-                packet += struct.pack("<Bfff", ch, heading, roll, pitch)
-            else:
-                packet += struct.pack("<Bfff", ch, float('nan'), float('nan'), float('nan'))
+            euler = safe_tuple(sensor.euler, 3)
+            accel = safe_tuple(sensor.acceleration, 3)
+            gyro  = safe_tuple(sensor.gyro, 3)
+            data = list(euler) + list(accel) + list(gyro)
 
-    # フッター
-    packet += b'\x55\xAA'
+        # ch + 9 float = 1 + 36 byte
+        packet += struct.pack("<B" + "f"*9, ch, *data)
 
-    # USBに送信
+    packet += b'\x55\xAA'  # フッター
     usb_cdc.data.write(packet)
-
-    # 少し待機（調整可）
-    time.sleep(0.02)
-
+    time.sleep(0.02)  # 約50Hz
