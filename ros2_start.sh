@@ -4,7 +4,7 @@ source /opt/ros/jazzy/setup.bash
 
 gnome-terminal -- bash -c "cd CS_Animatronics && rm -rf build log install && colcon build; read"
 
-sudo -S usermod -aG dialout csanimatronics <<< "KUASECSA"
+sudo -S usermod -aG dialout cvl <<< "katsu0529"
 
 sleep 50
 

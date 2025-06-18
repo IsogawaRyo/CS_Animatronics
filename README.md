@@ -1,6 +1,10 @@
 # CS_Animatronics
 Practice for ROS2. 
 
+Raspberry Pi 5 8GB with Ubuntu is used.
+We use DualeSence for controlling a robot.
+XL430 and XL330 are used.
+
 # Description of nodes
 ## 👨‍💻system_controller
 A system_controller is ROS2 node that subscribes Joy message and publishes IdAngle. This node als has motion recording and playback features. Recorded motion will be stored under the CS_Animatronics/RecordedLog.
