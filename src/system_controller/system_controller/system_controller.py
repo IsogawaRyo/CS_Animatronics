@@ -435,8 +435,8 @@ class SystemController(Node):
         neckX_max = self.motorLimits["21"]["max"] # L
         rangeX = neckX_max - neckX_min
 
-        neckY_min = self.motorLimits["22"]["min"]
-        neckY_max = self.motorLimits["22"]["max"]
+        neckY_min = self.motorLimits["1"]["min"]
+        neckY_max = self.motorLimits["1"]["max"]
         rangeY = neckY_max - neckY_min
 
         neckZ_min = self.motorLimits["23"]["min"] # L
