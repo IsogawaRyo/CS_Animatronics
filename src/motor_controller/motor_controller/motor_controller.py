@@ -50,7 +50,7 @@ groupSyncWrite0 = GroupSyncWrite(port_handler0, packet_handler, ADDR_GOAL_POSITI
 groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 
 # List of motor IDs to initialize/control
-MOTOR_IDS = [11, 21, 22, 23, 24, 25, 31, 32, 41, 42, 43, 44]
+MOTOR_IDS = [1, 11, 21, 23, 25, 31, 32, 41, 42, 43, 44]
 
 class MotorController(Node):
     def __init__(self, port0_open: bool, port1_open: bool):
