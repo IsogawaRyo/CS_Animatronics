@@ -388,10 +388,10 @@ class SystemController(Node):
             jaw = self.jaw(axes[2])
             blinkRU, blinkRL, blinkLU, blinkLL = self.blink(axes[5])
             eyeR, eyeL = self.eyes(axes[3])
-            neckX, neckY, neckZ = self.neck(axes[0], axes[4], axes[1])
+            neck31, neck32, neck33, neck34 = self.neck(axes[0], axes[4], axes[1])
             
-            ids = [11, 21, 1, 23, 25, 31, 32, 43, 44, 41, 42]
-            angles = [jaw, neckX, neckY, neckZ, neckY, eyeR, eyeL, blinkRU, blinkRL, blinkLU, blinkLL]
+            ids = [11, 12, 13, 21, 22, 23, 24, 31, 32, 33, 34]
+            angles = [jaw, eyeR, eyeL, blinkRU, blinkRL, blinkLU, blinkLL, neck31, neck32, neck33, neck34]
 
         return ids, angles
 
@@ -409,28 +409,32 @@ class SystemController(Node):
             print(f"{prefix}{fname}")
 
     def blink(self, angle):
-        blinkRU_min = self.motorLimits["43"]["min"] # close
-        blinkRU_max = self.motorLimits["43"]["max"] # open
+        # 21: 右 上まぶた（XL330）
+        blinkRU_min = self.motorLimits["21"]["min"]
+        blinkRU_max = self.motorLimits["21"]["max"]
         rangeRU = blinkRU_max - blinkRU_min
         
-        blinkRL_min = self.motorLimits["44"]["min"] # close
-        blinkRL_max = self.motorLimits["44"]["max"] # open
+        # 22: 右 下まぶた（XL330）
+        blinkRL_min = self.motorLimits["22"]["min"]
+        blinkRL_max = self.motorLimits["22"]["max"]
         rangeRL = blinkRL_max - blinkRL_min
         
-        blinkLU_min = self.motorLimits["41"]["min"] # open
-        blinkLU_max = self.motorLimits["41"]["max"] # close
+        # 23: 左 上まぶた（XL330）
+        blinkLU_min = self.motorLimits["23"]["min"]
+        blinkLU_max = self.motorLimits["23"]["max"]
         rangeLU = blinkLU_max - blinkLU_min
 
-        blinkLL_min = self.motorLimits["42"]["min"] # open
-        blinkLL_max = self.motorLimits["42"]["max"] # close
+        # 24: 左 下まぶた（XL330）
+        blinkLL_min = self.motorLimits["24"]["min"]
+        blinkLL_max = self.motorLimits["24"]["max"]
         rangeLL = blinkLL_max - blinkLL_min
  
-        angleRU = int(self.motorLimits["43"]["ini"] - ((angle+1)/2*rangeRU))
-        angleRL = int(self.motorLimits["44"]["ini"] - ((angle+1)/2*rangeRL))
-        angleLU = int(self.motorLimits["41"]["ini"] + ((angle+1)/2*rangeLU))
-        angleLL = int(self.motorLimits["42"]["ini"] + ((angle+1)/2*rangeLL))
+        angleRU = int(self.motorLimits["21"]["ini"] - ((angle+1)/2*rangeRU))
+        angleRL = int(self.motorLimits["22"]["ini"] - ((angle+1)/2*rangeRL))
+        angleLU = int(self.motorLimits["23"]["ini"] + ((angle+1)/2*rangeLU))
+        angleLL = int(self.motorLimits["24"]["ini"] + ((angle+1)/2*rangeLL))
    
-        print(f"{self.motorLimits["42"]["ini"]} - {(angle+1)/2} * {rangeLL} = {angleLL}")
+        print(f"{self.motorLimits['24']['ini']} - {(angle+1)/2} * {rangeLL} = {angleLL}")
 
         return angleRU, angleRL, angleLU, angleLL
 
@@ -443,12 +447,14 @@ class SystemController(Node):
         return angle
 
     def eyes(self, angle):
-        eyeR_min = self.motorLimits["31"]["min"] # F
-        eyeR_max = self.motorLimits["31"]["max"] # R
+        # 12: 右目 眼球Yaw（XL330）
+        eyeR_min = self.motorLimits["12"]["min"]
+        eyeR_max = self.motorLimits["12"]["max"]
         rangeR = eyeR_max - eyeR_min
 
-        eyeL_min = self.motorLimits["32"]["min"] # F
-        eyeL_max = self.motorLimits["32"]["max"] # R
+        # 13: 左目 眼球Yaw（XL330）
+        eyeL_min = self.motorLimits["13"]["min"]
+        eyeL_max = self.motorLimits["13"]["max"]
         rangeL = eyeL_max - eyeL_min
 
         angleR = int(eyeR_min + (rangeR//2) - (angle/2)*rangeR)
@@ -456,22 +462,31 @@ class SystemController(Node):
         return angleR, angleL
 
     def neck(self, x, y, z):
-        neckX_min = self.motorLimits["21"]["min"] # R
-        neckX_max = self.motorLimits["21"]["max"] # L
-        rangeX = neckX_max - neckX_min
+        # 31: 首ベース Yaw（XM430）
+        neck31_min = self.motorLimits["31"]["min"]
+        neck31_max = self.motorLimits["31"]["max"]
+        range31 = neck31_max - neck31_min
 
-        neckY_min = self.motorLimits["1"]["min"]
-        neckY_max = self.motorLimits["1"]["max"]
-        rangeY = neckY_max - neckY_min
+        # 32: 首ミドル Pitch（XL430）
+        neck32_min = self.motorLimits["32"]["min"]
+        neck32_max = self.motorLimits["32"]["max"]
+        range32 = neck32_max - neck32_min
 
-        neckZ_min = self.motorLimits["23"]["min"] # L
-        neckZ_max = self.motorLimits["23"]["max"] # R
-        rangeZ = neckZ_max - neckZ_min
+        # 33: 首ミドル Roll（2XC430-A）
+        neck33_min = self.motorLimits["33"]["min"]
+        neck33_max = self.motorLimits["33"]["max"]
+        range33 = neck33_max - neck33_min
         
-        neckX = int(neckX_min + (rangeX//2) + (x/2)*rangeX)
-        neckZ = int(neckZ_min + (rangeZ//2) + (z/2)*rangeZ)
-        neckY = int(neckY_min + (rangeY//2) + (y/2)*rangeY)
-        return neckX, neckY, neckZ
+        # 34: 首トップ Pitch（2XC430-B）
+        neck34_min = self.motorLimits["34"]["min"]
+        neck34_max = self.motorLimits["34"]["max"]
+        range34 = neck34_max - neck34_min
+        
+        neck31 = int(neck31_min + (range31//2) + (x/2)*range31)  # Yaw
+        neck32 = int(neck32_min + (range32//2) + (y/2)*range32)  # Pitch
+        neck33 = int(neck33_min + (range33//2) + (z/2)*range33)  # Roll
+        neck34 = int(neck34_min + (range34//2) + (y/2)*range34)  # Top Pitch
+        return neck31, neck32, neck33, neck34
 
 def main(args=None):
     rclpy.init(args=args)
