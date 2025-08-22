@@ -461,31 +461,31 @@ class SystemController(Node):
         angleL = int(eyeL_min + (rangeL//2) + (angle/2)*rangeL)
         return angleR, angleL
 
-    def neck(self, x, y, z):
-        # 31: 首ベース Yaw（XM430）
+    def neck(self, leftStick_x, leftStick_y, rightStick_y):
+        # 31: 首ベース Yaw（XM430） ← 左スティック上下
         neck31_min = self.motorLimits["31"]["min"]
         neck31_max = self.motorLimits["31"]["max"]
         range31 = neck31_max - neck31_min
 
-        # 32: 首ミドル Pitch（XL430）
+        # 32: 首ミドル Pitch（XL430） ← 左スティック右左
         neck32_min = self.motorLimits["32"]["min"]
         neck32_max = self.motorLimits["32"]["max"]
         range32 = neck32_max - neck32_min
 
-        # 33: 首ミドル Roll（2XC430-A）
+        # 33: 首ミドル Roll（2XC430-A） ← 左スティック上下
         neck33_min = self.motorLimits["33"]["min"]
         neck33_max = self.motorLimits["33"]["max"]
         range33 = neck33_max - neck33_min
         
-        # 34: 首トップ Pitch（2XC430-B）
+        # 34: 首トップ Pitch（2XC430-B） ← 右スティック上下
         neck34_min = self.motorLimits["34"]["min"]
         neck34_max = self.motorLimits["34"]["max"]
         range34 = neck34_max - neck34_min
         
-        neck31 = int(neck31_min + (range31//2) + (x/2)*range31)  # Yaw
-        neck32 = int(neck32_min + (range32//2) + (y/2)*range32)  # Pitch
-        neck33 = int(neck33_min + (range33//2) + (z/2)*range33)  # Roll
-        neck34 = int(neck34_min + (range34//2) + (y/2)*range34)  # Top Pitch
+        neck31 = int(neck31_min + (range31//2) + (leftStick_y/2)*range31)  # Yaw ← 左スティック上下
+        neck32 = int(neck32_min + (range32//2) + (leftStick_x/2)*range32)  # Pitch ← 左スティック右左
+        neck33 = int(neck33_min + (range33//2) + (leftStick_y/2)*range33)  # Roll ← 左スティック上下
+        neck34 = int(neck34_min + (range34//2) + (rightStick_y/2)*range34)  # Top Pitch ← 右スティック上下
         return neck31, neck32, neck33, neck34
 
 def main(args=None):
