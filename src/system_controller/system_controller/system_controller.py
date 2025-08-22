@@ -68,80 +68,84 @@ class SystemController(Node):
 
     
     def listener_callback(self, msg):
-        # Log axes and buttons
-        # Axes [0:LeftStick_X, 1:LeftStick_Y, 2:LeftTrigger, 3:RightStick_X, 4:RightStick_Y, 5:RightTrigger]
-        # Buttons [0:Cross, 1:Circle, 2:Square, 3:Triangle, 4:LeftBumper, 5:RightBumper, 6:LeftTrigger, 7:RightTrigger, 8:Share, 9:Options, 10:PS, 11:LeftStick, 12:RightStick]
-        # Hat/D-pad [X:down-up, Y:left-right]
-        #self.get_logger().info(f'Axes: {msg.axes}')
-        #self.get_logger().info(f'Buttons: {msg.buttons}')
+        try:
+            # Log axes and buttons
+            # Axes [0:LeftStick_X, 1:LeftStick_Y, 2:LeftTrigger, 3:RightStick_X, 4:RightStick_Y, 5:RightTrigger]
+            # Buttons [0:Cross, 1:Circle, 2:Square, 3:Triangle, 4:LeftBumper, 5:RightBumper, 6:LeftTrigger, 7:RightTrigger, 8:Share, 9:Options, 10:PS, 11:LeftStick, 12:RightStick]
+            # Hat/D-pad [X:down-up, Y:left-right]
+            #self.get_logger().info(f'Axes: {msg.axes}')
+            #self.get_logger().info(f'Buttons: {msg.buttons}')
 
-        # Cross 決定後、リリースを待
-        if self.ignore_cross:
-            if not msg.buttons[0]:
-                self.ignore_cross = False
-            return
+            # Cross 決定後、リリースを待
+            if self.ignore_cross:
+                if not msg.buttons[0]:
+                    self.ignore_cross = False
+                return
 
-        # Select motion file
-        if self.selecting:
-            now = time.time()
-            # press R1 to move up
-            if now -self.last_nav_time > 0.3:
-                if msg.buttons[5] and self.cursor_index > 0:
-                    self.cursor_index -= 1
-                    self.print_selection()
-                    self.last_nav_time = now
-                # press L1 to move down
-                elif msg.buttons[4] and self.cursor_index < len(self.file_list)-1:
-                    self.cursor_index += 1
-                    self.print_selection()
-                    self.last_nav_time = now
-            # Cross ボタン（buttons[0]）で選択確定
-            if msg.buttons[0]:
-                self.selecting = False
-                self.ignore_cross = True 
-                self.get_logger().info("Exit file selection mode")
-            return
+            # Select motion file
+            if self.selecting:
+                now = time.time()
+                # press R1 to move up
+                if now -self.last_nav_time > 0.3:
+                    if msg.buttons[5] and self.cursor_index > 0:
+                        self.cursor_index -= 1
+                        self.print_selection()
+                        self.last_nav_time = now
+                    # press L1 to move down
+                    elif msg.buttons[4] and self.cursor_index < len(self.file_list)-1:
+                        self.cursor_index += 1
+                        self.print_selection()
+                        self.last_nav_time = now
+                # Cross ボタン（buttons[0]）で選択確定
+                if msg.buttons[0]:
+                    self.selecting = False
+                    self.ignore_cross = True 
+                    self.get_logger().info("Exit file selection mode")
+                return
 
-        # Share 押下で割当モード開始
-        if not self.selecting and not self.assigning and msg.buttons[8]:
-            self.assigning = True; self.assign_stage = 0; self.cursor_index = 0
-            self.file_list = self.button_list
-            self.print_selection(); return
+            # Share 押下で割当モード開始
+            if not self.selecting and not self.assigning and msg.buttons[8]:
+                self.assigning = True; self.assign_stage = 0; self.cursor_index = 0
+                self.file_list = self.button_list
+                self.print_selection(); return
 
-        if self.assigning:
-            now = time.time()
-            if now - self.last_nav_time > 0.3:
-                if msg.buttons[5] and self.cursor_index > 0:
-                    self.cursor_index -= 1; self.print_selection(); self.last_nav_time = now
-                elif msg.buttons[4] and self.cursor_index < len(self.file_list)-1:
-                    self.cursor_index += 1; self.print_selection(); self.last_nav_time = now
+            if self.assigning:
+                now = time.time()
+                if now - self.last_nav_time > 0.3:
+                    if msg.buttons[5] and self.cursor_index > 0:
+                        self.cursor_index -= 1; self.print_selection(); self.last_nav_time = now
+                    elif msg.buttons[4] and self.cursor_index < len(self.file_list)-1:
+                        self.cursor_index += 1; self.print_selection(); self.last_nav_time = now
 
-            if msg.buttons[0]:  # Cross
-                if self.assign_stage == 0:
-                    self.selected_button = self.file_list[self.cursor_index]
-                    self.assign_stage = 1
-                    self.file_list = sorted(os.listdir(self.record_dir))
-                    self.cursor_index = 0
-                    self.print_selection()
-                else:
-                    self.assign_motion(os.path.join(self.record_dir, self.file_list[self.cursor_index]), self.selected_button)
-                    self.assigning = False
-                time.sleep(0.2)
-            return
+                if msg.buttons[0]:  # Cross
+                    if self.assign_stage == 0:
+                        self.selected_button = self.file_list[self.cursor_index]
+                        self.assign_stage = 1
+                        self.file_list = sorted(os.listdir(self.record_dir))
+                        self.cursor_index = 0
+                        self.print_selection()
+                    else:
+                        self.assign_motion(os.path.join(self.record_dir, self.file_list[self.cursor_index]), self.selected_button)
+                        self.assigning = False
+                    time.sleep(0.2)
+                return
 
-        # translate values
-        ids, angles = self.translate(msg.axes, msg.buttons)
+            # translate values
+            ids, angles = self.translate(msg.axes, msg.buttons)
  
-        # Record
-        self.record(ids, angles)
+            # Record
+            self.record(ids, angles)
 
-        # publish IdAngle
-        new_msg = IdAngle()
-        new_msg.ids = ids
-        new_msg.angles = angles
+            # publish IdAngle
+            new_msg = IdAngle()
+            new_msg.ids = ids
+            new_msg.angles = angles
 
-        self.publisher.publish(new_msg)
-        self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
+            self.publisher.publish(new_msg)
+            self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
+        except Exception as e:
+            self.get_logger().error(f"Error in listener_callback: {e}")
+            return
 
     def loadMotorLimits(self):
         with open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r", encoding="utf-8") as file:
@@ -221,20 +225,34 @@ class SystemController(Node):
         self.get_logger().info(f"Assigned '{os.path.basename(filepath)}' → Button {button}")
 
     def PlayMotion(self, button):
-        self.get_logger().info(f"Start playing recorded motion")
-        # Load motion file
-        file = open(self.controllerMap, "r")
-        data = json.load(file)
-        print(data)
-        path = data[button]
-        print(path)
-
-        # play motion
+        self.get_logger().info(f"Start playing recorded motion for button {button}")
+        
+        # Load motion file mapping
         try:
-            file = open(path, "r")
-            data = json.load(file)
-        except FileNotFoundError:
-            print(f"No motion has assigned to this button")
+            with open(self.controllerMap, "r") as file:
+                data = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            self.get_logger().error(f"Failed to load controller mapping: {e}")
+            return
+            
+        path = data.get(button, "")
+        
+        # Check if button has assigned motion
+        if not path or path.strip() == "":
+            self.get_logger().info(f"No motion assigned to button {button}")
+            return
+            
+        # Check if file exists
+        if not os.path.exists(path):
+            self.get_logger().error(f"Motion file not found: {path}")
+            return
+
+        # Load and play motion
+        try:
+            with open(path, "r") as file:
+                data = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError, PermissionError) as e:
+            self.get_logger().error(f"Failed to load motion file {path}: {e}")
             return
 
         timestamps = [entry["timestamp"] for entry in data]
@@ -246,29 +264,36 @@ class SystemController(Node):
             timediffs.append(timestamps[i+1] - timestamps[i])
         print(timediffs)
  
-        for i, timediff in enumerate(timediffs):
-            ###
-            timediffs = 0.02
-            ###
-            time.sleep(timediff)
-            dict_ = angles[i]
-            buttons = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            ids = []
-            angles_ = []
-            for id, angle in dict_.items():
-                ids.append(int(id))
-                angles_.append(angle)
+        try:
+            for i, timediff in enumerate(timediffs):
+                ###
+                timediffs = 0.02
+                ###
+                time.sleep(timediff)
+                dict_ = angles[i]
+                buttons = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                ids = []
+                angles_ = []
+                for id, angle in dict_.items():
+                    try:
+                        ids.append(int(id))
+                        angles_.append(angle)
+                    except (ValueError, TypeError) as e:
+                        self.get_logger().error(f"Invalid data in motion file: id={id}, angle={angle}, error={e}")
+                        continue
 
-            # publish IdAngle
-            new_msg = IdAngle()
-            new_msg.ids = ids
-            new_msg.angles = angles_
+                # publish IdAngle
+                new_msg = IdAngle()
+                new_msg.ids = ids
+                new_msg.angles = angles_
 
-            self.publisher.publish(new_msg)
-            self.get_logger().info(f'Playing recorded motion: {new_msg.ids}, Angles: {new_msg.angles}')
+                self.publisher.publish(new_msg)
+                self.get_logger().info(f'Playing recorded motion: {new_msg.ids}, Angles: {new_msg.angles}')
+        except Exception as e:
+            self.get_logger().error(f"Error during motion playback: {e}")
+            return
 
-
-        self.get_logger().info(f"Finish playing recorded moiton") 
+        self.get_logger().info(f"Finish playing recorded motion") 
 
     def translate(self, axes, buttons):
         # Buttons event
