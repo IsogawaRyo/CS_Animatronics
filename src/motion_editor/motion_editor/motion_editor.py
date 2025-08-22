@@ -105,6 +105,10 @@ class MotionEditor:
         self.mode = tk.IntVar(self.root)
         self.mode.set(0)
         
+        # Observe mode optimization
+        self.is_service_calling = False
+        self.last_observe_time = 0.0
+        
         # Load Motor Limits
         self.motorLimits = {}
         self.loadMotorLimits()
@@ -473,13 +477,21 @@ class MotionEditor:
         self.last_timestamp.set(now)
 
     def operateObserve(self):
+        # Throttle service calls to prevent lag
+        current_time = time.time()
+        if self.is_service_calling or (current_time - self.last_observe_time < 0.2):  # Minimum 200ms interval
+            return
+            
+        self.is_service_calling = True
+        self.last_observe_time = current_time
+        
         ids_ = list(self.motorLimits.keys())
         ids_ = [int(x) for x in ids_]
+        
         def on_response(future):
-            print('on_response called')
             try:
                 response = future.result()
-                print(f"recived response {response.ids}")
+                print(f"Received response {response.ids}")
                 for i, id in enumerate(response.ids):
                     # Set position
                     self.positions[f"{id}"].set(response.positions[i])
@@ -495,6 +507,10 @@ class MotionEditor:
                     self.labels_torque[f"{id}"].configure(bg=color)
             except Exception as e:
                 print(f"Failed to call service {e}")
+            finally:
+                # Reset service calling flag
+                self.is_service_calling = False
+                
         self.ros_manager.call_get_motor_states(ids_, lambda fut: self.root.after(0, lambda: on_response(fut)))
 
     def main(self):
