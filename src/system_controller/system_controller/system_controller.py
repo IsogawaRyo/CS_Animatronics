@@ -505,8 +505,8 @@ class SystemController(Node):
         range = jaw_max - jaw_min  # Should be 1024 now
         
         # angle: -1 = fully closed, +1 = fully open
-        # Convert to motor position: jaw_max (closed) to jaw_min (open)
-        current_jaw_position = int(jaw_min + (jaw_max - jaw_min) * (1 - (angle + 1)/2))
+        # Convert to motor position: jaw_max (closed) to jaw_min (open)  
+        current_jaw_position = int(jaw_min + (jaw_max - jaw_min) * ((angle + 1)/2))
         
         # Safety clamp to prevent motor damage
         current_jaw_position = max(jaw_min, min(jaw_max, current_jaw_position))
