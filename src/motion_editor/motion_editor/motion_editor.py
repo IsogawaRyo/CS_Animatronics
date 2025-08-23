@@ -491,19 +491,26 @@ class MotionEditor:
         def on_response(future):
             try:
                 response = future.result()
-                print(f"Received response {response.ids}")
+                print(f"Received response - IDs: {response.ids}")
+                print(f"Positions: {response.positions}")
+                print(f"Temperatures: {response.temperatures}")
+                print(f"Torques: {response.torques}")
                 for i, id in enumerate(response.ids):
                     # Set position
                     self.positions[f"{id}"].set(response.positions[i])
 
                     # Set temperature
-                    self.temperatures[f"{id}"].set(response.temperatures[i])
-                    color = self.val_to_color(response.temperatures[i])
+                    temp_val = response.temperatures[i]
+                    self.temperatures[f"{id}"].set(temp_val)
+                    # Temperature color mapping: 20°C (blue) to 80°C (red)
+                    color = self.val_to_color(temp_val, min_val=20, max_val=80)
                     self.labels_temperature[f"{id}"].configure(bg=color)
 
                     # Set torques
-                    self.torques[f"{id}"].set(response.torques[i])
-                    color = self.val_to_color(response.torques[i])
+                    torque_val = response.torques[i]
+                    self.torques[f"{id}"].set(torque_val)
+                    # Torque color mapping: 0 (blue) to 1000 (red)
+                    color = self.val_to_color(torque_val, min_val=0, max_val=1000)
                     self.labels_torque[f"{id}"].configure(bg=color)
             except Exception as e:
                 print(f"Failed to call service {e}")

@@ -255,20 +255,37 @@ class MotorController(Node):
         port0_motors = [mid for mid in requested_ids if mid in PORT0]
         port1_motors = [mid for mid in requested_ids if mid in PORT1]
         
-        # Read positions from both ports
+        # Read all parameters in parallel
         pos_data = self._bulk_read_parameter(port0_motors, port1_motors, 
                                            groupSyncRead0_pos, groupSyncRead1_pos, 
                                            ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
         
-        # For observe mode, prioritize position data and use cached/default values for temp/torque
+        temp_data = self._bulk_read_parameter(port0_motors, port1_motors, 
+                                            groupSyncRead0_temp, groupSyncRead1_temp, 
+                                            ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
+        
+        torque_data = self._bulk_read_parameter(port0_motors, port1_motors, 
+                                              groupSyncRead0_load, groupSyncRead1_load, 
+                                              ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
+        
+        # Combine all data
         for motor_id in requested_ids:
             if motor_id in pos_data:
                 ids.append(motor_id)
                 positions.append(pos_data[motor_id])
-                # Use cached values or defaults for less critical data
-                cached = self.motor_states_cache.get(motor_id, {})
-                temperatures.append(cached.get('temperature', 25))  # Default room temperature
-                torques.append(cached.get('torque', 0))  # Default no load
+                
+                # Use actual read values, fallback to cached/default if failed
+                if motor_id in temp_data:
+                    temperatures.append(temp_data[motor_id])
+                else:
+                    cached = self.motor_states_cache.get(motor_id, {})
+                    temperatures.append(cached.get('temperature', 25))
+                
+                if motor_id in torque_data:
+                    torques.append(torque_data[motor_id])
+                else:
+                    cached = self.motor_states_cache.get(motor_id, {})
+                    torques.append(cached.get('torque', 0))
             else:
                 self.get_logger().warn(f"Failed to read motor {motor_id}")
         
@@ -323,15 +340,22 @@ class MotorController(Node):
             if selected_port_handler is None:
                 continue
 
-            # Read position (most important for observe mode)
+            # Read position
             position, comm_result, _ = packet_handler.read4ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_POSITION)
             if comm_result != COMM_SUCCESS:
                 position = self.motor_limits.get(f"{motor_id}", {}).get("ini", 0)
 
-            # For performance, use cached/default values for temperature and torque
-            cached = self.motor_states_cache.get(motor_id, {})
-            temperature = cached.get('temperature', 25)  # Use cached or default
-            torque = cached.get('torque', 0)  # Use cached or default
+            # Read temperature
+            temperature, comm_result, _ = packet_handler.read1ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_TEMPERATURE)
+            if comm_result != COMM_SUCCESS:
+                cached = self.motor_states_cache.get(motor_id, {})
+                temperature = cached.get('temperature', 25)
+
+            # Read torque
+            torque, comm_result, _ = packet_handler.read2ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_LOAD)
+            if comm_result != COMM_SUCCESS:
+                cached = self.motor_states_cache.get(motor_id, {})
+                torque = cached.get('torque', 0)
             
             positions.append(position)
             temperatures.append(temperature)
