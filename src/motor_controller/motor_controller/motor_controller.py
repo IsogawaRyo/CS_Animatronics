@@ -208,10 +208,16 @@ class MotorController(Node):
                     temperatures.append(cached_data['temperature'])
                     torques.append(cached_data['torque'])
             
+            # Calculate total currents from cached data
+            port0_total, port1_total, system_total = self._calculate_total_currents(ids, torques)
+            
             response.ids = ids
             response.positions = positions
             response.temperatures = temperatures
             response.torques = torques
+            response.port0_total_current = port0_total
+            response.port1_total_current = port1_total
+            response.system_total_current = system_total
             return response
 
         self.get_logger().debug(f"get_motor_states service called: {request}")
@@ -223,10 +229,17 @@ class MotorController(Node):
                 positions.append(self.dummy_motor_states.get(motor_id, random.randint(0, 4095)))
                 temperatures.append(random.randint(0, 80))
                 torques.append(random.randint(0, 100))
+            
+            # Calculate total currents for simulation mode
+            port0_total, port1_total, system_total = self._calculate_total_currents(ids, torques)
+            
             response.ids = ids
             response.positions = positions
             response.temperatures = temperatures
             response.torques = torques
+            response.port0_total_current = port0_total
+            response.port1_total_current = port1_total
+            response.system_total_current = system_total
             return response
 
         # Optimized bulk reading using GroupSyncRead
@@ -246,10 +259,16 @@ class MotorController(Node):
             self.get_logger().error(f"Bulk read failed, falling back to individual reads: {e}")
             ids, positions, temperatures, torques = self._individual_read_motor_states(request.ids)
 
+        # Calculate total currents for each port and system
+        port0_total, port1_total, system_total = self._calculate_total_currents(ids, torques)
+
         response.ids = ids
         response.positions = positions
         response.temperatures = temperatures
         response.torques = torques
+        response.port0_total_current = port0_total
+        response.port1_total_current = port1_total  
+        response.system_total_current = system_total
         return response
     
     def _bulk_read_motor_states(self, requested_ids):
@@ -296,13 +315,16 @@ class MotorController(Node):
                 
                 if motor_id in torque_data:
                     raw_torque = torque_data[motor_id]
-                    # Convert 2-byte signed integer (Dynamixel torque format)
+                    # Convert 2-byte signed integer to mA (milliamperes)
                     if raw_torque > 32767:  # Handle negative values
                         torque_value = raw_torque - 65536
                     else:
                         torque_value = raw_torque
-                    torques.append(abs(torque_value))  # Use absolute value for display
-                    self.get_logger().debug(f"Motor {motor_id} torque: raw={raw_torque}, converted={torque_value}")
+                    
+                    # Convert to milliamperes (mA) and use absolute value
+                    torque_mA = abs(torque_value)  # Direct mA value for PRESENT_CURRENT
+                    torques.append(torque_mA)
+                    self.get_logger().debug(f"Motor {motor_id} torque: raw={raw_torque}, mA={torque_mA}")
                 else:
                     cached = self.motor_states_cache.get(motor_id, {})
                     torques.append(cached.get('torque', 0))
@@ -382,11 +404,12 @@ class MotorController(Node):
                 cached = self.motor_states_cache.get(motor_id, {})
                 torque = cached.get('torque', 0)
             else:
-                # Convert 2-byte signed integer
+                # Convert 2-byte signed integer to mA
                 if torque > 32767:
                     torque = torque - 65536
-                torque = abs(torque)  # Use absolute value for display
-                self.get_logger().debug(f"Motor {motor_id} individual read torque: {torque}")
+                torque_mA = abs(torque)  # Convert to mA and use absolute value
+                torque = torque_mA
+                self.get_logger().debug(f"Motor {motor_id} individual read torque: {torque_mA}mA")
             
             positions.append(position)
             temperatures.append(temperature)
@@ -394,6 +417,25 @@ class MotorController(Node):
             ids.append(motor_id)
 
         return ids, positions, temperatures, torques
+    
+    def _calculate_total_currents(self, ids, torques):
+        """Calculate total currents for each port and system"""
+        port0_total = 0
+        port1_total = 0
+        
+        for i, motor_id in enumerate(ids):
+            torque_value = torques[i] if i < len(torques) else 0
+            
+            if motor_id in PORT0:
+                port0_total += torque_value
+            elif motor_id in PORT1:
+                port1_total += torque_value
+        
+        system_total = port0_total + port1_total
+        
+        self.get_logger().debug(f"Current totals - PORT0: {port0_total}mA, PORT1: {port1_total}mA, System: {system_total}mA")
+        
+        return port0_total, port1_total, system_total
 
 def set_motor1(port_handler, motor_id, addr, value):
     port_handler.clearPort()

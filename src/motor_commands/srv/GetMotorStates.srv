@@ -4,3 +4,6 @@ uint8[] ids
 int32[] positions
 int32[] temperatures
 int32[] torques
+int32 port0_total_current
+int32 port1_total_current
+int32 system_total_current

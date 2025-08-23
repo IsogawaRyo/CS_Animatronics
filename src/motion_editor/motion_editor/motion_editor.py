@@ -109,6 +109,11 @@ class MotionEditor:
         self.is_service_calling = False
         self.last_observe_time = 0.0
         
+        # Total current variables
+        self.port0_current = tk.IntVar(self.root)
+        self.port1_current = tk.IntVar(self.root)
+        self.system_current = tk.IntVar(self.root)
+        
         # Load Motor Limits
         self.motorLimits = {}
         self.loadMotorLimits()
@@ -128,6 +133,10 @@ class MotionEditor:
         # Monitor Frame 
         self.frame_monitor = tk.LabelFrame(self.root, text="Monitor", foreground="green")
         self.frame_monitor.grid(sticky="W", row=1, column=0)        
+
+        # Total Current Frame
+        self.frame_current = tk.LabelFrame(self.root, text="Total Current", foreground="blue")
+        self.frame_current.grid(sticky="W", row=2, column=0)
 
         # Operations Frame
         self.frame_operations = tk.LabelFrame(self.root, text="Operations", foreground="green")
@@ -242,6 +251,30 @@ class MotionEditor:
         self.scale_time = tk.Scale(self.frame_operations, from_=self.timeMin.get(), to_=self.timeMax.get(), variable=self.timestamp, orient=tk.HORIZONTAL, label="time(s)", length=200)
         self.scale_time.grid(row=0, column=3, rowspan=2)
 
+
+        #######################
+        #### Current Frame ####
+        #######################
+        # PORT0 Current Label
+        tk.Label(self.frame_current, text="PORT0 Current:").grid(row=0, column=0, sticky="W")
+        self.label_port0_current = tk.Label(self.frame_current, textvariable=self.port0_current, 
+                                            fg="white", width=8, relief="sunken")
+        self.label_port0_current.grid(row=0, column=1, padx=5)
+        tk.Label(self.frame_current, text="mA").grid(row=0, column=2)
+        
+        # PORT1 Current Label  
+        tk.Label(self.frame_current, text="PORT1 Current:").grid(row=1, column=0, sticky="W")
+        self.label_port1_current = tk.Label(self.frame_current, textvariable=self.port1_current,
+                                            fg="white", width=8, relief="sunken") 
+        self.label_port1_current.grid(row=1, column=1, padx=5)
+        tk.Label(self.frame_current, text="mA").grid(row=1, column=2)
+        
+        # System Total Current Label
+        tk.Label(self.frame_current, text="System Total:").grid(row=2, column=0, sticky="W")
+        self.label_system_current = tk.Label(self.frame_current, textvariable=self.system_current,
+                                            fg="white", width=8, relief="sunken", font=("Arial", 10, "bold"))
+        self.label_system_current.grid(row=2, column=1, padx=5)  
+        tk.Label(self.frame_current, text="mA").grid(row=2, column=2)
 
         self.root.after(self.timeSpan, self.main)
         self.root.mainloop()
@@ -495,6 +528,10 @@ class MotionEditor:
                 print(f"Positions: {response.positions}")
                 print(f"Temperatures: {response.temperatures}")
                 print(f"Torques: {response.torques}")
+                print(f"Port0 Current: {response.port0_total_current}mA")
+                print(f"Port1 Current: {response.port1_total_current}mA") 
+                print(f"System Total: {response.system_total_current}mA")
+                
                 for i, id in enumerate(response.ids):
                     # Set position
                     self.positions[f"{id}"].set(response.positions[i])
@@ -509,9 +546,28 @@ class MotionEditor:
                     # Set torques
                     torque_val = response.torques[i]
                     self.torques[f"{id}"].set(torque_val)
-                    # Torque color mapping: 0 (blue) to 1000 (red)
-                    color = self.val_to_color(torque_val, min_val=0, max_val=1000)
+                    # Torque color mapping: 0mA (blue) to 2000mA (red) for current-based torque
+                    color = self.val_to_color(torque_val, min_val=0, max_val=2000)
                     self.labels_torque[f"{id}"].configure(bg=color)
+                
+                # Update total current displays
+                self.port0_current.set(response.port0_total_current)
+                self.port1_current.set(response.port1_total_current)
+                self.system_current.set(response.system_total_current)
+                
+                # Color code total current labels based on load level
+                # PORT0 color coding (0-5000mA range)
+                port0_color = self.val_to_color(response.port0_total_current, min_val=0, max_val=5000)
+                self.label_port0_current.configure(bg=port0_color)
+                
+                # PORT1 color coding (0-5000mA range)
+                port1_color = self.val_to_color(response.port1_total_current, min_val=0, max_val=5000) 
+                self.label_port1_current.configure(bg=port1_color)
+                
+                # System total color coding (0-10000mA range)
+                system_color = self.val_to_color(response.system_total_current, min_val=0, max_val=10000)
+                self.label_system_current.configure(bg=system_color)
+                
             except Exception as e:
                 print(f"Failed to call service {e}")
             finally:
