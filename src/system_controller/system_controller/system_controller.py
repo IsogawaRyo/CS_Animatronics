@@ -489,7 +489,7 @@ class SystemController(Node):
             
             # Trigger roar sound when jaw opens wide (randomize roar types)
             import random
-            roar_sounds = [1, 2, 3, 4]  # Basic roar, aggressive roar, growl, hiss
+            roar_sounds = [1]  # Basic roar, aggressive roar, growl, hiss
             selected_roar = random.choice(roar_sounds)
             self.play_dinosaur_sound(selected_roar)
             self.last_roar_time = time.time()
