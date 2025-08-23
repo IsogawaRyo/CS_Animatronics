@@ -113,6 +113,9 @@ class SystemController(Node):
             # Axes [0:LeftStick_X, 1:LeftStick_Y, 2:LeftTrigger, 3:RightStick_X, 4:RightStick_Y, 5:RightTrigger]
             # Buttons [0:Cross, 1:Circle, 2:Square, 3:Triangle, 4:LeftBumper, 5:RightBumper, 6:LeftTrigger, 7:RightTrigger, 8:Share, 9:Options, 10:PS, 11:LeftStick, 12:RightStick]
             # Hat/D-pad [X:down-up, Y:left-right]
+            # Debug: Log controller state when LeftTrigger is active
+            if len(msg.buttons) > 6 and msg.buttons[6]:
+                self.get_logger().info(f'DEBUG: LeftTrigger active - Buttons: {msg.buttons}')
             #self.get_logger().info(f'Axes: {msg.axes}')
             #self.get_logger().info(f'Buttons: {msg.buttons}')
 
@@ -344,47 +347,47 @@ class SystemController(Node):
         if buttons[0]:
             self.get_logger().info(f'Cross was pressed')
             self.PlayMotion("0")
-            self.play_dinosaur_sound(1)  # Basic roar
+            # self.play_dinosaur_sound(1)  # Basic roar - DISABLED
 
         # Circle
         elif buttons[1]:
             self.get_logger().info(f'Circle was pressed')
             self.PlayMotion("1")
-            self.play_dinosaur_sound(2)  # Aggressive roar
+            # self.play_dinosaur_sound(2)  # Aggressive roar - DISABLED
 
         # Square
         elif buttons[2]:
             self.get_logger().info(f'Square was pressed')
             self.PlayMotion("2")
-            self.play_dinosaur_sound(3)  # Growl
+            # self.play_dinosaur_sound(3)  # Growl - DISABLED
 
         # Triangle
         elif buttons[3]:
             self.get_logger().info(f'Triangle was pressed')
             self.PlayMotion("3")
-            self.play_dinosaur_sound(4)  # Hiss
+            # self.play_dinosaur_sound(4)  # Hiss - DISABLED
 
         # LeftBumper
         elif buttons[4]:
             self.get_logger().info(f'LeftBumper was pressed')
             self.PlayMotion("4")
-            self.play_dinosaur_sound(5)  # Chomp
+            # self.play_dinosaur_sound(5)  # Chomp - DISABLED
 
         # RightBumper
         elif buttons[5]:
             self.get_logger().info(f'RightBumper was pressed')
             self.PlayMotion("5")
-            self.play_dinosaur_sound(6)  # Footstep
+            # self.play_dinosaur_sound(6)  # Footstep - DISABLED
 
         # LeftTrigger
         elif buttons[6]:
-            self.get_logger().info(f'LeftTrigger was pressed')
-            self.play_dinosaur_sound(7)  # Ground shake
+            self.get_logger().info(f'*** CONTROLLER LEFTTRIGGER *** was pressed - playing sound ID 7')
+            # self.play_dinosaur_sound(7)  # Ground shake - DISABLED
 
         # RightTrigger
         elif buttons[7]:
             self.get_logger().info(f'RightTrigger was pressed')
-            self.play_dinosaur_sound(8)  # Heavy breathing
+            # self.play_dinosaur_sound(8)  # Heavy breathing - DISABLED
 
         # Share
         elif buttons[8]:
@@ -396,7 +399,7 @@ class SystemController(Node):
         # Options
         elif buttons[9]:
             self.get_logger().info(f'Options was pressed')
-            self.play_dinosaur_sound(9)  # Warning call
+            # self.play_dinosaur_sound(9)  # Warning call - DISABLED
 
         # PS
         elif buttons[10]:
@@ -405,7 +408,7 @@ class SystemController(Node):
             global IS_RECORDING
             if IS_RECORDING == 0:
                 IS_RECORDING = 2
-                self.play_dinosaur_sound(10)  # Hunt call (start recording)
+                # self.play_dinosaur_sound(10)  # Hunt call (start recording) - DISABLED
             else:
                 IS_RECORDING = 0
                 json.dump(self.recorded_data, self.record_file, indent=4)
@@ -417,19 +420,19 @@ class SystemController(Node):
                 self.recorded_data = []
                 # Start selection mode
                 self.enter_selection_mode()
-                self.play_dinosaur_sound(12)  # Victory roar (end recording)
+                # self.play_dinosaur_sound(12)  # Victory roar (end recording) - DISABLED
 
         # LeftStick
         elif buttons[11]:
             self.get_logger().info(f'LeftStick was pressed')
             self.PlayMotion("11")
-            self.play_dinosaur_sound(11)  # Pain sound
+            # self.play_dinosaur_sound(11)  # Pain sound - DISABLED
 
         # RightStick
         elif buttons[12]:
             self.get_logger().info(f'RightStick was pressed')
             self.PlayMotion("12")
-            self.play_dinosaur_sound(12)  # Victory roar
+            # self.play_dinosaur_sound(12)  # Victory roar - DISABLED
 
         # Test
         if MODE == -1:
@@ -545,7 +548,7 @@ class SystemController(Node):
             self.get_logger().info(f"Checking for roar files in: {self.audio_dir}")
             # Find available roar_X.wav files
             available_roars = []
-            for i in range(1, 10):  # Check roar_1.wav to roar_9.wav
+            for i in range(1, 4):  # Check roar_1.wav to roar_3.wav
                 roar_file = f"roar_{i}.wav"
                 full_path = os.path.join(self.audio_dir, roar_file)
                 self.get_logger().debug(f"Checking: {full_path}")
@@ -556,10 +559,10 @@ class SystemController(Node):
             # Only play if roar files are available
             if available_roars:
                 selected_roar = random.choice(available_roars)
-                self.get_logger().info(f"Available roars: {available_roars}, Selected: {selected_roar}")
+                self.get_logger().info(f"*** JAW AUTO ROAR *** Available: {available_roars}, Selected: {selected_roar}")
                 self.play_dinosaur_sound_by_name(selected_roar)
                 self.last_roar_time = current_time
-                self.get_logger().info(f"Jaw roar triggered! Opening: {jaw_opening:.2f}, Sound: {selected_roar}.wav")
+                self.get_logger().info(f"*** JAW AUTO ROAR *** Opening: {jaw_opening:.2f}, Sound: {selected_roar}.wav")
             else:
                 self.get_logger().warn(f"No roar_X.wav files found in AudioFiles directory: {self.audio_dir}")
         
@@ -587,7 +590,7 @@ class SystemController(Node):
                 
                 # Find available breath_X.wav files
                 available_breaths = []
-                for i in range(1, 10):  # Check breath_1.wav to breath_9.wav
+                for i in range(1, 4):  # Check breath_1.wav to breath_3.wav
                     breath_file = f"breath_{i}.wav"
                     if os.path.exists(os.path.join(self.audio_dir, breath_file)):
                         available_breaths.append(f"breath_{i}")
