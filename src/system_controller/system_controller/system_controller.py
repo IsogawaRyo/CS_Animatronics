@@ -76,6 +76,12 @@ class SystemController(Node):
         
         # Audio mapping for dinosaur sounds
         self.audio_cooldown = {}  # Prevent rapid audio triggering
+        
+        # Jaw roar tracking
+        self.last_jaw_position = self.motorLimits["11"]["max"]  # Start closed
+        self.jaw_roar_threshold = 0.6  # Threshold for triggering roar (0-1 range)
+        self.last_roar_time = 0.0
+        self.roar_cooldown = 3.0  # 3 seconds cooldown for jaw roar
 
     
     def listener_callback(self, msg):
@@ -469,8 +475,28 @@ class SystemController(Node):
         jaw_max = self.motorLimits["11"]["max"] # close
         range = jaw_max - jaw_min
         
-        angle = int(jaw_max - ((angle + 1)/2)*range)
-        return angle
+        current_jaw_position = int(jaw_max - ((angle + 1)/2)*range)
+        
+        # Calculate jaw opening percentage (0 = closed, 1 = fully open)
+        jaw_opening = (jaw_max - current_jaw_position) / range
+        
+        # Check if jaw opened beyond threshold for roar
+        previous_opening = (jaw_max - self.last_jaw_position) / range
+        
+        if (jaw_opening > self.jaw_roar_threshold and 
+            previous_opening <= self.jaw_roar_threshold and
+            time.time() - self.last_roar_time > self.roar_cooldown):
+            
+            # Trigger roar sound when jaw opens wide (randomize roar types)
+            import random
+            roar_sounds = [1, 2, 3, 4]  # Basic roar, aggressive roar, growl, hiss
+            selected_roar = random.choice(roar_sounds)
+            self.play_dinosaur_sound(selected_roar)
+            self.last_roar_time = time.time()
+            self.get_logger().info(f"Jaw roar triggered! Opening: {jaw_opening:.2f}, Sound: {selected_roar}")
+        
+        self.last_jaw_position = current_jaw_position
+        return current_jaw_position
 
     def eyes(self, angle):
         # 12: 右目 眼球Yaw（XL330）
