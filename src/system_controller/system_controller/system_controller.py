@@ -7,6 +7,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from motor_commands.msg import IdAngle
 from motor_commands.srv import GetMotorStates
+from std_msgs.msg import Int32, String
 import os
 import time
 from datetime import datetime
@@ -53,6 +54,13 @@ class SystemController(Node):
             'IdAngle',
             12
         )
+        
+        # Audio publisher for dinosaur sounds
+        self.audio_publisher = self.create_publisher(
+            Int32,
+            'play_audio_id',
+            10
+        )
 
         # Selection mode
         self.selecting = False
@@ -65,6 +73,9 @@ class SystemController(Node):
         self.assign_stage = 0  # 0=button選択, 1=file選択
         self.button_list = ["0","1","2","3","4","5","6","7","8","9","11","12"]
         self.selected_button = None
+        
+        # Audio mapping for dinosaur sounds
+        self.audio_cooldown = {}  # Prevent rapid audio triggering
 
     
     def listener_callback(self, msg):
@@ -301,39 +312,47 @@ class SystemController(Node):
         if buttons[0]:
             self.get_logger().info(f'Cross was pressed')
             self.PlayMotion("0")
+            self.play_dinosaur_sound(1)  # Basic roar
 
         # Circle
         elif buttons[1]:
             self.get_logger().info(f'Circle was pressed')
             self.PlayMotion("1")
+            self.play_dinosaur_sound(2)  # Aggressive roar
 
         # Square
         elif buttons[2]:
             self.get_logger().info(f'Square was pressed')
             self.PlayMotion("2")
+            self.play_dinosaur_sound(3)  # Growl
 
         # Triangle
         elif buttons[3]:
             self.get_logger().info(f'Triangle was pressed')
             self.PlayMotion("3")
+            self.play_dinosaur_sound(4)  # Hiss
 
         # LeftBumper
         elif buttons[4]:
             self.get_logger().info(f'LeftBumper was pressed')
             self.PlayMotion("4")
+            self.play_dinosaur_sound(5)  # Chomp
 
         # RightBumper
         elif buttons[5]:
             self.get_logger().info(f'RightBumper was pressed')
             self.PlayMotion("5")
+            self.play_dinosaur_sound(6)  # Footstep
 
         # LeftTrigger
         elif buttons[6]:
             self.get_logger().info(f'LeftTrigger was pressed')
+            self.play_dinosaur_sound(7)  # Ground shake
 
         # RightTrigger
         elif buttons[7]:
             self.get_logger().info(f'RightTrigger was pressed')
+            self.play_dinosaur_sound(8)  # Heavy breathing
 
         # Share
         elif buttons[8]:
@@ -345,6 +364,7 @@ class SystemController(Node):
         # Options
         elif buttons[9]:
             self.get_logger().info(f'Options was pressed')
+            self.play_dinosaur_sound(9)  # Warning call
 
         # PS
         elif buttons[10]:
@@ -353,6 +373,7 @@ class SystemController(Node):
             global IS_RECORDING
             if IS_RECORDING == 0:
                 IS_RECORDING = 2
+                self.play_dinosaur_sound(10)  # Hunt call (start recording)
             else:
                 IS_RECORDING = 0
                 json.dump(self.recorded_data, self.record_file, indent=4)
@@ -364,16 +385,19 @@ class SystemController(Node):
                 self.recorded_data = []
                 # Start selection mode
                 self.enter_selection_mode()
+                self.play_dinosaur_sound(12)  # Victory roar (end recording)
 
         # LeftStick
         elif buttons[11]:
             self.get_logger().info(f'LeftStick was pressed')
             self.PlayMotion("11")
+            self.play_dinosaur_sound(11)  # Pain sound
 
         # RightStick
         elif buttons[12]:
             self.get_logger().info(f'RightStick was pressed')
             self.PlayMotion("12")
+            self.play_dinosaur_sound(12)  # Victory roar
 
         # Test
         if MODE == -1:
@@ -487,6 +511,25 @@ class SystemController(Node):
         neck33 = int(neck33_min + (range33//2) + (leftStick_y/2)*range33)  # Roll ← 左スティック上下
         neck34 = int(neck34_min + (range34//2) + (rightStick_y/2)*range34)  # Top Pitch ← 右スティック上下
         return neck31, neck32, neck33, neck34
+    
+    def play_dinosaur_sound(self, sound_id):
+        """Play dinosaur sound with cooldown to prevent rapid triggering"""
+        current_time = time.time()
+        cooldown_key = f"sound_{sound_id}"
+        
+        # Check cooldown (minimum 1 second between same sound)
+        if cooldown_key in self.audio_cooldown:
+            if current_time - self.audio_cooldown[cooldown_key] < 1.0:
+                return  # Skip if too soon
+        
+        # Update cooldown
+        self.audio_cooldown[cooldown_key] = current_time
+        
+        # Publish audio command
+        audio_msg = Int32()
+        audio_msg.data = sound_id
+        self.audio_publisher.publish(audio_msg)
+        self.get_logger().info(f'Playing dinosaur sound ID: {sound_id}')
 
 def main(args=None):
     rclpy.init(args=args)
