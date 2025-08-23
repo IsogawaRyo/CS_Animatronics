@@ -82,6 +82,13 @@ class SystemController(Node):
         self.jaw_roar_threshold = 0.6  # Threshold for triggering roar (0-1 range)
         self.last_roar_time = 0.0
         self.roar_cooldown = 3.0  # 3 seconds cooldown for jaw roar
+        
+        # Breathing sound management
+        self.last_breathing_time = 0.0
+        self.breathing_interval_min = 8.0   # Minimum 8 seconds between breaths
+        self.breathing_interval_max = 15.0  # Maximum 15 seconds between breaths
+        self.next_breathing_time = time.time() + 10.0  # First breath in 10 seconds
+        self.breathing_active = True
 
     
     def listener_callback(self, msg):
@@ -149,6 +156,9 @@ class SystemController(Node):
 
             # translate values
             ids, angles = self.translate(msg.axes, msg.buttons)
+ 
+            # Check for breathing sound (background ambient sound)
+            self.check_breathing_sound()
  
             # Record
             self.record(ids, angles)
@@ -487,16 +497,63 @@ class SystemController(Node):
             previous_opening <= self.jaw_roar_threshold and
             time.time() - self.last_roar_time > self.roar_cooldown):
             
-            # Trigger roar sound when jaw opens wide (randomize roar types)
+            # Check for available roar files and select randomly
             import random
-            roar_sounds = [1]  # Basic roar, aggressive roar, growl, hiss
-            selected_roar = random.choice(roar_sounds)
-            self.play_dinosaur_sound(selected_roar)
-            self.last_roar_time = time.time()
-            self.get_logger().info(f"Jaw roar triggered! Opening: {jaw_opening:.2f}, Sound: {selected_roar}")
+            import os
+            audio_dir = "/Users/isogawaryou/CS_Animatronics/AudioFiles"
+            
+            # Find available roar_X.wav files
+            available_roars = []
+            for i in range(1, 10):  # Check roar_1.wav to roar_9.wav
+                roar_file = f"roar_{i}.wav"
+                if os.path.exists(os.path.join(audio_dir, roar_file)):
+                    available_roars.append(f"roar_{i}")
+            
+            # Only play if roar files are available
+            if available_roars:
+                selected_roar = random.choice(available_roars)
+                self.play_dinosaur_sound_by_name(selected_roar)
+                self.last_roar_time = time.time()
+                self.get_logger().info(f"Jaw roar triggered! Opening: {jaw_opening:.2f}, Sound: {selected_roar}.wav")
+            else:
+                self.get_logger().warn("No roar_X.wav files found in AudioFiles directory")
         
         self.last_jaw_position = current_jaw_position
         return current_jaw_position
+    
+    def check_breathing_sound(self):
+        """Check and play breathing sound when appropriate"""
+        if not self.breathing_active:
+            return
+            
+        current_time = time.time()
+        
+        # Check if it's time for next breath
+        if current_time >= self.next_breathing_time:
+            # Check if we're not in the middle of other sounds (roar cooldown)
+            if current_time - self.last_roar_time > 3.0:  # No roar in last 3 seconds
+                # Check for available breath_X.wav files
+                import os
+                import random
+                audio_dir = "/Users/isogawaryou/CS_Animatronics/AudioFiles"
+                
+                # Find available breath_X.wav files
+                available_breaths = []
+                for i in range(1, 10):  # Check breath_1.wav to breath_9.wav
+                    breath_file = f"breath_{i}.wav"
+                    if os.path.exists(os.path.join(audio_dir, breath_file)):
+                        available_breaths.append(f"breath_{i}")
+                
+                if available_breaths:
+                    selected_breath = random.choice(available_breaths)
+                    self.play_dinosaur_sound_by_name(selected_breath)
+                    self.last_breathing_time = current_time
+                    self.get_logger().info(f"Playing breathing sound: {selected_breath}.wav")
+                
+                # Schedule next breath with random interval
+                next_interval = random.uniform(self.breathing_interval_min, self.breathing_interval_max)
+                self.next_breathing_time = current_time + next_interval
+                self.get_logger().debug(f"Next breath scheduled in {next_interval:.1f} seconds")
 
     def eyes(self, angle):
         # 12: 右目 眼球Yaw（XL330）
@@ -553,11 +610,46 @@ class SystemController(Node):
         # Update cooldown
         self.audio_cooldown[cooldown_key] = current_time
         
+        # If this is not a breathing sound, delay next breath
+        if sound_id != 8:  # 8 is breathing sound ID
+            # Delay next breathing by 5 seconds to avoid overlap
+            self.next_breathing_time = max(self.next_breathing_time, current_time + 5.0)
+        
         # Publish audio command
         audio_msg = Int32()
         audio_msg.data = sound_id
         self.audio_publisher.publish(audio_msg)
         self.get_logger().info(f'Playing dinosaur sound ID: {sound_id}')
+    
+    def play_dinosaur_sound_by_name(self, sound_name):
+        """Play dinosaur sound by filename (without .wav extension)"""
+        current_time = time.time()
+        cooldown_key = f"sound_{sound_name}"
+        
+        # Check cooldown (minimum 1 second between same sound)
+        if cooldown_key in self.audio_cooldown:
+            if current_time - self.audio_cooldown[cooldown_key] < 1.0:
+                return  # Skip if too soon
+        
+        # Update cooldown
+        self.audio_cooldown[cooldown_key] = current_time
+        
+        # If this is not a breathing sound, delay next breath
+        if not sound_name.startswith("breath_"):
+            # Delay next breathing by 5 seconds to avoid overlap
+            self.next_breathing_time = max(self.next_breathing_time, current_time + 5.0)
+        
+        # Publish audio command by name
+        from std_msgs.msg import String
+        audio_msg = String()
+        audio_msg.data = f"{sound_name}.wav"
+        
+        # Create name-based publisher if not exists
+        if not hasattr(self, 'audio_name_publisher'):
+            self.audio_name_publisher = self.create_publisher(String, 'play_audio_name', 10)
+        
+        self.audio_name_publisher.publish(audio_msg)
+        self.get_logger().info(f'Playing dinosaur sound by name: {sound_name}.wav')
 
 def main(args=None):
     rclpy.init(args=args)
