@@ -24,7 +24,8 @@ ADDR_LED                  = 65   # LED
 ADDR_GOAL_POSITION        = 116  # 目標位置
 ADDR_PROFILE_VELOCITY     = 112  # プロファイル速度
 ADDR_PROFILE_ACCELERATION = 108  # プロファイル加速度
-ADDR_PRESENT_LOAD         = 128  # 負荷
+ADDR_PRESENT_CURRENT      = 126  # 現在電流（トルク相当）
+ADDR_PRESENT_LOAD         = 128  # 負荷（古い形式）
 ADDR_PRESENT_POSITION     = 132  # 位置
 ADDR_PRESENT_TEMPERATURE  = 146  # 温度
 
@@ -53,11 +54,15 @@ groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITI
 # GroupSyncRead for reading states from multiple motors at once
 LEN_PRESENT_POSITION = 4
 LEN_PRESENT_TEMPERATURE = 1  
+LEN_PRESENT_CURRENT = 2  # Current/torque is 2 bytes
 LEN_PRESENT_LOAD = 2
 groupSyncRead0_pos = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
 groupSyncRead1_pos = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
 groupSyncRead0_temp = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
 groupSyncRead1_temp = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
+# Try both current and load addresses for better compatibility
+groupSyncRead0_current = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
+groupSyncRead1_current = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
 groupSyncRead0_load = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
 groupSyncRead1_load = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
 
@@ -264,9 +269,17 @@ class MotorController(Node):
                                             groupSyncRead0_temp, groupSyncRead1_temp, 
                                             ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
         
+        # Try to read torque from PRESENT_CURRENT first, fallback to PRESENT_LOAD
         torque_data = self._bulk_read_parameter(port0_motors, port1_motors, 
-                                              groupSyncRead0_load, groupSyncRead1_load, 
-                                              ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
+                                              groupSyncRead0_current, groupSyncRead1_current, 
+                                              ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
+        
+        # If current read failed, try load address
+        if not torque_data and (port0_motors or port1_motors):
+            self.get_logger().debug("PRESENT_CURRENT failed, trying PRESENT_LOAD")
+            torque_data = self._bulk_read_parameter(port0_motors, port1_motors, 
+                                                  groupSyncRead0_load, groupSyncRead1_load, 
+                                                  ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
         
         # Combine all data
         for motor_id in requested_ids:
@@ -282,10 +295,18 @@ class MotorController(Node):
                     temperatures.append(cached.get('temperature', 25))
                 
                 if motor_id in torque_data:
-                    torques.append(torque_data[motor_id])
+                    raw_torque = torque_data[motor_id]
+                    # Convert 2-byte signed integer (Dynamixel torque format)
+                    if raw_torque > 32767:  # Handle negative values
+                        torque_value = raw_torque - 65536
+                    else:
+                        torque_value = raw_torque
+                    torques.append(abs(torque_value))  # Use absolute value for display
+                    self.get_logger().debug(f"Motor {motor_id} torque: raw={raw_torque}, converted={torque_value}")
                 else:
                     cached = self.motor_states_cache.get(motor_id, {})
                     torques.append(cached.get('torque', 0))
+                    self.get_logger().debug(f"Motor {motor_id} torque: using cached/default value")
             else:
                 self.get_logger().warn(f"Failed to read motor {motor_id}")
         
@@ -351,11 +372,21 @@ class MotorController(Node):
                 cached = self.motor_states_cache.get(motor_id, {})
                 temperature = cached.get('temperature', 25)
 
-            # Read torque
-            torque, comm_result, _ = packet_handler.read2ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_LOAD)
+            # Read torque - try PRESENT_CURRENT first, then PRESENT_LOAD
+            torque, comm_result, _ = packet_handler.read2ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_CURRENT)
+            if comm_result != COMM_SUCCESS:
+                self.get_logger().debug(f"Motor {motor_id}: PRESENT_CURRENT failed, trying PRESENT_LOAD")
+                torque, comm_result, _ = packet_handler.read2ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_LOAD)
+                
             if comm_result != COMM_SUCCESS:
                 cached = self.motor_states_cache.get(motor_id, {})
                 torque = cached.get('torque', 0)
+            else:
+                # Convert 2-byte signed integer
+                if torque > 32767:
+                    torque = torque - 65536
+                torque = abs(torque)  # Use absolute value for display
+                self.get_logger().debug(f"Motor {motor_id} individual read torque: {torque}")
             
             positions.append(position)
             temperatures.append(temperature)

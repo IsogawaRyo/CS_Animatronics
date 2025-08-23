@@ -46,6 +46,16 @@ class MotorStateTester(Node):
                     print(f'  ⚠️  Motor {motor_id}: Using default values (temp=25, torque=0)')
                 elif temp < 15 or temp > 100:
                     print(f'  ⚠️  Motor {motor_id}: Temperature out of normal range')
+                elif torque == 0:
+                    print(f'  ℹ️  Motor {motor_id}: Zero torque (idle or cached value)')
+                elif torque > 0:
+                    print(f'  ✅ Motor {motor_id}: Active torque detected')
+                    
+                # Additional validation
+                if pos < 0 or pos > 4095:
+                    print(f'  ⚠️  Motor {motor_id}: Position out of range (0-4095)')
+                if isinstance(torque, (int, float)) and torque > 10000:
+                    print(f'  ⚠️  Motor {motor_id}: Suspiciously high torque value')
                     
         else:
             self.get_logger().error('Service call failed')
