@@ -453,10 +453,12 @@ class SystemController(Node):
         blinkLL_max = self.motorLimits["24"]["max"]
         rangeLL = blinkLL_max - blinkLL_min
  
-        angleRU = int(self.motorLimits["21"]["ini"] - ((angle+1)/2*rangeRU))
-        angleRL = int(self.motorLimits["22"]["ini"] - ((angle+1)/2*rangeRL))
-        angleLU = int(self.motorLimits["23"]["ini"] + ((angle+1)/2*rangeLU))
-        angleLL = int(self.motorLimits["24"]["ini"] + ((angle+1)/2*rangeLL))
+        # 修正版：min/maxの範囲をフル活用
+        # angle=-1: 初期位置, angle=+1: 最大開閉
+        angleRU = int(blinkRU_min + (blinkRU_max - blinkRU_min) * (1 - (angle+1)/2))  # 21: 右上まぶた
+        angleRL = int(blinkRL_min + (blinkRL_max - blinkRL_min) * (1 - (angle+1)/2))  # 22: 右下まぶた  
+        angleLU = int(blinkLU_min + (blinkLU_max - blinkLU_min) * ((angle+1)/2))      # 23: 左上まぶた
+        angleLL = int(blinkLL_min + (blinkLL_max - blinkLL_min) * ((angle+1)/2))      # 24: 左下まぶた
    
         print(f"{self.motorLimits['24']['ini']} - {(angle+1)/2} * {rangeLL} = {angleLL}")
 
@@ -507,7 +509,7 @@ class SystemController(Node):
         range34 = neck34_max - neck34_min
         
         neck31 = int(neck31_min + (range31//2) + (leftStick_y/2)*range31)  # Yaw ← 左スティック上下
-        neck32 = int(neck32_min + (range32//2) + (leftStick_x/2)*range32)  # Pitch ← 左スティック右左
+        neck32 = int(neck32_min + (range32//2) + (-leftStick_x/2)*range32)  # Pitch ← 左スティック右左（反転）
         neck33 = int(neck33_min + (range33//2) + (leftStick_y/2)*range33)  # Roll ← 左スティック上下
         neck34 = int(neck34_min + (range34//2) + (rightStick_y/2)*range34)  # Top Pitch ← 右スティック上下
         return neck31, neck32, neck33, neck34
