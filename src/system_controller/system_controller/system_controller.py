@@ -79,7 +79,7 @@ class SystemController(Node):
         
         # Jaw roar tracking
         self.last_jaw_position = self.motorLimits["11"]["max"]  # Start closed
-        self.jaw_roar_threshold = 0.6  # Threshold for triggering roar (0-1 range)
+        self.jaw_roar_threshold = 0.3  # Threshold for triggering roar (0-1 range) - lowered for testing
         self.last_roar_time = 0.0
         self.roar_cooldown = 3.0  # 3 seconds cooldown for jaw roar
         
@@ -89,6 +89,22 @@ class SystemController(Node):
         self.breathing_interval_max = 10.0  # Maximum 10 seconds between breaths
         self.next_breathing_time = time.time() + 3.0  # First breath in 3 seconds (faster for testing)
         self.breathing_active = True
+        
+        # Audio directory setup
+        self.audio_dir = self.find_audio_directory()
+        self.get_logger().info(f"Using audio directory: {self.audio_dir}")
+    
+    def find_audio_directory(self):
+        """Find the correct audio directory"""
+        import os
+        audio_dirs = [
+            "/home/csanimatronics/CS_Animatronics/AudioFiles",
+            "/Users/isogawaryou/CS_Animatronics/AudioFiles"
+        ]
+        for dir_path in audio_dirs:
+            if os.path.exists(dir_path):
+                return dir_path
+        return None
 
     
     def listener_callback(self, msg):
@@ -481,11 +497,19 @@ class SystemController(Node):
         return angleRU, angleRL, angleLU, angleLL
 
     def jaw(self, angle):
-        jaw_min = self.motorLimits["11"]["min"] # open
-        jaw_max = self.motorLimits["11"]["max"] # close
-        range = jaw_max - jaw_min
+        jaw_min = self.motorLimits["11"]["min"] # open (1536)
+        jaw_max = self.motorLimits["11"]["max"] # close (2560)
+        range = jaw_max - jaw_min  # Should be 1024 now
         
+        # angle: -1 = fully closed, +1 = fully open
+        # Convert to motor position: jaw_max (closed) to jaw_min (open)
         current_jaw_position = int(jaw_max - ((angle + 1)/2)*range)
+        
+        # Safety clamp to prevent motor damage
+        current_jaw_position = max(jaw_min, min(jaw_max, current_jaw_position))
+        
+        # Debug: Log jaw values for troubleshooting
+        self.get_logger().info(f"Jaw: angle={angle:.2f}, position={current_jaw_position}, min={jaw_min}, max={jaw_max}, range={range}")
         
         # Calculate jaw opening percentage (0 = closed, 1 = fully open)
         jaw_opening = (jaw_max - current_jaw_position) / range
@@ -493,44 +517,51 @@ class SystemController(Node):
         # Check if jaw opened beyond threshold for roar
         previous_opening = (jaw_max - self.last_jaw_position) / range
         
-        if (jaw_opening > self.jaw_roar_threshold and 
-            previous_opening <= self.jaw_roar_threshold and
-            time.time() - self.last_roar_time > self.roar_cooldown):
+        # Debug logging for jaw movement
+        if abs(jaw_opening - previous_opening) > 0.1:  # Log significant jaw movements
+            self.get_logger().info(f"Jaw movement: {previous_opening:.2f} → {jaw_opening:.2f}, threshold: {self.jaw_roar_threshold}")
+        
+        # Check roar trigger conditions
+        current_time = time.time()
+        condition1 = jaw_opening > self.jaw_roar_threshold
+        condition2 = previous_opening <= self.jaw_roar_threshold  
+        condition3 = current_time - self.last_roar_time > self.roar_cooldown
+        
+        # Debug log for roar conditions
+        if condition1 and condition2:
+            self.get_logger().info(f"Roar conditions: opening={condition1}, threshold_crossed={condition2}, cooldown_ok={condition3}")
+        
+        if (condition1 and condition2 and condition3):
             
             # Check for available roar files and select randomly
             import random
             import os
-            # Try both possible audio directories
-            audio_dirs = [
-                "/home/csanimatronics/CS_Animatronics/AudioFiles",
-                "/Users/isogawaryou/CS_Animatronics/AudioFiles"
-            ]
-            audio_dir = None
-            for dir_path in audio_dirs:
-                if os.path.exists(dir_path):
-                    audio_dir = dir_path
-                    break
             
-            if audio_dir is None:
-                self.get_logger().warn("No AudioFiles directory found")
-                return
+            if self.audio_dir is None:
+                self.get_logger().warn("No AudioFiles directory found - skipping roar")
+                self.last_jaw_position = current_jaw_position
+                return current_jaw_position
             
+            self.get_logger().info(f"Checking for roar files in: {self.audio_dir}")
             # Find available roar_X.wav files
             available_roars = []
             for i in range(1, 10):  # Check roar_1.wav to roar_9.wav
                 roar_file = f"roar_{i}.wav"
-                if os.path.exists(os.path.join(audio_dir, roar_file)):
+                full_path = os.path.join(self.audio_dir, roar_file)
+                self.get_logger().debug(f"Checking: {full_path}")
+                if os.path.exists(full_path):
                     available_roars.append(f"roar_{i}")
+                    self.get_logger().info(f"Found roar file: {roar_file}")
             
             # Only play if roar files are available
             if available_roars:
                 selected_roar = random.choice(available_roars)
                 self.get_logger().info(f"Available roars: {available_roars}, Selected: {selected_roar}")
                 self.play_dinosaur_sound_by_name(selected_roar)
-                self.last_roar_time = time.time()
+                self.last_roar_time = current_time
                 self.get_logger().info(f"Jaw roar triggered! Opening: {jaw_opening:.2f}, Sound: {selected_roar}.wav")
             else:
-                self.get_logger().warn(f"No roar_X.wav files found in AudioFiles directory: {audio_dir}")
+                self.get_logger().warn(f"No roar_X.wav files found in AudioFiles directory: {self.audio_dir}")
         
         self.last_jaw_position = current_jaw_position
         return current_jaw_position
@@ -549,26 +580,16 @@ class SystemController(Node):
                 # Check for available breath_X.wav files
                 import os
                 import random
-                # Try both possible audio directories
-            audio_dirs = [
-                "/home/csanimatronics/CS_Animatronics/AudioFiles",
-                "/Users/isogawaryou/CS_Animatronics/AudioFiles"
-            ]
-            audio_dir = None
-            for dir_path in audio_dirs:
-                if os.path.exists(dir_path):
-                    audio_dir = dir_path
-                    break
-            
-            if audio_dir is None:
-                self.get_logger().warn("No AudioFiles directory found")
-                return
+                
+                if self.audio_dir is None:
+                    self.get_logger().warn("No AudioFiles directory found - skipping breathing")
+                    return
                 
                 # Find available breath_X.wav files
                 available_breaths = []
                 for i in range(1, 10):  # Check breath_1.wav to breath_9.wav
                     breath_file = f"breath_{i}.wav"
-                    if os.path.exists(os.path.join(audio_dir, breath_file)):
+                    if os.path.exists(os.path.join(self.audio_dir, breath_file)):
                         available_breaths.append(f"breath_{i}")
                 
                 if available_breaths:
@@ -578,7 +599,7 @@ class SystemController(Node):
                     self.last_breathing_time = current_time
                     self.get_logger().info(f"Playing breathing sound: {selected_breath}.wav")
                 else:
-                    self.get_logger().warn(f"No breath_X.wav files found in AudioFiles directory: {audio_dir}")
+                    self.get_logger().warn(f"No breath_X.wav files found in AudioFiles directory: {self.audio_dir}")
                 
                 # Schedule next breath with random interval
                 next_interval = random.uniform(self.breathing_interval_min, self.breathing_interval_max)
