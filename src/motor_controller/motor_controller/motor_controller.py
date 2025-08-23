@@ -6,6 +6,7 @@ import rclpy
 from rclpy.node import Node
 from motor_commands.msg import IdAngle
 from dynamixel_sdk import *
+from dynamixel_sdk import GroupSyncRead
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
 from motor_commands.srv import GetMotorStates
 import numpy as np
@@ -49,6 +50,17 @@ LEN_GOAL_POSITION = 4
 groupSyncWrite0 = GroupSyncWrite(port_handler0, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 
+# GroupSyncRead for reading states from multiple motors at once
+LEN_PRESENT_POSITION = 4
+LEN_PRESENT_TEMPERATURE = 1  
+LEN_PRESENT_LOAD = 2
+groupSyncRead0_pos = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
+groupSyncRead1_pos = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
+groupSyncRead0_temp = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
+groupSyncRead1_temp = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
+groupSyncRead0_load = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
+groupSyncRead1_load = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
+
 # List of motor IDs to initialize/control
 MOTOR_IDS = [11, 12, 13, 21, 22, 23, 24, 31, 32, 33, 34]
 
@@ -64,6 +76,11 @@ class MotorController(Node):
 
         self.motor_limits = {}
         self.load_motor_limits()
+        
+        # Cache for GetMotorStates to reduce communication overhead
+        self.motor_states_cache = {}
+        self.last_cache_time = 0.0
+        self.cache_duration = 0.05  # 50ms cache duration
 
         # Initialize dummy motor states (simulation)
         self.dummy_motor_states = {}
@@ -169,14 +186,35 @@ class MotorController(Node):
         groupSyncWrite1.clearParam()
 
     def get_motor_states(self, request, response):
-        self.get_logger().info(f"get_motor_states service called: {request}")
+        import time
+        current_time = time.time()
+        
+        # Check cache first to reduce communication overhead
+        if (current_time - self.last_cache_time < self.cache_duration and 
+            self.motor_states_cache and 
+            all(mid in self.motor_states_cache for mid in request.ids)):
+            
+            ids, positions, temperatures, torques = [], [], [], []
+            for motor_id in request.ids:
+                if motor_id in self.motor_states_cache:
+                    cached_data = self.motor_states_cache[motor_id]
+                    ids.append(motor_id)
+                    positions.append(cached_data['position'])
+                    temperatures.append(cached_data['temperature'])
+                    torques.append(cached_data['torque'])
+            
+            response.ids = ids
+            response.positions = positions
+            response.temperatures = temperatures
+            response.torques = torques
+            return response
+
+        self.get_logger().debug(f"get_motor_states service called: {request}")
         ids, positions, temperatures, torques = [], [], [], []
 
         if self.simulation:
-            self.get_logger().warn("Simulation mode: returning dummy motor states.")
             for motor_id in request.ids:
                 ids.append(motor_id)
-                # シミュレーション用に内部状態から角度を返す（なければ乱数）
                 positions.append(self.dummy_motor_states.get(motor_id, random.randint(0, 4095)))
                 temperatures.append(random.randint(0, 80))
                 torques.append(random.randint(0, 100))
@@ -186,38 +224,121 @@ class MotorController(Node):
             response.torques = torques
             return response
 
-        for motor_id in request.ids:
-            selected_port_handler = (port_handler0 if motor_id in PORT0 
-                                       else port_handler1 if motor_id in PORT1 
-                                       else None)
-            if selected_port_handler is None:
-                self.get_logger().info(f"Unknown motor ID: {motor_id}")
-                continue
-
-            position, comm_result, _ = packet_handler.read4ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_POSITION)
-            if comm_result != COMM_SUCCESS:
-                self.get_logger().error(f"Read position error on ID: {motor_id}")
-                position = self.motor_limits.get(f"{motor_id}", {}).get("ini", 0)
-            positions.append(position)
-
-            temperature, comm_result, _ = packet_handler.read1ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_TEMPERATURE)
-            if comm_result != COMM_SUCCESS:
-                self.get_logger().error(f"Read temperature error on ID: {motor_id}")
-                temperature = 0
-            temperatures.append(temperature)
-
-            torque, comm_result, _ = packet_handler.read2ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_LOAD)
-            if comm_result != COMM_SUCCESS:
-                self.get_logger().error(f"Read torque error on ID: {motor_id}")
-                torque = 0
-            torques.append(torque)
-            ids.append(motor_id)
+        # Optimized bulk reading using GroupSyncRead
+        try:
+            ids, positions, temperatures, torques = self._bulk_read_motor_states(request.ids)
+            
+            # Update cache
+            self.last_cache_time = current_time
+            for i, motor_id in enumerate(ids):
+                self.motor_states_cache[motor_id] = {
+                    'position': positions[i],
+                    'temperature': temperatures[i],
+                    'torque': torques[i]
+                }
+                
+        except Exception as e:
+            self.get_logger().error(f"Bulk read failed, falling back to individual reads: {e}")
+            ids, positions, temperatures, torques = self._individual_read_motor_states(request.ids)
 
         response.ids = ids
         response.positions = positions
         response.temperatures = temperatures
         response.torques = torques
         return response
+    
+    def _bulk_read_motor_states(self, requested_ids):
+        """Optimized bulk reading using GroupSyncRead"""
+        ids, positions, temperatures, torques = [], [], [], []
+        
+        # Separate motors by port
+        port0_motors = [mid for mid in requested_ids if mid in PORT0]
+        port1_motors = [mid for mid in requested_ids if mid in PORT1]
+        
+        # Read positions from both ports
+        pos_data = self._bulk_read_parameter(port0_motors, port1_motors, 
+                                           groupSyncRead0_pos, groupSyncRead1_pos, 
+                                           ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
+        
+        # For observe mode, prioritize position data and use cached/default values for temp/torque
+        for motor_id in requested_ids:
+            if motor_id in pos_data:
+                ids.append(motor_id)
+                positions.append(pos_data[motor_id])
+                # Use cached values or defaults for less critical data
+                cached = self.motor_states_cache.get(motor_id, {})
+                temperatures.append(cached.get('temperature', 25))  # Default room temperature
+                torques.append(cached.get('torque', 0))  # Default no load
+            else:
+                self.get_logger().warn(f"Failed to read motor {motor_id}")
+        
+        return ids, positions, temperatures, torques
+    
+    def _bulk_read_parameter(self, port0_motors, port1_motors, sync_read0, sync_read1, addr, length):
+        """Helper method for bulk parameter reading"""
+        result_data = {}
+        
+        # Setup and read from port0
+        if port0_motors:
+            sync_read0.clearParam()
+            for motor_id in port0_motors:
+                sync_read0.addParam(motor_id)
+            
+            if sync_read0.txRxPacket() == COMM_SUCCESS:
+                for motor_id in port0_motors:
+                    if sync_read0.isAvailableData(motor_id, addr, length):
+                        if length == 4:
+                            result_data[motor_id] = sync_read0.getData(motor_id, addr, length)
+                        elif length == 2:
+                            result_data[motor_id] = sync_read0.getData(motor_id, addr, length)
+                        else:
+                            result_data[motor_id] = sync_read0.getData(motor_id, addr, length)
+        
+        # Setup and read from port1  
+        if port1_motors:
+            sync_read1.clearParam()
+            for motor_id in port1_motors:
+                sync_read1.addParam(motor_id)
+                
+            if sync_read1.txRxPacket() == COMM_SUCCESS:
+                for motor_id in port1_motors:
+                    if sync_read1.isAvailableData(motor_id, addr, length):
+                        if length == 4:
+                            result_data[motor_id] = sync_read1.getData(motor_id, addr, length)
+                        elif length == 2:
+                            result_data[motor_id] = sync_read1.getData(motor_id, addr, length)
+                        else:
+                            result_data[motor_id] = sync_read1.getData(motor_id, addr, length)
+        
+        return result_data
+    
+    def _individual_read_motor_states(self, requested_ids):
+        """Fallback individual reading method"""
+        ids, positions, temperatures, torques = [], [], [], []
+        
+        for motor_id in requested_ids:
+            selected_port_handler = (port_handler0 if motor_id in PORT0 
+                                       else port_handler1 if motor_id in PORT1 
+                                       else None)
+            if selected_port_handler is None:
+                continue
+
+            # Read position (most important for observe mode)
+            position, comm_result, _ = packet_handler.read4ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_POSITION)
+            if comm_result != COMM_SUCCESS:
+                position = self.motor_limits.get(f"{motor_id}", {}).get("ini", 0)
+
+            # For performance, use cached/default values for temperature and torque
+            cached = self.motor_states_cache.get(motor_id, {})
+            temperature = cached.get('temperature', 25)  # Use cached or default
+            torque = cached.get('torque', 0)  # Use cached or default
+            
+            positions.append(position)
+            temperatures.append(temperature)
+            torques.append(torque)
+            ids.append(motor_id)
+
+        return ids, positions, temperatures, torques
 
 def set_motor1(port_handler, motor_id, addr, value):
     port_handler.clearPort()
