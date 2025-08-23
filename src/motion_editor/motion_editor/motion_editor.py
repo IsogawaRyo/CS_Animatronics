@@ -524,7 +524,7 @@ class MotionEditor:
     def operateObserve(self):
         # Throttle service calls to prevent controller input lag
         current_time = time.time()
-        if self.is_service_calling or (current_time - self.last_observe_time < 0.5):  # Minimum 500ms interval
+        if self.is_service_calling or (current_time - self.last_observe_time < 1.0):  # Minimum 1000ms interval
             return
             
         self.is_service_calling = True
@@ -536,14 +536,14 @@ class MotionEditor:
         def on_response(future):
             try:
                 response = future.result()
-                print(f"Received response - IDs: {response.ids}")
-                print(f"Positions: {response.positions}")
-                print(f"Temperatures: {response.temperatures}")
-                print(f"Torques: {response.torques}")
-                print(f"Error Status: {response.error_status}")
-                print(f"Port0 Current: {response.port0_total_current}mA")
-                print(f"Port1 Current: {response.port1_total_current}mA") 
-                print(f"System Total: {response.system_total_current}mA")
+                # Reduce console output for better performance
+                # Only print on errors or significant events
+                error_count = sum(1 for error in response.error_status if error != "NO_ERROR")
+                if error_count > 0:
+                    print(f"Motor errors detected: {error_count}")
+                    for i, error in enumerate(response.error_status):
+                        if error != "NO_ERROR":
+                            print(f"  Motor {response.ids[i]}: {error}")
                 
                 for i, id in enumerate(response.ids):
                     # Set position

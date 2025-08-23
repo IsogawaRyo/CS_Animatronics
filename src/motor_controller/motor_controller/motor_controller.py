@@ -86,10 +86,10 @@ class MotorController(Node):
         self.motor_limits = {}
         self.load_motor_limits()
         
-        # Cache for GetMotorStates to reduce communication overhead
+        # Cache for GetMotorStates to reduce communication overhead  
         self.motor_states_cache = {}
         self.last_cache_time = 0.0
-        self.cache_duration = 0.05  # 50ms cache duration
+        self.cache_duration = 0.1  # 100ms cache duration for observe mode
 
         # Initialize dummy motor states (simulation)
         self.dummy_motor_states = {}
