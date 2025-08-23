@@ -85,9 +85,9 @@ class SystemController(Node):
         
         # Breathing sound management
         self.last_breathing_time = 0.0
-        self.breathing_interval_min = 8.0   # Minimum 8 seconds between breaths
-        self.breathing_interval_max = 15.0  # Maximum 15 seconds between breaths
-        self.next_breathing_time = time.time() + 10.0  # First breath in 10 seconds
+        self.breathing_interval_min = 5.0   # Minimum 5 seconds between breaths
+        self.breathing_interval_max = 10.0  # Maximum 10 seconds between breaths
+        self.next_breathing_time = time.time() + 3.0  # First breath in 3 seconds (faster for testing)
         self.breathing_active = True
 
     
@@ -500,7 +500,20 @@ class SystemController(Node):
             # Check for available roar files and select randomly
             import random
             import os
-            audio_dir = "/Users/isogawaryou/CS_Animatronics/AudioFiles"
+            # Try both possible audio directories
+            audio_dirs = [
+                "/home/csanimatronics/CS_Animatronics/AudioFiles",
+                "/Users/isogawaryou/CS_Animatronics/AudioFiles"
+            ]
+            audio_dir = None
+            for dir_path in audio_dirs:
+                if os.path.exists(dir_path):
+                    audio_dir = dir_path
+                    break
+            
+            if audio_dir is None:
+                self.get_logger().warn("No AudioFiles directory found")
+                return
             
             # Find available roar_X.wav files
             available_roars = []
@@ -512,11 +525,12 @@ class SystemController(Node):
             # Only play if roar files are available
             if available_roars:
                 selected_roar = random.choice(available_roars)
+                self.get_logger().info(f"Available roars: {available_roars}, Selected: {selected_roar}")
                 self.play_dinosaur_sound_by_name(selected_roar)
                 self.last_roar_time = time.time()
                 self.get_logger().info(f"Jaw roar triggered! Opening: {jaw_opening:.2f}, Sound: {selected_roar}.wav")
             else:
-                self.get_logger().warn("No roar_X.wav files found in AudioFiles directory")
+                self.get_logger().warn(f"No roar_X.wav files found in AudioFiles directory: {audio_dir}")
         
         self.last_jaw_position = current_jaw_position
         return current_jaw_position
@@ -535,7 +549,20 @@ class SystemController(Node):
                 # Check for available breath_X.wav files
                 import os
                 import random
-                audio_dir = "/Users/isogawaryou/CS_Animatronics/AudioFiles"
+                # Try both possible audio directories
+            audio_dirs = [
+                "/home/csanimatronics/CS_Animatronics/AudioFiles",
+                "/Users/isogawaryou/CS_Animatronics/AudioFiles"
+            ]
+            audio_dir = None
+            for dir_path in audio_dirs:
+                if os.path.exists(dir_path):
+                    audio_dir = dir_path
+                    break
+            
+            if audio_dir is None:
+                self.get_logger().warn("No AudioFiles directory found")
+                return
                 
                 # Find available breath_X.wav files
                 available_breaths = []
@@ -546,9 +573,12 @@ class SystemController(Node):
                 
                 if available_breaths:
                     selected_breath = random.choice(available_breaths)
+                    self.get_logger().info(f"Available breaths: {available_breaths}, Selected: {selected_breath}")
                     self.play_dinosaur_sound_by_name(selected_breath)
                     self.last_breathing_time = current_time
                     self.get_logger().info(f"Playing breathing sound: {selected_breath}.wav")
+                else:
+                    self.get_logger().warn(f"No breath_X.wav files found in AudioFiles directory: {audio_dir}")
                 
                 # Schedule next breath with random interval
                 next_interval = random.uniform(self.breathing_interval_min, self.breathing_interval_max)
