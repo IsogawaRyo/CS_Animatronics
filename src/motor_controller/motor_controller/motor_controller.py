@@ -28,6 +28,7 @@ ADDR_PRESENT_CURRENT      = 126  # 現在電流（トルク相当）
 ADDR_PRESENT_LOAD         = 128  # 負荷（古い形式）
 ADDR_PRESENT_POSITION     = 132  # 位置
 ADDR_PRESENT_TEMPERATURE  = 146  # 温度
+ADDR_HARDWARE_ERROR_STATUS = 70   # ハードウェアエラーステータス
 
 # Protocol version
 PROTOCOL_VERSION = 2.0 
@@ -56,6 +57,7 @@ LEN_PRESENT_POSITION = 4
 LEN_PRESENT_TEMPERATURE = 1  
 LEN_PRESENT_CURRENT = 2  # Current/torque is 2 bytes
 LEN_PRESENT_LOAD = 2
+LEN_HARDWARE_ERROR = 1   # Hardware error status is 1 byte
 groupSyncRead0_pos = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
 groupSyncRead1_pos = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
 groupSyncRead0_temp = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
@@ -65,6 +67,8 @@ groupSyncRead0_current = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESE
 groupSyncRead1_current = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
 groupSyncRead0_load = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
 groupSyncRead1_load = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
+groupSyncRead0_error = GroupSyncRead(port_handler0, packet_handler, ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
+groupSyncRead1_error = GroupSyncRead(port_handler1, packet_handler, ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
 
 # List of motor IDs to initialize/control
 MOTOR_IDS = [11, 12, 13, 21, 22, 23, 24, 31, 32, 33, 34]
@@ -199,7 +203,7 @@ class MotorController(Node):
             self.motor_states_cache and 
             all(mid in self.motor_states_cache for mid in request.ids)):
             
-            ids, positions, temperatures, torques = [], [], [], []
+            ids, positions, temperatures, torques, error_statuses = [], [], [], [], []
             for motor_id in request.ids:
                 if motor_id in self.motor_states_cache:
                     cached_data = self.motor_states_cache[motor_id]
@@ -207,6 +211,7 @@ class MotorController(Node):
                     positions.append(cached_data['position'])
                     temperatures.append(cached_data['temperature'])
                     torques.append(cached_data['torque'])
+                    error_statuses.append(cached_data.get('error_status', 'NO_ERROR'))
             
             # Calculate total currents from cached data
             port0_total, port1_total, system_total = self._calculate_total_currents(ids, torques)
@@ -215,6 +220,7 @@ class MotorController(Node):
             response.positions = positions
             response.temperatures = temperatures
             response.torques = torques
+            response.error_status = error_statuses
             response.port0_total_current = port0_total
             response.port1_total_current = port1_total
             response.system_total_current = system_total
@@ -224,11 +230,13 @@ class MotorController(Node):
         ids, positions, temperatures, torques = [], [], [], []
 
         if self.simulation:
+            error_statuses = []
             for motor_id in request.ids:
                 ids.append(motor_id)
                 positions.append(self.dummy_motor_states.get(motor_id, random.randint(0, 4095)))
                 temperatures.append(random.randint(0, 80))
                 torques.append(random.randint(0, 100))
+                error_statuses.append("NO_ERROR")  # Simulation - no errors
             
             # Calculate total currents for simulation mode
             port0_total, port1_total, system_total = self._calculate_total_currents(ids, torques)
@@ -237,6 +245,7 @@ class MotorController(Node):
             response.positions = positions
             response.temperatures = temperatures
             response.torques = torques
+            response.error_status = error_statuses
             response.port0_total_current = port0_total
             response.port1_total_current = port1_total
             response.system_total_current = system_total
@@ -244,7 +253,7 @@ class MotorController(Node):
 
         # Optimized bulk reading using GroupSyncRead
         try:
-            ids, positions, temperatures, torques = self._bulk_read_motor_states(request.ids)
+            ids, positions, temperatures, torques, error_statuses = self._bulk_read_motor_states(request.ids)
             
             # Update cache
             self.last_cache_time = current_time
@@ -252,12 +261,13 @@ class MotorController(Node):
                 self.motor_states_cache[motor_id] = {
                     'position': positions[i],
                     'temperature': temperatures[i],
-                    'torque': torques[i]
+                    'torque': torques[i],
+                    'error_status': error_statuses[i] if i < len(error_statuses) else 'NO_ERROR'
                 }
                 
         except Exception as e:
             self.get_logger().error(f"Bulk read failed, falling back to individual reads: {e}")
-            ids, positions, temperatures, torques = self._individual_read_motor_states(request.ids)
+            ids, positions, temperatures, torques, error_statuses = self._individual_read_motor_states(request.ids)
 
         # Calculate total currents for each port and system
         port0_total, port1_total, system_total = self._calculate_total_currents(ids, torques)
@@ -266,6 +276,7 @@ class MotorController(Node):
         response.positions = positions
         response.temperatures = temperatures
         response.torques = torques
+        response.error_status = error_statuses
         response.port0_total_current = port0_total
         response.port1_total_current = port1_total  
         response.system_total_current = system_total
@@ -273,7 +284,7 @@ class MotorController(Node):
     
     def _bulk_read_motor_states(self, requested_ids):
         """Optimized bulk reading using GroupSyncRead"""
-        ids, positions, temperatures, torques = [], [], [], []
+        ids, positions, temperatures, torques, error_statuses = [], [], [], [], []
         
         # Separate motors by port
         port0_motors = [mid for mid in requested_ids if mid in PORT0]
@@ -299,6 +310,11 @@ class MotorController(Node):
             torque_data = self._bulk_read_parameter(port0_motors, port1_motors, 
                                                   groupSyncRead0_load, groupSyncRead1_load, 
                                                   ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
+        
+        # Read hardware error status
+        error_data = self._bulk_read_parameter(port0_motors, port1_motors,
+                                             groupSyncRead0_error, groupSyncRead1_error,
+                                             ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
         
         # Combine all data
         for motor_id in requested_ids:
@@ -329,10 +345,23 @@ class MotorController(Node):
                     cached = self.motor_states_cache.get(motor_id, {})
                     torques.append(cached.get('torque', 0))
                     self.get_logger().debug(f"Motor {motor_id} torque: using cached/default value")
+                
+                # Parse error status
+                if motor_id in error_data:
+                    error_byte = error_data[motor_id]
+                    error_list = self._parse_hardware_error(error_byte)
+                    error_status = ",".join(error_list)
+                    error_statuses.append(error_status)
+                    if error_status != "NO_ERROR":
+                        self.get_logger().warn(f"Motor {motor_id} error: {error_status}")
+                else:
+                    cached = self.motor_states_cache.get(motor_id, {})
+                    error_statuses.append(cached.get('error_status', 'NO_ERROR'))
+                    
             else:
                 self.get_logger().warn(f"Failed to read motor {motor_id}")
         
-        return ids, positions, temperatures, torques
+        return ids, positions, temperatures, torques, error_statuses
     
     def _bulk_read_parameter(self, port0_motors, port1_motors, sync_read0, sync_read1, addr, length):
         """Helper method for bulk parameter reading"""
@@ -374,7 +403,7 @@ class MotorController(Node):
     
     def _individual_read_motor_states(self, requested_ids):
         """Fallback individual reading method"""
-        ids, positions, temperatures, torques = [], [], [], []
+        ids, positions, temperatures, torques, error_statuses = [], [], [], [], []
         
         for motor_id in requested_ids:
             selected_port_handler = (port_handler0 if motor_id in PORT0 
@@ -411,12 +440,24 @@ class MotorController(Node):
                 torque = torque_mA
                 self.get_logger().debug(f"Motor {motor_id} individual read torque: {torque_mA}mA")
             
+            # Read hardware error status
+            error_byte, comm_result, _ = packet_handler.read1ByteTxRx(selected_port_handler, motor_id, ADDR_HARDWARE_ERROR_STATUS)
+            if comm_result != COMM_SUCCESS:
+                cached = self.motor_states_cache.get(motor_id, {})
+                error_status = cached.get('error_status', 'NO_ERROR')
+            else:
+                error_list = self._parse_hardware_error(error_byte)
+                error_status = ",".join(error_list)
+                if error_status != "NO_ERROR":
+                    self.get_logger().warn(f"Motor {motor_id} error: {error_status}")
+            
             positions.append(position)
             temperatures.append(temperature)
             torques.append(torque)
+            error_statuses.append(error_status)
             ids.append(motor_id)
 
-        return ids, positions, temperatures, torques
+        return ids, positions, temperatures, torques, error_statuses
     
     def _calculate_total_currents(self, ids, torques):
         """Calculate total currents for each port and system"""
@@ -436,6 +477,22 @@ class MotorController(Node):
         self.get_logger().debug(f"Current totals - PORT0: {port0_total}mA, PORT1: {port1_total}mA, System: {system_total}mA")
         
         return port0_total, port1_total, system_total
+    
+    def _parse_hardware_error(self, error_status):
+        """Parse Dynamixel hardware error status byte"""
+        errors = []
+        if error_status & 0x01:  # Bit 0
+            errors.append("INPUT_VOLTAGE")
+        if error_status & 0x04:  # Bit 2  
+            errors.append("OVERHEATING")
+        if error_status & 0x08:  # Bit 3
+            errors.append("MOTOR_ENCODER")
+        if error_status & 0x10:  # Bit 4
+            errors.append("ELECTRICAL_SHOCK")
+        if error_status & 0x20:  # Bit 5
+            errors.append("OVERLOAD")
+        
+        return errors if errors else ["NO_ERROR"]
 
 def set_motor1(port_handler, motor_id, addr, value):
     port_handler.clearPort()

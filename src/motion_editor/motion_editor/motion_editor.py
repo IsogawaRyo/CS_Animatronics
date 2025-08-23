@@ -192,6 +192,8 @@ class MotionEditor:
         self.torques = {} # contains torqies
         self.labels_temperature = {} # contains labels of temperatures
         self.temperatures = {}
+        self.labels_error = {} # contains labels of error status
+        self.error_status = {} # contains error status
 
         for i, id in enumerate(self.motorLimits):
             # ID Label
@@ -221,6 +223,16 @@ class MotionEditor:
             self.temperatures[id].set(0)
             self.labels_temperature[id] = tk.Label(self.frame_monitor, textvariable=self.temperatures[id], fg="white")
             self.labels_temperature[id].grid(row=2*i+1, column=2)
+            
+            # error status label
+            self.error_status[id] = tk.StringVar(self.root)
+            self.error_status[id].set("OK")
+            self.labels_error[id] = tk.Label(self.frame_monitor, textvariable=self.error_status[id], fg="green", width=12)
+            self.labels_error[id].grid(row=2*i, column=3)
+            
+            # Add error legend label
+            if i == 0:  # Only add legend for the first motor
+                tk.Label(self.frame_monitor, text="Status", font=("Arial", 8, "bold")).grid(row=0, column=3)
 
 
 
@@ -528,6 +540,7 @@ class MotionEditor:
                 print(f"Positions: {response.positions}")
                 print(f"Temperatures: {response.temperatures}")
                 print(f"Torques: {response.torques}")
+                print(f"Error Status: {response.error_status}")
                 print(f"Port0 Current: {response.port0_total_current}mA")
                 print(f"Port1 Current: {response.port1_total_current}mA") 
                 print(f"System Total: {response.system_total_current}mA")
@@ -549,6 +562,40 @@ class MotionEditor:
                     # Torque color mapping: 0mA (blue) to 2000mA (red) for current-based torque
                     color = self.val_to_color(torque_val, min_val=0, max_val=2000)
                     self.labels_torque[f"{id}"].configure(bg=color)
+                    
+                    # Set error status
+                    error_text = response.error_status[i] if i < len(response.error_status) else "NO_ERROR"
+                    if error_text == "NO_ERROR":
+                        display_text = "OK"
+                        error_color = "lightgreen"
+                        text_color = "black"
+                    else:
+                        # Parse error types for user-friendly display
+                        error_parts = error_text.split(",")
+                        display_parts = []
+                        for error in error_parts:
+                            if error == "OVERHEATING":
+                                display_parts.append("HOT")
+                            elif error == "OVERLOAD":
+                                display_parts.append("OVERLOAD")
+                            elif error == "INPUT_VOLTAGE":
+                                display_parts.append("VOLTAGE")
+                            elif error == "MOTOR_ENCODER":
+                                display_parts.append("ENCODER")
+                            elif error == "ELECTRICAL_SHOCK":
+                                display_parts.append("SHOCK")
+                            else:
+                                display_parts.append(error)
+                        
+                        display_text = ",".join(display_parts)
+                        if len(display_text) > 12:  # Truncate if too long
+                            display_text = display_text[:9] + "..."
+                        
+                        error_color = "red"
+                        text_color = "white"
+                    
+                    self.error_status[f"{id}"].set(display_text)
+                    self.labels_error[f"{id}"].configure(bg=error_color, fg=text_color)
                 
                 # Update total current displays
                 self.port0_current.set(response.port0_total_current)
