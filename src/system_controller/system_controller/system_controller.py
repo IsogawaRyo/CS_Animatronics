@@ -207,7 +207,11 @@ class SystemController(Node):
             subdict["vel"] = int(subdict["vel"])
 
         self.motorLimits = data
-        print(f"{self.motorLimits}")
+        self.get_logger().info(f"Loaded motor limits: {self.motorLimits}")
+        
+        # Debug: Check data types
+        for motor_id, limits in self.motorLimits.items():
+            self.get_logger().info(f"Motor {motor_id}: min={limits['min']} ({type(limits['min'])}), max={limits['max']} ({type(limits['max'])})")
     
     def record(self, ids, angles):
         # Record motion
@@ -639,6 +643,7 @@ class SystemController(Node):
 
         angleR = int(eyeR_min + (rangeR//2) - (angle/2)*rangeR)
         angleL = int(eyeL_min + (rangeL//2) + (angle/2)*rangeL)
+        self.get_logger().debug(f"eyes() returning: R={angleR}, L={angleL}")
         return angleR, angleL
 
     def neck(self, leftStick_x, leftStick_y, rightStick_y):
