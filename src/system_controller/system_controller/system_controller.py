@@ -187,6 +187,16 @@ class SystemController(Node):
             new_msg.ids = ids
             new_msg.angles = angles
 
+            # Debug: Check new_msg contents AFTER assignment
+            self.get_logger().info(f'After assignment - new_msg.ids: {new_msg.ids} (length: {len(new_msg.ids)})')
+            self.get_logger().info(f'After assignment - new_msg.angles: {new_msg.angles} (length: {len(new_msg.angles)})')
+            
+            # Check if ROS2 added any extra elements
+            if len(new_msg.ids) != len(ids):
+                self.get_logger().error(f'ROS2 modified IDs length! Original: {len(ids)}, ROS2: {len(new_msg.ids)}')
+            if len(new_msg.angles) != len(angles):
+                self.get_logger().error(f'ROS2 modified angles length! Original: {len(angles)}, ROS2: {len(new_msg.angles)}')
+
             self.publisher.publish(new_msg)
             self.get_logger().info(f'Publishing IDs: {new_msg.ids}')
             self.get_logger().info(f'Publishing Angles: {new_msg.angles}')
@@ -465,7 +475,13 @@ class SystemController(Node):
             # Debug: Check for None values that might become 0
             self.get_logger().info(f"IDs before publish: {ids} (length: {len(ids)})")
             self.get_logger().info(f"Angles before publish: {angles} (length: {len(angles)})")
+            
+            # Check if any angle is None or 0
             for i, (id_val, angle_val) in enumerate(zip(ids, angles)):
+                if angle_val is None:
+                    self.get_logger().error(f"  [{i}] ID: {id_val} has None angle!")
+                elif angle_val == 0:
+                    self.get_logger().error(f"  [{i}] ID: {id_val} has 0 angle!")
                 self.get_logger().info(f"  [{i}] ID: {id_val} ({type(id_val)}), Angle: {angle_val} ({type(angle_val)})")
         else:
             # Default case
@@ -517,28 +533,29 @@ class SystemController(Node):
    
         print(f"{self.motorLimits['24']['ini']} - {(angle+1)/2} * {rangeLL} = {angleLL}")
 
+        self.get_logger().debug(f"blink() returning: RU={angleRU}, RL={angleRL}, LU={angleLU}, LL={angleLL}")
         return angleRU, angleRL, angleLU, angleLL
 
     def jaw(self, angle):
         jaw_min = self.motorLimits["11"]["min"] # open (1536)
         jaw_max = self.motorLimits["11"]["max"] # close (2048)
-        range = jaw_max - jaw_min  # Should be 512 now
+        jaw_range = jaw_max - jaw_min  # Should be 512 now
         
         # angle: -1 = fully closed, +1 = fully open
         # Convert to motor position: jaw_max (closed) to jaw_min (open)
-        current_jaw_position = int(jaw_max - ((angle + 1)/2)*range)
+        current_jaw_position = int(jaw_max - ((angle + 1)/2)*jaw_range)
         
         # Safety clamp to prevent motor damage
         current_jaw_position = max(jaw_min, min(jaw_max, current_jaw_position))
         
         # Debug: Log jaw values for troubleshooting
-        self.get_logger().info(f"Jaw: angle={angle:.2f}, position={current_jaw_position}, min={jaw_min}, max={jaw_max}, range={range}")
+        self.get_logger().info(f"Jaw: angle={angle:.2f}, position={current_jaw_position}, min={jaw_min}, max={jaw_max}, range={jaw_range}")
         
         # Calculate jaw opening percentage (0 = closed, 1 = fully open)
-        jaw_opening = (jaw_max - current_jaw_position) / range
+        jaw_opening = (jaw_max - current_jaw_position) / jaw_range
         
         # Check if jaw opened beyond threshold for roar
-        previous_opening = (jaw_max - self.last_jaw_position) / range
+        previous_opening = (jaw_max - self.last_jaw_position) / jaw_range
         
         # Debug logging for jaw movement
         if abs(jaw_opening - previous_opening) > 0.1:  # Log significant jaw movements
@@ -671,6 +688,7 @@ class SystemController(Node):
         neck32 = int(neck32_min + (range32//2) + (-leftStick_x/2)*range32)  # Pitch ← 左スティック右左（反転）
         neck33 = int(neck33_min + (range33//2) + (leftStick_y/2)*range33)  # Roll ← 左スティック上下
         neck34 = int(neck34_min + (range34//2) + (rightStick_y/2)*range34)  # Top Pitch ← 右スティック上下
+        self.get_logger().debug(f"neck() returning: 31={neck31}, 32={neck32}, 33={neck33}, 34={neck34}")
         return neck31, neck32, neck33, neck34
     
     def play_dinosaur_sound(self, sound_id):
