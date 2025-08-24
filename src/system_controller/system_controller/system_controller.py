@@ -188,7 +188,9 @@ class SystemController(Node):
             new_msg.angles = angles
 
             self.publisher.publish(new_msg)
-            self.get_logger().info(f'Publishing IDs: {new_msg.ids}, Angles: {new_msg.angles}')
+            self.get_logger().info(f'Publishing IDs: {new_msg.ids}')
+            self.get_logger().info(f'Publishing Angles: {new_msg.angles}')
+            self.get_logger().info(f'IDs length: {len(new_msg.ids)}, Angles length: {len(new_msg.angles)}')
         except Exception as e:
             self.get_logger().error(f"Error in listener_callback: {e}")
             return
