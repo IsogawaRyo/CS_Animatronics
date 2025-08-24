@@ -437,16 +437,13 @@ class SystemController(Node):
             self.PlayMotion("12")
             # self.play_dinosaur_sound(12)  # Victory roar - DISABLED
 
-        # Test
+        # Motor position control (always execute regardless of button state)
         if MODE == -1:
-            #ids = [11, 21, 22, 23, 24, 31, 32, 41, 42, 43, 44]
-            #angles = [3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000]
-            print(f"{self.motorLimits}")
-            ids = 11
-            angles = 1024
-
-        # FullMaual
+            # Test mode
+            ids = [11]
+            angles = [1024]
         elif MODE == 0:
+            # FullManual mode - always execute for continuous control
             self.get_logger().debug(f"Executing MODE==0 (FullManual) with axes: {axes[:6]}")
             jaw = self.jaw(axes[2])
             blinkRU, blinkRL, blinkLU, blinkLL = self.blink(axes[5])
@@ -458,6 +455,10 @@ class SystemController(Node):
             
             ids = [11, 12, 13, 21, 22, 23, 24, 31, 32, 33, 34]
             angles = [jaw, eyeR, eyeL, blinkRU, blinkRL, blinkLU, blinkLL, neck31, neck32, neck33, neck34]
+        else:
+            # Default case
+            ids = []
+            angles = []
 
         return ids, angles
 
