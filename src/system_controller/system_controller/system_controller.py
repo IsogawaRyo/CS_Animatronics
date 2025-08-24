@@ -449,6 +449,9 @@ class SystemController(Node):
             eyeR, eyeL = self.eyes(axes[3])
             neck31, neck32, neck33, neck34 = self.neck(axes[0], axes[4], axes[1])
             
+            # Debug: Log motor command values
+            self.get_logger().info(f"Motor commands - Jaw: {jaw}, Eyes: {eyeR}/{eyeL}, Blink: {blinkRU}/{blinkRL}/{blinkLU}/{blinkLL}, Neck: {neck31}/{neck32}/{neck33}/{neck34}")
+            
             ids = [11, 12, 13, 21, 22, 23, 24, 31, 32, 33, 34]
             angles = [jaw, eyeR, eyeL, blinkRU, blinkRL, blinkLU, blinkLL, neck31, neck32, neck33, neck34]
 

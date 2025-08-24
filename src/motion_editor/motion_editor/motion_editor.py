@@ -524,7 +524,7 @@ class MotionEditor:
     def operateObserve(self):
         # Throttle service calls to prevent controller input lag
         current_time = time.time()
-        if self.is_service_calling or (current_time - self.last_observe_time < 1.0):  # Minimum 1000ms interval
+        if self.is_service_calling or (current_time - self.last_observe_time < 0.3):  # Minimum 300ms interval
             return
             
         self.is_service_calling = True
