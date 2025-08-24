@@ -342,6 +342,9 @@ class SystemController(Node):
         self.get_logger().info(f"Finish playing recorded motion") 
 
     def translate(self, axes, buttons):
+        # Debug: Check MODE and axes values
+        self.get_logger().debug(f"translate() called - MODE: {MODE}, axes: {axes[:6]}")
+        
         # Buttons event
         # Cross
         if buttons[0]:
@@ -444,6 +447,7 @@ class SystemController(Node):
 
         # FullMaual
         elif MODE == 0:
+            self.get_logger().debug(f"Executing MODE==0 (FullManual) with axes: {axes[:6]}")
             jaw = self.jaw(axes[2])
             blinkRU, blinkRL, blinkLU, blinkLL = self.blink(axes[5])
             eyeR, eyeL = self.eyes(axes[3])
@@ -508,8 +512,8 @@ class SystemController(Node):
         range = jaw_max - jaw_min  # Should be 1024 now
         
         # angle: -1 = fully closed, +1 = fully open
-        # Convert to motor position: jaw_max (closed) to jaw_min (open)  
-        current_jaw_position = int(jaw_min + (jaw_max - jaw_min) * ((angle + 1)/2))
+        # Convert to motor position: jaw_max (closed) to jaw_min (open)
+        current_jaw_position = int(jaw_max - ((angle + 1)/2)*range)
         
         # Safety clamp to prevent motor damage
         current_jaw_position = max(jaw_min, min(jaw_max, current_jaw_position))
