@@ -124,8 +124,12 @@ class MotorController(Node):
         self.get_logger().info(f"Loaded motor limits: {self.motor_limits}")
 
     def listener_callback(self, msg: IdAngle):
-        self.get_logger().info(f"Received Ids: {msg.ids}")
-        self.get_logger().info(f"Received Angles: {msg.angles}")
+        self.get_logger().info(f"Received Ids: {msg.ids} (length: {len(msg.ids)})")
+        self.get_logger().info(f"Received Angles: {msg.angles} (length: {len(msg.angles)})")
+        
+        # Debug: Check each ID/angle pair
+        for i, (id_val, angle_val) in enumerate(zip(msg.ids, msg.angles)):
+            self.get_logger().info(f"  [{i}] Motor ID: {id_val}, Angle: {angle_val}")
 
         # シミュレーションモードの場合は物理通信せずに内部状態を更新
         if self.simulation:

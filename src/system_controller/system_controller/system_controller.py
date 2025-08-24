@@ -457,6 +457,12 @@ class SystemController(Node):
             
             ids = [11, 12, 13, 21, 22, 23, 24, 31, 32, 33, 34]
             angles = [jaw, eyeR, eyeL, blinkRU, blinkRL, blinkLU, blinkLL, neck31, neck32, neck33, neck34]
+            
+            # Debug: Check for None values that might become 0
+            self.get_logger().info(f"IDs before publish: {ids} (length: {len(ids)})")
+            self.get_logger().info(f"Angles before publish: {angles} (length: {len(angles)})")
+            for i, (id_val, angle_val) in enumerate(zip(ids, angles)):
+                self.get_logger().info(f"  [{i}] ID: {id_val} ({type(id_val)}), Angle: {angle_val} ({type(angle_val)})")
         else:
             # Default case
             ids = []
