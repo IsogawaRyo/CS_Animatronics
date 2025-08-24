@@ -130,6 +130,11 @@ class MotorController(Node):
         # シミュレーションモードの場合は物理通信せずに内部状態を更新
         if self.simulation:
             for idx, motor_id in enumerate(msg.ids):
+                # Skip motor ID 0 (invalid/padding motor ID)
+                if motor_id == 0:
+                    self.get_logger().debug(f"Skipping invalid motor ID: {motor_id}")
+                    continue
+                    
                 angle = int(msg.angles[idx])
                 limits = self.motor_limits.get(f"{motor_id}", {})
                 min_limit = limits.get("min", angle)
@@ -152,6 +157,11 @@ class MotorController(Node):
         groupSyncWrite1.clearParam()
 
         for idx, motor_id in enumerate(msg.ids):
+            # Skip motor ID 0 (invalid/padding motor ID)
+            if motor_id == 0:
+                self.get_logger().debug(f"Skipping invalid motor ID: {motor_id}")
+                continue
+                
             angle = int(msg.angles[idx])
             limits = self.motor_limits.get(f"{motor_id}", {})
             min_limit = limits.get("min", angle)

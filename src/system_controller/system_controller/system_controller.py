@@ -343,7 +343,7 @@ class SystemController(Node):
 
     def translate(self, axes, buttons):
         # Debug: Check MODE and axes values
-        self.get_logger().debug(f"translate() called - MODE: {MODE}, axes: {axes[:6]}")
+        self.get_logger().info(f"translate() called - MODE: {MODE}, axes: {axes[:6]}")
         
         # Buttons event
         # Cross
@@ -509,8 +509,8 @@ class SystemController(Node):
 
     def jaw(self, angle):
         jaw_min = self.motorLimits["11"]["min"] # open (1536)
-        jaw_max = self.motorLimits["11"]["max"] # close (2560)
-        range = jaw_max - jaw_min  # Should be 1024 now
+        jaw_max = self.motorLimits["11"]["max"] # close (2048)
+        range = jaw_max - jaw_min  # Should be 512 now
         
         # angle: -1 = fully closed, +1 = fully open
         # Convert to motor position: jaw_max (closed) to jaw_min (open)
@@ -575,6 +575,7 @@ class SystemController(Node):
                 self.get_logger().warn(f"No roar_X.wav files found in AudioFiles directory: {self.audio_dir}")
         
         self.last_jaw_position = current_jaw_position
+        self.get_logger().info(f"jaw() returning: {current_jaw_position}")
         return current_jaw_position
     
     def check_breathing_sound(self):
