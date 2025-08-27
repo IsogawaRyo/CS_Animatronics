@@ -1,0 +1,147 @@
+[0.016s] Invoking command in '/home/cvl/CS_Animatronics/src/build/motor_command_msg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/cvl/CS_Animatronics/src/build/motor_command_msg -- -j20 -l20
+[0.200s] [  2%] Built target motor_command_msg__rosidl_generator_type_description
+[0.200s] [  2%] Built target ament_cmake_python_copy_motor_command_msg
+[0.201s] [  5%] Built target motor_command_msg__cpp
+[0.201s] [ 20%] Built target motor_command_msg__rosidl_generator_c
+[0.201s] [ 29%] Built target motor_command_msg__rosidl_typesupport_introspection_c
+[0.201s] [ 38%] Built target motor_command_msg__rosidl_typesupport_c
+[0.201s] [ 47%] Built target motor_command_msg__rosidl_typesupport_introspection_cpp
+[0.201s] [ 55%] Built target motor_command_msg__rosidl_typesupport_fastrtps_cpp
+[0.201s] [ 64%] Built target motor_command_msg__rosidl_typesupport_cpp
+[0.201s] [ 73%] Built target motor_command_msg__rosidl_typesupport_fastrtps_c
+[0.201s] [ 73%] Built target motor_command_msg
+[0.201s] [ 76%] Built target motor_command_msg__py
+[0.201s] [ 82%] Built target motor_command_msg__rosidl_generator_py
+[0.202s] [100%] Built target motor_command_msg_s__rosidl_typesupport_fastrtps_c
+[0.202s] [100%] Built target motor_command_msg_s__rosidl_typesupport_introspection_c
+[0.202s] [100%] Built target motor_command_msg_s__rosidl_typesupport_c
+[0.213s] running egg_info
+[0.227s] writing motor_command_msg.egg-info/PKG-INFO
+[0.227s] writing dependency_links to motor_command_msg.egg-info/dependency_links.txt
+[0.227s] writing top-level names to motor_command_msg.egg-info/top_level.txt
+[0.261s] reading manifest file 'motor_command_msg.egg-info/SOURCES.txt'
+[0.262s] writing manifest file 'motor_command_msg.egg-info/SOURCES.txt'
+[0.282s] [100%] Built target ament_cmake_python_build_motor_command_msg_egg
+[0.375s] Invoked command in '/home/cvl/CS_Animatronics/src/build/motor_command_msg' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/cvl/CS_Animatronics/src/build/motor_command_msg -- -j20 -l20
+[0.376s] Invoking command in '/home/cvl/CS_Animatronics/src/build/motor_command_msg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/cvl/CS_Animatronics/src/build/motor_command_msg
+[0.382s] -- Install configuration: ""
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/ament_index/resource_index/rosidl_interfaces/motor_command_msg
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/msg/IdAngle.json
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/id_angle.h
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__functions.c
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__type_support.c
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__description.c
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__type_support.h
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__functions.h
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__struct.h
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/rosidl_generator_c__visibility_control.h
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/environment/library_path.sh
+[0.384s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/environment/library_path.dsv
+[0.385s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/libmotor_command_msg__rosidl_generator_c.so
+[0.385s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg
+[0.385s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg
+[0.385s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail
+[0.385s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__rosidl_typesupport_fastrtps_c.h
+[0.385s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/libmotor_command_msg__rosidl_typesupport_fastrtps_c.so
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/id_angle.hpp
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__struct.hpp
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__traits.hpp
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__type_support.hpp
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__builder.hpp
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/rosidl_generator_cpp__visibility_control.hpp
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__rosidl_typesupport_fastrtps_cpp.hpp
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/dds_fastrtps
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/libmotor_command_msg__rosidl_typesupport_fastrtps_cpp.so
+[0.386s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg
+[0.387s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg
+[0.387s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail
+[0.387s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__type_support.c
+[0.387s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__rosidl_typesupport_introspection_c.h
+[0.387s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[0.387s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/libmotor_command_msg__rosidl_typesupport_introspection_c.so
+[0.389s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/libmotor_command_msg__rosidl_typesupport_c.so
+[0.389s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg
+[0.389s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg
+[0.389s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail
+[0.389s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__rosidl_typesupport_introspection_cpp.hpp
+[0.389s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/include/motor_command_msg/motor_command_msg/msg/detail/id_angle__type_support.cpp
+[0.389s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/libmotor_command_msg__rosidl_typesupport_introspection_cpp.so
+[0.391s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/libmotor_command_msg__rosidl_typesupport_cpp.so
+[0.391s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/environment/pythonpath.sh
+[0.391s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/environment/pythonpath.dsv
+[0.391s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg-0.0.0-py3.13.egg-info
+[0.391s] -- Installing: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg-0.0.0-py3.13.egg-info/PKG-INFO
+[0.391s] -- Installing: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg-0.0.0-py3.13.egg-info/dependency_links.txt
+[0.391s] -- Installing: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg-0.0.0-py3.13.egg-info/SOURCES.txt
+[0.391s] -- Installing: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg-0.0.0-py3.13.egg-info/top_level.txt
+[0.391s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg
+[0.391s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/__init__.py
+[0.391s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/motor_command_msg_s__rosidl_typesupport_c.so
+[0.392s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/_motor_command_msg_s.ep.rosidl_typesupport_c.c
+[0.392s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/_motor_command_msg_s.ep.rosidl_typesupport_fastrtps_c.c
+[0.392s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/motor_command_msg_s__rosidl_typesupport_fastrtps_c.so
+[0.392s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/_motor_command_msg_s.ep.rosidl_typesupport_introspection_c.c
+[0.392s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/msg
+[0.392s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/msg/__init__.py
+[0.392s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/msg/_id_angle_s.c
+[0.392s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/msg/_id_angle.py
+[0.392s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/motor_command_msg_s__rosidl_typesupport_introspection_c.so
+[0.406s] Listing '/home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg'...
+[0.406s] Listing '/home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/msg'...
+[0.410s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/motor_command_msg_s__rosidl_typesupport_fastrtps_c.so
+[0.410s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/motor_command_msg_s__rosidl_typesupport_introspection_c.so
+[0.411s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/python3.13/site-packages/motor_command_msg/motor_command_msg_s__rosidl_typesupport_c.so
+[0.411s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/lib/libmotor_command_msg__rosidl_generator_py.so
+[0.411s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/msg/IdAngle.idl
+[0.411s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/msg/IdAngle.msg
+[0.411s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/ament_index/resource_index/package_run_dependencies/motor_command_msg
+[0.412s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/ament_index/resource_index/parent_prefix_path/motor_command_msg
+[0.412s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/environment/ament_prefix_path.sh
+[0.412s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/environment/ament_prefix_path.dsv
+[0.412s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/environment/path.sh
+[0.412s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/environment/path.dsv
+[0.412s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/local_setup.bash
+[0.412s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/local_setup.sh
+[0.412s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/local_setup.zsh
+[0.412s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/local_setup.dsv
+[0.412s] -- Installing: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/package.dsv
+[0.413s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/ament_index/resource_index/packages/motor_command_msg
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/export_motor_command_msg__rosidl_generator_cExport.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/export_motor_command_msg__rosidl_generator_cExport-noconfig.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/export_motor_command_msg__rosidl_typesupport_fastrtps_cExport.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/export_motor_command_msg__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/export_motor_command_msg__rosidl_generator_cppExport.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/export_motor_command_msg__rosidl_typesupport_fastrtps_cppExport.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/export_motor_command_msg__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/motor_command_msg__rosidl_typesupport_introspection_cExport.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/motor_command_msg__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/motor_command_msg__rosidl_typesupport_cExport.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/motor_command_msg__rosidl_typesupport_cExport-noconfig.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/motor_command_msg__rosidl_typesupport_introspection_cppExport.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/motor_command_msg__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/motor_command_msg__rosidl_typesupport_cppExport.cmake
+[0.414s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/motor_command_msg__rosidl_typesupport_cppExport-noconfig.cmake
+[0.415s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/export_motor_command_msg__rosidl_generator_pyExport.cmake
+[0.415s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/export_motor_command_msg__rosidl_generator_pyExport-noconfig.cmake
+[0.415s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/rosidl_cmake-extras.cmake
+[0.415s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.415s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.415s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/ament_cmake_export_libraries-extras.cmake
+[0.415s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/ament_cmake_export_targets-extras.cmake
+[0.415s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[0.415s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[0.415s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/motor_command_msgConfig.cmake
+[0.415s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/cmake/motor_command_msgConfig-version.cmake
+[0.415s] -- Up-to-date: /home/cvl/CS_Animatronics/src/install/motor_command_msg/share/motor_command_msg/package.xml
+[0.417s] Invoked command in '/home/cvl/CS_Animatronics/src/build/motor_command_msg' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/cvl/CS_Animatronics/src/build/motor_command_msg

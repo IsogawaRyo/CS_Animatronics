@@ -1,0 +1,46 @@
+[0.012s] Invoking command in '/home/cvl/CS_Animatronics/src/build/dynamixel_sdk_custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/cvl/CS_Animatronics/src/dynamixel_sdk_custom_interfaces -DCMAKE_INSTALL_PREFIX=/home/cvl/CS_Animatronics/src/install/dynamixel_sdk_custom_interfaces
+[0.186s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.186s] -- Found builtin_interfaces: 2.0.2 (/opt/ros/jazzy/share/builtin_interfaces/cmake)
+[0.187s] -- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.187s] -- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.191s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.201s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.210s] -- Found rosidl_default_generators: 1.6.0 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)
+[0.217s] -- Found rosidl_adapter: 4.6.5 (/opt/ros/jazzy/share/rosidl_adapter/cmake)
+[0.326s] [31mCMake Error at /opt/ros/jazzy/share/rosidl_adapter/cmake/rosidl_adapt_interfaces.cmake:57 (message):
+[0.326s]   execute_process(/home/cvl/miniconda3/bin/python3 -m rosidl_adapter
+[0.326s]   --package-name dynamixel_sdk_custom_interfaces --arguments-file
+[0.326s]   /home/cvl/CS_Animatronics/src/build/dynamixel_sdk_custom_interfaces/rosidl_adapter__arguments__dynamixel_sdk_custom_interfaces.json
+[0.326s]   --output-dir
+[0.326s]   /home/cvl/CS_Animatronics/src/build/dynamixel_sdk_custom_interfaces/rosidl_adapter/dynamixel_sdk_custom_interfaces
+[0.326s]   --output-file
+[0.326s]   /home/cvl/CS_Animatronics/src/build/dynamixel_sdk_custom_interfaces/rosidl_adapter/dynamixel_sdk_custom_interfaces.idls)
+[0.326s]   returned error code 1:
+[0.326s] 
+[0.326s]   Traceback (most recent call last):
+[0.326s] 
+[0.326s]     File "<frozen runpy>", line 198, in _run_module_as_main
+[0.326s]     File "<frozen runpy>", line 88, in _run_code
+[0.326s]     File "/opt/ros/jazzy/lib/python3.12/site-packages/rosidl_adapter/__main__.py", line 19, in <module>
+[0.326s]       sys.exit(main())
+[0.326s]                ~~~~^^
+[0.326s]     File "/opt/ros/jazzy/lib/python3.12/site-packages/rosidl_adapter/main.py", line 53, in main
+[0.327s]       abs_idl_file = convert_to_idl(
+[0.327s]           pathlib.Path(basepath), args.package_name,
+[0.327s]           pathlib.Path(relative_path), output_dir)
+[0.327s]     File "/opt/ros/jazzy/lib/python3.12/site-packages/rosidl_adapter/__init__.py", line 18, in convert_to_idl
+[0.327s]       from rosidl_adapter.msg import convert_msg_to_idl
+[0.327s]     File "/opt/ros/jazzy/lib/python3.12/site-packages/rosidl_adapter/msg/__init__.py", line 16, in <module>
+[0.327s]       from rosidl_adapter.resource import expand_template
+[0.327s]     File "/opt/ros/jazzy/lib/python3.12/site-packages/rosidl_adapter/resource/__init__.py", line 19, in <module>
+[0.327s]       import em
+[0.327s] 
+[0.327s]   ModuleNotFoundError: No module named 'em'
+[0.327s] 
+[0.327s] Call Stack (most recent call first):
+[0.327s]   /opt/ros/jazzy/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:132 (rosidl_adapt_interfaces)
+[0.327s]   CMakeLists.txt:26 (rosidl_generate_interfaces)
+[0.327s] 
+[0.327s] [0m
+[0.329s] -- Configuring incomplete, errors occurred!
+[0.358s] Invoked command in '/home/cvl/CS_Animatronics/src/build/dynamixel_sdk_custom_interfaces' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/cvl/CS_Animatronics/src/dynamixel_sdk_custom_interfaces -DCMAKE_INSTALL_PREFIX=/home/cvl/CS_Animatronics/src/install/dynamixel_sdk_custom_interfaces

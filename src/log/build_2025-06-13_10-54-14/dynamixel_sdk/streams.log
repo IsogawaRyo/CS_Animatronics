@@ -1,0 +1,33 @@
+[0.013s] Invoking command in '/home/cvl/CS_Animatronics/src/build/dynamixel_sdk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/cvl/CS_Animatronics/src/dynamixel_sdk -DCMAKE_INSTALL_PREFIX=/home/cvl/CS_Animatronics/src/install/dynamixel_sdk
+[0.192s] -- The C compiler identification is GNU 13.3.0
+[0.192s] -- The CXX compiler identification is GNU 13.3.0
+[0.192s] -- Detecting C compiler ABI info
+[0.192s] -- Detecting C compiler ABI info - done
+[0.199s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.200s] -- Detecting C compile features
+[0.200s] -- Detecting C compile features - done
+[0.206s] -- Detecting CXX compiler ABI info
+[0.268s] -- Detecting CXX compiler ABI info - done
+[0.276s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.276s] -- Detecting CXX compile features
+[0.276s] -- Detecting CXX compile features - done
+[0.278s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.355s] -- Found Python3: /home/cvl/miniconda3/bin/python3 (found version "3.13.2") found components: Interpreter 
+[0.444s] Traceback (most recent call last):
+[0.446s]   File "/opt/ros/jazzy/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 22, in <module>
+[0.446s]     from catkin_pkg.package import parse_package_string
+[0.446s] ModuleNotFoundError: No module named 'catkin_pkg'
+[0.449s] [31mCMake Error at /opt/ros/jazzy/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:95 (message):
+[0.449s]   execute_process(/home/cvl/miniconda3/bin/python3
+[0.449s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py
+[0.449s]   /home/cvl/CS_Animatronics/src/dynamixel_sdk/package.xml
+[0.449s]   /home/cvl/CS_Animatronics/src/build/dynamixel_sdk/ament_cmake_core/package.cmake)
+[0.450s]   returned error code 1
+[0.450s] Call Stack (most recent call first):
+[0.450s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:49 (_ament_package_xml)
+[0.450s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/core/ament_package.cmake:63 (ament_package_xml)
+[0.450s]   CMakeLists.txt:75 (ament_package)
+[0.450s] 
+[0.450s] [0m
+[0.450s] -- Configuring incomplete, errors occurred!
+[0.453s] Invoked command in '/home/cvl/CS_Animatronics/src/build/dynamixel_sdk' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/cvl/CS_Animatronics/src/dynamixel_sdk -DCMAKE_INSTALL_PREFIX=/home/cvl/CS_Animatronics/src/install/dynamixel_sdk

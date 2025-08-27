@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File [35m"/opt/ros/jazzy/lib/rosidl_generator_type_description/rosidl_generator_type_description"[0m, line [35m21[0m, in [35m<module>[0m
+    from rosidl_generator_type_description import generate_type_hash
+  File [35m"/opt/ros/jazzy/lib/python3.12/site-packages/rosidl_generator_type_description/__init__.py"[0m, line [35m24[0m, in [35m<module>[0m
+    from rosidl_parser.parser import parse_idl_file
+  File [35m"/opt/ros/jazzy/lib/python3.12/site-packages/rosidl_parser/parser.py"[0m, line [35m20[0m, in [35m<module>[0m
+    from lark import Lark
+[1;35mModuleNotFoundError[0m: [35mNo module named 'lark'[0m
+gmake[2]: *** [CMakeFiles/dynamixel_sdk_custom_interfaces__rosidl_generator_type_description.dir/build.make:77: rosidl_generator_type_description/dynamixel_sdk_custom_interfaces/msg/SetPosition.json] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:215: CMakeFiles/dynamixel_sdk_custom_interfaces__rosidl_generator_type_description.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+gmake: *** [Makefile:146: all] Error 2
