@@ -3,7 +3,7 @@
 
   <!-- 腰 -->
   <link name="base_link">
-    <visual><geometry><box size="0.2 0.15 0.12"/></geometry>
+    <visual><geometry><box size="0.2 0.14 0.12"/></geometry>
       <material name="green"><color rgba="0 1 0 1"/></material></visual>
     <collision><geometry><box size="0.2 0.1 0.1"/></geometry></collision>
     <inertial><mass value="1.0"/>
@@ -80,7 +80,7 @@
 
   <!-- 頭 -->
   <link name="head">
-    <visual><geometry><box size="0.1 0.1 0.1"/></geometry>
+    <visual><geometry><box size="0.15 0.1 0.1"/></geometry>
       <material name="green"><color rgba="0 1 0 1"/></material></visual>
     <collision><geometry><box size="0.1 0.1 0.1"/></geometry></collision>
     <inertial><mass value="1.0"/>
@@ -167,134 +167,120 @@
 
   <!-- ===== ジョイント ===== -->
 
+  <!-- 腕（肩のy=±0.095は幅14cm対応） -->
   <joint name="base_to_armRU" type="revolute">
-    <parent link="base_link"/>
-    <child link="armRU"/>
-    <origin xyz="0.05 0.1 0" rpy="0 0 0"/>
+    <parent link="base_link"/><child link="armRU"/>
+    <origin xyz="0.05 0.095 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="0" upper="1.57" effort="10" velocity="1.0"/>
+    <limit lower="0.6" upper="1.57" effort="10" velocity="1.0"/>
   </joint>
 
   <joint name="armRU_to_armRL" type="revolute">
-    <parent link="armRU"/>
-    <child link="armRL"/>
+    <parent link="armRU"/><child link="armRL"/>
     <origin xyz="0.08 0 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.57" upper="0" effort="10" velocity="1.0"/>
+    <limit lower="-1.2" upper="-0.2" effort="10" velocity="1.0"/>
   </joint>
 
   <joint name="base_to_armLU" type="revolute">
-    <parent link="base_link"/>
-    <child link="armLU"/>
-    <origin xyz="0.05 -0.1 0" rpy="0 0 0"/>
+    <parent link="base_link"/><child link="armLU"/>
+    <origin xyz="0.05 -0.095 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="0" upper="1.57" effort="10" velocity="1.0"/>
+    <limit lower="0.6" upper="1.57" effort="10" velocity="1.0"/>
   </joint>
 
   <joint name="armLU_to_armLL" type="revolute">
-    <parent link="armLU"/>
-    <child link="armLL"/>
+    <parent link="armLU"/><child link="armLL"/>
     <origin xyz="0.08 0 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.57" upper="0" effort="10" velocity="1.0"/>
+    <limit lower="-1.2" upper="-0.2" effort="10" velocity="1.0"/>
   </joint>
 
+  <!-- 首 -->
   <joint name="base_to_neckBottom" type="revolute">
-    <parent link="base_link"/>
-    <child link="neckBottom"/>
+    <parent link="base_link"/><child link="neckBottom"/>
     <origin xyz="0.07 0 0.05" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
-  </joint>
-
-  <joint name="neckBottom_to_neckMid" type="revolute">
-    <parent link="neckBottom"/>
-    <child link="neckMid"/>
-    <origin xyz="0.05 0 0.05" rpy="0 0 0"/>
-    <axis xyz="0 0 1"/>
-    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
-  </joint>
-
-  <joint name="neckMid_to_neckTop" type="revolute">
-    <parent link="neckMid"/>
-    <child link="neckTop"/>
-    <origin xyz="0.05 0 0" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
-    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
-  </joint>
-
-  <joint name="neckTop_to_head" type="revolute">
-    <parent link="neckTop"/>
-    <child link="head"/>
-    <origin xyz="0.05 0 0" rpy="0 0 0"/>
-    <axis xyz="1 0 0"/>
     <limit lower="-1" upper="1" effort="10" velocity="1.0"/>
   </joint>
 
-  <!-- 右足 -->
-  <joint name="base_to_legBaseR" type="revolute">
-    <parent link="base_link"/>
-    <child link="legBaseR"/>
-    <origin xyz="-0.05 0.05 -0.06" rpy="0 0 0"/>
+  <joint name="neckBottom_to_neckMid" type="revolute">
+    <parent link="neckBottom"/><child link="neckMid"/>
+    <origin xyz="0.05 0 0.05" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    <limit lower="-1" upper="1" effort="10" velocity="1.0"/>
+  </joint>
+
+  <joint name="neckMid_to_neckTop" type="revolute">
+    <parent link="neckMid"/><child link="neckTop"/>
+    <origin xyz="0.05 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.6" upper="0.75" effort="10" velocity="1.0"/>
+  </joint>
+
+  <joint name="neckTop_to_head" type="revolute">
+    <parent link="neckTop"/><child link="head"/>
+    <origin xyz="0.05 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10" velocity="1.0"/>
+  </joint>
+
+  <!-- 右足（股関節y=+0.045は幅14cm対応） -->
+  <joint name="base_to_legBaseR" type="revolute">
+    <parent link="base_link"/><child link="legBaseR"/>
+    <origin xyz="-0.05 0.045 -0.06" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.785398" upper="0.785398" effort="10" velocity="1.0"/>
   </joint>
 
   <joint name="legBaseR_to_legHutoR" type="revolute">
-    <parent link="legBaseR"/>
-    <child link="legHutoR"/>
+    <parent link="legBaseR"/><child link="legHutoR"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    <limit lower="-1.57" upper="0.75" effort="10" velocity="1.0"/>
   </joint>
 
   <joint name="legHutoR_to_legSuneR" type="revolute">
-    <parent link="legHutoR"/>
-    <child link="legSuneR"/>
+    <parent link="legHutoR"/><child link="legSuneR"/>
     <origin xyz="0 0 -0.1" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    <limit lower="0.2" upper="1.6" effort="10" velocity="1.0"/>
   </joint>
 
   <joint name="legSuneR_to_footR" type="revolute">
-    <parent link="legSuneR"/>
-    <child link="footR"/>
+    <parent link="legSuneR"/><child link="footR"/>
     <origin xyz="0 0 -0.1" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    <limit lower="-1.7" upper="-0.2" effort="10" velocity="1.0"/>
   </joint>
 
-  <!-- 左足 -->
+  <!-- 左足（股関節y=-0.045は幅14cm対応） -->
   <joint name="base_to_legBaseL" type="revolute">
-    <parent link="base_link"/>
-    <child link="legBaseL"/>
-    <origin xyz="-0.05 -0.05 -0.06" rpy="0 0 0"/>
+    <parent link="base_link"/><child link="legBaseL"/>
+    <origin xyz="-0.05 -0.045 -0.06" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    <limit lower="-0.785398" upper="0.785398" effort="10" velocity="1.0"/>
   </joint>
 
   <joint name="legBaseL_to_legHutoL" type="revolute">
-    <parent link="legBaseL"/>
-    <child link="legHutoL"/>
+    <parent link="legBaseL"/><child link="legHutoL"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    <limit lower="-1.57" upper="0.75" effort="10" velocity="1.0"/>
   </joint>
 
   <joint name="legHutoL_to_legSuneL" type="revolute">
-    <parent link="legHutoL"/>
-    <child link="legSuneL"/>
+    <parent link="legHutoL"/><child link="legSuneL"/>
     <origin xyz="0 0 -0.1" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    <limit lower="0.2" upper="1.6" effort="10" velocity="1.0"/>
   </joint>
 
   <joint name="legSuneL_to_footL" type="revolute">
-    <parent link="legSuneL"/>
-    <child link="footL"/>
+    <parent link="legSuneL"/><child link="footL"/>
     <origin xyz="0 0 -0.1" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    <limit lower="-1.7" upper="-0.2" effort="10" velocity="1.0"/>
   </joint>
 
 </robot>
