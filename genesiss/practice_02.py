@@ -23,7 +23,6 @@ plane = scene.add_entity(
     gs.morphs.Plane(),
 )
 
-# when loading an entity, you can specify its pose in the morph.
 franka = scene.add_entity(
     gs.morphs.URDF(
         file  = '../simple_model.urdf',
@@ -61,7 +60,7 @@ JOINT_TO_MODEL = {
     "armLU_to_armLL":       "XL430",
     "base_to_neckBottom":   "XM430",
     "neckBottom_to_neckMid":"XL430",
-    "neckMid_to_neckTop":   "XC430",   # XC430 A/B → XC430 に統一
+    "neckMid_to_neckTop":   "XC430",
     "neckTop_to_head":      "XC430",
     "base_to_legBaseR":     "XM540",
     "legBaseR_to_legHutoR": "XM540",
@@ -70,7 +69,7 @@ JOINT_TO_MODEL = {
     "base_to_legBaseL":     "XM540",
     "legBaseL_to_legHutoL": "XM540",
     "legHutoL_to_legSuneL": "XM540",
-    "legSuneL_to_footL":    "XM540",   # XM54 → XM540 に修正
+    "legSuneL_to_footL":    "XM540",
 }
 
 MOTOR_FORCE_RANGE = {
@@ -112,16 +111,63 @@ lower_vec, upper_vec = _force_vecs_from_models(joint_names, JOINT_TO_MODEL, MOTO
 
 dofs_idx = [franka.get_joint(name).dof_idx_local for name in joint_names]
 
+########################## 追加設定 ##########################
+# KP/KV
+franka.set_dofs_kp(
+    kp             = kp_vec,
+    dofs_idx_local = dofs_idx,
+)
+franka.set_dofs_kv(
+    kv             = kv_vec,
+    dofs_idx_local = dofs_idx,
+)
+
+# Force Range
+franka.set_dofs_force_range(
+    lower          = lower_vec,
+    upper          = upper_vec,
+    dofs_idx_local = dofs_idx,
+)
+
+# 初期姿勢（rad）
+q0_rad = np.array([
+    1.57,   # base_to_armRU
+   -1.10,   # armRU_to_armRL
+    1.57,   # base_to_armLU
+   -1.10,   # armLU_to_armLL
+    0.00,   # base_to_neckBottom
+    0.00,   # neckBottom_to_neckMid
+    0.00,   # neckMid_to_neckTop
+    0.00,   # neckTop_to_head
+    0.00,   # base_to_legBaseR
+   -0.80,   # legBaseR_to_legHutoR
+    1.30,   # legHutoR_to_legSuneR
+   -1.50,   # legSuneR_to_footR
+    0.00,   # base_to_legBaseL
+   -0.80,   # legBaseL_to_legHutoL
+    1.30,   # legHutoL_to_legSuneL
+   -1.50,   # legSuneL_to_footL
+], dtype=float)
+
+qd0_rad = np.zeros_like(q0_rad)
+
+if hasattr(franka, "reset_dofs_state"):
+    franka.reset_dofs_state(q=q0_rad, qd=qd0_rad, dofs_idx_local=dofs_idx)
+else:
+    franka.set_dofs_position_target(q_target=q0_rad, dofs_idx_local=dofs_idx)
+    for _ in range(10):
+        scene.step()
+
+########################## simulation loop ##########################
 for i in range(500):
-    #franka.set_dofs_position(1, 100)
+    # ここで制御を入れるなら franka.control_dofs_force など
     positions = []
     for dofs_id in dofs_idx:
         positions.append(100)
     franka.control_dofs_force(
-            positions, dofs_idx,
+        positions, dofs_idx,
     )
     scene.step()
 
 for i in range(1000):
     scene.step()
-
