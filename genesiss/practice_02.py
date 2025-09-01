@@ -23,7 +23,7 @@ plane = scene.add_entity(
     gs.morphs.Plane(),
 )
 
-franka = scene.add_entity(
+raptor = scene.add_entity(
     gs.morphs.URDF(
         file  = '../simple_model.urdf',
         pos   = (1.0, 1.0, 0.8),
@@ -109,21 +109,21 @@ kp_vec = _vec_from_map(joint_names, KP)
 kv_vec = _vec_from_map(joint_names, KV)
 lower_vec, upper_vec = _force_vecs_from_models(joint_names, JOINT_TO_MODEL, MOTOR_FORCE_RANGE)
 
-dofs_idx = [franka.get_joint(name).dof_idx_local for name in joint_names]
+dofs_idx = [raptor.get_joint(name).dof_idx_local for name in joint_names]
 
 ########################## 追加設定 ##########################
 # KP/KV
-franka.set_dofs_kp(
+raptor.set_dofs_kp(
     kp             = kp_vec,
     dofs_idx_local = dofs_idx,
 )
-franka.set_dofs_kv(
+raptor.set_dofs_kv(
     kv             = kv_vec,
     dofs_idx_local = dofs_idx,
 )
 
 # Force Range
-franka.set_dofs_force_range(
+raptor.set_dofs_force_range(
     lower          = lower_vec,
     upper          = upper_vec,
     dofs_idx_local = dofs_idx,
@@ -151,22 +151,47 @@ q0_rad = np.array([
 
 qd0_rad = np.zeros_like(q0_rad)
 
-if hasattr(franka, "reset_dofs_state"):
-    franka.reset_dofs_state(q=q0_rad, qd=qd0_rad, dofs_idx_local=dofs_idx)
+if hasattr(raptor, "reset_dofs_state"):
+    raptor.reset_dofs_state(q=q0_rad, qd=qd0_rad, dofs_idx_local=dofs_idx)
 else:
-    franka.set_dofs_position_target(q_target=q0_rad, dofs_idx_local=dofs_idx)
-    for _ in range(10):
+    raptor.control_dofs_position(q0_rad, dofs_idx)
+    for _ in range(100):
         scene.step()
 
 ########################## simulation loop ##########################
 for i in range(500):
     # ここで制御を入れるなら franka.control_dofs_force など
     positions = []
-    for dofs_id in dofs_idx:
-        positions.append(100)
-    franka.control_dofs_force(
-        positions, dofs_idx,
+    #for dofs_id in dofs_idx:
+    #    positions.append(100)
+    base_link = raptor.get_link('base_link')
+    qpos = raptor.inverse_kinematics(
+            link = base_link,
+            pos = np.array([0.0, 0.0, 0.5]),
+            quat = np.array([0, 1, 0, 0]),
     )
+
+    qpos[:2] = 0.4
+
+    path = raptor.plan_path(
+            qpos_goal = qpos,
+            num_way_points = 200,
+    )
+
+    for waypoint in path:
+        raptor.control_dofs_position(waypoint)
+        scene.step()
+
+    for i in range(100):
+        scene.step()
+
+
+    raptor.control_dofs_position(qpos[:-2], dofs_idx)
+
+    current_forces = raptor.get_dofs_force(
+        dofs_idx,
+    )
+    print(current_forces)
     scene.step()
 
 for i in range(1000):

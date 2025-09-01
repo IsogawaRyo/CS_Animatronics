@@ -4,7 +4,7 @@ gs.init(backend=gs.cuda)
 scene = gs.Scene(show_viewr=True)
 plane = scene.add_entity(gs.morphs.Plane())
 franka = scene.add_entity(
-        gs.morphs.MJCF(file='xml/franka_emika_panda/panda.xml'),
+        gs.morphs.URDF(file='../simple_model.urdf'),
 )
 
 scene.build()
