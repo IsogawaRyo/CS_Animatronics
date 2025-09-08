@@ -1,0 +1,35 @@
+running egg_info
+creating ../../build/audio_player/audio_player.egg-info
+writing ../../build/audio_player/audio_player.egg-info/PKG-INFO
+writing dependency_links to ../../build/audio_player/audio_player.egg-info/dependency_links.txt
+writing entry points to ../../build/audio_player/audio_player.egg-info/entry_points.txt
+writing requirements to ../../build/audio_player/audio_player.egg-info/requires.txt
+writing top-level names to ../../build/audio_player/audio_player.egg-info/top_level.txt
+writing manifest file '../../build/audio_player/audio_player.egg-info/SOURCES.txt'
+reading manifest file '../../build/audio_player/audio_player.egg-info/SOURCES.txt'
+writing manifest file '../../build/audio_player/audio_player.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/csanimatronics/CS_Animatronics/build/audio_player/build
+creating /home/csanimatronics/CS_Animatronics/build/audio_player/build/lib
+creating /home/csanimatronics/CS_Animatronics/build/audio_player/build/lib/audio_player
+copying audio_player/__init__.py -> /home/csanimatronics/CS_Animatronics/build/audio_player/build/lib/audio_player
+copying audio_player/audio_player.py -> /home/csanimatronics/CS_Animatronics/build/audio_player/build/lib/audio_player
+running install
+running install_lib
+creating /home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages/audio_player
+copying /home/csanimatronics/CS_Animatronics/build/audio_player/build/lib/audio_player/__init__.py -> /home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages/audio_player
+copying /home/csanimatronics/CS_Animatronics/build/audio_player/build/lib/audio_player/audio_player.py -> /home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages/audio_player
+byte-compiling /home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages/audio_player/__init__.py to __init__.cpython-312.pyc
+byte-compiling /home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages/audio_player/audio_player.py to audio_player.cpython-312.pyc
+running install_data
+creating /home/csanimatronics/CS_Animatronics/install/audio_player/share/ament_index
+creating /home/csanimatronics/CS_Animatronics/install/audio_player/share/ament_index/resource_index
+creating /home/csanimatronics/CS_Animatronics/install/audio_player/share/ament_index/resource_index/packages
+copying resource/audio_player -> /home/csanimatronics/CS_Animatronics/install/audio_player/share/ament_index/resource_index/packages
+copying package.xml -> /home/csanimatronics/CS_Animatronics/install/audio_player/share/audio_player
+running install_egg_info
+Copying ../../build/audio_player/audio_player.egg-info to /home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages/audio_player-0.0.0-py3.12.egg-info
+running install_scripts
+Installing audio_player script to /home/csanimatronics/CS_Animatronics/install/audio_player/lib/audio_player
+writing list of installed files to '/home/csanimatronics/CS_Animatronics/build/audio_player/install.log'

@@ -1,0 +1,37 @@
+[4.253s] Invoking command in '/home/csanimatronics/CS_Animatronics/src/audio_player': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/audio_player/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/audio_player build --build-base /home/csanimatronics/CS_Animatronics/build/audio_player/build install --record /home/csanimatronics/CS_Animatronics/build/audio_player/install.log --single-version-externally-managed install_data
+[4.700s] running egg_info
+[4.700s] creating ../../build/audio_player/audio_player.egg-info
+[4.742s] writing ../../build/audio_player/audio_player.egg-info/PKG-INFO
+[4.743s] writing dependency_links to ../../build/audio_player/audio_player.egg-info/dependency_links.txt
+[4.743s] writing entry points to ../../build/audio_player/audio_player.egg-info/entry_points.txt
+[4.743s] writing requirements to ../../build/audio_player/audio_player.egg-info/requires.txt
+[4.744s] writing top-level names to ../../build/audio_player/audio_player.egg-info/top_level.txt
+[4.744s] writing manifest file '../../build/audio_player/audio_player.egg-info/SOURCES.txt'
+[4.832s] reading manifest file '../../build/audio_player/audio_player.egg-info/SOURCES.txt'
+[4.832s] writing manifest file '../../build/audio_player/audio_player.egg-info/SOURCES.txt'
+[4.832s] running build
+[4.833s] running build_py
+[4.833s] creating /home/csanimatronics/CS_Animatronics/build/audio_player/build
+[4.833s] creating /home/csanimatronics/CS_Animatronics/build/audio_player/build/lib
+[4.833s] creating /home/csanimatronics/CS_Animatronics/build/audio_player/build/lib/audio_player
+[4.833s] copying audio_player/__init__.py -> /home/csanimatronics/CS_Animatronics/build/audio_player/build/lib/audio_player
+[4.833s] copying audio_player/audio_player.py -> /home/csanimatronics/CS_Animatronics/build/audio_player/build/lib/audio_player
+[4.838s] running install
+[4.861s] running install_lib
+[4.941s] creating /home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages/audio_player
+[4.942s] copying /home/csanimatronics/CS_Animatronics/build/audio_player/build/lib/audio_player/__init__.py -> /home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages/audio_player
+[4.942s] copying /home/csanimatronics/CS_Animatronics/build/audio_player/build/lib/audio_player/audio_player.py -> /home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages/audio_player
+[4.943s] byte-compiling /home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages/audio_player/__init__.py to __init__.cpython-312.pyc
+[4.944s] byte-compiling /home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages/audio_player/audio_player.py to audio_player.cpython-312.pyc
+[4.949s] running install_data
+[4.949s] creating /home/csanimatronics/CS_Animatronics/install/audio_player/share/ament_index
+[4.949s] creating /home/csanimatronics/CS_Animatronics/install/audio_player/share/ament_index/resource_index
+[4.949s] creating /home/csanimatronics/CS_Animatronics/install/audio_player/share/ament_index/resource_index/packages
+[4.950s] copying resource/audio_player -> /home/csanimatronics/CS_Animatronics/install/audio_player/share/ament_index/resource_index/packages
+[4.950s] copying package.xml -> /home/csanimatronics/CS_Animatronics/install/audio_player/share/audio_player
+[4.950s] running install_egg_info
+[4.992s] Copying ../../build/audio_player/audio_player.egg-info to /home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages/audio_player-0.0.0-py3.12.egg-info
+[4.995s] running install_scripts
+[5.756s] Installing audio_player script to /home/csanimatronics/CS_Animatronics/install/audio_player/lib/audio_player
+[5.766s] writing list of installed files to '/home/csanimatronics/CS_Animatronics/build/audio_player/install.log'
+[6.275s] Invoked command in '/home/csanimatronics/CS_Animatronics/src/audio_player' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/csanimatronics/CS_Animatronics/build/audio_player/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/csanimatronics/CS_Animatronics/install/audio_player/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/audio_player build --build-base /home/csanimatronics/CS_Animatronics/build/audio_player/build install --record /home/csanimatronics/CS_Animatronics/build/audio_player/install.log --single-version-externally-managed install_data
