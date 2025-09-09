@@ -20,6 +20,7 @@ set(msg_files
 
 set(srv_files
   "srv/GetMotorStates.srv"
+  "srv/SetTorque.srv"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}

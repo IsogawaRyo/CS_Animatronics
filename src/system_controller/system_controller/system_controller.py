@@ -7,6 +7,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from motor_commands.msg import IdAngle
 from motor_commands.srv import GetMotorStates
+from motor_commands.srv import SetTorque
 from std_msgs.msg import Int32, String
 import os
 import time
@@ -85,6 +86,21 @@ class SystemController(Node):
         # Audio directory setup
         self.audio_dir = self.find_audio_directory()
         self.get_logger().info(f"Using audio directory: {self.audio_dir}")
+
+        # ===== New Recording (torque-off, hand-guided) =====
+        self.is_recording = False
+        self.record_ids = [int(k) for k in self.motorLimits.keys()]
+        self.record_start_time = None
+        self.recorded_data = []
+        self.record_calling = False
+        self.motion_dir = "/home/csanimatronics/CS_Animatronics/MotionFiles"
+
+        # Service clients
+        self.get_motor_states_client = self.create_client(GetMotorStates, 'get_motor_states')
+        self.set_torque_client = self.create_client(SetTorque, 'set_torque')
+        
+        # Background timer for recording sampling (20 Hz)
+        self.record_timer = self.create_timer(0.05, self.record_timer_callback)
     
     def find_audio_directory(self):
         """Find the correct audio directory"""
@@ -193,6 +209,81 @@ class SystemController(Node):
         except Exception as e:
             self.get_logger().error(f"Error in listener_callback: {e}")
             return
+
+    # ===== Recording helpers =====
+    def start_recording(self):
+        if self.is_recording:
+            return
+        os.makedirs(self.motion_dir, exist_ok=True)
+        self.is_recording = True
+        self.record_start_time = time.time()
+        self.recorded_data = []
+        self.get_logger().info("Recording START (torque OFF)")
+        # Request torque OFF
+        if self.set_torque_client.service_is_ready():
+            req = SetTorque.Request()
+            req.ids = [int(i) for i in self.record_ids]
+            req.enable = False
+            self.set_torque_client.call_async(req)
+        else:
+            self.get_logger().warn("set_torque service not ready; cannot disable torque")
+
+    def stop_recording(self):
+        if not self.is_recording:
+            return
+        self.is_recording = False
+        # Request torque ON
+        if self.set_torque_client.service_is_ready():
+            req = SetTorque.Request()
+            req.ids = [int(i) for i in self.record_ids]
+            req.enable = True
+            self.set_torque_client.call_async(req)
+        else:
+            self.get_logger().warn("set_torque service not ready; cannot re-enable torque")
+
+        # Save to file
+        try:
+            ts = time.strftime("%Y%m%d_%H%M%S")
+            out_path = os.path.join(self.motion_dir, f"record_{ts}.json")
+            with open(out_path, "w", encoding="utf-8") as f:
+                json.dump(self.recorded_data, f, indent=4)
+            self.get_logger().info(f"Recording SAVED: {out_path}")
+        except Exception as e:
+            self.get_logger().error(f"Failed to save recording: {e}")
+
+        self.record_start_time = None
+        self.recorded_data = []
+
+    def record_timer_callback(self):
+        # Periodically sample positions during recording
+        if not self.is_recording:
+            return
+        if self.record_calling:
+            return
+        if not self.get_motor_states_client.service_is_ready():
+            return
+
+        self.record_calling = True
+        req = GetMotorStates.Request()
+        req.ids = [int(i) for i in self.record_ids]
+
+        future = self.get_motor_states_client.call_async(req)
+
+        def on_response(fut):
+            try:
+                resp = fut.result()
+                now = time.time()
+                t_rel = now - (self.record_start_time or now)
+                # Pack angles as dict of id->position
+                angles = {str(mid): pos for mid, pos in zip(resp.ids, resp.positions)}
+                entry = {"timestamp": t_rel, "angles": angles}
+                self.recorded_data.append(entry)
+            except Exception as e:
+                self.get_logger().error(f"record sample failed: {e}")
+            finally:
+                self.record_calling = False
+
+        future.add_done_callback(on_response)
 
     def loadMotorLimits(self):
         with open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r", encoding="utf-8") as file:
@@ -380,9 +471,12 @@ class SystemController(Node):
             self.get_logger().info(f'Options was pressed')
             # self.play_dinosaur_sound(9)  # Warning call - DISABLED
 
-        # PS
+        # PS (Toggle recording: torque OFF while recording hand-guided motion)
         elif buttons[10]:
-            self.get_logger().info(f'PS was pressed (recording removed)')
+            if not self.is_recording:
+                self.start_recording()
+            else:
+                self.stop_recording()
 
         # LeftStick
         elif buttons[11]:

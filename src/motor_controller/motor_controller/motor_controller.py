@@ -9,6 +9,7 @@ from dynamixel_sdk import *
 from dynamixel_sdk import GroupSyncRead
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
 from motor_commands.srv import GetMotorStates
+from motor_commands.srv import SetTorque
 import numpy as np
 from time import sleep
 import json
@@ -101,6 +102,11 @@ class MotorController(Node):
         self.get_motor_states_service = self.create_service(
             GetMotorStates, 'get_motor_states', self.get_motor_states)
         self.get_logger().info('Run GetMotorStates server')
+
+        # Service: SetTorque (enable/disable torque for multiple motors)
+        self.set_torque_service = self.create_service(
+            SetTorque, 'set_torque', self.set_torque)
+        self.get_logger().info('Run SetTorque server')
 
         # Subscriber: IdAngle
         self.subscription = self.create_subscription(
@@ -295,6 +301,45 @@ class MotorController(Node):
         response.port1_total_current = port1_total  
         response.system_total_current = system_total
         return response
+
+    def set_torque(self, request, response):
+        """Service handler to enable/disable torque for the specified motor IDs"""
+        try:
+            # In simulation mode, accept and return success without hardware access
+            if self.simulation:
+                response.success = True
+                response.message = 'Simulation mode: torque change accepted'
+                return response
+
+            enable_val = 1 if request.enable else 0
+
+            for motor_id in request.ids:
+                if motor_id in PORT0:
+                    selected_port_handler = port_handler0
+                elif motor_id in PORT1:
+                    selected_port_handler = port_handler1
+                else:
+                    # Unknown ID; skip but keep going
+                    self.get_logger().warn(f"SetTorque: Unknown motor ID {motor_id}")
+                    continue
+
+                dxl_comm_result, _ = packet_handler.write1ByteTxRx(
+                    selected_port_handler, motor_id, ADDR_TORQUE_ENABLE, enable_val)
+                if dxl_comm_result != COMM_SUCCESS:
+                    self.get_logger().error(
+                        f"SetTorque failed for {motor_id}: {packet_handler.getTxRxResult(dxl_comm_result)}")
+                else:
+                    self.get_logger().info(
+                        f"SetTorque {'ENABLED' if request.enable else 'DISABLED'} for ID {motor_id}")
+
+            response.success = True
+            response.message = 'Torque updated'
+            return response
+        except Exception as e:
+            self.get_logger().error(f"SetTorque service error: {e}")
+            response.success = False
+            response.message = str(e)
+            return response
     
     def _bulk_read_motor_states(self, requested_ids):
         """Optimized bulk reading using GroupSyncRead"""

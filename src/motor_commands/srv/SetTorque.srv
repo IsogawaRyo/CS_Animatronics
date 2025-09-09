@@ -1,0 +1,6 @@
+uint8[] ids
+bool enable
+---
+bool success
+string message
+
