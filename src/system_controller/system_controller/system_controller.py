@@ -61,9 +61,25 @@ class SystemController(Node):
         self.cursor_index = 0
         self.record_dir = "/home/csanimatronics/CS_Animatronics/MotionFiles"
         self.last_nav_time = 0.0
-        self.ignore_cross = False
         self.assigning = False
         self.assign_stage = 0  # 0=button選択, 1=file選択
+        # Friendly button labels for easier assignment
+        self.button_labels = {
+            "0": "Cross",
+            "1": "Circle",
+            "2": "Square",
+            "3": "Triangle",
+            "4": "L1",
+            "5": "R1",
+            "6": "L2",
+            "7": "R2",
+            "8": "Share",
+            "9": "Options",
+            # "10": "PS (Record)",  # Reserved for recording toggle
+            "11": "L3",
+            "12": "R3",
+        }
+        # Default assignment order (exclude PS)
         self.button_list = ["0","1","2","3","4","5","6","7","8","9","11","12"]
         self.selected_button = None
         
@@ -117,58 +133,55 @@ class SystemController(Node):
     
     def listener_callback(self, msg):
         try:
+            # Rising-edge detection for all buttons
+            max_btn = max(13, len(msg.buttons))
+            curr_buttons = [False] * max_btn
+            for i in range(min(len(msg.buttons), max_btn)):
+                curr_buttons[i] = bool(msg.buttons[i])
+            if not hasattr(self, 'prev_buttons') or not isinstance(self.prev_buttons, list):
+                self.prev_buttons = [False] * max_btn
+            elif len(self.prev_buttons) < max_btn:
+                self.prev_buttons += [False] * (max_btn - len(self.prev_buttons))
+            just_pressed = [curr_buttons[i] and not self.prev_buttons[i] for i in range(max_btn)]
+
             # Log axes and buttons
             # Axes [0:LeftStick_X, 1:LeftStick_Y, 2:LeftTrigger, 3:RightStick_X, 4:RightStick_Y, 5:RightTrigger]
             # Buttons [0:Cross, 1:Circle, 2:Square, 3:Triangle, 4:LeftBumper, 5:RightBumper, 6:LeftTrigger, 7:RightTrigger, 8:Share, 9:Options, 10:PS, 11:LeftStick, 12:RightStick]
             # Hat/D-pad [X:down-up, Y:left-right]
-            # Debug: Log controller state when LeftTrigger is active
-            if len(msg.buttons) > 6 and msg.buttons[6]:
-                self.get_logger().info(f'DEBUG: LeftTrigger active - Buttons: {msg.buttons}')
             #self.get_logger().info(f'Axes: {msg.axes}')
             #self.get_logger().info(f'Buttons: {msg.buttons}')
-
-            # Cross 決定後、リリースを待
-            if self.ignore_cross:
-                if not msg.buttons[0]:
-                    self.ignore_cross = False
-                return
 
             # Select motion file
             if self.selecting:
                 now = time.time()
-                # press R1 to move up
-                if now -self.last_nav_time > 0.3:
-                    if msg.buttons[5] and self.cursor_index > 0:
-                        self.cursor_index -= 1
-                        self.print_selection()
-                        self.last_nav_time = now
-                    # press L1 to move down
-                    elif msg.buttons[4] and self.cursor_index < len(self.file_list)-1:
-                        self.cursor_index += 1
-                        self.print_selection()
-                        self.last_nav_time = now
-                # Cross ボタン（buttons[0]）で選択確定
-                if msg.buttons[0]:
+                # R1 上へ / L1 下へ（エッジ）
+                if just_pressed[5] and self.cursor_index > 0:
+                    self.cursor_index -= 1
+                    self.print_selection()
+                elif just_pressed[4] and self.cursor_index < len(self.file_list)-1:
+                    self.cursor_index += 1
+                    self.print_selection()
+                # Cross で選択確定（エッジ）
+                if just_pressed[0]:
                     self.selecting = False
-                    self.ignore_cross = True 
                     self.get_logger().info("Exit file selection mode")
                 return
 
             # Share 押下で割当モード開始
-            if not self.selecting and not self.assigning and msg.buttons[8]:
+            if not self.selecting and not self.assigning and just_pressed[8]:
                 self.assigning = True; self.assign_stage = 0; self.cursor_index = 0
                 self.file_list = self.button_list
                 self.print_selection(); return
 
             if self.assigning:
                 now = time.time()
-                if now - self.last_nav_time > 0.3:
-                    if msg.buttons[5] and self.cursor_index > 0:
-                        self.cursor_index -= 1; self.print_selection(); self.last_nav_time = now
-                    elif msg.buttons[4] and self.cursor_index < len(self.file_list)-1:
-                        self.cursor_index += 1; self.print_selection(); self.last_nav_time = now
+                # R1/L1 でカーソル移動（エッジ）
+                if just_pressed[5] and self.cursor_index > 0:
+                    self.cursor_index -= 1; self.print_selection()
+                elif just_pressed[4] and self.cursor_index < len(self.file_list)-1:
+                    self.cursor_index += 1; self.print_selection()
 
-                if msg.buttons[0]:  # Cross
+                if just_pressed[0]:  # Cross（エッジ）
                     if self.assign_stage == 0:
                         self.selected_button = self.file_list[self.cursor_index]
                         self.assign_stage = 1
@@ -178,11 +191,10 @@ class SystemController(Node):
                     else:
                         self.assign_motion(os.path.join(self.record_dir, self.file_list[self.cursor_index]), self.selected_button)
                         self.assigning = False
-                    time.sleep(0.2)
                 return
 
             # translate values
-            ids, angles = self.translate(msg.axes, msg.buttons)
+            ids, angles = self.translate(msg.axes, just_pressed)
  
             # Check for breathing sound (background ambient sound)
             self.check_breathing_sound()
@@ -209,6 +221,12 @@ class SystemController(Node):
         except Exception as e:
             self.get_logger().error(f"Error in listener_callback: {e}")
             return
+        finally:
+            # Update previous buttons for edge detection
+            try:
+                self.prev_buttons = curr_buttons
+            except Exception:
+                pass
 
     # ===== Recording helpers =====
     def start_recording(self):
@@ -471,7 +489,7 @@ class SystemController(Node):
             self.get_logger().info(f'Options was pressed')
             # self.play_dinosaur_sound(9)  # Warning call - DISABLED
 
-        # PS (Toggle recording: torque OFF while recording hand-guided motion)
+        # PS (record toggle) — rising-edge only (buttons passed are just_pressed)
         elif buttons[10]:
             if not self.is_recording:
                 self.start_recording()
@@ -536,9 +554,34 @@ class SystemController(Node):
 
     def print_selection(self):
         os.system('clear')
+        # Assignment mode: stage 0 shows button names + current mapping
+        if self.assigning and self.assign_stage == 0:
+            # Load current mapping (if exists)
+            mapping = {}
+            try:
+                if os.path.exists(self.controllerMap):
+                    with open(self.controllerMap, 'r', encoding='utf-8') as f:
+                        mapping = json.load(f)
+            except Exception as e:
+                self.get_logger().warn(f"Failed to load controller map: {e}")
+
+            print("Select a button to assign:\n")
+            for i, bid in enumerate(self.button_list):
+                prefix = "▶ " if i == self.cursor_index else "  "
+                label = self.button_labels.get(bid, f"Button {bid}")
+                assigned = mapping.get(bid)
+                assigned_name = os.path.basename(assigned) if assigned else "(none)"
+                print(f"{prefix}{bid}: {label}  ->  {assigned_name}")
+            print("\nUse R1/L1 to move, Cross to select.")
+            return
+
+        # File selection (assignment stage 1) or generic selection listing
+        header = "Select a motion file:" if (self.assigning and self.assign_stage == 1) else "Select a file:"
+        print(header + "\n")
         for i, fname in enumerate(self.file_list):
             prefix = "▶ " if i == self.cursor_index else "  "
             print(f"{prefix}{fname}")
+        print("\nUse R1/L1 to move, Cross to select.")
 
     def blink(self, angle):
         # 21: 右 上まぶた（XL330）
