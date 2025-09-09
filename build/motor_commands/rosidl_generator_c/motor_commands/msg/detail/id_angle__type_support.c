@@ -4,9 +4,9 @@
 
 #include <string.h>
 
-#include "motor_commands/msg/detail/id_angle__functions.h"
 #include "rosidl_typesupport_interface/macros.h"
 #include "motor_commands/msg/detail/id_angle__type_support.h"
+#include "motor_commands/msg/detail/id_angle__functions.h"
 #include "motor_commands/msg/detail/id_angle__struct.h"
 
 #ifdef __cplusplus
