@@ -10,7 +10,6 @@ from motor_commands.srv import GetMotorStates
 from std_msgs.msg import Int32, String
 import os
 import time
-from datetime import datetime
 import json
 
 # Operation Mode
@@ -19,21 +18,14 @@ import json
 # 2: Assist
 MODE = 0
 
-# Recording Check
-# 0: not recording
-# 1: recording
-# 2: signal for starting
-IS_RECORDING = 0
+# Recording functionality has been removed
 
 class SystemController(Node):
     def __init__(self):
         super().__init__('system_controller')
         self.get_logger().info('Run system controller node')
         
-        # Initialize variables used for record function 
-        self.start_time = None
-        self.recorded_data = []
-        self.record_file = None
+        # Recording-related state removed
         self.controllerMap = "/home/csanimatronics/CS_Animatronics/ControllerMap.json"
 
         # Load motor limit
@@ -179,9 +171,6 @@ class SystemController(Node):
             # Check for breathing sound (background ambient sound)
             self.check_breathing_sound()
  
-            # Record
-            self.record(ids, angles)
-
             # publish IdAngle
             new_msg = IdAngle()
             new_msg.ids = ids
@@ -223,36 +212,7 @@ class SystemController(Node):
         for motor_id, limits in self.motorLimits.items():
             self.get_logger().info(f"Motor {motor_id}: min={limits['min']} ({type(limits['min'])}), max={limits['max']} ({type(limits['max'])})")
     
-    def record(self, ids, angles):
-        # Record motion
-        global IS_RECORDING
-        if IS_RECORDING != 0:
-            # Initialize
-            if IS_RECORDING == 2:
-                # This event called once when recording started
-                IS_RECORDING = 1 
-                self.start_time = time.time()
-                self.recorded_data = []
-
-                # Open recording file
-                filename = datetime.now().strftime("record_%Y%m%d_%H%M%S.json")
-                self.record_file = open(f"/home/csanimatronics/CS_Animatronics/MotionFiles/{filename}", "w")
-                self.get_logger().info(f"Start recording {self.start_time}")
-
-            time_passed = time.time() - self.start_time
-            self.get_logger().info(f"On recording [{time_passed}]")
-
-        # Save data
-            angles_ = {}
-            for i, id in enumerate(ids):
-                angles_[id] = angles[i]
-            dict_ = {str(motor_id): angle for motor_id, angle in zip(ids, angles)}
-            entry = {
-                "timestamp": time_passed,
-                "angles": dict_,
-            }
-            self.recorded_data.append(entry)
-            print(self.recorded_data)
+    # Recording function removed
 
     """
     def AssignMotion(self):
@@ -422,24 +382,7 @@ class SystemController(Node):
 
         # PS
         elif buttons[10]:
-            self.get_logger().info(f'PS was pressed')
-            time.sleep(1)
-            global IS_RECORDING
-            if IS_RECORDING == 0:
-                IS_RECORDING = 2
-                # self.play_dinosaur_sound(10)  # Hunt call (start recording) - DISABLED
-            else:
-                IS_RECORDING = 0
-                json.dump(self.recorded_data, self.record_file, indent=4)
-                # Write buffa to record file
-                self.record_file.flush()
-                self.record_file.close()
-                self.start_time = None
-                self.record_file = None
-                self.recorded_data = []
-                # Start selection mode
-                self.enter_selection_mode()
-                # self.play_dinosaur_sound(12)  # Victory roar (end recording) - DISABLED
+            self.get_logger().info(f'PS was pressed (recording removed)')
 
         # LeftStick
         elif buttons[11]:
@@ -754,4 +697,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
