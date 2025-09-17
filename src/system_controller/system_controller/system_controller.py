@@ -113,6 +113,8 @@ class SystemController(Node):
 
         # ===== New Recording (torque-off, hand-guided) =====
         self.is_recording = False
+        self.record_mode = None  # 'controller' or 'hand'
+        self.pending_record_mode = False
         self.record_ids = [int(k) for k in self.motorLimits.keys()]
         self.record_start_time = None
         self.record_calling = False
@@ -153,6 +155,24 @@ class SystemController(Node):
             elif len(self.prev_buttons) < max_btn:
                 self.prev_buttons += [False] * (max_btn - len(self.prev_buttons))
             just_pressed = [curr_buttons[i] and not self.prev_buttons[i] for i in range(max_btn)]
+
+            if self.pending_record_mode:
+                if just_pressed[0]:
+                    self.get_logger().info("Recording mode selected: controller input (Cross)")
+                    self.pending_record_mode = False
+                    self.start_recording(mode='controller')
+                    return
+                if just_pressed[1]:
+                    self.get_logger().info("Recording mode selected: hand-guided (Circle)")
+                    self.pending_record_mode = False
+                    self.start_recording(mode='hand')
+                    return
+                if just_pressed[10]:
+                    self.get_logger().info("Recording mode selection cancelled (PS pressed again)")
+                    self.pending_record_mode = False
+                    return
+                # Wait for selection without processing other inputs
+                return
 
             # Log axes and buttons
             # Axes [0:LeftStick_X, 1:LeftStick_Y, 2:LeftTrigger, 3:RightStick_X, 4:RightStick_Y, 5:RightTrigger]
@@ -219,6 +239,19 @@ class SystemController(Node):
             new_msg.ids = ids
             new_msg.angles = angles
 
+            if (
+                self.is_recording
+                and self.record_mode == 'controller'
+                and self.bag_writer is not None
+                and new_msg.ids
+            ):
+                try:
+                    timestamp_ns = int(time.time() * 1_000_000_000)
+                    serialized = serialize_message(new_msg)
+                    self.bag_writer.write(self.bag_topic_name, serialized, timestamp_ns)
+                except Exception as exc:
+                    self.get_logger().error(f"Failed to write controller recording sample: {exc}")
+
             # Debug: Check new_msg contents AFTER assignment
             self.get_logger().info(f'After assignment - new_msg.ids: {new_msg.ids} (length: {len(new_msg.ids)})')
             self.get_logger().info(f'After assignment - new_msg.angles: {new_msg.angles} (length: {len(new_msg.angles)})')
@@ -244,11 +277,20 @@ class SystemController(Node):
                 pass
 
     # ===== Recording helpers =====
-    def start_recording(self):
+    def start_recording(self, mode='hand'):
         if self.is_recording:
+            self.get_logger().warn("start_recording called while already recording")
             return
+
+        if mode not in ('hand', 'controller'):
+            self.get_logger().error(f"Unknown recording mode '{mode}'")
+            return
+
+        self.record_mode = mode
+        self.pending_record_mode = False
         os.makedirs(self.motion_dir, exist_ok=True)
-        bag_folder = time.strftime("record_%Y%m%d_%H%M%S")
+        suffix = 'hand' if mode == 'hand' else 'controller'
+        bag_folder = time.strftime(f"record_%Y%m%d_%H%M%S_{suffix}")
         bag_uri = os.path.join(self.motion_dir, bag_folder)
 
         try:
@@ -264,46 +306,59 @@ class SystemController(Node):
             writer.create_topic(topic_metadata)
         except Exception as exc:
             self.get_logger().error(f"Failed to start rosbag recording: {exc}")
+            self.record_mode = None
             return
 
         self.bag_writer = writer
         self.current_bag_uri = bag_uri
         self.is_recording = True
         self.record_start_time = time.time()
-        self.get_logger().info(f"Recording START (torque OFF) → {bag_uri}")
-        # Request torque OFF
-        if self.set_torque_client.service_is_ready():
-            req = SetTorque.Request()
-            req.ids = [int(i) for i in self.record_ids]
-            req.enable = False
-            self.set_torque_client.call_async(req)
-        else:
-            self.get_logger().warn("set_torque service not ready; cannot disable torque")
+        mode_label = 'controller input' if mode == 'controller' else 'hand-guided (torque OFF)'
+        self.get_logger().info(f"Recording START [{mode_label}] → {bag_uri}")
+
+        if mode == 'hand':
+            # Request torque OFF for hand-guided recording
+            if self.set_torque_client.service_is_ready():
+                req = SetTorque.Request()
+                req.ids = [int(i) for i in self.record_ids]
+                req.enable = False
+                self.set_torque_client.call_async(req)
+            else:
+                self.get_logger().warn("set_torque service not ready; cannot disable torque")
 
     def stop_recording(self):
         if not self.is_recording:
             return
+
+        mode = self.record_mode
         self.is_recording = False
-        # Request torque ON
-        if self.set_torque_client.service_is_ready():
-            req = SetTorque.Request()
-            req.ids = [int(i) for i in self.record_ids]
-            req.enable = True
-            self.set_torque_client.call_async(req)
-        else:
-            self.get_logger().warn("set_torque service not ready; cannot re-enable torque")
+
+        if mode == 'hand':
+            # Request torque ON when leaving hand-guided mode
+            if self.set_torque_client.service_is_ready():
+                req = SetTorque.Request()
+                req.ids = [int(i) for i in self.record_ids]
+                req.enable = True
+                self.set_torque_client.call_async(req)
+            else:
+                self.get_logger().warn("set_torque service not ready; cannot re-enable torque")
 
         self.record_start_time = None
+        self.record_calling = False
         if self.bag_writer is not None:
             self.get_logger().info(f"Recording SAVED: {self.current_bag_uri}")
             self.bag_writer = None
         else:
             self.get_logger().warn("Recording stopped but no bag writer was active")
         self.current_bag_uri = None
+        self.record_mode = None
+        self.pending_record_mode = False
 
     def record_timer_callback(self):
         # Periodically sample positions during recording
         if not self.is_recording or self.bag_writer is None:
+            return
+        if self.record_mode != 'hand':
             return
         if self.record_calling:
             return
@@ -556,10 +611,13 @@ class SystemController(Node):
 
         # PS (record toggle) — rising-edge only (buttons passed are just_pressed)
         elif buttons[10]:
-            if not self.is_recording:
-                self.start_recording()
-            else:
+            if self.is_recording:
                 self.stop_recording()
+            elif not self.pending_record_mode:
+                self.pending_record_mode = True
+                self.get_logger().info("PS pressed: press Cross to record controller input or Circle for hand-guided (torque-off) recording")
+            else:
+                self.get_logger().info("Recording mode selection already pending")
 
         # LeftStick
         elif buttons[11]:
