@@ -8,6 +8,14 @@ from sensor_msgs.msg import Joy
 from motor_commands.msg import IdAngle
 from motor_commands.srv import GetMotorStates
 from motor_commands.srv import SetTorque
+from rosbag2_py import (
+    SequentialReader,
+    SequentialWriter,
+    StorageOptions,
+    ConverterOptions,
+    TopicMetadata,
+)
+from rclpy.serialization import serialize_message, deserialize_message
 from std_msgs.msg import Int32, String
 import os
 import time
@@ -107,9 +115,11 @@ class SystemController(Node):
         self.is_recording = False
         self.record_ids = [int(k) for k in self.motorLimits.keys()]
         self.record_start_time = None
-        self.recorded_data = []
         self.record_calling = False
         self.motion_dir = "/home/csanimatronics/CS_Animatronics/MotionFiles"
+        self.bag_writer = None
+        self.current_bag_uri = None
+        self.bag_topic_name = "/recorded_motor_states"
 
         # Service clients
         self.get_motor_states_client = self.create_client(GetMotorStates, 'get_motor_states')
@@ -185,11 +195,16 @@ class SystemController(Node):
                     if self.assign_stage == 0:
                         self.selected_button = self.file_list[self.cursor_index]
                         self.assign_stage = 1
-                        self.file_list = sorted(os.listdir(self.record_dir))
+                        self.file_list = self.list_bag_records()
                         self.cursor_index = 0
                         self.print_selection()
                     else:
-                        self.assign_motion(os.path.join(self.record_dir, self.file_list[self.cursor_index]), self.selected_button)
+                        if not self.file_list:
+                            self.get_logger().warn("No recorded motions available for assignment")
+                            self.assigning = False
+                            return
+                        target = os.path.join(self.record_dir, self.file_list[self.cursor_index])
+                        self.assign_motion(target, self.selected_button)
                         self.assigning = False
                 return
 
@@ -233,10 +248,29 @@ class SystemController(Node):
         if self.is_recording:
             return
         os.makedirs(self.motion_dir, exist_ok=True)
+        bag_folder = time.strftime("record_%Y%m%d_%H%M%S")
+        bag_uri = os.path.join(self.motion_dir, bag_folder)
+
+        try:
+            storage_options = StorageOptions(uri=bag_uri, storage_id='sqlite3')
+            converter_options = ConverterOptions(input_serialization_format='cdr', output_serialization_format='cdr')
+            writer = SequentialWriter()
+            writer.open(storage_options, converter_options)
+            topic_metadata = TopicMetadata(
+                name=self.bag_topic_name,
+                type='motor_commands/msg/IdAngle',
+                serialization_format='cdr',
+            )
+            writer.create_topic(topic_metadata)
+        except Exception as exc:
+            self.get_logger().error(f"Failed to start rosbag recording: {exc}")
+            return
+
+        self.bag_writer = writer
+        self.current_bag_uri = bag_uri
         self.is_recording = True
         self.record_start_time = time.time()
-        self.recorded_data = []
-        self.get_logger().info("Recording START (torque OFF)")
+        self.get_logger().info(f"Recording START (torque OFF) → {bag_uri}")
         # Request torque OFF
         if self.set_torque_client.service_is_ready():
             req = SetTorque.Request()
@@ -259,22 +293,17 @@ class SystemController(Node):
         else:
             self.get_logger().warn("set_torque service not ready; cannot re-enable torque")
 
-        # Save to file
-        try:
-            ts = time.strftime("%Y%m%d_%H%M%S")
-            out_path = os.path.join(self.motion_dir, f"record_{ts}.json")
-            with open(out_path, "w", encoding="utf-8") as f:
-                json.dump(self.recorded_data, f, indent=4)
-            self.get_logger().info(f"Recording SAVED: {out_path}")
-        except Exception as e:
-            self.get_logger().error(f"Failed to save recording: {e}")
-
         self.record_start_time = None
-        self.recorded_data = []
+        if self.bag_writer is not None:
+            self.get_logger().info(f"Recording SAVED: {self.current_bag_uri}")
+            self.bag_writer = None
+        else:
+            self.get_logger().warn("Recording stopped but no bag writer was active")
+        self.current_bag_uri = None
 
     def record_timer_callback(self):
         # Periodically sample positions during recording
-        if not self.is_recording:
+        if not self.is_recording or self.bag_writer is None:
             return
         if self.record_calling:
             return
@@ -290,12 +319,30 @@ class SystemController(Node):
         def on_response(fut):
             try:
                 resp = fut.result()
-                now = time.time()
-                t_rel = now - (self.record_start_time or now)
-                # Pack angles as dict of id->position
-                angles = {str(mid): pos for mid, pos in zip(resp.ids, resp.positions)}
-                entry = {"timestamp": t_rel, "angles": angles}
-                self.recorded_data.append(entry)
+                if resp is None:
+                    return
+
+                ids = list(resp.ids)
+                positions = list(resp.positions)
+                if not ids or not positions:
+                    return
+
+                if len(ids) != len(positions):
+                    self.get_logger().error(
+                        f"record sample mismatch: ids={len(ids)} positions={len(positions)}"
+                    )
+                    return
+
+                if not self.is_recording or self.bag_writer is None:
+                    return
+
+                bag_msg = IdAngle()
+                bag_msg.ids = ids
+                bag_msg.angles = positions
+
+                timestamp_ns = int(time.time() * 1_000_000_000)
+                serialized = serialize_message(bag_msg)
+                self.bag_writer.write(self.bag_topic_name, serialized, timestamp_ns)
             except Exception as e:
                 self.get_logger().error(f"record sample failed: {e}")
             finally:
@@ -348,7 +395,26 @@ class SystemController(Node):
             self.get_logger().info(f"Update: {data}")
     """
             
+    def list_bag_records(self):
+        if not os.path.isdir(self.record_dir):
+            return []
+
+        records = []
+        for entry in sorted(os.listdir(self.record_dir)):
+            full_path = os.path.join(self.record_dir, entry)
+            metadata_path = os.path.join(full_path, "metadata.yaml")
+            if os.path.isdir(full_path) and os.path.exists(metadata_path):
+                records.append(entry)
+        return records
+
     def assign_motion(self, filepath, button):
+        if not os.path.isdir(filepath):
+            self.get_logger().error(f"Cannot assign motion; directory missing: {filepath}")
+            return
+        if not os.path.exists(os.path.join(filepath, "metadata.yaml")):
+            self.get_logger().error(f"Cannot assign motion; metadata.yaml missing in {filepath}")
+            return
+
         with open(self.controllerMap, "r+") as f:
             data = json.load(f)
             data[button] = filepath
@@ -373,58 +439,57 @@ class SystemController(Node):
             self.get_logger().info(f"No motion assigned to button {button}")
             return
             
-        # Check if file exists
-        if not os.path.exists(path):
-            self.get_logger().error(f"Motion file not found: {path}")
+        if path.endswith('.json'):
+            self.get_logger().warn(f"Legacy JSON motion detected; please re-record using rosbag: {path}")
             return
 
-        # Load and play motion
-        try:
-            with open(path, "r") as file:
-                data = json.load(file)
-        except (FileNotFoundError, json.JSONDecodeError, PermissionError) as e:
-            self.get_logger().error(f"Failed to load motion file {path}: {e}")
+        if not os.path.isdir(path):
+            self.get_logger().error(f"Motion bag directory not found: {path}")
             return
 
-        timestamps = [entry["timestamp"] for entry in data]
-        angles = [entry["angles"] for entry in data]
+        metadata_path = os.path.join(path, "metadata.yaml")
+        if not os.path.exists(metadata_path):
+            self.get_logger().error(f"Invalid bag directory (missing metadata.yaml): {path}")
+            return
 
-        # Caluculate time diff
-        timediffs = [timestamps[0]]
-        for i in range(len(timestamps) - 1):
-            timediffs.append(timestamps[i+1] - timestamps[i])
-        print(timediffs)
- 
+        storage_options = StorageOptions(uri=path, storage_id='sqlite3')
+        converter_options = ConverterOptions(input_serialization_format='cdr', output_serialization_format='cdr')
+        reader = SequentialReader()
+
         try:
-            for i, timediff in enumerate(timediffs):
-                ###
-                timediffs = 0.02
-                ###
-                time.sleep(timediff)
-                dict_ = angles[i]
-                buttons = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                ids = []
-                angles_ = []
-                for id, angle in dict_.items():
-                    try:
-                        ids.append(int(id))
-                        angles_.append(angle)
-                    except (ValueError, TypeError) as e:
-                        self.get_logger().error(f"Invalid data in motion file: id={id}, angle={angle}, error={e}")
-                        continue
+            reader.open(storage_options, converter_options)
+        except Exception as e:
+            self.get_logger().error(f"Failed to open rosbag {path}: {e}")
+            return
 
-                # publish IdAngle
+        last_timestamp = None
+
+        try:
+            while reader.has_next():
+                topic, raw, timestamp = reader.read_next()
+                if topic != self.bag_topic_name:
+                    continue
+
+                msg = deserialize_message(raw, IdAngle)
+                if last_timestamp is not None:
+                    delta = (timestamp - last_timestamp) / 1_000_000_000
+                    if delta > 0:
+                        time.sleep(delta)
+                last_timestamp = timestamp
+
                 new_msg = IdAngle()
-                new_msg.ids = ids
-                new_msg.angles = angles_
+                new_msg.ids = list(msg.ids)
+                new_msg.angles = list(msg.angles)
 
                 self.publisher.publish(new_msg)
                 self.get_logger().info(f'Playing recorded motion: {new_msg.ids}, Angles: {new_msg.angles}')
         except Exception as e:
             self.get_logger().error(f"Error during motion playback: {e}")
             return
+        finally:
+            del reader
 
-        self.get_logger().info(f"Finish playing recorded motion") 
+        self.get_logger().info("Finish playing recorded motion") 
 
     def translate(self, axes, buttons):
         # Debug: Check MODE and axes values
@@ -547,7 +612,7 @@ class SystemController(Node):
 
     def enter_selection_mode(self):
         self.selecting = True
-        self.file_list = sorted(os.listdir(self.record_dir))
+        self.file_list = self.list_bag_records()
         self.cursor_index = 0
         self.print_selection()
         self.get_logger().info("Enter file selection mode")
