@@ -115,6 +115,9 @@ class SystemController(Node):
         self.is_recording = False
         self.record_mode = None  # 'controller' or 'hand'
         self.pending_record_mode = False
+        self.record_mode_cross_down = False
+        self.record_mode_circle_down = False
+        self.record_mode_ps_down = False
         self.record_ids = [int(k) for k in self.motorLimits.keys()]
         self.record_start_time = None
         self.record_calling = False
@@ -157,20 +160,36 @@ class SystemController(Node):
             just_pressed = [curr_buttons[i] and not self.prev_buttons[i] for i in range(max_btn)]
 
             if self.pending_record_mode:
-                if just_pressed[0]:
+                cross_down = curr_buttons[0] if len(curr_buttons) > 0 else False
+                circle_down = curr_buttons[1] if len(curr_buttons) > 1 else False
+                ps_down = curr_buttons[10] if len(curr_buttons) > 10 else False
+
+                if cross_down and not self.record_mode_cross_down:
                     self.get_logger().info("Recording mode selected: controller input (Cross)")
+                    self.record_mode_cross_down = True
                     self.pending_record_mode = False
+                    os.system('clear')
                     self.start_recording(mode='controller')
                     return
-                if just_pressed[1]:
+                if circle_down and not self.record_mode_circle_down:
                     self.get_logger().info("Recording mode selected: hand-guided (Circle)")
+                    self.record_mode_circle_down = True
                     self.pending_record_mode = False
+                    os.system('clear')
                     self.start_recording(mode='hand')
                     return
-                if just_pressed[10]:
+                if ps_down and not self.record_mode_ps_down:
                     self.get_logger().info("Recording mode selection cancelled (PS pressed again)")
+                    self.record_mode_ps_down = True
                     self.pending_record_mode = False
+                    os.system('clear')
                     return
+                if not cross_down:
+                    self.record_mode_cross_down = False
+                if not circle_down:
+                    self.record_mode_circle_down = False
+                if not ps_down:
+                    self.record_mode_ps_down = False
                 # Wait for selection without processing other inputs
                 return
 
@@ -288,6 +307,9 @@ class SystemController(Node):
 
         self.record_mode = mode
         self.pending_record_mode = False
+        self.record_mode_cross_down = False
+        self.record_mode_circle_down = False
+        self.record_mode_ps_down = False
         os.makedirs(self.motion_dir, exist_ok=True)
         suffix = 'hand' if mode == 'hand' else 'controller'
         bag_folder = time.strftime(f"record_%Y%m%d_%H%M%S_{suffix}")
@@ -353,6 +375,9 @@ class SystemController(Node):
         self.current_bag_uri = None
         self.record_mode = None
         self.pending_record_mode = False
+        self.record_mode_cross_down = False
+        self.record_mode_circle_down = False
+        self.record_mode_ps_down = False
 
     def record_timer_callback(self):
         # Periodically sample positions during recording
@@ -615,7 +640,11 @@ class SystemController(Node):
                 self.stop_recording()
             elif not self.pending_record_mode:
                 self.pending_record_mode = True
+                self.record_mode_cross_down = False
+                self.record_mode_circle_down = False
+                self.record_mode_ps_down = False
                 self.get_logger().info("PS pressed: press Cross to record controller input or Circle for hand-guided (torque-off) recording")
+                self.print_record_mode_prompt()
             else:
                 self.get_logger().info("Recording mode selection already pending")
 
@@ -705,6 +734,13 @@ class SystemController(Node):
             prefix = "▶ " if i == self.cursor_index else "  "
             print(f"{prefix}{fname}")
         print("\nUse R1/L1 to move, Cross to select.")
+
+    def print_record_mode_prompt(self):
+        os.system('clear')
+        print("=== 録画モード選択 ===\n")
+        print("Cross  : コントローラー入力をそのまま rosbag に保存")
+        print("Circle : トルクを OFF にして手で誘導したモーションを記録")
+        print("PS     : キャンセルして通常操作に戻る")
 
     def blink(self, angle):
         # 21: 右 上まぶた（XL330）
