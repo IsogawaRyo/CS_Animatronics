@@ -133,13 +133,13 @@ def get_cfgs():
     }
     reward_cfg = {
         "tracking_sigma": 0.25,
-        "base_height_target": 0.15,
-        "feet_height_target": 0.025,
+        "base_height_target": 0.1,
+        "feet_height_target": 0.0,
         "reward_scales": {
             "tracking_lin_vel": 1.0,
-            "tracking_ang_vel": 0.2,
-            "lin_vel_z": -3.5,
-            "base_height": -250.0,
+            "tracking_ang_vel": 0.5,
+            "lin_vel_z": -0.5,
+            "base_height": -0.5,
             "action_rate": -0.5,
             "similar_to_default": -0.05,
         },
@@ -158,7 +158,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-e", "--exp_name", type=str, default="go2-walking")
     parser.add_argument("-B", "--num_envs", type=int, default=4096)
-    parser.add_argument("--max_iterations", type=int, default=101)
+    parser.add_argument("--max_iterations", type=int, default=50)
     args = parser.parse_args()
 
     gs.init(logging_level="warning")
