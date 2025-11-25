@@ -36,6 +36,16 @@ ROS 2 workspace for building and testing a dinosaur animatronics stack. The sys
 The `ros2_start.sh` script automates a clean build followed by spawning gnome-terminal tabs for `system_controller`, `controller_publisher`, `motor_controller`, `motion_editor`, and `audio_player`. It also places the `csanimatronics` user in the `dialout` group for serial access.
 
 ## Running the Core Nodes
+### Launch file
+Use the bundled bringup launch to start the main stack at once:
+```bash
+ros2 launch system_controller animatronics_bringup.launch.py \
+  start_motion_editor:=false \
+  start_imu_receiver:=false
+```
+Set `start_motion_editor`/`start_imu_receiver` to `true` when a display or IMU hardware is available. Other launch arguments (`start_controller_publisher`, `start_system_controller`, `start_motor_controller`, `start_audio_player`) default to `true` but can be toggled per run.
+
+### Manual nodes
 Source `install/setup.bash` in every shell, then run:
 - `ros2 run controller_publisher controller_publisher` — publishes DualSense input to `controller_input`.
 - `ros2 run system_controller system_controller` — consumes joystick input, computes motor commands, triggers audio, and handles motion recording/playback.
