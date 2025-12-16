@@ -4,7 +4,7 @@
 
 import rclpy
 from rclpy.node import Node
-from motor_command_msg.msg import IdAngle
+from motor_commands.msg import IdAngle
 from sensor_msgs.msg import Joy
 from dynamixel_sdk_custom_interfaces.srv import GetPosition  # Assuming this exists based on imports in other files
 # Note: In dev branch logic, motor_controller uses GetMotorStates custom service. 
