@@ -140,19 +140,19 @@ class MotorController(Node):
         self.get_logger().info(f"Loaded motor limits: {self.motor_limits}")
 
     def listener_callback(self, msg: IdAngle):
-        self.get_logger().info(f"Received Ids: {msg.ids} (length: {len(msg.ids)})")
-        self.get_logger().info(f"Received Angles: {msg.angles} (length: {len(msg.angles)})")
+        # self.get_logger().debug(f"Received Ids: {msg.ids} (length: {len(msg.ids)})")
+        # self.get_logger().debug(f"Received Angles: {msg.angles} (length: {len(msg.angles)})")
         
         # Debug: Check each ID/angle pair
-        for i, (id_val, angle_val) in enumerate(zip(msg.ids, msg.angles)):
-            self.get_logger().info(f"  [{i}] Motor ID: {id_val}, Angle: {angle_val}")
+        # for i, (id_val, angle_val) in enumerate(zip(msg.ids, msg.angles)):
+        #     self.get_logger().debug(f"  [{i}] Motor ID: {id_val}, Angle: {angle_val}")
 
         # シミュレーションモードの場合は物理通信せずに内部状態を更新
         if self.simulation:
             for idx, motor_id in enumerate(msg.ids):
                 # Skip motor ID 0 (invalid/padding motor ID)
                 if motor_id == 0:
-                    self.get_logger().debug(f"Skipping invalid motor ID: {motor_id}")
+                    # self.get_logger().debug(f"Skipping invalid motor ID: {motor_id}")
                     continue
                     
                 angle = int(msg.angles[idx])
@@ -163,13 +163,13 @@ class MotorController(Node):
 
                 if angle < min_limit:
                     angle = min_limit
-                    self.get_logger().error(f"Below minimum motor {motor_id}: {original_angle} => {angle}")
+                    self.get_logger().debug(f"Below minimum motor {motor_id}: {original_angle} => {angle}")
                 elif angle > max_limit:
                     angle = max_limit
-                    self.get_logger().error(f"Above maximum motor {motor_id}: {original_angle} => {angle}")
+                    self.get_logger().debug(f"Above maximum motor {motor_id}: {original_angle} => {angle}")
 
                 self.dummy_motor_states[motor_id] = angle
-                self.get_logger().info(f"Simulated motor {motor_id}: angle set to {angle}")
+                # self.get_logger().debug(f"Simulated motor {motor_id}: angle set to {angle}")
             return
 
         # 物理ポートが開いている場合
@@ -179,7 +179,7 @@ class MotorController(Node):
         for idx, motor_id in enumerate(msg.ids):
             # Skip motor ID 0 (invalid/padding motor ID)
             if motor_id == 0:
-                self.get_logger().debug(f"Skipping invalid motor ID: {motor_id}")
+                # self.get_logger().debug(f"Skipping invalid motor ID: {motor_id}")
                 continue
                 
             angle = int(msg.angles[idx])
@@ -190,11 +190,11 @@ class MotorController(Node):
 
             if angle < min_limit:
                 angle = min_limit
-                self.get_logger().error(f"Below minimum motor {motor_id}: {original_angle} => {angle}")
+                self.get_logger().debug(f"Below minimum motor {motor_id}: {original_angle} => {angle}")
             elif angle > max_limit:
                 angle = max_limit
-                self.get_logger().error(f"Above maximum motor {motor_id}: {original_angle} => {angle}")
-            self.get_logger().info(f"Motor {motor_id}: angle set to {angle}")
+                self.get_logger().debug(f"Above maximum motor {motor_id}: {original_angle} => {angle}")
+            # self.get_logger().debug(f"Motor {motor_id}: angle set to {angle}")
 
             # little endian conversion
             param_goal_position = [
