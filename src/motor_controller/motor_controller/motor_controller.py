@@ -88,8 +88,8 @@ class MotorController(Node):
         self.port0_open = port0_open
         self.port1_open = port1_open
 
-        # simulation mode if any port is not open
-        self.simulation = not (self.port0_open and self.port1_open)
+        # simulation mode if NO port is open (allow partial connection)
+        self.simulation = not (self.port0_open or self.port1_open)
 
         self.motor_limits = {}
         self.load_motor_limits()
@@ -120,7 +120,7 @@ class MotorController(Node):
             IdAngle, 'IdAngle', self.listener_callback, 12)
         
     def load_motor_limits(self):
-        limits_path = "/home/csanimatronics/CS_Animatronics/Motor_Limits.json"
+        limits_path = os.path.expanduser("~/CS_Animatronics/Motor_Limits.json")
         if not os.path.exists(limits_path):
             self.get_logger().error("Motor_Limits.json not found.")
             return
@@ -588,7 +588,7 @@ def ping_motor(port_handler, motor_id):
         print(f"[Motor {motor_id}] Ping succeeded.")
 
 def initialize_motor():
-    limits_path = "/home/csanimatronics/CS_Animatronics/Motor_Limits.json"
+    limits_path = os.path.expanduser("~/CS_Animatronics/Motor_Limits.json")
     if not os.path.exists(limits_path):
         print("Motor_Limits.json not found.")
         return
@@ -710,8 +710,8 @@ def main(args=None):
             print(f"Failed to set baudrate {BAUDRATE} on port1")
             port1_open = False
 
-    if port0_open and port1_open:
-        print(f"Baudrate set to {BAUDRATE} on both ports.")
+    if port0_open or port1_open:
+        print(f"Baudrate set to {BAUDRATE} on available ports.")
         scan_motors()
         try:
             initialize_motor()
