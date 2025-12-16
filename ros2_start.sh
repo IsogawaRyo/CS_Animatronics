@@ -14,6 +14,8 @@ gnome-terminal -- bash -c "source ~/CS_Animatronics/install/setup.bash && source
 
 gnome-terminal -- bash -c "source ~/CS_Animatronics/install/setup.bash && source ~/CS_Animatronics/install/local_setup.bash && source ~/CS_Animatronics/install/setup.bash  && sudo -S usermod -aG dialout csanimatronics <<< "KUASECSA" && ros2 run motor_controller motor_controller; read"
 
+gnome-terminal -- bash -c "source ~/CS_Animatronics/install/setup.bash && source ~/CS_Animatronics/install/local_setup.bash && source ~/CS_Animatronics/install/setup.bash && ros2 run system_monitor system_monitor; read"
+
 gnome-terminal -- bash -c "source ~/CS_Animatronics/install/setup.bash && source ~/CS_Animatronics/install/local_setup.bash && source ~/CS_Animatronics/install/setup.bash  && ros2 run motion_editor motion_editor; read"
 
 gnome-terminal -- bash -c "source ~/CS_Animatronics/install/setup.bash && source ~/CS_Animatronics/install/local_setup.bash && source ~/CS_Animatronics/install/setup.bash  && ros2 run audio_player audio_player; read"
