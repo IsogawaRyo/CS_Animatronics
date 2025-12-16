@@ -12,9 +12,11 @@ from dynamixel_sdk_custom_interfaces.srv import GetPosition  # Assuming this exi
 from motor_commands.srv import GetMotorStates
 
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import threading
 import time
+import subprocess
+import os
 
 class SystemMonitor(Node):
     def __init__(self):
@@ -43,15 +45,30 @@ class SystemMonitor(Node):
         
         self.setup_ui()
         
-        # Start state polling timer
-        self.create_timer(0.5, self.poll_motor_states)
+        # Start state polling timer (Slower to reduce bus contention)
+        self.create_timer(3.0, self.poll_motor_states)
         
         # Start GUI update loop (separate from ROS loop)
         self.update_gui()
 
     def setup_ui(self):
+        # Notebook (Tabs)
+        self.notebook = ttk.Notebook(self.root)
+        self.notebook.pack(fill="both", expand=True, padx=5, pady=5)
+        
+        # Tab 1: Motor Monitor
+        self.motor_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.motor_tab, text="Motor Monitor")
+        self.setup_motor_tab(self.motor_tab)
+        
+        # Tab 2: Node Manager
+        self.node_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.node_tab, text="Node Manager")
+        self.setup_node_manager_tab(self.node_tab)
+
+    def setup_motor_tab(self, parent):
         # Top Frame: System Status
-        status_frame = ttk.LabelFrame(self.root, text="System Status", padding=10)
+        status_frame = ttk.LabelFrame(parent, text="System Status", padding=10)
         status_frame.pack(fill="x", padx=5, pady=5)
         
         self.lbl_controller = ttk.Label(status_frame, text="Controller: Disconnected", foreground="red")
@@ -61,7 +78,7 @@ class SystemMonitor(Node):
         self.lbl_ros_time.pack(side="right", padx=10)
 
         # Main Frame: Motor Table
-        table_frame = ttk.LabelFrame(self.root, text="Motor Status", padding=10)
+        table_frame = ttk.LabelFrame(parent, text="Motor Status", padding=10)
         table_frame.pack(fill="both", expand=True, padx=5, pady=5)
         
         columns = ("ID", "Role", "Target", "Actual", "Diff", "Temp", "Load", "Error")
@@ -69,7 +86,7 @@ class SystemMonitor(Node):
         
         for col in columns:
             self.tree.heading(col, text=col)
-            self.tree.column(col, width=80, anchor="center")
+            self.tree.column(col, width=70, anchor="center")
         
         # Scrollbar
         scrollbar = ttk.Scrollbar(table_frame, orient="vertical", command=self.tree.yview)
@@ -102,6 +119,105 @@ class SystemMonitor(Node):
                 mid, self.role_map.get(mid, "Unknown"), 
                 "-", "-", "-", "-", "-", "-"
             ))
+
+    def setup_node_manager_tab(self, parent):
+        # Manager Settings
+        self.targets = [
+            {"name": "motor_controller", "pkg": "motor_controller", "exec": "motor_controller", "cmd": "sudo -S usermod -aG dialout csanimatronics <<< 'KUASECSA' && ros2 run motor_controller motor_controller"},
+            {"name": "system_controller", "pkg": "system_controller", "exec": "system_controller", "cmd": "ros2 run system_controller system_controller"},
+            {"name": "controller_publisher", "pkg": "controller_publisher", "exec": "controller_publisher", "cmd": "ros2 run controller_publisher controller_publisher"},
+            {"name": "audio_player", "pkg": "audio_player", "exec": "audio_player", "cmd": "ros2 run audio_player audio_player"},
+            {"name": "motion_editor", "pkg": "motion_editor", "exec": "motion_editor", "cmd": "ros2 run motion_editor motion_editor"},
+        ]
+        
+        # UI
+        frame = ttk.LabelFrame(parent, text="Nodes", padding=10)
+        frame.pack(fill="both", expand=True, padx=5, pady=5)
+        
+        self.node_widgets = {} # {name: {lbl_status, btn_start, btn_stop}}
+        
+        for i, target in enumerate(self.targets):
+            row_frame = ttk.Frame(frame)
+            row_frame.pack(fill="x", pady=5)
+            
+            lbl_name = ttk.Label(row_frame, text=target["name"], width=20, font=("Arial", 12, "bold"))
+            lbl_name.pack(side="left")
+            
+            lbl_status = ttk.Label(row_frame, text="Unknown", width=15)
+            lbl_status.pack(side="left", padx=10)
+            
+            btn_restart = ttk.Button(row_frame, text="Restart", command=lambda t=target: self.restart_node(t))
+            btn_restart.pack(side="right", padx=5)
+            
+            btn_stop = ttk.Button(row_frame, text="Stop", command=lambda t=target: self.stop_node(t))
+            btn_stop.pack(side="right", padx=5)
+            
+            btn_start = ttk.Button(row_frame, text="Start", command=lambda t=target: self.start_node(t))
+            btn_start.pack(side="right", padx=5)
+            
+            self.node_widgets[target["name"]] = {
+                "status": lbl_status,
+                "start": btn_start,
+                "stop": btn_stop
+            }
+            
+        # Refresh Button
+        btn_refresh = ttk.Button(frame, text="Refresh Status", command=self.check_node_status)
+        btn_refresh.pack(pady=10)
+        
+        # Start status checker timer (every 2s)
+        self.create_timer(2.0, self.check_node_status)
+
+    def check_node_status(self):
+        # Get active nodes from ROS
+        try:
+            active_nodes = self.get_node_names_and_namespaces()
+            # Result is list of (name, namespace). Flatten to list of names.
+            # Node names often start with /
+            active_names = [n[0].lstrip('/') for n in active_nodes]
+        except Exception as e:
+            self.get_logger().error(f"Failed to get node list: {e}")
+            return
+
+        for target in self.targets:
+            name = target["name"]
+            widgets = self.node_widgets[name]
+            
+            if name in active_names:
+                widgets["status"].config(text="Running", foreground="green")
+                widgets["start"].state(["disabled"])
+                widgets["stop"].state(["!disabled"])
+            else:
+                widgets["status"].config(text="Stopped", foreground="red")
+                widgets["start"].state(["!disabled"])
+                widgets["stop"].state(["disabled"])
+
+    def start_node(self, target):
+        self.get_logger().info(f"Starting {target['name']}...")
+        try:
+            # Emulate ros2_start.sh behavior: Open new terminal and source setup then run
+            cmd = f"source ~/CS_Animatronics/install/setup.bash && {target['cmd']}; read"
+            subprocess.Popen(["gnome-terminal", "--", "bash", "-c", cmd])
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to start {target['name']}: {e}")
+
+    def stop_node(self, target):
+        self.get_logger().info(f"Stopping {target['name']}...")
+        try:
+            # Pkill based on the executable name
+            # Note: This is aggressive but simple.
+            subprocess.run(["pkill", "-f", f"ros2 run {target['pkg']} {target['exec']}"], check=False)
+            subprocess.run(["pkill", "-f", target["exec"]], check=False) # Fallback
+            
+            # Update UI immediately (optimistic)
+            self.node_widgets[target["name"]]["status"].config(text="Stopping...", foreground="orange")
+        except Exception as e:
+             messagebox.showerror("Error", f"Failed to stop {target['name']}: {e}")
+
+    def restart_node(self, target):
+        self.stop_node(target)
+        # Wait a bit before starting
+        self.root.after(1000, lambda: self.start_node(target))
 
     def target_callback(self, msg):
         for i, mid in enumerate(msg.ids):
