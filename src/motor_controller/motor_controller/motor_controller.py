@@ -604,7 +604,11 @@ def initialize_motor():
     print(f"Loaded motor limits: {motor_limits}")
 
     print("Start initializing motors")
-    for motor_id in MOTOR_IDS:
+    
+    # Create valid list of all detected motors
+    all_detected_ids = sorted(list(set(PORT0) | set(PORT1)))
+    
+    for motor_id in all_detected_ids:
         if motor_id in PORT0:
             selected_port_handler = port_handler0
         elif motor_id in PORT1:
@@ -614,24 +618,43 @@ def initialize_motor():
             continue
 
         print(f"\nInitializing motor {motor_id} on")
+        
+        # Check if motor exists in configuration
+        is_configured = f"{motor_id}" in motor_limits
+        
+        # 1. Disable Torque
         set_motor1(selected_port_handler, motor_id, ADDR_TORQUE_ENABLE, 0)
         sleep(0.1)
+        
+        # 2. Operating Mode (3: Position Control)
         set_motor1(selected_port_handler, motor_id, ADDR_OPERATING_MODE, 3)
         sleep(0.1)
-        set_motor4(selected_port_handler, motor_id, ADDR_PROFILE_VELOCITY, motor_limits[f"{motor_id}"]["vel"])
-        sleep(0.1)
-        set_motor4(selected_port_handler, motor_id, ADDR_PROFILE_ACCELERATION, motor_limits[f"{motor_id}"]["acc"])
-        sleep(0.1)
-        set_motor4(selected_port_handler, motor_id, ADDR_GOAL_POSITION, motor_limits[f"{motor_id}"]["ini"])
-        sleep(0.1)
-        set_motor4(selected_port_handler, motor_id, ADDR_MIN_POSITION_LIMIT, motor_limits[f"{motor_id}"]["min"])
-        sleep(0.1)
-        set_motor4(selected_port_handler, motor_id, ADDR_MAX_POSITION_LIMIT, motor_limits[f"{motor_id}"]["max"])
-        sleep(0.1)
+        
+        if is_configured:
+            # Full initialization for known motors
+            set_motor4(selected_port_handler, motor_id, ADDR_PROFILE_VELOCITY, motor_limits[f"{motor_id}"]["vel"])
+            sleep(0.1)
+            set_motor4(selected_port_handler, motor_id, ADDR_PROFILE_ACCELERATION, motor_limits[f"{motor_id}"]["acc"])
+            sleep(0.1)
+            set_motor4(selected_port_handler, motor_id, ADDR_GOAL_POSITION, motor_limits[f"{motor_id}"]["ini"])
+            sleep(0.1)
+            set_motor4(selected_port_handler, motor_id, ADDR_MIN_POSITION_LIMIT, motor_limits[f"{motor_id}"]["min"])
+            sleep(0.1)
+            set_motor4(selected_port_handler, motor_id, ADDR_MAX_POSITION_LIMIT, motor_limits[f"{motor_id}"]["max"])
+            sleep(0.1)
+        else:
+            # Minimal initialization for unknown/detected motors
+            print(f"[Warn] Motor {motor_id} is not in Motor_Limits.json. Enabling torque with default settings.")
+            # LED only (skip profile/limits to avoid errors)
+        
+        # 3. Enable Torque
         set_motor1(selected_port_handler, motor_id, ADDR_TORQUE_ENABLE, 1)
         sleep(0.1)
+        
+        # 4. LED
         set_motor1(selected_port_handler, motor_id, ADDR_LED, 1)
         sleep(0.1)
+        
         print(f"Finished initializing motor {motor_id}")
     print("Finished initializing motors")
 
