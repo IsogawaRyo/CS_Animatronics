@@ -22,7 +22,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'imu_receiver_node = imu_receiver.imu_receiver_node:main',
+            'imu_receiver = imu_receiver.imu_receiver_node:main',
         ],
     },
 )
