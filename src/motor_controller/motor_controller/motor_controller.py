@@ -72,7 +72,14 @@ groupSyncRead0_error = GroupSyncRead(port_handler0, packet_handler, ADDR_HARDWAR
 groupSyncRead1_error = GroupSyncRead(port_handler1, packet_handler, ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
 
 # List of motor IDs to initialize/control
-MOTOR_IDS = [11, 12, 13, 21, 22, 23, 24, 31, 32, 33, 34]
+MOTOR_IDS = [
+    11, 12, 13, 
+    21, 22, 23, 24, 
+    31, 32, 33, 34,
+    41, 42, 43, 44,
+    51, 52,
+    61, 62, 63, 64, 65, 66, 67, 68
+]
 
 class MotorController(Node):
     def __init__(self, port0_open: bool, port1_open: bool):

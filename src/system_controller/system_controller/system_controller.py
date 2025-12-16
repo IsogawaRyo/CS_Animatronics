@@ -643,20 +643,47 @@ class SystemController(Node):
         elif MODE == 0:
             # FullManual mode - always execute for continuous control
             self.get_logger().debug(f"Executing MODE==0 (FullManual) with axes: {axes[:6]}")
+            
+            # Head/Neck (existing)
             jaw = self.jaw(axes[2])
             blinkRU, blinkRL, blinkLU, blinkLL = self.blink(axes[5])
             eyeR, eyeL = self.eyes(axes[3])
             neck31, neck32, neck33, neck34 = self.neck(axes[0], axes[4], axes[1])
             
-            # Debug: Log motor command values
-            self.get_logger().info(f"Motor commands - Jaw: {jaw}, Eyes: {eyeR}/{eyeL}, Blink: {blinkRU}/{blinkRL}/{blinkLU}/{blinkLL}, Neck: {neck31}/{neck32}/{neck33}/{neck34}")
+            # Arms (New - Placeholder)
+            # Default to center/initial for now. Can map to axes later.
+            arm41, arm42, arm43, arm44 = self.arms()
             
-            ids = [11, 12, 13, 21, 22, 23, 24, 31, 32, 33, 34]
-            angles = [jaw, eyeR, eyeL, blinkRU, blinkRL, blinkLU, blinkLL, neck31, neck32, neck33, neck34]
+            # Tail (New - Placeholder)
+            tail51, tail52 = self.tail()
+            
+            # Legs (New - Placeholder)
+            leg61, leg62, leg63, leg64, leg65, leg66, leg67, leg68 = self.legs()
+
+            # Debug: Log motor command values (Sample)
+            self.get_logger().info(f"Motor commands - Jaw: {jaw}, Eyes: {eyeR}/{eyeL}, Neck: {neck31}/{neck32}")
+            
+            ids = [
+                11, 12, 13, 
+                21, 22, 23, 24, 
+                31, 32, 33, 34,
+                41, 42, 43, 44,
+                51, 52,
+                61, 62, 63, 64, 65, 66, 67, 68
+            ]
+            
+            angles = [
+                jaw, eyeR, eyeL, 
+                blinkRU, blinkRL, blinkLU, blinkLL, 
+                neck31, neck32, neck33, neck34,
+                arm41, arm42, arm43, arm44,
+                tail51, tail52,
+                leg61, leg62, leg63, leg64, leg65, leg66, leg67, leg68
+            ]
             
             # Debug: Check for None values that might become 0
-            self.get_logger().info(f"IDs before publish: {ids} (length: {len(ids)})")
-            self.get_logger().info(f"Angles before publish: {angles} (length: {len(angles)})")
+            # self.get_logger().info(f"IDs before publish: {ids} (length: {len(ids)})")
+            # self.get_logger().info(f"Angles before publish: {angles} (length: {len(angles)})")
             
             # Check if any angle is None or 0
             for i, (id_val, angle_val) in enumerate(zip(ids, angles)):
@@ -664,7 +691,7 @@ class SystemController(Node):
                     self.get_logger().error(f"  [{i}] ID: {id_val} has None angle!")
                 elif angle_val == 0:
                     self.get_logger().error(f"  [{i}] ID: {id_val} has 0 angle!")
-                self.get_logger().info(f"  [{i}] ID: {id_val} ({type(id_val)}), Angle: {angle_val} ({type(angle_val)})")
+                # self.get_logger().info(f"  [{i}] ID: {id_val} ({type(id_val)}), Angle: {angle_val} ({type(angle_val)})")
         else:
             # Default case
             ids = []
@@ -904,6 +931,33 @@ class SystemController(Node):
         neck34 = int(neck34_min + (range34//2) + (rightStick_y/2)*range34)  # Top Pitch ← 右スティック上下
         self.get_logger().debug(f"neck() returning: 31={neck31}, 32={neck32}, 33={neck33}, 34={neck34}")
         return neck31, neck32, neck33, neck34
+    
+    def arms(self):
+        # 41: 右肩, 42: 右肘, 43: 左肩, 44: 左肘
+        # Placeholder: Return initial positions
+        arm41 = self.motorLimits["41"]["ini"]
+        arm42 = self.motorLimits["42"]["ini"]
+        arm43 = self.motorLimits["43"]["ini"]
+        arm44 = self.motorLimits["44"]["ini"]
+        return arm41, arm42, arm43, arm44
+
+    def tail(self):
+        # 51: 尻尾 ベースYaw, 52: 尻尾 ミドルPitch
+        tail51 = self.motorLimits["51"]["ini"]
+        tail52 = self.motorLimits["52"]["ini"]
+        return tail51, tail52
+
+    def legs(self):
+        # 61-68: 脚
+        l61 = self.motorLimits["61"]["ini"]
+        l62 = self.motorLimits["62"]["ini"]
+        l63 = self.motorLimits["63"]["ini"]
+        l64 = self.motorLimits["64"]["ini"]
+        l65 = self.motorLimits["65"]["ini"]
+        l66 = self.motorLimits["66"]["ini"]
+        l67 = self.motorLimits["67"]["ini"]
+        l68 = self.motorLimits["68"]["ini"]
+        return l61, l62, l63, l64, l65, l66, l67, l68
     
     def play_dinosaur_sound(self, sound_id):
         """Play dinosaur sound with cooldown to prevent rapid triggering"""
