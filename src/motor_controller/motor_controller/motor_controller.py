@@ -366,42 +366,59 @@ class MotorController(Node):
         current_phase = self.read_cycle % 3
         self.read_cycle += 1
         
-        # --- Always read Position (Critical for animation/control) ---
-        pos_data = self._bulk_read_parameter(port0_motors, port1_motors, 
-                                           groupSyncRead0_pos, groupSyncRead1_pos, 
-                                           ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
-        
+        # --- DISABLED FOR PERFORMANCE (User Request) ---
+        # pos_data = self._bulk_read_parameter(port0_motors, port1_motors, 
+        #                                    groupSyncRead0_pos, groupSyncRead1_pos, 
+        #                                    ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
+        pos_data = {} # Simulating no data read
+
         # --- Interleaved Reads ---
         temp_data = {}
         torque_data = {}
         error_data = {}
         
-        if current_phase == 0:
-            # Read Temperature
-            temp_data = self._bulk_read_parameter(port0_motors, port1_motors, 
-                                                groupSyncRead0_temp, groupSyncRead1_temp, 
-                                                ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
-        elif current_phase == 1:
-            # Read Torque (Current/Load)
-            # Try to read torque from PRESENT_CURRENT first, fallback to PRESENT_LOAD
-            torque_data = self._bulk_read_parameter(port0_motors, port1_motors, 
-                                                  groupSyncRead0_current, groupSyncRead1_current, 
-                                                  ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
+        # if current_phase == 0:
+        #     # Read Temperature
+        #     temp_data = self._bulk_read_parameter(port0_motors, port1_motors, 
+        #                                         groupSyncRead0_temp, groupSyncRead1_temp, 
+        #                                         ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
+        # elif current_phase == 1:
+        #     # Read Torque (Current/Load)
+        #     # Try to read torque from PRESENT_CURRENT first, fallback to PRESENT_LOAD
+        #     torque_data = self._bulk_read_parameter(port0_motors, port1_motors, 
+        #                                           groupSyncRead0_current, groupSyncRead1_current, 
+        #                                           ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
             
-            # If current read failed, try load address
-            if not torque_data and (port0_motors or port1_motors):
-                self.get_logger().debug("PRESENT_CURRENT failed, trying PRESENT_LOAD")
-                torque_data = self._bulk_read_parameter(port0_motors, port1_motors, 
-                                                      groupSyncRead0_load, groupSyncRead1_load, 
-                                                      ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
-        elif current_phase == 2:
-            # Read Hardware Error
-            error_data = self._bulk_read_parameter(port0_motors, port1_motors,
-                                                 groupSyncRead0_error, groupSyncRead1_error,
-                                                 ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
+        #     # If current read failed, try load address
+        #     if not torque_data and (port0_motors or port1_motors):
+        #         self.get_logger().debug("PRESENT_CURRENT failed, trying PRESENT_LOAD")
+        #         torque_data = self._bulk_read_parameter(port0_motors, port1_motors, 
+        #                                               groupSyncRead0_load, groupSyncRead1_load, 
+        #                                               ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
+        # elif current_phase == 2:
+        #     # Read Hardware Error
+        #     error_data = self._bulk_read_parameter(port0_motors, port1_motors,
+        #                                          groupSyncRead0_error, groupSyncRead1_error,
+        #                                          ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
         
         # Combine data (Use read values OR cached values)
         for motor_id in requested_ids:
+            # For now, since we aren't reading position, we assume cached or 0
+            # if motor_id in pos_data: 
+            #    ids.append(motor_id)
+            #    positions.append(pos_data[motor_id]) ...
+            
+            # FORCE RETURN CACHED VALUES (or default)
+            ids.append(motor_id)
+            cached = self.motor_states_cache.get(motor_id, {})
+            positions.append(cached.get('position', self.motor_limits.get(f"{motor_id}", {}).get("ini", 2048)))
+            temperatures.append(cached.get('temperature', 25))
+            torques.append(cached.get('torque', 0))
+            error_statuses.append(cached.get('error_status', 'NO_ERROR'))
+            
+            # Skip the specific read logic below
+            continue
+
             if motor_id in pos_data: # If we can't even get position, skip this motor for now
                 ids.append(motor_id)
                 positions.append(pos_data[motor_id])

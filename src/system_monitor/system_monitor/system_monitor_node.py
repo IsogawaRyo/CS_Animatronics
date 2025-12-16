@@ -5,7 +5,7 @@
 import rclpy
 from rclpy.node import Node
 from motor_commands.msg import IdAngle
-from sensor_msgs.msg import Joy
+from sensor_msgs.msg import Joy, Imu
 from dynamixel_sdk_custom_interfaces.srv import GetPosition  # Assuming this exists based on imports in other files
 # Note: In dev branch logic, motor_controller uses GetMotorStates custom service. 
 # Checking imports in motor_controller.py: from motor_commands.srv import GetMotorStates
@@ -17,6 +17,7 @@ import threading
 import time
 import subprocess
 import os
+import math
 
 class SystemMonitor(Node):
     def __init__(self):
@@ -34,6 +35,11 @@ class SystemMonitor(Node):
         
         # Subscribe to Controller Input
         self.create_subscription(Joy, 'controller_input', self.joy_callback, 10)
+        
+        # Subscribe to IMU topics
+        self.imu_data = {0: {}, 1: {}, 2: {}}
+        for i in range(3):
+            self.create_subscription(Imu, f'imu{i}', lambda msg, idx=i: self.imu_callback(msg, idx), 10)
         
         # Service Client for Motor States
         self.get_states_client = self.create_client(GetMotorStates, 'get_motor_states')
@@ -65,6 +71,11 @@ class SystemMonitor(Node):
         self.node_tab = ttk.Frame(self.notebook)
         self.notebook.add(self.node_tab, text="Node Manager")
         self.setup_node_manager_tab(self.node_tab)
+        
+        # Tab 3: IMU Monitor
+        self.imu_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.imu_tab, text="IMU Monitor")
+        self.setup_imu_tab(self.imu_tab)
 
     def setup_motor_tab(self, parent):
         # Top Frame: System Status
@@ -128,6 +139,7 @@ class SystemMonitor(Node):
             {"name": "controller_publisher", "pkg": "controller_publisher", "exec": "controller_publisher", "cmd": "ros2 run controller_publisher controller_publisher"},
             {"name": "audio_player", "pkg": "audio_player", "exec": "audio_player", "cmd": "ros2 run audio_player audio_player"},
             {"name": "motion_editor", "pkg": "motion_editor", "exec": "motion_editor", "cmd": "ros2 run motion_editor motion_editor"},
+            {"name": "imu_receiver", "pkg": "imu_receiver", "exec": "imu_receiver", "cmd": "ros2 run imu_receiver imu_receiver"},
         ]
         
         # UI
@@ -219,6 +231,53 @@ class SystemMonitor(Node):
         # Wait a bit before starting
         self.root.after(1000, lambda: self.start_node(target))
 
+    def setup_imu_tab(self, parent):
+        frame = ttk.LabelFrame(parent, text="IMU Sensors", padding=10)
+        frame.pack(fill="both", expand=True, padx=5, pady=5)
+        
+        columns = ("Sensor", "Roll (deg)", "Pitch (deg)", "Yaw (deg)", "Acc X", "Acc Y", "Acc Z")
+        self.tree_imu = ttk.Treeview(frame, columns=columns, show="headings", height=5)
+        
+        for col in columns:
+            self.tree_imu.heading(col, text=col)
+            self.tree_imu.column(col, width=100, anchor="center")
+        
+        self.tree_imu.pack(fill="both", expand=True)
+        
+        # Init rows
+        for i in range(3):
+            self.tree_imu.insert("", "end", iid=f"imu_{i}", values=(f"IMU {i}", "-", "-", "-", "-", "-", "-"))
+
+    def imu_callback(self, msg, idx):
+        # Convert Quat to Euler
+        q = msg.orientation
+        
+        # Roll (x-axis rotation)
+        sinr_cosp = 2 * (q.w * q.x + q.y * q.z)
+        cosr_cosp = 1 - 2 * (q.x * q.x + q.y * q.y)
+        roll = math.atan2(sinr_cosp, cosr_cosp)
+
+        # Pitch (y-axis rotation)
+        sinp = 2 * (q.w * q.y - q.z * q.x)
+        if abs(sinp) >= 1:
+            pitch = math.copysign(math.pi / 2, sinp) # use 90 degrees if out of range
+        else:
+            pitch = math.asin(sinp)
+
+        # Yaw (z-axis rotation)
+        siny_cosp = 2 * (q.w * q.z + q.x * q.y)
+        cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z)
+        yaw = math.atan2(siny_cosp, cosy_cosp)
+        
+        self.imu_data[idx] = {
+            "roll": math.degrees(roll),
+            "pitch": math.degrees(pitch),
+            "yaw": math.degrees(yaw),
+            "acc_x": msg.linear_acceleration.x,
+            "acc_y": msg.linear_acceleration.y,
+            "acc_z": msg.linear_acceleration.z
+        }
+
     def target_callback(self, msg):
         for i, mid in enumerate(msg.ids):
             if i < len(msg.angles):
@@ -288,6 +347,23 @@ class SystemMonitor(Node):
         
         self.tree.tag_configure("error", background="#ffcccc")
         self.tree.tag_configure("warn", background="#ffffcc")
+
+        # Update IMU Treeview
+        if hasattr(self, 'tree_imu'):
+            for i in range(3):
+                data = self.imu_data.get(i, {})
+                if not data:
+                    continue
+                    
+                self.tree_imu.item(f"imu_{i}", values=(
+                    f"IMU {i}",
+                    f"{data.get('roll', 0):.1f}",
+                    f"{data.get('pitch', 0):.1f}",
+                    f"{data.get('yaw', 0):.1f}",
+                    f"{data.get('acc_x', 0):.2f}",
+                    f"{data.get('acc_y', 0):.2f}",
+                    f"{data.get('acc_z', 0):.2f}"
+                ))
 
         self.root.update_idletasks()
         self.root.update()
