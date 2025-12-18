@@ -1,0 +1,4664 @@
+<?xml version="1.0" ?>
+<robot name="animatronics_urdf">
+  
+
+
+  <full_expanded_include/>
+  <full_expanded_include/>
+  <link name="base_link">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.03618586841730057 0.02115360522354074 0.02340251306024288" rpy="0 0 0"/>
+      
+    
+      <mass value="1.1625557488229186"/>
+      
+    
+      <inertia ixx="0.000938" iyy="0.002962" izz="0.003287" ixy="2e-06" iyz="2.7e-05" ixz="1e-06"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XM_H_D_540_N101_I101_v3_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.016749808013820346 0.009028457000849279 -0.00868145088999644" rpy="0 0 0"/>
+      
+    
+      <mass value="0.6640277986148612"/>
+      
+    
+      <inertia ixx="0.000301" iyy="0.000169" izz="0.000249" ixy="0.0" iyz="-1e-06" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.030357 -0.007014 -0.019146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="coating_black_oxide"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.030357 -0.007014 -0.019146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XM_H_D_540_N101_I101_v3_2">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.016750191988274946 0.009028457000849279 -0.008681450889993388" rpy="0 0 0"/>
+      
+    
+      <mass value="0.6640277986148612"/>
+      
+    
+      <inertia ixx="0.000301" iyy="0.000169" izz="0.000249" ixy="0.0" iyz="-1e-06" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.102843 -0.007014 -0.019146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="coating_black_oxide"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.102843 -0.007014 -0.019146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegRotator_v6_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="1.9198613997531422e-07 -1.284085026683878e-07 -0.010567059700922777" rpy="0 0 0"/>
+      
+    
+      <mass value="0.24405971207127544"/>
+      
+    
+      <inertia ixx="0.000101" iyy="7.4e-05" izz="0.000146" ixy="0.0" iyz="0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.013607 -0.001014 0.013354" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotator_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_translucent_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.013607 -0.001014 0.013354" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotator_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegRotator_v6_2">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="1.91988235240248e-07 -1.2840847626025866e-07 -0.010567059700919723" rpy="0 0 0"/>
+      
+    
+      <mass value="0.24405971207127544"/>
+      
+    
+      <inertia ixx="0.000101" iyy="7.4e-05" izz="0.000146" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.086093 -0.001014 0.013354" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotator_v6_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_translucent_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.086093 -0.001014 0.013354" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotator_v6_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XM_H_D_540_N101_I101_v3_3">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.01674980801172686 0.008681539838898873 -0.022971197233267356" rpy="0 0 0"/>
+      
+    
+      <mass value="0.6640277986148612"/>
+      
+    
+      <inertia ixx="0.000301" iyy="0.000249" izz="0.000169" ixy="0.0" iyz="1e-06" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.069343 0.006986 0.025104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_3.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="coating_black_oxide"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.069343 0.006986 0.025104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_3.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XM_H_D_540_N101_I101_v3_4">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.016750191986177852 0.008681539838896765 -0.022971197233270436" rpy="0 0 0"/>
+      
+    
+      <mass value="0.6640277986148612"/>
+      
+    
+      <inertia ixx="0.000301" iyy="0.000249" izz="0.000169" ixy="0.0" iyz="1e-06" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.003143 0.006986 0.025104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_4.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="coating_black_oxide"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.003143 0.006986 0.025104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_4.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegRotatorB_v6_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.01675019198823348 0.007999871591589993 -0.016172873080196618" rpy="0 0 0"/>
+      
+    
+      <mass value="0.1987092807614854"/>
+      
+    
+      <inertia ixx="4.6e-05" iyy="6.9e-05" izz="8.2e-05" ixy="0.0" iyz="0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.102843 0.006986 0.057104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotatorB_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_translucent_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.102843 0.006986 0.057104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotatorB_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegRotatorB_v6_2">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.01674980801386177 0.007999871591586346 -0.01617287308019967" rpy="0 0 0"/>
+      
+    
+      <mass value="0.1987092807614854"/>
+      
+    
+      <inertia ixx="4.6e-05" iyy="6.9e-05" izz="8.2e-05" ixy="0.0" iyz="0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.030357 0.006986 0.057104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotatorB_v6_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_translucent_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.030357 0.006986 0.057104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotatorB_v6_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegSupport_v23_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.004699808197168448 0.011158439892449013 -0.06643249209345287" rpy="0 0 0"/>
+      
+    
+      <mass value="0.8102762303021998"/>
+      
+    
+      <inertia ixx="0.001384" iyy="0.001572" izz="0.000392" ixy="0.0" iyz="0.000107" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.031543 0.012736 -0.033146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegSupport_v23_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_translucent_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.031543 0.012736 -0.033146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegSupport_v23_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegA_v14_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.047109038591548046 0.03220414237281387 4.925741606265355e-09" rpy="0 0 0"/>
+      
+    
+      <mass value="0.5493340738167632"/>
+      
+    
+      <inertia ixx="0.000344" iyy="0.000441" izz="0.000524" ixy="-5.8e-05" iyz="-0.0" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.013607 0.023486 0.063104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegA_v14_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_translucent_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.013607 0.023486 0.063104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegA_v14_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegA_v14_2">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.047108654617175255 0.03220414237281689 4.29789043090989e-07" rpy="0 0 0"/>
+      
+    
+      <mass value="0.5493340738167632"/>
+      
+    
+      <inertia ixx="0.000344" iyy="0.000441" izz="0.000524" ixy="5.8e-05" iyz="0.0" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.086093 0.023486 0.063104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegA_v14_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_translucent_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.086093 0.023486 0.063104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegA_v14_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XM_H_D_540_N101_I101_v3_5">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.0073185237408467385 0.009028457000850781 0.016750217576656776" rpy="0 0 0"/>
+      
+    
+      <mass value="0.6640277986148612"/>
+      
+    
+      <inertia ixx="0.000249" iyy="0.000169" izz="0.000301" ixy="-1e-06" iyz="-0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.162593 0.013236 0.079854" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_5.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="coating_black_oxide"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.162593 0.013236 0.079854" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_5.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XM_H_D_540_N101_I101_v3_6">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.007318139766473969 0.009028457000847766 0.01675021713812795" rpy="0 0 0"/>
+      
+    
+      <mass value="0.6640277986148612"/>
+      
+    
+      <inertia ixx="0.000249" iyy="0.000169" izz="0.000301" ixy="1e-06" iyz="0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.090107 0.013236 0.079854" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_6.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="coating_black_oxide"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.090107 0.013236 0.079854" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_6.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegBone_v20_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.02449980801385991 -0.024688105715743588 -0.0294217664728601" rpy="0 0 0"/>
+      
+    
+      <mass value="0.05398290846317431"/>
+      
+    
+      <inertia ixx="2.3e-05" iyy="3.9e-05" izz="3.9e-05" ixy="-0.0" iyz="-1e-06" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.106607 0.019236 0.063104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_translucent_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.106607 0.019236 0.063104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegBone_v20_2">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.02450019198823533 -0.024688105715738765 -0.02942176603425646" rpy="0 0 0"/>
+      
+    
+      <mass value="0.05398290846317431"/>
+      
+    
+      <inertia ixx="2.3e-05" iyy="3.9e-05" izz="3.9e-05" ixy="-0.0" iyz="-1e-06" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.179093 0.019236 0.063104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_translucent_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.179093 0.019236 0.063104" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XM_H_D_540_N101_I101_v3_7">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.007318523740845045 -0.02759697744680007 -0.006830529080052966" rpy="0 0 0"/>
+      
+    
+      <mass value="0.6640277986148612"/>
+      
+    
+      <inertia ixx="0.000249" iyy="0.000247" izz="0.000224" ixy="-1e-06" iyz="-6.5e-05" ixz="-1e-06"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.162593 0.037098 0.110449" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_7.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="coating_black_oxide"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.162593 0.037098 0.110449" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_7.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XM_H_D_540_N101_I101_v3_8">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.0073181397664756065 -0.02759697744686563 -0.006830529518605757" rpy="0 0 0"/>
+      
+    
+      <mass value="0.6640277986148612"/>
+      
+    
+      <inertia ixx="0.000249" iyy="0.000247" izz="0.000224" ixy="1e-06" iyz="-6.5e-05" ixz="1e-06"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.090107 0.037098 0.110449" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_8.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="coating_black_oxide"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.090107 0.037098 0.110449" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_8.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegBone_v20_3">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.0245001919882335 0.02942181767188322 -0.024688070728042244" rpy="0 0 0"/>
+      
+    
+      <mass value="0.05398290846317431"/>
+      
+    
+      <inertia ixx="2.3e-05" iyy="3.9e-05" izz="3.9e-05" ixy="0.0" iyz="1e-06" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.179093 0.074355 0.128792" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_3.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_translucent_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.179093 0.074355 0.128792" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_3.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegBone_v20_4">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.024499808013861757 0.029421817671874628 -0.024688071166645786" rpy="0 0 0"/>
+      
+    
+      <mass value="0.05398290846317431"/>
+      
+    
+      <inertia ixx="2.3e-05" iyy="3.9e-05" izz="3.9e-05" ixy="0.0" iyz="1e-06" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.106607 0.074355 0.128792" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_4.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_translucent_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.106607 0.074355 0.128792" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_4.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XM_H_D_540_N101_I101_v3_9">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.007318523740843297 0.00683058071767979 -0.02759694245910352" rpy="0 0 0"/>
+      
+    
+      <mass value="0.6640277986148612"/>
+      
+    
+      <inertia ixx="0.000249" iyy="0.000224" izz="0.000247" ixy="1e-06" iyz="6.5e-05" ixz="-1e-06"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.162593 0.02701 0.146654" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_9.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="coating_black_oxide"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.162593 0.02701 0.146654" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_9.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XM_H_D_540_N101_I101_v3_10">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.007318139766477341 0.006830580717620251 -0.02759694289776779" rpy="0 0 0"/>
+      
+    
+      <mass value="0.6640277986148612"/>
+      
+    
+      <inertia ixx="0.000249" iyy="0.000224" izz="0.000247" ixy="-1e-06" iyz="6.5e-05" ixz="1e-06"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.090107 0.02701 0.146654" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_10.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="coating_black_oxide"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.090107 0.02701 0.146654" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_10.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegEnd_v9_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.024499808013865976 -0.038785127615761604 -0.03724035116585725" rpy="0 0 0"/>
+      
+    
+      <mass value="0.9273789886597064"/>
+      
+    
+      <inertia ixx="0.000633" iyy="0.000524" izz="0.00072" ixy="0.0" iyz="-0.000127" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.106607 0.008667 0.183911" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEnd_v9_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.106607 0.008667 0.183911" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEnd_v9_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegEnd_v9_2">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.024500191988229225 -0.0387851276157489 -0.03724035072725382" rpy="0 0 0"/>
+      
+    
+      <mass value="0.9273789886597064"/>
+      
+    
+      <inertia ixx="0.000633" iyy="0.000524" izz="0.00072" ixy="0.0" iyz="-0.000127" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.179093 0.008667 0.183911" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEnd_v9_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.179093 0.008667 0.183911" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEnd_v9_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="Adafruit_BNO055_STEMMA_QT_v1_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.006940527994741014 -0.010126689610723355 0.0004230196716287493" rpy="0 0 0"/>
+      
+    
+      <mass value="0.00405513265943766"/>
+      
+    
+      <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.074487 0.075882 0.23096" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Adafruit_BNO055_STEMMA_QT_v1_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="steel_satin"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.074487 0.075882 0.23096" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Adafruit_BNO055_STEMMA_QT_v1_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="Adafruit_BNO055_STEMMA_QT_v1_2">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.00694052799683606 -0.01012668961070999 0.0004230201102297937" rpy="0 0 0"/>
+      
+    
+      <mass value="0.00405513265943766"/>
+      
+    
+      <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.162213 0.075882 0.23096" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Adafruit_BNO055_STEMMA_QT_v1_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="steel_satin"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.162213 0.075882 0.23096" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Adafruit_BNO055_STEMMA_QT_v1_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegEndCover_v6_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="2.750071441404156e-07 0.028814878815024425 -0.00043555149403048943" rpy="0 0 0"/>
+      
+    
+      <mass value="0.9092294823900438"/>
+      
+    
+      <inertia ixx="0.00045" iyy="0.000617" izz="0.000738" ixy="-0.0" iyz="-4.2e-05" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.154593 0.108489 0.23096" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEndCover_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="nylon_12_with_formlabs_fuse_1_3d_printer"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.154593 0.108489 0.23096" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEndCover_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="LegEndCover_v6_2">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="2.7500504892752353e-07 0.028814878815010964 -0.00043555193263206116" rpy="0 0 0"/>
+      
+    
+      <mass value="0.9092294823900438"/>
+      
+    
+      <inertia ixx="0.00045" iyy="0.000617" izz="0.000738" ixy="-0.0" iyz="-4.2e-05" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.082107 0.108489 0.23096" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEndCover_v6_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="nylon_12_with_formlabs_fuse_1_3d_printer"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.082107 0.108489 0.23096" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEndCover_v6_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="Neck2body_v96_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.00023867927205692419 -0.11770554565919725 0.015839751599379677" rpy="0 0 0"/>
+      
+    
+      <mass value="1.7867840105882806"/>
+      
+    
+      <inertia ixx="0.008101" iyy="0.003104" izz="0.010055" ixy="0.000405" iyz="0.000264" ixz="-4.8e-05"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.036243 -0.048764 -0.041146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Neck2body_v96_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="abs_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.036243 -0.048764 -0.041146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Neck2body_v96_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="Adafruit_BNO055_STEMMA_QT_v1_3">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.008299855976356942 -0.010193555244527398 -0.0012270115319195085" rpy="0 0 0"/>
+      
+    
+      <mass value="0.00405513265943766"/>
+      
+    
+      <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.043863 0.020916 -0.036146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Adafruit_BNO055_STEMMA_QT_v1_3.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="steel_satin"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.043863 0.020916 -0.036146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Adafruit_BNO055_STEMMA_QT_v1_3.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="RASPBERRY_PI_5_cooler_v2_v4_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.005412595914291142 0.046910383000261124 -0.02491218106760336" rpy="0 0 0"/>
+      
+    
+      <mass value="0.20912380251805354"/>
+      
+    
+      <inertia ixx="0.000185" iyy="5.2e-05" izz="0.000142" ixy="1e-05" iyz="-1e-06" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.010757 0.084121 -0.101146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/RASPBERRY_PI_5+cooler_v2_v4_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="opaque198193188"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.010757 0.084121 -0.101146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/RASPBERRY_PI_5+cooler_v2_v4_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XL_430_new_v5_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.0053339236785447134 0.008007990363849166 0.02291763476197308" rpy="0 0 0"/>
+      
+    
+      <mass value="0.33677880262575866"/>
+      
+    
+      <inertia ixx="8.2e-05" iyy="9.4e-05" izz="5.5e-05" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.007757 0.154986 -0.049146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="silver_default"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.007757 0.154986 -0.049146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XL_430_new_v5_2">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.0053339236785447134 0.008007990363849152 0.02291763476197308" rpy="0 0 0"/>
+      
+    
+      <mass value="0.33677880262575866"/>
+      
+    
+      <inertia ixx="8.2e-05" iyy="9.4e-05" izz="5.5e-05" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="-0.007757 0.126486 -0.049146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="silver_default"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="-0.007757 0.126486 -0.049146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XL_430_new_v5_3">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.005334307648472314 0.00799175289367779 0.02291763476197308" rpy="0 0 0"/>
+      
+    
+      <mass value="0.33677880262575866"/>
+      
+    
+      <inertia ixx="8.2e-05" iyy="9.4e-05" izz="5.5e-05" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.080243 0.154986 -0.049146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_3.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="silver_default"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.080243 0.154986 -0.049146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_3.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XL_430_new_v5_5">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.017665690712399967 -0.020332711003908766 0.011008336129730963" rpy="0 0 0"/>
+      
+    
+      <mass value="0.33677880262575866"/>
+      
+    
+      <inertia ixx="8.2e-05" iyy="5.5e-05" izz="9.4e-05" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.015143 0.091236 -0.049396" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_5.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="silver_default"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.015143 0.091236 -0.049396" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_5.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="GearNeck_v10_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.002594526938179152 -1.28408489508125e-07 2.1751788997076416e-07" rpy="0 0 0"/>
+      
+    
+      <mass value="0.014297337764134846"/>
+      
+    
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.051143 0.123236 -0.060396" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/GearNeck_v10_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="steel_satin"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.051143 0.123236 -0.060396" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/GearNeck_v10_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="GearNeck_v10_2">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.002594912547234478 -1.2833398366218773e-07 2.1719689478200133e-07" rpy="0 0 0"/>
+      
+    
+      <mass value="0.014297337764134846"/>
+      
+    
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0.0" iyz="0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.055243 0.146986 -0.060396" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/GearNeck_v10_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="steel_satin"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.055243 0.146986 -0.060396" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/GearNeck_v10_2.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="AxisNeckR_v10_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.007963665649928106 -0.031807643326297444 0.005868294786163922" rpy="0 0 0"/>
+      
+    
+      <mass value="0.20930816004864805"/>
+      
+    
+      <inertia ixx="8.4e-05" iyy="2.6e-05" izz="0.000105" ixy="5e-06" iyz="-0.0" ixz="-1e-06"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.064243 0.100236 -0.095646" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/AxisNeckR_v10_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="abs_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.064243 0.100236 -0.095646" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/AxisNeckR_v10_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="AxisNeckL_v13_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.007966697143536473 -0.03181041820671192 0.00586697694855802" rpy="0 0 0"/>
+      
+    
+      <mass value="0.209355949279399"/>
+      
+    
+      <inertia ixx="8.4e-05" iyy="2.6e-05" izz="0.000105" ixy="-5e-06" iyz="-0.0" ixz="1e-06"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.008243 0.100236 -0.095646" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/AxisNeckL_v13_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="abs_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.008243 0.100236 -0.095646" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/AxisNeckL_v13_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="NeckJointH_v23_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.017149373046778663 0.00488436101760803 -0.006137743784159516" rpy="0 0 0"/>
+      
+    
+      <mass value="0.44634174774413005"/>
+      
+    
+      <inertia ixx="0.000147" iyy="0.000117" izz="0.000121" ixy="0.0" iyz="-2.3e-05" ixz="-1e-06"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.019243 0.149986 -0.101896" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckJointH_v23_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="steel_satin"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.019243 0.149986 -0.101896" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckJointH_v23_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XL_430_new_v5_6">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="8.310757302384952e-06 -0.016204428694530704 0.01714622038468079" rpy="0 0 0"/>
+      
+    
+      <mass value="0.33677880262575866"/>
+      
+    
+      <inertia ixx="9.4e-05" iyy="6.9e-05" izz="6.8e-05" ixy="-0.0" iyz="1.4e-05" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.036243 0.154936 -0.106846" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_6.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="silver_default"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.036243 0.154936 -0.106846" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_6.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="NeckMidGearB_v13_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.01197940123933467 0.00621735157580991 0.006218217369785811" rpy="0 0 0"/>
+      
+    
+      <mass value="0.14220453425486923"/>
+      
+    
+      <inertia ixx="4e-05" iyy="4.3e-05" izz="4.3e-05" ixy="1.1e-05" iyz="-5e-06" ixz="1.1e-05"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.036243 0.193296 -0.118336" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckMidGearB_v13_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="steel_satin"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.036243 0.193296 -0.118336" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckMidGearB_v13_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="NeckMidGearHolder_v6_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.014350175306020299 -0.011434301673799635 0.0029483892992496485" rpy="0 0 0"/>
+      
+    
+      <mass value="0.063161529786995"/>
+      
+    
+      <inertia ixx="1e-05" iyy="1.9e-05" izz="1.9e-05" ixy="0.0" iyz="-2e-06" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.050493 0.17279 -0.133186" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckMidGearHolder_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="abs_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.050493 0.17279 -0.133186" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckMidGearHolder_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="NeckMidGearAxis_v6_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="1.9198497587524788e-07 0.00037907096834555176 -0.00037898193783350576" rpy="0 0 0"/>
+      
+    
+      <mass value="0.02076155413049806"/>
+      
+    
+      <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.036143 0.189938 -0.141848" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckMidGearAxis_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="abs_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.036143 0.189938 -0.141848" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckMidGearAxis_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="NeckTop_v17_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.005239100058572636 -0.0033718132086477948 0.0033716500135997085" rpy="0 0 0"/>
+      
+    
+      <mass value="0.325166045089014"/>
+      
+    
+      <inertia ixx="0.000133" iyy="0.000149" izz="0.000149" ixy="2.8e-05" iyz="3.7e-05" ixz="-2.8e-05"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.036143 0.192059 -0.143969" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckTop_v17_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="abs_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.036143 0.192059 -0.143969" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckTop_v17_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="2XC_430_v6_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.01903865068848399 3.935988651596056e-05 0.011999715458556048" rpy="0 0 0"/>
+      
+    
+      <mass value="0.09031899704975468"/>
+      
+    
+      <inertia ixx="2.7e-05" iyy="2.7e-05" izz="2.3e-05" ixy="0.0" iyz="0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.017143 0.226774 -0.178684" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/2XC-430_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="steel_satin"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.017143 0.226774 -0.178684" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/2XC-430_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="HeadJoint2_v6_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="1.8663861355711076e-07 0.00589365301525957 0.007684927127648955" rpy="0 0 0"/>
+      
+    
+      <mass value="0.01706262563442855"/>
+      
+    
+      <inertia ixx="8e-06" iyy="8e-06" izz="1.1e-05" ixy="-0.0" iyz="-2e-06" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.036143 0.245774 -0.202684" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/HeadJoint2_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.036143 0.245774 -0.202684" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/HeadJoint2_v6_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="HeadMainPlate_v4_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="-0.028694945218993687 -0.06759658972431815 -0.0025007172920401" rpy="0 0 0"/>
+      
+    
+      <mass value="0.4432124636647733"/>
+      
+    
+      <inertia ixx="0.000755" iyy="0.000151" izz="0.000889" ixy="6e-06" iyz="-4e-06" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.007643 0.251274 -0.188684" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/HeadMainPlate_v4_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="opaque160160160"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.007643 0.251274 -0.188684" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/HeadMainPlate_v4_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XL_430_new_v5_7">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.016334307496024547 -0.020332120131896003 -0.010992254305596666" rpy="0 0 0"/>
+      
+    
+      <mass value="0.33677880262575866"/>
+      
+    
+      <inertia ixx="8.2e-05" iyy="5.5e-05" izz="9.4e-05" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.053143 0.250274 -0.179184" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_7.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="silver_default"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.053143 0.250274 -0.179184" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_7.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="Jaw_v4_1">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.01900019205258474 -0.05115491556929419 -0.007871104992652672" rpy="0 0 0"/>
+      
+    
+      <mass value="0.013503357228386527"/>
+      
+    
+      <inertia ixx="1.2e-05" iyy="3e-06" izz="1.4e-05" ixy="-0.0" iyz="-1e-06" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.055143 0.282274 -0.168184" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Jaw_v4_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="plastic_glossy_white"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.055143 0.282274 -0.168184" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Jaw_v4_1.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <link name="XL_430_new_v5_8">
+    
+  
+    <inertial>
+      
+    
+      <origin xyz="0.005334307648472314 0.007991752893677775 0.02291763476197308" rpy="0 0 0"/>
+      
+    
+      <mass value="0.33677880262575866"/>
+      
+    
+      <inertia ixx="8.2e-05" iyy="9.4e-05" izz="5.5e-05" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+      
+  
+    </inertial>
+    
+  
+    <visual>
+      
+    
+      <origin xyz="0.080243 0.126486 -0.049146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_8.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+    
+      <material name="silver_default"/>
+      
+  
+    </visual>
+    
+  
+    <collision>
+      
+    
+      <origin xyz="0.080243 0.126486 -0.049146" rpy="0 0 0"/>
+      
+    
+      <geometry>
+        
+      
+        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_8.stl" scale="0.001 0.001 0.001"/>
+        
+    
+      </geometry>
+      
+  
+    </collision>
+    
+
+  </link>
+  
+
+
+  <joint name="Rigid_1" type="fixed">
+    
+  
+    <origin xyz="0.030357 0.007014 0.019146" rpy="0 0 0"/>
+    
+  
+    <parent link="base_link"/>
+    
+  
+    <child link="XM_H_D_540_N101_I101_v3_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_2" type="fixed">
+    
+  
+    <origin xyz="-0.102843 0.007014 0.019146" rpy="0 0 0"/>
+    
+  
+    <parent link="base_link"/>
+    
+  
+    <child link="XM_H_D_540_N101_I101_v3_2"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_3" type="continuous">
+    
+  
+    <origin xyz="-0.01675 -0.006 -0.0325" rpy="0 0 0"/>
+    
+  
+    <parent link="XM_H_D_540_N101_I101_v3_1"/>
+    
+  
+    <child link="LegRotator_v6_1"/>
+    
+  
+    <axis xyz="0.0 0.0 1.0"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_4" type="continuous">
+    
+  
+    <origin xyz="0.01675 -0.006 -0.0325" rpy="0 0 0"/>
+    
+  
+    <parent link="XM_H_D_540_N101_I101_v3_2"/>
+    
+  
+    <child link="LegRotator_v6_2"/>
+    
+  
+    <axis xyz="0.0 0.0 1.0"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_5" type="fixed">
+    
+  
+    <origin xyz="0.01675 -0.008 -0.01175" rpy="0 0 0"/>
+    
+  
+    <parent link="LegRotator_v6_2"/>
+    
+  
+    <child link="XM_H_D_540_N101_I101_v3_3"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_6" type="fixed">
+    
+  
+    <origin xyz="-0.01675 -0.008 -0.01175" rpy="0 0 0"/>
+    
+  
+    <parent link="LegRotator_v6_1"/>
+    
+  
+    <child link="XM_H_D_540_N101_I101_v3_4"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_7" type="fixed">
+    
+  
+    <origin xyz="-0.0335 0.0 -0.032" rpy="0 0 0"/>
+    
+  
+    <parent link="XM_H_D_540_N101_I101_v3_3"/>
+    
+  
+    <child link="LegRotatorB_v6_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_8" type="fixed">
+    
+  
+    <origin xyz="0.0335 0.0 -0.032" rpy="0 0 0"/>
+    
+  
+    <parent link="XM_H_D_540_N101_I101_v3_4"/>
+    
+  
+    <child link="LegRotatorB_v6_2"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_9" type="fixed">
+    
+  
+    <origin xyz="-0.031543 -0.012736 0.033146" rpy="0 0 0"/>
+    
+  
+    <parent link="base_link"/>
+    
+  
+    <child link="LegSupport_v23_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_10" type="revolute">
+    
+  
+    <origin xyz="0.01675 -0.0165 -0.038" rpy="0 0 0"/>
+    
+  
+    <parent link="XM_H_D_540_N101_I101_v3_4"/>
+    
+  
+    <child link="LegA_v14_1"/>
+    
+  
+    <axis xyz="-0.0 -1.0 0.0"/>
+    
+  
+    <limit upper="0.0" lower="-1.570796" effort="100" velocity="100"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_11" type="revolute">
+    
+  
+    <origin xyz="-0.01675 -0.0165 -0.038" rpy="0 0 0"/>
+    
+  
+    <parent link="XM_H_D_540_N101_I101_v3_3"/>
+    
+  
+    <child link="LegA_v14_2"/>
+    
+  
+    <axis xyz="0.0 -1.0 -0.0"/>
+    
+  
+    <limit upper="1.570796" lower="0.0" effort="100" velocity="100"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_12" type="fixed">
+    
+  
+    <origin xyz="-0.0765 0.01025 -0.01675" rpy="0 0 0"/>
+    
+  
+    <parent link="LegA_v14_2"/>
+    
+  
+    <child link="XM_H_D_540_N101_I101_v3_5"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_13" type="fixed">
+    
+  
+    <origin xyz="0.0765 0.01025 -0.01675" rpy="0 0 0"/>
+    
+  
+    <parent link="LegA_v14_1"/>
+    
+  
+    <child link="XM_H_D_540_N101_I101_v3_6"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_14" type="revolute">
+    
+  
+    <origin xyz="0.0165 -0.006 0.01675" rpy="0 0 0"/>
+    
+  
+    <parent link="XM_H_D_540_N101_I101_v3_6"/>
+    
+  
+    <child link="LegBone_v20_1"/>
+    
+  
+    <axis xyz="-1.0 0.0 0.0"/>
+    
+  
+    <limit upper="0.872665" lower="-0.698132" effort="100" velocity="100"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_15" type="revolute">
+    
+  
+    <origin xyz="-0.0165 -0.006 0.01675" rpy="0 0 0"/>
+    
+  
+    <parent link="XM_H_D_540_N101_I101_v3_5"/>
+    
+  
+    <child link="LegBone_v20_2"/>
+    
+  
+    <axis xyz="1.0 0.0 -0.0"/>
+    
+  
+    <limit upper="0.698132" lower="-0.872665" effort="100" velocity="100"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_16" type="fixed">
+    
+  
+    <origin xyz="0.0165 -0.017862 -0.047345" rpy="0 0 0"/>
+    
+  
+    <parent link="LegBone_v20_2"/>
+    
+  
+    <child link="XM_H_D_540_N101_I101_v3_7"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_17" type="fixed">
+    
+  
+    <origin xyz="-0.0165 -0.017862 -0.047345" rpy="0 0 0"/>
+    
+  
+    <parent link="LegBone_v20_1"/>
+    
+  
+    <child link="XM_H_D_540_N101_I101_v3_8"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_18" type="revolute">
+    
+  
+    <origin xyz="-0.0165 -0.037257 -0.018343" rpy="0 0 0"/>
+    
+  
+    <parent link="XM_H_D_540_N101_I101_v3_7"/>
+    
+  
+    <child link="LegBone_v20_3"/>
+    
+  
+    <axis xyz="1.0 0.0 -0.0"/>
+    
+  
+    <limit upper="0.0" lower="-1.570796" effort="100" velocity="100"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_19" type="revolute">
+    
+  
+    <origin xyz="0.0165 -0.037257 -0.018343" rpy="0 0 0"/>
+    
+  
+    <parent link="XM_H_D_540_N101_I101_v3_8"/>
+    
+  
+    <child link="LegBone_v20_4"/>
+    
+  
+    <axis xyz="-1.0 0.0 0.0"/>
+    
+  
+    <limit upper="1.570796" lower="0.0" effort="100" velocity="100"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_20" type="fixed">
+    
+  
+    <origin xyz="0.0165 0.047345 -0.017862" rpy="0 0 0"/>
+    
+  
+    <parent link="LegBone_v20_3"/>
+    
+  
+    <child link="XM_H_D_540_N101_I101_v3_9"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_21" type="fixed">
+    
+  
+    <origin xyz="-0.0165 0.047345 -0.017862" rpy="0 0 0"/>
+    
+  
+    <parent link="LegBone_v20_4"/>
+    
+  
+    <child link="XM_H_D_540_N101_I101_v3_10"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_22" type="revolute">
+    
+  
+    <origin xyz="0.0165 0.018343 -0.037257" rpy="0 0 0"/>
+    
+  
+    <parent link="XM_H_D_540_N101_I101_v3_10"/>
+    
+  
+    <child link="LegEnd_v9_1"/>
+    
+  
+    <axis xyz="-1.0 0.0 0.0"/>
+    
+  
+    <limit upper="0.0" lower="-1.570796" effort="100" velocity="100"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_23" type="revolute">
+    
+  
+    <origin xyz="-0.0165 0.018343 -0.037257" rpy="0 0 0"/>
+    
+  
+    <parent link="XM_H_D_540_N101_I101_v3_9"/>
+    
+  
+    <child link="LegEnd_v9_2"/>
+    
+  
+    <axis xyz="1.0 0.0 -0.0"/>
+    
+  
+    <limit upper="1.570796" lower="0.0" effort="100" velocity="100"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_24" type="fixed">
+    
+  
+    <origin xyz="-0.03212 -0.067215 -0.047049" rpy="0 0 0"/>
+    
+  
+    <parent link="LegEnd_v9_1"/>
+    
+  
+    <child link="Adafruit_BNO055_STEMMA_QT_v1_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_25" type="fixed">
+    
+  
+    <origin xyz="0.01688 -0.067215 -0.047049" rpy="0 0 0"/>
+    
+  
+    <parent link="LegEnd_v9_2"/>
+    
+  
+    <child link="Adafruit_BNO055_STEMMA_QT_v1_2"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_26" type="fixed">
+    
+  
+    <origin xyz="0.0245 -0.099822 -0.047049" rpy="0 0 0"/>
+    
+  
+    <parent link="LegEnd_v9_2"/>
+    
+  
+    <child link="LegEndCover_v6_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_27" type="fixed">
+    
+  
+    <origin xyz="-0.0245 -0.099822 -0.047049" rpy="0 0 0"/>
+    
+  
+    <parent link="LegEnd_v9_1"/>
+    
+  
+    <child link="LegEndCover_v6_2"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_28" type="fixed">
+    
+  
+    <origin xyz="-0.036243 0.048764 0.041146" rpy="0 0 0"/>
+    
+  
+    <parent link="base_link"/>
+    
+  
+    <child link="Neck2body_v96_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_29" type="fixed">
+    
+  
+    <origin xyz="-0.00762 -0.06968 -0.005" rpy="0 0 0"/>
+    
+  
+    <parent link="Neck2body_v96_1"/>
+    
+  
+    <child link="Adafruit_BNO055_STEMMA_QT_v1_3"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_30" type="fixed">
+    
+  
+    <origin xyz="0.047 -0.132885 0.06" rpy="0 0 0"/>
+    
+  
+    <parent link="Neck2body_v96_1"/>
+    
+  
+    <child link="RASPBERRY_PI_5_cooler_v2_v4_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_31" type="fixed">
+    
+  
+    <origin xyz="0.044 -0.20375 0.008" rpy="0 0 0"/>
+    
+  
+    <parent link="Neck2body_v96_1"/>
+    
+  
+    <child link="XL_430_new_v5_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_32" type="fixed">
+    
+  
+    <origin xyz="0.044 -0.17525 0.008" rpy="0 0 0"/>
+    
+  
+    <parent link="Neck2body_v96_1"/>
+    
+  
+    <child link="XL_430_new_v5_2"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_33" type="fixed">
+    
+  
+    <origin xyz="-0.044 -0.20375 0.008" rpy="0 0 0"/>
+    
+  
+    <parent link="Neck2body_v96_1"/>
+    
+  
+    <child link="XL_430_new_v5_3"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_35" type="fixed">
+    
+  
+    <origin xyz="0.0211 -0.14 0.00825" rpy="0 0 0"/>
+    
+  
+    <parent link="Neck2body_v96_1"/>
+    
+  
+    <child link="XL_430_new_v5_5"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_36" type="continuous">
+    
+  
+    <origin xyz="-0.036 -0.032 0.011" rpy="0 0 0"/>
+    
+  
+    <parent link="XL_430_new_v5_5"/>
+    
+  
+    <child link="GearNeck_v10_1"/>
+    
+  
+    <axis xyz="-1.0 -0.0 -0.0"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_37" type="continuous">
+    
+  
+    <origin xyz="0.025 0.008 0.01125" rpy="0 0 0"/>
+    
+  
+    <parent link="XL_430_new_v5_3"/>
+    
+  
+    <child link="GearNeck_v10_2"/>
+    
+  
+    <axis xyz="1.0 0.0 0.0"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_38" type="fixed">
+    
+  
+    <origin xyz="-0.028 -0.149 0.0545" rpy="0 0 0"/>
+    
+  
+    <parent link="Neck2body_v96_1"/>
+    
+  
+    <child link="AxisNeckR_v10_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_39" type="fixed">
+    
+  
+    <origin xyz="0.028 -0.149 0.0545" rpy="0 0 0"/>
+    
+  
+    <parent link="Neck2body_v96_1"/>
+    
+  
+    <child link="AxisNeckL_v13_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_40" type="revolute">
+    
+  
+    <origin xyz="0.017 -0.19875 0.06075" rpy="0 0 0"/>
+    
+  
+    <parent link="Neck2body_v96_1"/>
+    
+  
+    <child link="NeckJointH_v23_1"/>
+    
+  
+    <axis xyz="1.0 0.0 0.0"/>
+    
+  
+    <limit upper="0.349066" lower="-1.396263" effort="100" velocity="100"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_41" type="fixed">
+    
+  
+    <origin xyz="-0.017 -0.00495 0.00495" rpy="0 0 0"/>
+    
+  
+    <parent link="NeckJointH_v23_1"/>
+    
+  
+    <child link="XL_430_new_v5_6"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_42" type="revolute">
+    
+  
+    <origin xyz="0.0 -0.03836 0.01149" rpy="0 0 0"/>
+    
+  
+    <parent link="XL_430_new_v5_6"/>
+    
+  
+    <child link="NeckMidGearB_v13_1"/>
+    
+  
+    <axis xyz="0.0 -0.707107 -0.707107"/>
+    
+  
+    <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_43" type="fixed">
+    
+  
+    <origin xyz="-0.01425 -0.017854 0.02634" rpy="0 0 0"/>
+    
+  
+    <parent link="XL_430_new_v5_6"/>
+    
+  
+    <child link="NeckMidGearHolder_v6_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_44" type="continuous">
+    
+  
+    <origin xyz="0.01435 -0.017148 0.008662" rpy="0 0 0"/>
+    
+  
+    <parent link="NeckMidGearHolder_v6_1"/>
+    
+  
+    <child link="NeckMidGearAxis_v6_1"/>
+    
+  
+    <axis xyz="-0.0 0.707107 -0.707107"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_45" type="fixed">
+    
+  
+    <origin xyz="0.0 -0.002121 0.002121" rpy="0 0 0"/>
+    
+  
+    <parent link="NeckMidGearAxis_v6_1"/>
+    
+  
+    <child link="NeckTop_v17_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_46" type="continuous">
+    
+  
+    <origin xyz="0.019 -0.034715 0.034715" rpy="0 0 0"/>
+    
+  
+    <parent link="NeckTop_v17_1"/>
+    
+  
+    <child link="2XC_430_v6_1"/>
+    
+  
+    <axis xyz="-1.0 -0.0 -0.0"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_47" type="continuous">
+    
+  
+    <origin xyz="-0.019 -0.019 0.024" rpy="0 0 0"/>
+    
+  
+    <parent link="2XC_430_v6_1"/>
+    
+  
+    <child link="HeadJoint2_v6_1"/>
+    
+  
+    <axis xyz="0.0 -1.0 -0.0"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_48" type="fixed">
+    
+  
+    <origin xyz="0.0285 -0.0055 -0.014" rpy="0 0 0"/>
+    
+  
+    <parent link="HeadJoint2_v6_1"/>
+    
+  
+    <child link="HeadMainPlate_v4_1"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_49" type="fixed">
+    
+  
+    <origin xyz="-0.0455 0.001 -0.0095" rpy="0 0 0"/>
+    
+  
+    <parent link="HeadMainPlate_v4_1"/>
+    
+  
+    <child link="XL_430_new_v5_7"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Revolute_50" type="revolute">
+    
+  
+    <origin xyz="-0.002 -0.032 -0.011" rpy="0 0 0"/>
+    
+  
+    <parent link="XL_430_new_v5_7"/>
+    
+  
+    <child link="Jaw_v4_1"/>
+    
+  
+    <axis xyz="-1.0 -0.0 -0.0"/>
+    
+  
+    <limit upper="0.0" lower="-1.308997" effort="100" velocity="100"/>
+    
+
+  </joint>
+  
+
+
+  <joint name="Rigid_51" type="fixed">
+    
+  
+    <origin xyz="-0.044 -0.17525 0.008" rpy="0 0 0"/>
+    
+  
+    <parent link="Neck2body_v96_1"/>
+    
+  
+    <child link="XL_430_new_v5_8"/>
+    
+
+  </joint>
+  
+
+
+  <material name="silver_default">
+    
+  
+    <color rgba="0.700 0.700 0.700 1.000"/>
+    
+
+  </material>
+  
+
+  <material name="plastic_glossy_white">
+    
+  
+    <color rgba="0.9647058823529412 0.9647058823529412 0.9529411764705882 1.0"/>
+    
+
+  </material>
+  
+
+  <material name="coating_black_oxide">
+    
+  
+    <color rgba="0.17254901960784313 0.17254901960784313 0.17254901960784313 1.0"/>
+    
+
+  </material>
+  
+
+  <material name="plastic_translucent_glossy_white">
+    
+  
+    <color rgba="0.9647058823529412 0.9647058823529412 0.9529411764705882 1.0"/>
+    
+
+  </material>
+  
+
+  <material name="steel_satin">
+    
+  
+    <color rgba="0.6274509803921569 0.6274509803921569 0.6274509803921569 1.0"/>
+    
+
+  </material>
+  
+
+  <material name="nylon_12_with_formlabs_fuse_1_3d_printer">
+    
+  
+    <color rgba="0.24705882352941178 0.24705882352941178 0.24705882352941178 1.0"/>
+    
+
+  </material>
+  
+
+  <material name="abs_white">
+    
+  
+    <color rgba="0.9647058823529412 0.9647058823529412 0.9529411764705882 1.0"/>
+    
+
+  </material>
+  
+
+  <material name="opaque198193188">
+    
+  
+    <color rgba="0.7764705882352941 0.7568627450980392 0.7372549019607844 1.0"/>
+    
+
+  </material>
+  
+
+  <material name="opaque160160160">
+    
+  
+    <color rgba="0.6274509803921569 0.6274509803921569 0.6274509803921569 1.0"/>
+    
+
+  </material>
+  
+
+
+  <transmission name="Revolute_3_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_3">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_3_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_4_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_4">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_4_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_10_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_10">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_10_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_11_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_11">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_11_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_14_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_14">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_14_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_15_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_15">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_15_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_18_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_18">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_18_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_19_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_19">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_19_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_22_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_22">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_22_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_23_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_23">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_23_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_36_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_36">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_36_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_37_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_37">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_37_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_40_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_40">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_40_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_42_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_42">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_42_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_44_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_44">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_44_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_46_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_46">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_46_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_47_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_47">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_47_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <transmission name="Revolute_50_tran">
+    
+  
+    <type>transmission_interface/SimpleTransmission</type>
+    
+  
+    <joint name="Revolute_50">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+  
+    </joint>
+    
+  
+    <actuator name="Revolute_50_actr">
+      
+    
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      
+    
+      <mechanicalReduction>1</mechanicalReduction>
+      
+  
+    </actuator>
+    
+
+  </transmission>
+  
+
+
+  <link name="imu_link 1"/>
+  <joint name="imu_link 1_joint" type="fixed">
+    <parent link="Adafruit_BNO055_STEMMA_QT_v1_1"/>
+    <child link="imu_link 1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+  <link name="imu_link 2"/>
+  <joint name="imu_link 2_joint" type="fixed">
+    <parent link="Adafruit_BNO055_STEMMA_QT_v1_2"/>
+    <child link="imu_link 2"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+  <link name="imu_link 3"/>
+  <joint name="imu_link 3_joint" type="fixed">
+    <parent link="Adafruit_BNO055_STEMMA_QT_v1_3"/>
+    <child link="imu_link 3"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+</robot>
