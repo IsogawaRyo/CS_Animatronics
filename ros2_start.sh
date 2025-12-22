@@ -20,4 +20,4 @@ gnome-terminal -- bash -c "source ~/CS_Animatronics/install/setup.bash && source
 
 gnome-terminal -- bash -c "source ~/CS_Animatronics/install/setup.bash && source ~/CS_Animatronics/install/local_setup.bash && source ~/CS_Animatronics/install/setup.bash  && ros2 run audio_player audio_player; read"
 
-gnome-terminal -- bash -c "source ~/CS_Animatronics/install/setup.bash && source ~/CS_Animatronics/install/local_setup.bash && source ~/CS_Animatronics/install/setup.bash  && ros2 run imu_receiver imu_receiver; read"
+gnome-terminal -- bash -c "source ~/CS_Animatronics/install/setup.bash && source ~/CS_Animatronics/install/local_setup.bash && source ~/CS_Animatronics/install/setup.bash  && ros2 run imu_receiver imu_receiver_node; read"

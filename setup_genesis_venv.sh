@@ -32,10 +32,12 @@ echo "🌟 Genesis-World Virtual Environment Setup"
 echo "=========================================="
 
 # Check Python version
-PYTHON_VERSION=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-if [[ $(echo "$PYTHON_VERSION >= 3.8" | bc -l 2>/dev/null || echo 0) -eq 1 ]]; then
+# Check Python version
+if python3 -c 'import sys; exit(0 if sys.version_info >= (3, 8) else 1)'; then
+    PYTHON_VERSION=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
     print_status "Python $PYTHON_VERSION detected ✓"
 else
+    PYTHON_VERSION=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
     print_error "Python 3.8+ required. Current: $PYTHON_VERSION"
     exit 1
 fi

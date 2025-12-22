@@ -35,7 +35,7 @@ ADDR_HARDWARE_ERROR_STATUS = 70   # ハードウェアエラーステータス
 PROTOCOL_VERSION = 2.0 
 
 # Default setting
-BAUDRATE     = 57600 
+BAUDRATE     = 115200 
 DEVICE_NAME0 = "/dev/ttyUSB0"
 DEVICE_NAME1 = "/dev/ttyUSB1"
 

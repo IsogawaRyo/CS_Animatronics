@@ -32,7 +32,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -53,7 +53,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -93,7 +93,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -114,7 +114,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -154,7 +154,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -175,7 +175,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -215,7 +215,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotator_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegRotator_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -236,7 +236,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotator_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegRotator_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -276,7 +276,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotator_v6_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegRotator_v6_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -297,7 +297,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotator_v6_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegRotator_v6_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -337,7 +337,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_3.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -358,7 +358,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_3.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -398,7 +398,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_4.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_4.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -419,7 +419,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_4.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_4.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -459,7 +459,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotatorB_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegRotatorB_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -480,7 +480,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotatorB_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegRotatorB_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -520,7 +520,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotatorB_v6_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegRotatorB_v6_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -541,7 +541,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegRotatorB_v6_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegRotatorB_v6_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -581,7 +581,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegSupport_v23_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegSupport_v23_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -602,7 +602,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegSupport_v23_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegSupport_v23_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -642,7 +642,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegA_v14_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegA_v14_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -663,7 +663,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegA_v14_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegA_v14_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -703,7 +703,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegA_v14_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegA_v14_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -724,7 +724,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegA_v14_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegA_v14_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -764,7 +764,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_5.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_5.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -785,7 +785,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_5.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_5.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -825,7 +825,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_6.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_6.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -846,7 +846,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_6.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_6.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -886,7 +886,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegBone_v20_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -907,7 +907,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegBone_v20_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -947,7 +947,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegBone_v20_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -968,7 +968,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegBone_v20_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1008,7 +1008,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_7.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_7.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1029,7 +1029,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_7.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_7.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1069,7 +1069,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_8.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_8.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1090,7 +1090,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_8.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_8.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1130,7 +1130,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegBone_v20_3.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1151,7 +1151,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegBone_v20_3.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1191,7 +1191,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_4.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegBone_v20_4.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1212,7 +1212,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegBone_v20_4.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegBone_v20_4.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1252,7 +1252,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_9.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_9.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1273,7 +1273,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_9.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_9.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1313,7 +1313,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_10.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_10.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1334,7 +1334,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v3_10.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XM,H,D-540.N101.I101_v3_10.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1374,7 +1374,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEnd_v9_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegEnd_v9_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1395,7 +1395,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEnd_v9_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegEnd_v9_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1435,7 +1435,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEnd_v9_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegEnd_v9_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1456,7 +1456,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEnd_v9_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegEnd_v9_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1496,7 +1496,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Adafruit_BNO055_STEMMA_QT_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/Adafruit_BNO055_STEMMA_QT_v1_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1517,7 +1517,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Adafruit_BNO055_STEMMA_QT_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/Adafruit_BNO055_STEMMA_QT_v1_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1557,7 +1557,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Adafruit_BNO055_STEMMA_QT_v1_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/Adafruit_BNO055_STEMMA_QT_v1_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1578,7 +1578,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Adafruit_BNO055_STEMMA_QT_v1_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/Adafruit_BNO055_STEMMA_QT_v1_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1618,7 +1618,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEndCover_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegEndCover_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1639,7 +1639,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEndCover_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegEndCover_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1679,7 +1679,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEndCover_v6_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegEndCover_v6_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1700,7 +1700,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/LegEndCover_v6_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/LegEndCover_v6_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1740,7 +1740,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Neck2body_v96_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/Neck2body_v96_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1761,7 +1761,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Neck2body_v96_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/Neck2body_v96_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1801,7 +1801,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Adafruit_BNO055_STEMMA_QT_v1_3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/Adafruit_BNO055_STEMMA_QT_v1_3.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1822,7 +1822,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Adafruit_BNO055_STEMMA_QT_v1_3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/Adafruit_BNO055_STEMMA_QT_v1_3.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1862,7 +1862,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/RASPBERRY_PI_5+cooler_v2_v4_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/RASPBERRY_PI_5+cooler_v2_v4_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1883,7 +1883,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/RASPBERRY_PI_5+cooler_v2_v4_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/RASPBERRY_PI_5+cooler_v2_v4_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1923,7 +1923,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1944,7 +1944,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -1984,7 +1984,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2005,7 +2005,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2045,7 +2045,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_3.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2066,7 +2066,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_3.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2106,7 +2106,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_5.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_5.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2127,7 +2127,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_5.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_5.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2167,7 +2167,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/GearNeck_v10_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/GearNeck_v10_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2188,7 +2188,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/GearNeck_v10_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/GearNeck_v10_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2228,7 +2228,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/GearNeck_v10_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/GearNeck_v10_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2249,7 +2249,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/GearNeck_v10_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/GearNeck_v10_2.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2289,7 +2289,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/AxisNeckR_v10_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/AxisNeckR_v10_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2310,7 +2310,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/AxisNeckR_v10_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/AxisNeckR_v10_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2350,7 +2350,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/AxisNeckL_v13_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/AxisNeckL_v13_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2371,7 +2371,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/AxisNeckL_v13_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/AxisNeckL_v13_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2411,7 +2411,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckJointH_v23_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/NeckJointH_v23_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2432,7 +2432,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckJointH_v23_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/NeckJointH_v23_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2472,7 +2472,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_6.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_6.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2493,7 +2493,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_6.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_6.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2533,7 +2533,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckMidGearB_v13_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/NeckMidGearB_v13_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2554,7 +2554,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckMidGearB_v13_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/NeckMidGearB_v13_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2594,7 +2594,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckMidGearHolder_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/NeckMidGearHolder_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2615,7 +2615,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckMidGearHolder_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/NeckMidGearHolder_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2655,7 +2655,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckMidGearAxis_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/NeckMidGearAxis_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2676,7 +2676,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckMidGearAxis_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/NeckMidGearAxis_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2716,7 +2716,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckTop_v17_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/NeckTop_v17_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2737,7 +2737,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/NeckTop_v17_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/NeckTop_v17_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2777,7 +2777,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/2XC-430_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/2XC-430_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2798,7 +2798,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/2XC-430_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/2XC-430_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2838,7 +2838,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/HeadJoint2_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/HeadJoint2_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2859,7 +2859,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/HeadJoint2_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/HeadJoint2_v6_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2899,7 +2899,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/HeadMainPlate_v4_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/HeadMainPlate_v4_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2920,7 +2920,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/HeadMainPlate_v4_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/HeadMainPlate_v4_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2960,7 +2960,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_7.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_7.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -2981,7 +2981,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_7.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_7.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -3021,7 +3021,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Jaw_v4_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/Jaw_v4_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -3042,7 +3042,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/Jaw_v4_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/Jaw_v4_1.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -3082,7 +3082,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_8.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_8.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
@@ -3103,7 +3103,7 @@
       <geometry>
         
       
-        <mesh filename="file:///Users/isogawaryo/Downloads/animatronics_urdf_description/meshes/XL-430_new_v5_8.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="meshes/XL-430_new_v5_8.stl" scale="0.001 0.001 0.001"/>
         
     
       </geometry>
