@@ -92,6 +92,13 @@ class AnimatronicsEnv:
         # PD control parameters
         self.robot.set_dofs_kp([self.env_cfg["kp"]] * self.num_actions, self.motors_dof_idx)
         self.robot.set_dofs_kv([self.env_cfg["kd"]] * self.num_actions, self.motors_dof_idx)
+        
+        # Set joint force range to 10Nm
+        self.robot.set_dofs_force_range(
+            lower=[-10.0] * self.num_actions,
+            upper=[10.0] * self.num_actions,
+            dofs_idx_local=self.motors_dof_idx
+        )
 
         # prepare reward functions and multiply reward scales by dt
         self.reward_functions, self.episode_sums = dict(), dict()
