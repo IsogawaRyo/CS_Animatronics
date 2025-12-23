@@ -120,7 +120,7 @@ def get_cfgs():
         # base pose
         # base pose
         "base_init_pos": [0.0, 0.05, 0.35], # Shifted 0.05 forward in Y
-        "base_init_quat": [1.0, 0.0, 0.0, 0.0], # Horizontal
+        "base_init_quat": [0.991, 0.131, 0.0, 0.0], # Approx 15 degrees forward lean
         "episode_length_s": 20.0,
         "resampling_time_s": 4.0,
         "simulate_action_latency": True,
