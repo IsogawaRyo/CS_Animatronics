@@ -118,15 +118,16 @@ def get_cfgs():
         "termination_if_roll_greater_than": 50,  # degree
         "termination_if_pitch_greater_than": 50,
         # base pose
-        "base_init_pos": [0.05, 0.0, 0.35],
-        "base_init_quat": [0.985, 0.174, 0.0, 0.0], # Leaning forward approx 20 degrees
+        # base pose
+        "base_init_pos": [0.0, 0.05, 0.35], # Shifted 0.05 forward in Y
+        "base_init_quat": [1.0, 0.0, 0.0, 0.0], # Horizontal
         "episode_length_s": 20.0,
         "resampling_time_s": 4.0,
         "simulate_action_latency": True,
         "clip_actions": 100.0,
     }
     obs_cfg = {
-        "num_obs": 75, # 3+3+3 + 18 + 18 + 18 + 12 (IMU) = 75
+        "num_obs": 79, # 3+3+3 + 18 + 18 + 18 + 16 (IMU) = 79
         "obs_scales": {
             "lin_vel": 2.0,
             "ang_vel": 0.25,
@@ -145,7 +146,8 @@ def get_cfgs():
             "base_height": -0.5,
             "action_rate": -0.01,
             "similar_to_default": 0.0,
-            "body_orientation": -2.0,
+            "body_orientation": -10.0, # Increased penalty for non-horizontal torso
+            "head_height": -5.0,        # Penalty for head touching ground
             "feet_orientation": -1.0,
             "alive": 1.0,
         },

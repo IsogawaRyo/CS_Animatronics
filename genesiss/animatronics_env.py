@@ -87,6 +87,7 @@ class AnimatronicsEnv:
             self.robot.get_link("LegEnd_v9_1"),
             self.robot.get_link("LegEnd_v9_2"),
             self.robot.get_link("base"),
+            self.robot.get_link("HeadMainPlate_v4_1"),
         ]
 
         # PD control parameters
@@ -140,7 +141,9 @@ class AnimatronicsEnv:
         self.extras["observations"] = dict()
 
         # Initialize imu_quats to avoid AttributeError before first step
-        self.imu_quats = [torch.tensor([1.0, 0.0, 0.0, 0.0], device=gs.device).repeat(self.num_envs, 1) for _ in range(3)]
+        # 4 links: LegEnd1, LegEnd2, Base, Head
+        self.imu_quats = [torch.tensor([1.0, 0.0, 0.0, 0.0], device=gs.device).repeat(self.num_envs, 1) for _ in range(4)]
+        self.imu_pos = [torch.zeros((self.num_envs, 3), device=gs.device) for _ in range(4)]
 
         # Initialize action scales based on URDF limits
         dof_limits = self.robot.get_dofs_limit(self.motors_dof_idx)
@@ -196,8 +199,11 @@ class AnimatronicsEnv:
 
         # check termination and reset
         self.reset_buf = self.episode_length_buf > self.max_episode_length
-        self.reset_buf |= torch.abs(self.base_euler[:, 1]) > self.env_cfg["termination_if_pitch_greater_than"]
-        self.reset_buf |= torch.abs(self.base_euler[:, 0]) > self.env_cfg["termination_if_roll_greater_than"]
+        # Swapped roll/pitch indices to match Robot Y-forward orientation
+        # Physical Pitch (lean forward/back) is rotation around X (base_euler[:, 0])
+        self.reset_buf |= torch.abs(self.base_euler[:, 0]) > self.env_cfg["termination_if_pitch_greater_than"]
+        # Physical Roll (roll left/right) is rotation around Y (base_euler[:, 1])
+        self.reset_buf |= torch.abs(self.base_euler[:, 1]) > self.env_cfg["termination_if_roll_greater_than"]
 
         time_out_idx = (self.episode_length_buf > self.max_episode_length).nonzero(as_tuple=False).reshape((-1,))
         self.extras["time_outs"] = torch.zeros_like(self.reset_buf, device=gs.device, dtype=gs.tc_float)
@@ -214,22 +220,32 @@ class AnimatronicsEnv:
 
         # compute observations
         imu_quats = []
+        imu_pos = []
         for link in self.imu_links:
-            # get_quat() returns global orientation. 
-            # We might want it relative to base or just global. 
-            # For now, let's use the raw quaternion as observed by the IMU (global).
-            # Or maybe relative to the base? 
-            # Usually IMUs give orientation relative to world (if they have magnetometer) or just gyro/accel.
-            # Let's stick to providing the quaternion.
             imu_quats.append(link.get_quat())
+            imu_pos.append(link.get_pos())
         
-        imu_obs = torch.cat(imu_quats, axis=-1) # (num_envs, 12)
-        self.imu_quats = imu_quats # Store for reward calculation
+        imu_obs = torch.cat(imu_quats, axis=-1) # (num_envs, 16)
+        self.imu_quats = imu_quats 
+        self.imu_pos = imu_pos
+
+        # Remap observations to Agent Frame (X=Forward=Robot_Y, Y=Lateral(Left)=Robot_-X)
+        remapped_ang_vel = torch.stack([
+            self.base_ang_vel[:, 1],  # Agent Roll (around X) = Robot Roll around Y
+            -self.base_ang_vel[:, 0], # Agent Pitch (around Y) = Robot Pitch around -X
+            self.base_ang_vel[:, 2]   # Agent Yaw (around Z) = Robot Yaw around Z
+        ], dim=-1)
+
+        remapped_projected_gravity = torch.stack([
+            self.projected_gravity[:, 1],  # Agent Forward = Robot Forward (Y)
+            -self.projected_gravity[:, 0], # Agent Lateral = Robot Left (-X)
+            self.projected_gravity[:, 2]   # Agent Vertical = Robot Up (Z)
+        ], dim=-1)
 
         self.obs_buf = torch.cat(
             [
-                self.base_ang_vel * self.obs_scales["ang_vel"],  # 3
-                self.projected_gravity,  # 3
+                remapped_ang_vel * self.obs_scales["ang_vel"],  # 3
+                remapped_projected_gravity,  # 3
                 self.commands * self.commands_scale,  # 3
                 (self.dof_pos - self.default_dof_pos) * self.obs_scales["dof_pos"],  # num_actions
                 self.dof_vel * self.obs_scales["dof_vel"],  # num_actions
@@ -304,8 +320,11 @@ class AnimatronicsEnv:
 
     # ------------ reward functions----------------
     def _reward_tracking_lin_vel(self):
-        # Tracking of linear velocity commands (xy axes)
-        lin_vel_error = torch.sum(torch.square(self.commands[:, :2] - self.base_lin_vel[:, :2]), dim=1)
+        # Tracking of linear velocity commands (remapped to Agent Frame)
+        # Agent Forward (X) command matches Robot Physical Y velocity
+        # Agent Lateral (Y) command matches Robot Physical -X velocity
+        robot_vel_remapped = torch.stack([self.base_lin_vel[:, 1], -self.base_lin_vel[:, 0]], dim=-1)
+        lin_vel_error = torch.sum(torch.square(self.commands[:, :2] - robot_vel_remapped), dim=1)
         return torch.exp(-lin_vel_error / self.reward_cfg["tracking_sigma"])
 
     def _reward_tracking_ang_vel(self):
@@ -355,3 +374,12 @@ class AnimatronicsEnv:
     def _reward_alive(self):
         # Reward for staying alive (not terminating)
         return torch.ones(self.num_envs, device=gs.device)
+
+    def _reward_head_height(self):
+        # Penalize if head (IMU 4 / imu_pos[3]) is too low (touching ground)
+        # Target head height should be at least some value (e.g. 0.2m)
+        head_height = self.imu_pos[3][:, 2]
+        # Quadratic penalty if below target
+        target_height = 0.25
+        penalty = torch.square(torch.clamp(target_height - head_height, min=0.0))
+        return penalty
