@@ -87,7 +87,7 @@ class AnimatronicsEnv:
             self.robot.get_link("LegEnd_v9_1"),
             self.robot.get_link("LegEnd_v9_2"),
             self.robot.get_link("base"),
-            self.robot.get_link("HeadMainPlate_v4_1"),
+            self.robot.get_link("HeadJoint2_v6_1"),
         ]
 
         # PD control parameters
@@ -178,7 +178,7 @@ class AnimatronicsEnv:
         self.base_pos[:] = self.robot.get_pos()
         self.base_quat[:] = self.robot.get_quat()
         self.base_euler = quat_to_xyz(
-            transform_quat_by_quat(torch.ones_like(self.base_quat) * self.inv_base_init_quat, self.base_quat),
+            self.base_quat,
             rpy=True,
             degrees=True,
         )
