@@ -62,6 +62,13 @@ class SystemController(Node):
             'play_audio_id',
             10
         )
+        
+        # Feedback publisher for DualSense (LED, Rumble, Triggers)
+        self.feedback_pub = self.create_publisher(
+            String,
+            'controller_feedback',
+            10
+        )
 
         # Selection mode
         self.selecting = False
@@ -279,6 +286,11 @@ class SystemController(Node):
             except Exception:
                 pass
 
+    def send_feedback(self, cmd_dict):
+        msg = String()
+        msg.data = json.dumps(cmd_dict)
+        self.feedback_pub.publish(msg)
+
     # ===== Recording helpers =====
     def start_recording(self, mode='hand'):
         if self.is_recording:
@@ -318,6 +330,11 @@ class SystemController(Node):
         self.record_start_time = time.time()
         mode_label = 'controller input' if mode == 'controller' else 'hand-guided (torque OFF)'
         self.get_logger().info(f"Recording START [{mode_label}] → {bag_uri}")
+        
+        # Feedback: Red LED for recording
+        self.send_feedback({"type": "led", "r": 255, "g": 0, "b": 0})
+        # Short rumble to confirm start
+        self.send_feedback({"type": "rumble", "left": 100, "right": 100})
 
         if mode == 'hand':
             # Request torque OFF for hand-guided recording
@@ -356,6 +373,11 @@ class SystemController(Node):
         self.current_bag_uri = None
         self.record_mode = None
         self.pending_record_mode = False
+        
+        # Feedback: Blue LED (Manual Mode)
+        self.send_feedback({"type": "led", "r": 0, "g": 0, "b": 255})
+        # Double rumble
+        self.send_feedback({"type": "rumble", "left": 255, "right": 255})
 
     def record_timer_callback(self):
         # Periodically sample positions during recording
@@ -424,7 +446,7 @@ class SystemController(Node):
         
         # Debug: Check data types
         for motor_id, limits in self.motorLimits.items():
-            self.get_logger().info(f"Motor {motor_id}: min={limits['min']} ({type(limits['min'])}), max={limits['max']} ({type(limits['max'])})")
+            self.get_logger().info(f"Motor {motor_id}: min={limits['min']} ({type(limits['min'])}), max={limits['max']} ({type(limits['max'])}), ini={limits['ini']} ({type(limits['ini'])})")
     
     # Recording function removed
 
@@ -482,12 +504,16 @@ class SystemController(Node):
     def PlayMotion(self, button):
         self.get_logger().info(f"Start playing recorded motion for button {button}")
         
+        # Feedback: Green LED for playback
+        self.send_feedback({"type": "led", "r": 0, "g": 255, "b": 0})
+        
         # Load motion file mapping
         try:
             with open(self.controllerMap, "r") as file:
                 data = json.load(file)
         except (FileNotFoundError, json.JSONDecodeError) as e:
             self.get_logger().error(f"Failed to load controller mapping: {e}")
+            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0}) # Error Feedback: Flash Yellow/Red (Manual override for now)
             return
             
         path = data.get(button, "")
@@ -495,19 +521,23 @@ class SystemController(Node):
         # Check if button has assigned motion
         if not path or path.strip() == "":
             self.get_logger().info(f"No motion assigned to button {button}")
+            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0}) # Error Feedback: Flash Yellow/Red (Manual override for now)
             return
             
         if path.endswith('.json'):
             self.get_logger().warn(f"Legacy JSON motion detected; please re-record using rosbag: {path}")
+            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0}) # Error Feedback: Flash Yellow/Red (Manual override for now)
             return
 
         if not os.path.isdir(path):
             self.get_logger().error(f"Motion bag directory not found: {path}")
+            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0}) # Error Feedback: Flash Yellow/Red (Manual override for now)
             return
 
         metadata_path = os.path.join(path, "metadata.yaml")
         if not os.path.exists(metadata_path):
             self.get_logger().error(f"Invalid bag directory (missing metadata.yaml): {path}")
+            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0}) # Error Feedback: Flash Yellow/Red (Manual override for now)
             return
 
         storage_options = StorageOptions(uri=path, storage_id='sqlite3')
@@ -518,6 +548,7 @@ class SystemController(Node):
             reader.open(storage_options, converter_options)
         except Exception as e:
             self.get_logger().error(f"Failed to open rosbag {path}: {e}")
+            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0}) # Error Feedback: Flash Yellow/Red (Manual override for now)
             return
 
         last_timestamp = None
@@ -543,11 +574,14 @@ class SystemController(Node):
                 self.get_logger().info(f'Playing recorded motion: {new_msg.ids}, Angles: {new_msg.angles}')
         except Exception as e:
             self.get_logger().error(f"Error during motion playback: {e}")
+            self.send_feedback({"type": "led", "r": 255, "g": 0, "b": 0}) # Error Red
             return
         finally:
             del reader
 
         self.get_logger().info("Finish playing recorded motion") 
+        # Restore Blue LED
+        self.send_feedback({"type": "led", "r": 0, "g": 0, "b": 255})
 
     def translate(self, axes, buttons):
         # Debug: Check MODE and axes values
@@ -745,35 +779,38 @@ class SystemController(Node):
         print("PS     : キャンセルして通常操作に戻る")
 
     def blink(self, angle):
-        # 21: 右 上まぶた（XL330）
+        # R2 mapping
+        # 0.0 (Open/Up) to 1.0 (Closed/Down)
+        
+        # Feedback: Light click at end of travel to confirm 'closed' state?
+        # Trigger Pulse mode at end?
+        if angle > 0.9:
+             if not getattr(self, 'blink_clicked', False):
+                 self.send_feedback({"type": "trigger", "target": "R2", "mode": "pulse"})
+                 self.blink_clicked = True
+        else:
+             if getattr(self, 'blink_clicked', False):
+                 self.send_feedback({"type": "trigger", "target": "R2", "mode": "off"})
+                 self.blink_clicked = False
+        
+        # Servo mapping (same 0-1 adjustment)
         blinkRU_min = self.motorLimits["21"]["min"]
         blinkRU_max = self.motorLimits["21"]["max"]
-        rangeRU = blinkRU_max - blinkRU_min
         
-        # 22: 右 下まぶた（XL330）
-        blinkRL_min = self.motorLimits["22"]["min"]
-        blinkRL_max = self.motorLimits["22"]["max"]
-        rangeRL = blinkRL_max - blinkRL_min
+        # Assuming 0=Open, 1=Closed
+        # Original: (1 - (angle+1)/2) -> 
+        # If angle=-1(Open?), (1-0)=1 -> max? 
+        # Actually standard servo:
+        # Let's assume simpler linear map:
+        # Blink usually 0 (Open) -> 1 (Closed)
         
-        # 23: 左 上まぶた（XL330）
-        blinkLU_min = self.motorLimits["23"]["min"]
-        blinkLU_max = self.motorLimits["23"]["max"]
-        rangeLU = blinkLU_max - blinkLU_min
-
-        # 24: 左 下まぶた（XL330）
-        blinkLL_min = self.motorLimits["24"]["min"]
-        blinkLL_max = self.motorLimits["24"]["max"]
-        rangeLL = blinkLL_max - blinkLL_min
- 
-        # 修正版：min/maxの範囲をフル活用
-        # angle=-1: 初期位置, angle=+1: 最大開閉
-        angleRU = int(blinkRU_min + (blinkRU_max - blinkRU_min) * (1 - (angle+1)/2))  # 21: 右上まぶた
-        angleRL = int(blinkRL_min + (blinkRL_max - blinkRL_min) * (1 - (angle+1)/2))  # 22: 右下まぶた  
-        angleLU = int(blinkLU_min + (blinkLU_max - blinkLU_min) * ((angle+1)/2))      # 23: 左上まぶた
-        angleLL = int(blinkLL_min + (blinkLL_max - blinkLL_min) * ((angle+1)/2))      # 24: 左下まぶた
-   
-        print(f"{self.motorLimits['24']['ini']} - {(angle+1)/2} * {rangeLL} = {angleLL}")
-
+        val = angle # 0.0 to 1.0
+        
+        angleRU = int(blinkRU_min + (val * (blinkRU_max - blinkRU_min)))
+        angleRL = int(self.motorLimits["22"]["min"] + (val * (self.motorLimits["22"]["max"] - self.motorLimits["22"]["min"])))
+        angleLU = int(self.motorLimits["23"]["min"] + (val * (self.motorLimits["23"]["max"] - self.motorLimits["23"]["min"]))) 
+        angleLL = int(self.motorLimits["24"]["min"] + (val * (self.motorLimits["24"]["max"] - self.motorLimits["24"]["min"])))
+        
         self.get_logger().debug(f"blink() returning: RU={angleRU}, RL={angleRL}, LU={angleLU}, LL={angleLL}")
         return angleRU, angleRL, angleLU, angleLL
 
@@ -782,9 +819,67 @@ class SystemController(Node):
         jaw_max = self.motorLimits["11"]["max"] # close (2048)
         jaw_range = jaw_max - jaw_min  # Should be 512 now
         
-        # angle: -1 = fully closed, +1 = fully open
-        # Convert to motor position: jaw_max (closed) to jaw_min (open)
-        current_jaw_position = int(jaw_max - ((angle + 1)/2)*jaw_range)
+        # Adaptive Trigger Logic (L2)
+        # 1.0 (Open) to 0.0 (Closed)
+        # angle ranges from -1 (Closed) to +1 (Open)
+        
+        # Let's map Resistance (Force) to Closing (more closed = harder to squeeze?)
+        # Or, simulate "biting": Resistance starts low, increases as it closes (angle -> -1).
+        
+        # angle: -1.0 (Closed) ... +1.0 (Open)
+        # trigger range: 0 (start) to 255 (end)
+        
+        # If angle is +1 (Open), trigger is at rest (0 force).
+        # As you pull L2 (input increases), jaw closes (angle decreases).
+        # We want more resistance as you pull deeper.
+        
+        # Simply set Rigid mode with force proportional to input?
+        # Note: 'angle' here IS the input axis from controller (-1 to 1).
+        # controller_publisher normalizes L2 to 0.0-1.0 range, but `translate` passes it raw?
+        # wait, translate receives msg.axes.
+        # In my new controller_publisher, axes[2] is L2 (0.0 to 1.0). Correct.
+        # So 'angle' passed from translate is actually 0.0 to 1.0?
+        # Let's check translate call:
+        # translate(msg.axes...) calls jaw(axes[2])
+        # In my new publisher, axes[2] is L2 (0.0 to 1.0).
+        
+        # Logic:
+        # L2=0.0 (Open) -> Force=0
+        # L2=1.0 (Closed) -> Force=255 (Max biting force)
+        
+        force_val = int(angle * 255) # angle is 0.0-1.0 from L2
+        
+        # Only update if changed significantly to reduce traffic
+        if not hasattr(self, 'last_trigger_force') or abs(self.last_trigger_force - force_val) > 10:
+             self.send_feedback({
+                "type": "trigger", 
+                "target": "L2", 
+                "mode": "rigid", 
+                "force": [0, force_val] # Start at 0, force scales with input
+             })
+             self.last_trigger_force = force_val
+             
+        # Re-calc position based on 0-1 input (invert for servo if needed)
+        # If L2=0(Open), Pos=min (or max depending on mount).
+        # Original logic: ((angle + 1)/2) assumed -1 to 1 range.
+        # IF input is 0-1, we need to adjust formula.
+        # Assuming original code worked with -1 to 1, I should map 0-1 to -1-1 for compatibility OR adjust formula.
+        # Let's adjust formula for 0.0 (Open) to 1.0 (Closed).
+        
+        # Jaw: 0.0(Open) -> 1.0(Closed)
+        # Servo: min(Open) -> max(Closed) usually? Or vice versa.
+        # Original: jaw_max - ((angle+1)/2)*range
+        # If angle was -1 (Closed?), result = jaw_max - 0 = jaw_max. So -1 was Closed?
+        # If angle was 1 (Open?), result = jaw_min.
+        # My new L2 is 0.0 (Released) to 1.0 (Pressed).
+        # If Released(0.0) -> Open. If Pressed(1.0) -> Closed.
+        # So 0.0 -> Open (min), 1.0 -> Closed (max).
+        
+        # current = jaw_min + (angle * range)  (if min=open, max=closed)
+        # Check original comment: "jaw_min # open", "jaw_max # close".
+        # So: target = jaw_min + (angle * jaw_range)
+        
+        current_jaw_position = int(jaw_min + (angle * jaw_range))
         
         # Safety clamp to prevent motor damage
         current_jaw_position = max(jaw_min, min(jaw_max, current_jaw_position))
