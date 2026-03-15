@@ -22,8 +22,8 @@ class AudioPlayer(Node):
         pygame.mixer.init(frequency=22050, size=-16, channels=2, buffer=512)
         
         # Audio files directory
-        self.audio_dir = "/home/csanimatronics/CS_Animatronics/AudioFiles"
-        self.audio_map_file = "/home/csanimatronics/CS_Animatronics/AudioMap.json"
+        self.audio_dir = os.path.expanduser("~/CS_Animatronics/AudioFiles")
+        self.audio_map_file = os.path.expanduser("~/CS_Animatronics/AudioMap.json")
         
         # Audio mapping (ID -> file path)
         self.audio_map = {}

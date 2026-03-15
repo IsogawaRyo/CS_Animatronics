@@ -18,10 +18,15 @@ import time
 import subprocess
 import os
 import math
+from std_msgs.msg import String, Int32
+from rclpy.executors import MultiThreadedExecutor
+
+from motion_editor.motion_editor import MotionEditor, ROSManager as MotionROSManager
 
 class SystemMonitor(Node):
-    def __init__(self):
+    def __init__(self, motion_ros_manager):
         super().__init__('system_monitor')
+        self.motion_ros_manager = motion_ros_manager
         self.get_logger().info('System Monitor GUI starting...')
 
         # Data storage
@@ -40,6 +45,14 @@ class SystemMonitor(Node):
         self.imu_data = {0: {}, 1: {}, 2: {}}
         for i in range(3):
             self.create_subscription(Imu, f'imu{i}', lambda msg, idx=i: self.imu_callback(msg, idx), 10)
+            
+        # Audio Player Publishers
+        self.play_audio_id_pub = self.create_publisher(Int32, 'play_audio_id', 10)
+        self.play_audio_name_pub = self.create_publisher(String, 'play_audio_name', 10)
+        self.stop_audio_pub = self.create_publisher(String, 'stop_audio', 10)
+        
+        # Subscribe to audio_status
+        self.create_subscription(String, 'audio_status', self.audio_status_callback, 10)
         
         # Service Client for Motor States
         self.get_states_client = self.create_client(GetMotorStates, 'get_motor_states')
@@ -76,6 +89,16 @@ class SystemMonitor(Node):
         self.imu_tab = ttk.Frame(self.notebook)
         self.notebook.add(self.imu_tab, text="IMU Monitor")
         self.setup_imu_tab(self.imu_tab)
+        
+        # Tab 4: Motion Editor
+        self.motion_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.motion_tab, text="Motion Editor")
+        self.motion_editor_app = MotionEditor(self.motion_ros_manager, self.motion_tab)
+
+        # Tab 5: Audio Player
+        self.audio_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.audio_tab, text="Audio Player")
+        self.setup_audio_tab(self.audio_tab)
 
     def setup_motor_tab(self, parent):
         # Top Frame: System Status
@@ -278,6 +301,48 @@ class SystemMonitor(Node):
             "acc_z": msg.linear_acceleration.z
         }
 
+    def setup_audio_tab(self, parent):
+        self.lbl_audio_status = ttk.Label(parent, text="Status: Unknown", font=("Arial", 14), foreground="blue")
+        self.lbl_audio_status.pack(pady=10)
+        
+        btn_frame = ttk.Frame(parent)
+        btn_frame.pack(pady=10)
+        
+        ttk.Button(btn_frame, text="Stop Audio", command=self.stop_audio).pack(side="left", padx=5)
+        
+        audio_frame = ttk.LabelFrame(parent, text="Play Dinosaur Sounds", padding=10)
+        audio_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        sounds = {
+            1: "Roar 1", 2: "Roar 2", 3: "Growl", 4: "Hiss", 5: "Chomp",
+            6: "Footstep 1", 7: "Footstep 2", 8: "Breath 1", 9: "Warning",
+            10: "Hunt", 11: "Pain", 12: "Victory"
+        }
+        
+        row, col = 0, 0
+        for sound_id, name in sounds.items():
+            ttk.Button(audio_frame, text=name, command=lambda i=sound_id: self.play_audio_id(i)).grid(row=row, column=col, padx=10, pady=10, sticky="ew")
+            col += 1
+            if col > 3:
+                col = 0
+                row += 1
+
+    def play_audio_id(self, audio_id):
+        msg = Int32()
+        msg.data = audio_id
+        self.play_audio_id_pub.publish(msg)
+        
+    def stop_audio(self):
+        msg = String()
+        msg.data = ""
+        self.stop_audio_pub.publish(msg)
+        
+    def audio_status_callback(self, msg):
+        if hasattr(self, 'lbl_audio_status'):
+            self.lbl_audio_status.config(text=f"Status: {msg.data}")
+
+
+
     def target_callback(self, msg):
         for i, mid in enumerate(msg.ids):
             if i < len(msg.angles):
@@ -373,12 +438,15 @@ class SystemMonitor(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = SystemMonitor()
+    motion_ros_manager = MotionROSManager()
+    node = SystemMonitor(motion_ros_manager)
+    
+    executor = MultiThreadedExecutor()
+    executor.add_node(node)
+    executor.add_node(motion_ros_manager)
     
     try:
-        # Tkinter mainloop takes control, so we need to pump ROS callbacks manually or use thread
-        # Simple approach: rclpy.spin in a separate thread
-        spin_thread = threading.Thread(target=rclpy.spin, args=(node,), daemon=True)
+        spin_thread = threading.Thread(target=executor.spin, daemon=True)
         spin_thread.start()
         
         node.root.mainloop()
@@ -387,6 +455,7 @@ def main(args=None):
         pass
     finally:
         node.destroy_node()
+        motion_ros_manager.destroy_node()
         rclpy.shutdown()
 
 if __name__ == '__main__':

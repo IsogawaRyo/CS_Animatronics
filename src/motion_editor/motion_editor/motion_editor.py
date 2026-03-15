@@ -12,6 +12,8 @@ import rclpy
 from rclpy.node import Node
 from motor_commands.msg import IdAngle
 from motor_commands.srv import GetMotorStates
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
+from builtin_interfaces.msg import Duration
 
 class ROSManager(Node):
     def __init__(self):
@@ -23,93 +25,69 @@ class ROSManager(Node):
             12
         )
 
+        self.traj_publisher = self.create_publisher(
+            JointTrajectory,
+            'animatronics_trajectory',
+            10
+        )
+
         self.get_motor_states_client = self.create_client(
             GetMotorStates,
             "get_motor_states"
         )
     
-        while not self.get_motor_states_client.wait_for_service(timeout_sec=2.0):
-            self.get_logger().info('Waiting for serviceto be available...')
+        # We won't block main thread indefinitely
         self.request = GetMotorStates.Request()
 
     def call_get_motor_states(self, ids, callback):
+        """Returns True if the async call was made, False if service unavailable."""
+        if not self.get_motor_states_client.wait_for_service(timeout_sec=0.1):
+            return False
         self.request.ids = ids
-        self.get_logger().info(f"Sending request")
-      
         self.future = self.get_motor_states_client.call_async(self.request)
         self.future.add_done_callback(callback)
-
-    def response_callback(self, future):
-        try:
-            response = future.result()
-        except Exception as e:
-            self.get_logger().error('Service called failed')
-        else:
-            self.get_logger().info(f"Recived motor states\nIDs: {response.ids}\nPositions: {response.positions}") 
-
+        return True
 
     def set_positions(self, ids, angles):
         new_msg = IdAngle()
         new_msg.ids = ids
         new_msg.angles = angles
-        
         self.publisher.publish(new_msg)
-        self.get_logger().info(f'Publishing  IDs: {ids}, Angles: {angles}')
+
+    def publish_trajectory(self, trajectory_msg):
+        self.traj_publisher.publish(trajectory_msg)
+
 
 class MotionEditor:
-    def __init__(self, ros_manager):
+    def __init__(self, ros_manager, parent_frame):
         self.ros_manager = ros_manager
-        # Main Loop
-        self.root = tk.Tk()
-        self.root.title("Motion Editor")
-        self.root.geometry("1000x700")
+        self.root = parent_frame
 
-        ########################
-        ### Define Variables ###
-        ########################
-        # Motion JSON
-        self.motionFile = None
-
-        # Play Flag
+        self.motionFile = []
         self.is_playing = False
-
-        # Last updated time
-        self.last_updated_time = time.time()
-
-        # Start Time of Motion
-        self.timeStartMotion = tk.IntVar(self.root)
-
-        # End Time of Motion
-        self.timeEndMotion = tk.IntVar(self.root)
-
-        # Time at Edit Point
-        self.timestamp = tk.IntVar(self.root)
-        self.last_timestamp = tk.IntVar(self.root)     
-  
-        # Time Min
-        self.timeMin = tk.IntVar(self.root)
-        self.timeMin.set(0)
-
-        # Scale span
-        self.timeSpan = 500
-
-        # Time Max
-        self.timeMax = tk.IntVar(self.root)
-        self.timeMax.set(self.timeMin.get() + self.timeSpan)
- 
-        # Mode
-        # 0: Read
-        # 1: Read & Write
-        # 2: Edit
-        # 3: Observe
-        self.mode = tk.IntVar(self.root)
-        self.mode.set(0)
         
-        # Observe mode optimization
-        self.is_service_calling = False
+        # Time variables (in seconds)
+        self.timestamp = tk.DoubleVar(self.root, value=0.0)
+        self.last_timestamp = tk.DoubleVar(self.root, value=-1.0)
+        
+        self.timeMin = tk.DoubleVar(self.root, value=0.0)
+        self.timeMax = tk.DoubleVar(self.root, value=10.0)
+        
+        # Observe mode flag - enabled by default
+        self.observe_mode = tk.BooleanVar(self.root, value=True)
+        self.is_service_calling = False   # guard for observe_hardware
+        self._syncing = False              # guard for sync_sliders_from_hardware (独立)
         self.last_observe_time = 0.0
         
-        # Total current variables
+        # Track which slider the user is currently dragging (None = not dragging)
+        self._editing_id = None
+        # Track when timeline was last updated to temporarily block observe overwrites
+        self._timeline_updated_at = 0.0
+        
+        # Keep track of actual hardware positions (for display only, won't override user edits)
+        self.hardware_positions = {}  # {id_str: int}
+        
+        # Current displays
         self.port0_current = tk.IntVar(self.root)
         self.port1_current = tk.IntVar(self.root)
         self.system_current = tk.IntVar(self.root)
@@ -118,254 +96,242 @@ class MotionEditor:
         self.motorLimits = {}
         self.loadMotorLimits()
 
-        # Selected File to Edit
-        self.selectedFile = tk.StringVar()
-        self.selectedFile.set("Selected File")
+        self.selectedFile = tk.StringVar(value="Not Selected")
 
-
-        ########################
-        #### Prepare Frames ####
-        ########################
-        # Settings Frame
-        self.frame_settings = tk.LabelFrame(self.root, text="Settings", foreground="green")
-        self.frame_settings.grid(sticky="W", row=0, column=0, columnspan=2)
- 
-        # Monitor Frame 
-        self.frame_monitor = tk.LabelFrame(self.root, text="Monitor", foreground="green")
-        self.frame_monitor.grid(sticky="W", row=1, column=0)        
-
-        # Total Current Frame
-        self.frame_current = tk.LabelFrame(self.root, text="Total Current", foreground="blue")
-        self.frame_current.grid(sticky="W", row=2, column=0)
-
-        # Operations Frame
-        self.frame_operations = tk.LabelFrame(self.root, text="Operations", foreground="green")
-        self.frame_operations.grid(sticky="W", row=1, column=1)
-   
-
-        ####################### 
-        #### Setting Frame ####
-        #######################
-        # Seleced File Label
-        self.label_selectedFile = tk.Label(self.frame_settings, textvariable=self.selectedFile)
-        self.label_selectedFile.grid(row=0, column=2, columnspan=2)
+        self.setup_ui()
         
-        # Selected File Button
-        self.button_selectedFile = tk.Button(self.frame_settings, text="Open filedialog", command=self.fileDialog)
-        self.button_selectedFile.grid(row=1, column=2)
-       
-        # Load Selected File Button
-        self.button_load = tk.Button(self.frame_settings, text="Load", command=self.loadMotionFile)
-        self.button_load.grid(row=1, column=3) 
- 
-        # Mode Label
-        self.label_mode = tk.Label(self.frame_settings, text="Current Mode")
-        self.label_mode.grid(row=0, column=0)
-        
-        # Mode Dropbox
-        self.combobox_mode = ttk.Combobox(self.frame_settings, state="readonly", values=("Send", "Write", "Edit", "Observe"))
-        self.combobox_mode.grid(row=0, column=1)
-        
-        # Mode Chose Button
-        self.button_mode = tk.Button(self.frame_settings, text="Change Mode", command=self.changeMode)
-        self.button_mode.grid(row=1, column=0, columnspan=2)
+        # Start main loop
+        self.root.after(100, self.main_loop)
 
-        # Start Time Entry
-        self.entry_time_start_motion = tk.Entry(self.frame_settings, textvariable=self.timeStartMotion)
-        self.entry_time_start_motion.grid(row=0, column=4)
-
-        # End Time Entry
-        self.entry_time_end_motion = tk.Entry(self.frame_settings, textvariable=self.timeEndMotion)
-        self.entry_time_end_motion.grid(row=1, column=4)
-
-
-        #######################
-        #### Monitor Frame ####
-        #######################
-        # loop to make elements for each ID
-        self.labels_ID = {}  # contains labels of ID
-        self.scales_angle = {}  # contains scales of angles
-        self.positions = {}  # contains position values from scale_angle
-        self.state_checkBox = {}  # contains state of checkBox
-        self.checkBox = {}  # contains checkBoxi
-        self.labels_torque = {} # contains labels of torques
-        self.torques = {} # contains torqies
-        self.labels_temperature = {} # contains labels of temperatures
-        self.temperatures = {}
-        self.labels_error = {} # contains labels of error status
-        self.error_status = {} # contains error status
-
-        for i, id in enumerate(self.motorLimits):
-            # ID Label
-            self.labels_ID[id] = tk.Label(self.frame_monitor, text="ID: " + id)
-            self.labels_ID[id].grid(row=2*i, column=0)
-        
-            # Angle Slider
-            min_ = self.motorLimits[id]["min"]
-            max_ = self.motorLimits[id]["max"]
-            self.positions[id] = tk.IntVar(self.root)
-            self.scales_angle[id] = tk.Scale(self.frame_monitor, from_=min_, to_=max_, variable=self.positions[id], orient=tk.HORIZONTAL)
-            self.scales_angle[id].grid(row=2*i, column=1, rowspan=2)
-
-            # Check box
-            self.state_checkBox[id] = tk.BooleanVar(self.root)
-            self.checkBox[id] = tk.Checkbutton(self.frame_monitor, text="target", variable=self.state_checkBox[id])
-            self.checkBox[id].grid(row=2*i+1, column=0)
-
-            # torque label
-            self.torques[id] = tk.IntVar(self.root)
-            self.torques[id].set(0)
-            self.labels_torque[id] = tk.Label(self.frame_monitor, textvariable=self.torques[id], fg="white")
-            self.labels_torque[id].grid(row=2*i, column=2)
-
-            # temperature label
-            self.temperatures[id] = tk.IntVar(self.root)
-            self.temperatures[id].set(0)
-            self.labels_temperature[id] = tk.Label(self.frame_monitor, textvariable=self.temperatures[id], fg="white")
-            self.labels_temperature[id].grid(row=2*i+1, column=2)
-            
-            # error status label
-            self.error_status[id] = tk.StringVar(self.root)
-            self.error_status[id].set("OK")
-            self.labels_error[id] = tk.Label(self.frame_monitor, textvariable=self.error_status[id], fg="green", width=12)
-            self.labels_error[id].grid(row=2*i, column=3)
-            
-            # Add error legend label
-            if i == 0:  # Only add legend for the first motor
-                tk.Label(self.frame_monitor, text="Status", font=("Arial", 8, "bold")).grid(row=0, column=3)
-
-
-
-        ##########################
-        #### Operations Frame ####
-        ##########################
-        # Go Back Button
-        self.button_goBack = tk.Button(self.frame_operations, text="<", command=self.moveBackward)
-        self.button_goBack.grid(row=0, column=0)
-
-        # Go Forward Button
-        self.button_goForward = tk.Button(self.frame_operations, text=">", command=self.moveForward)
-        self.button_goForward.grid(row=0, column=2)
-
-        # Play Button
-        self.button_play = tk.Button(self.frame_operations, text="play", command=self.playMotion)
-        self.button_play.grid(row=1, column=1)
-
-        # Stop Button
-        self.button_stop = tk.Button(self.frame_operations, text="stop", command=self.stopMotion)
-        self.button_stop.grid(row=1, column=0)
-
-        # Minimum Time
-        self.label_minimumTime = tk.Label(self.frame_operations, textvariable=self.timeMin)
-        self.label_minimumTime.grid(row=0, column=1)
-
-        # Time seacker
-        self.scale_time = tk.Scale(self.frame_operations, from_=self.timeMin.get(), to_=self.timeMax.get(), variable=self.timestamp, orient=tk.HORIZONTAL, label="time(s)", length=200)
-        self.scale_time.grid(row=0, column=3, rowspan=2)
-
-
-        #######################
-        #### Current Frame ####
-        #######################
-        # PORT0 Current Label
-        tk.Label(self.frame_current, text="PORT0 Current:").grid(row=0, column=0, sticky="W")
-        self.label_port0_current = tk.Label(self.frame_current, textvariable=self.port0_current, 
-                                            fg="white", width=8, relief="sunken")
-        self.label_port0_current.grid(row=0, column=1, padx=5)
-        tk.Label(self.frame_current, text="mA").grid(row=0, column=2)
-        
-        # PORT1 Current Label  
-        tk.Label(self.frame_current, text="PORT1 Current:").grid(row=1, column=0, sticky="W")
-        self.label_port1_current = tk.Label(self.frame_current, textvariable=self.port1_current,
-                                            fg="white", width=8, relief="sunken") 
-        self.label_port1_current.grid(row=1, column=1, padx=5)
-        tk.Label(self.frame_current, text="mA").grid(row=1, column=2)
-        
-        # System Total Current Label
-        tk.Label(self.frame_current, text="System Total:").grid(row=2, column=0, sticky="W")
-        self.label_system_current = tk.Label(self.frame_current, textvariable=self.system_current,
-                                            fg="white", width=8, relief="sunken", font=("Arial", 10, "bold"))
-        self.label_system_current.grid(row=2, column=1, padx=5)  
-        tk.Label(self.frame_current, text="mA").grid(row=2, column=2)
-
-        self.root.after(self.timeSpan, self.main)
-        self.root.mainloop()
-        
     def loadMotorLimits(self):
-        # load motor limits
-        with open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r", encoding="utf-8") as file:
-            data = json.load(file)
-            
-        for key, subdict in data.items():
-            subdict["ini"] = int(subdict["ini"])
-            subdict["min"] = int(subdict["min"])
-            subdict["max"] = int(subdict["max"])
-            subdict["acc"] = int(subdict["acc"])
-            subdict["vel"] = int(subdict["vel"])
+        try:
+            with open(os.path.expanduser("~/CS_Animatronics/Motor_Limits.json"), "r", encoding="utf-8") as file:
+                data = json.load(file)
+            for key, subdict in data.items():
+                subdict["ini"] = int(subdict["ini"])
+                subdict["min"] = int(subdict["min"])
+                subdict["max"] = int(subdict["max"])
+            self.motorLimits = data
+        except Exception as e:
+            print(f"Failed to load Motor_Limits.json: {e}")
 
-        self.motorLimits = data
+    def setup_ui(self):
+        # Settings Frame
+        self.frame_settings = tk.LabelFrame(self.root, text="File Settings", foreground="green")
+        self.frame_settings.grid(sticky="W", row=0, column=0, columnspan=2, padx=5, pady=5)
+        
+        tk.Label(self.frame_settings, textvariable=self.selectedFile, width=40).grid(row=0, column=0, columnspan=2)
+        tk.Button(self.frame_settings, text="Open JSON", command=self.fileDialog).grid(row=1, column=0, pady=5)
+        tk.Button(self.frame_settings, text="Save JSON", command=self.saveMotionFile).grid(row=1, column=1, pady=5)
+        
+        # Operations Frame
+        self.frame_operations = tk.LabelFrame(self.root, text="Timeline & Keyposes", foreground="green")
+        self.frame_operations.grid(sticky="W", row=1, column=0, columnspan=2, padx=5, pady=5)
+        
+        tk.Button(self.frame_operations, text="< -1s", command=self.moveBackward).grid(row=0, column=0)
+        tk.Label(self.frame_operations, text="0.0s").grid(row=0, column=1)
+        
+        self.scale_time = tk.Scale(self.frame_operations, from_=self.timeMin.get(), to_=self.timeMax.get(), 
+                                   variable=self.timestamp, orient=tk.HORIZONTAL, resolution=0.1, length=400)
+        self.scale_time.grid(row=0, column=2, padx=10)
+        
+        self.lbl_max_time = tk.Label(self.frame_operations, text=f"{self.timeMax.get()}s")
+        self.lbl_max_time.grid(row=0, column=3)
+        tk.Button(self.frame_operations, text="+1s >", command=self.moveForward).grid(row=0, column=4)
+        
+        tk.Button(self.frame_operations, text="Add/Update Keypose (At Current Time)", bg="lightblue", command=self.add_keypose).grid(row=1, column=1, columnspan=2, pady=10)
+        tk.Button(self.frame_operations, text="Delete Keypose", bg="#ff9999", command=self.delete_keypose).grid(row=1, column=3, pady=10)
+        
+        tk.Button(self.frame_operations, text="▶ PLAY Trajectory", bg="lightgreen", command=self.playMotion).grid(row=2, column=2, pady=5)
+        
+        # Monitor Frame (Sliders)
+        self.frame_monitor = tk.LabelFrame(self.root, text="Motor Control (Edit Position)", foreground="green")
+        self.frame_monitor.grid(sticky="NW", row=2, column=0, padx=5, pady=5)
+        
+        # Add Canvas + Scrollbar for motors
+        canvas = tk.Canvas(self.frame_monitor, width=650, height=400)
+        vbar = tk.Scrollbar(self.frame_monitor, orient=tk.VERTICAL, command=canvas.yview)
+        canvas.configure(yscrollcommand=vbar.set)
+        
+        self.inner_monitor = tk.Frame(canvas)
+        self.inner_monitor.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+        canvas.create_window((0, 0), window=self.inner_monitor, anchor="nw")
+        
+        canvas.pack(side="left", fill="both", expand=True)
+        vbar.pack(side="right", fill="y")
+        
+        # Current Frame
+        self.frame_current = tk.LabelFrame(self.root, text="System Status", foreground="blue")
+        self.frame_current.grid(sticky="NW", row=2, column=1, padx=5, pady=5)
+        
+        tk.Checkbutton(self.frame_current, text="Enable Hardware Observe Mode", variable=self.observe_mode).grid(row=0, column=0, columnspan=3, pady=5)
+        
+        tk.Button(self.frame_current, text="📥 Sync from Hardware", bg="#ffe0a0",
+                  command=self.sync_sliders_from_hardware).grid(row=1, column=0, columnspan=3, pady=4, sticky="EW")
+        
+        tk.Label(self.frame_current, text="PORT0:").grid(row=2, column=0)
+        self.label_port0 = tk.Label(self.frame_current, textvariable=self.port0_current, width=6, relief="sunken")
+        self.label_port0.grid(row=2, column=1)
+        tk.Label(self.frame_current, text="mA").grid(row=2, column=2)
+        
+        tk.Label(self.frame_current, text="PORT1:").grid(row=3, column=0)
+        self.label_port1 = tk.Label(self.frame_current, textvariable=self.port1_current, width=6, relief="sunken")
+        self.label_port1.grid(row=3, column=1)
+        tk.Label(self.frame_current, text="mA").grid(row=3, column=2)
+
+        tk.Label(self.frame_current, text="Total:").grid(row=4, column=0)
+        self.label_total = tk.Label(self.frame_current, textvariable=self.system_current, width=6, relief="sunken")
+        self.label_total.grid(row=4, column=1)
+        tk.Label(self.frame_current, text="mA").grid(row=4, column=2)
+
+        # Build Motor Sliders
+        self.labels_ID = {}
+        self.scales_angle = {}
+        self.positions = {}
+        self.state_checkBox = {}
+        self.checkBox = {}
+        self.labels_error = {}
+        self.error_status = {}
+
+        for i, id_str in enumerate(self.motorLimits):
+            self.labels_ID[id_str] = tk.Label(self.inner_monitor, text=f"ID: {id_str}")
+            self.labels_ID[id_str].grid(row=i, column=0, padx=2)
+            
+            min_ = self.motorLimits[id_str]["min"]
+            max_ = self.motorLimits[id_str]["max"]
+            ini_ = self.motorLimits[id_str]["ini"]
+            
+            self.positions[id_str] = tk.IntVar(self.root, value=ini_)
+            self.scales_angle[id_str] = tk.Scale(self.inner_monitor, from_=min_, to_=max_, 
+                                                 variable=self.positions[id_str], orient=tk.HORIZONTAL, length=300)
+            # Track which slider is being dragged to block observe_hardware overwrites
+            self.scales_angle[id_str].bind("<ButtonPress-1>",
+                lambda e, k=id_str: self._on_slider_press(k))
+            self.scales_angle[id_str].bind("<ButtonRelease-1>",
+                lambda e, k=id_str: self._on_slider_release_for(k))
+            self.scales_angle[id_str].grid(row=i, column=1, padx=2)
+            
+            self.state_checkBox[id_str] = tk.BooleanVar(self.root, value=False)
+            self.checkBox[id_str] = tk.Checkbutton(self.inner_monitor, text="Include", variable=self.state_checkBox[id_str])
+            self.checkBox[id_str].grid(row=i, column=2, padx=2)
+            
+            self.error_status[id_str] = tk.StringVar(self.root, value="OK")
+            self.labels_error[id_str] = tk.Label(self.inner_monitor, textvariable=self.error_status[id_str], width=10)
+            self.labels_error[id_str].grid(row=i, column=3, padx=2)
 
     def fileDialog(self):
-        # Open filedialog
-        fTyp = [("", "*.json")]
+        fTyp = [("JSON Motion", "*.json")]
         iDir = os.path.abspath(os.path.dirname(__file__))
         file_name = tk.filedialog.askopenfilename(filetypes=fTyp, initialdir=iDir)
-        if len(file_name) == 0:
-            self.selectedFile.set("Not selected")
-        else:
+        if file_name:
             self.selectedFile.set(file_name)
-
-    def changeMode(self):
-        # change mode and show it
-        self.mode.set(self.combobox_mode.current())
-        self.label_mode["text"] = "Mode: " + str(self.mode.get())
-
-    def moveForward(self):
-        # Move Forward
-        self.timeMin.set(self.timeMin.get() + self.timeSpan)
-        self.timeMax.set(self.timeMax.get() + self.timeSpan)
-        self.scale_time["from_"] = self.timeMin.get()
-        self.scale_time["to_"] = self.timeMax.get()
-
-    def moveBackward(self):
-        # Move Backward
-        self.timeMin.set(self.timeMin.get() - self.timeSpan)
-        self.timeMax.set(self.timeMax.get() - self.timeSpan)
-        self.scale_time["from_"] = self.timeMin.get()
-        self.scale_time["to_"] = self.timeMax.get()
+            self.loadMotionFile()
 
     def loadMotionFile(self):
-        # Load Selected File
-        file = open(self.selectedFile.get(), "r")
-        data = json.load(file)
-        
-        # load Timestamps
-        timestamps = [entry["timestamp"] for entry in data]
-        len_timestamps = len(timestamps)
-        self.timeEndMotion.set(int(timestamps[len_timestamps-1]))
+        try:
+            with open(self.selectedFile.get(), "r") as f:
+                self.motionFile = json.load(f)
+            
+            if self.motionFile:
+                # Ensure timestamps are floats
+                for entry in self.motionFile:
+                    entry["timestamp"] = float(entry["timestamp"])
+                
+                self.motionFile.sort(key=lambda x: x["timestamp"])
+                max_t = self.motionFile[-1]["timestamp"]
+                # Auto adjust timeline
+                if max_t > self.timeMax.get():
+                    self.timeMax.set(max_t + 2.0)
+                    self.scale_time.config(to_=self.timeMax.get())
+                    self.lbl_max_time.config(text=f"{self.timeMax.get()}s")
+                    
+                self.update_sliders_from_timeline()
+                messagebox.showinfo("Loaded", f"Loaded {len(self.motionFile)} keyposes.")
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to load JSON: {e}")
 
-        #load ID&Angles
-        self.motionFile = data
+    def saveMotionFile(self):
+        if not self.motionFile:
+            messagebox.showwarning("Warning", "No motion data to save.")
+            return
 
-    def saveMotionFile(self, timestamp, angles):
-        # save motion file
-        # overwrite data
-        is_updated = False
+        fTyp = [("JSON Motion", "*.json")]
+        file_name = tk.filedialog.asksaveasfilename(defaultextension=".json", filetypes=fTyp)
+        if file_name:
+            self.motionFile.sort(key=lambda x: x["timestamp"])
+            try:
+                with open(file_name, "w", encoding="utf-8") as f:
+                    json.dump(self.motionFile, f, indent=2)
+                self.selectedFile.set(file_name)
+                messagebox.showinfo("Saved", "Motion file saved successfully!")
+            except Exception as e:
+                messagebox.showerror("Error", f"Failed to save JSON: {e}")
+
+    def moveForward(self):
+        self.timeMax.set(self.timeMax.get() + 1.0)
+        self.scale_time.config(to_=self.timeMax.get())
+        self.lbl_max_time.config(text=f"{self.timeMax.get()}s")
+
+    def moveBackward(self):
+        if self.timeMax.get() > 1.0:
+            self.timeMax.set(self.timeMax.get() - 1.0)
+            self.scale_time.config(to_=self.timeMax.get())
+            self.lbl_max_time.config(text=f"{self.timeMax.get()}s")
+
+    def add_keypose(self):
+        t = round(self.timestamp.get(), 1)
+        angles = {}
+        for id_str in self.motorLimits:
+            if self.state_checkBox[id_str].get():
+                angles[id_str] = self.positions[id_str].get()
+                
+        if not angles:
+            messagebox.showwarning("Warning", "No motors selected (Include checkbox) for this keypose.")
+            return
+
+        # Check if exists
+        updated = False
         for entry in self.motionFile:
-            if entry["timestamp"] == timestamp:
+            if abs(entry["timestamp"] - t) < 0.05:
                 entry["angles"] = angles
-                is_updated = True
+                updated = True
                 break
+                
+        if not updated:
+            self.motionFile.append({"timestamp": t, "angles": angles})
+            self.motionFile.sort(key=lambda x: x["timestamp"])
+            
+        print(f"Keypose set at {t}s")
 
-        if not is_updated:
-            new_entry = {
-                "timestamp": timestamp,
-                "angles": angles
-            }
-            self.motionFile.append(new_entry)
+    def delete_keypose(self):
+        t = round(self.timestamp.get(), 1)
+        new_file = [e for e in self.motionFile if abs(e["timestamp"] - t) >= 0.05]
+        if len(new_file) < len(self.motionFile):
+            self.motionFile = new_file
+            print(f"Keypose at {t}s deleted.")
+        else:
+            print(f"No keypose found at {t}s.")
 
-        with open(self.selectedFile.get(), "w", encoding="utf-8") as f:
-            json.dump(self.motionFile, f, indent=2)
+    def _on_slider_press(self, id_str):
+        """Called when user starts dragging a slider — blocks observe_hardware overwrites."""
+        self._editing_id = id_str
+
+    def _on_slider_release_for(self, id_str):
+        """Send just this motor's current position immediately on release."""
+        angle = self.positions[id_str].get()
+        self.ros_manager.set_positions([int(id_str)], [angle])
+        self._editing_id = None
+
+    def on_slider_release(self, event):
+        # Legacy: send all Include-checked motors (called from update_sliders_from_timeline)
+        ids = []
+        angles = []
+        for id_str in self.motorLimits:
+            if self.state_checkBox[id_str].get():
+                ids.append(int(id_str))
+                angles.append(self.positions[id_str].get())
+        if ids:
+            self.ros_manager.set_positions(ids, angles)
 
     def val_to_color(self, val, min_val=0, max_val=100):
         norm = (val - min_val) / (max_val - min_val)
@@ -375,301 +341,202 @@ class MotionEditor:
         b = int(255 * (1 - norm))
         return f"#{r:02x}{g:02x}{b:02x}"
 
-    def playMotion(self):
-        # set Play Flag True
-        self.is_playing = True
-        #self.updateTimestamp()
-
-    def stopMotion(self):
-        # set Play Flag False
-        self.is_playing = False
-
-    def operateSend(self):
-        # Send Id&Angle as topic
-        print("send")
-        now = self.timestamp.get()
-        found_entry = None
-
-        if self.motionFile is None:
-            return
+    def update_sliders_from_timeline(self):
+        t = round(self.timestamp.get(), 1)
         
-        # search entry mach current_time
-        for entry in self.motionFile:
-            if now == entry["timestamp"]:
-                found_entry = entry
-                break
-
-        if found_entry:
-            angles = found_entry.get("angles", {})
-            # set angles if its exist 
-            for motor_id in self.motorLimits:
-                if motor_id in angles:
-                    angle = angles[motor_id]
-                    self.positions[motor_id].set(angle)
-                    self.state_checkBox[motor_id].set(True)
+        # Check if exactly on a keypose
+        exact_entry = next((e for e in self.motionFile if abs(e["timestamp"] - t) < 0.05), None)
+        
+        if exact_entry:
+            angles = exact_entry["angles"]
+            for id_str in self.motorLimits:
+                if id_str in angles:
+                    self.positions[id_str].set(angles[id_str])
+                    self.state_checkBox[id_str].set(True)
                 else:
-                    self.state_checkBox[motor_id].set(False)
+                    self.state_checkBox[id_str].set(False)
         else:
-            # set False to others
-            for motor_id in self.motorLimits:
-                self.state_checkBox[motor_id].set(False)
-
-
-    def operateWrite(self):
-        # Write ID angle to JSON file
-        print("Write")
-        for now in range(self.timeEndMotion.get()):
-            found_entry = None
-
-            if self.motionFile is None:
-                return
-
-            # search entry mach current_time
-            for entry in self.motionFile:
-                if now == entry["timestamp"]:
-                    found_entry = entry
-                    break
-
-            if found_entry:
-                angles = found_entry.get("angles", {})
-                # set angles if its exist
-                for motor_id in self.motorLimits:
-                    if motor_id in angles:
-                        angle = angles[motor_id]
-                        self.positions[motor_id].set(angle)
-                        self.state_checkBox[motor_id].set(True)
-                    else:
-                        self.state_checkBox[motor_id].set(False)
-                self.saveMotionFile(now, angles)
-
-        self.mode.set(0)
-        tk.messagebox.showerror("Write Mode", "motion file has benn saved")
-        print("Saved")
-
-    def operateEdit(self):
-        print("Edit")
-        now = self.timestamp.get()
-        print(f"{now}, {self.last_timestamp.get()}")
-        if self.last_timestamp.get() != now:
-            found_entry = None
-
-            if self.motionFile is None:
-                return
-
-            # search entry mach current_time
-            for entry in self.motionFile:
-                if now == entry["timestamp"]:
-                    found_entry = entry
-                    break
-
-            if found_entry:
-                angles = found_entry.get("angles", {})
-                # set angles if its exist
-                for motor_id in self.motorLimits:
-                    if motor_id in angles:
-                        angle = angles[motor_id]
-                        self.positions[motor_id].set(angle)
-                        self.state_checkBox[motor_id].set(True)
-                    else:
-                        self.state_checkBox[motor_id].set(False)
-            else:
-                # set False to others
-                for motor_id in self.motorLimits:
-                    self.state_checkBox[motor_id].set(False)
+            # Interpolate for preview if not exact
+            self.interpolate_and_preview(t)
             
-        found_entry = None
-        # break if motionFile is NOT selected
-        if self.motionFile is None:
+        # Send to ROS
+        self.on_slider_release(None)
+        
+    def interpolate_and_preview(self, t):
+        if len(self.motionFile) < 2:
             return
-    
-        # search tiestamp
+            
+        before = None
+        after = None
+        for e in self.motionFile:
+            if e["timestamp"] <= t:
+                before = e
+            elif e["timestamp"] > t and after is None:
+                after = e
+                
+        if before and after:
+            ratio = (t - before["timestamp"]) / (after["timestamp"] - before["timestamp"])
+            for id_str in self.motorLimits:
+                if id_str in before["angles"] and id_str in after["angles"]:
+                    val1 = before["angles"][id_str]
+                    val2 = after["angles"][id_str]
+                    val_int = int(val1 + ratio * (val2 - val1))
+                    self.positions[id_str].set(val_int)
+                    self.state_checkBox[id_str].set(True)
+
+    def playMotion(self):
+        if not self.motionFile:
+            messagebox.showwarning("Warning", "No motion data to play.")
+            return
+            
+        self.motionFile.sort(key=lambda x: x["timestamp"])
+        
+        msg = JointTrajectory()
+        # Collect all unique joint names used across the whole motion
+        all_joints = set()
+        for e in self.motionFile:
+            for k in e["angles"].keys():
+                all_joints.add(str(k))
+        
+        msg.joint_names = list(all_joints)
+        
         for entry in self.motionFile:
-            if now == entry["timestamp"]:
-                found_entry = entry
-                break
+            point = JointTrajectoryPoint()
+            # Convert float timestamp to builtin_interfaces Duration
+            sec = int(entry["timestamp"])
+            nanosec = int((entry["timestamp"] - sec) * 1e9)
+            point.time_from_start = Duration(sec=sec, nanosec=nanosec)
+            
+            point.positions = []
+            for j in msg.joint_names:
+                # If a keypose is missing a joint, ideally it should hold or interpolate, 
+                # but for simplicity, we use the initial limit value or current slider value
+                val = entry["angles"].get(j, float(self.positions[j].get()))
+                point.positions.append(float(val))
+                
+            msg.points.append(point)
+            
+        self.ros_manager.publish_trajectory(msg)
+        print("Trajectory published!")
 
-        # create time stamp
-        if found_entry is None:
-            found_entry = {
-                "timestamp": now,
-                "angles": {}
-            }    
-            self.motionFile.append(found_entry)
+    def sync_sliders_from_hardware(self):
+        """Button handler: one-shot sync of all sliders from current hardware positions."""
+        if self._syncing:
+            print("Sync already in progress, please wait...")
+            return
+        self._syncing = True
+        ids_ = [int(x) for x in self.motorLimits.keys()]
 
-        # GUI
-        angles = found_entry.get("angles", {})
+        def on_response(future):
+            try:
+                response = future.result()
+                for i, id_val in enumerate(response.ids):
+                    id_str = str(id_val)
+                    if i < len(response.positions) and id_str in self.positions:
+                        hw_pos = int(response.positions[i])
+                        self.positions[id_str].set(hw_pos)
+                        self.hardware_positions[id_str] = hw_pos
+                        if id_str in self.labels_ID:
+                            self.labels_ID[id_str].config(text=f"ID:{id_str} [{hw_pos}]")
+                self.port0_current.set(response.port0_total_current)
+                self.port1_current.set(response.port1_total_current)
+                self.system_current.set(response.system_total_current)
+                print("Sliders synced from hardware.")
+            except Exception as e:
+                print(f"Sync from hardware failed: {e}")
+            finally:
+                self._syncing = False
 
-        for motor_id in self.motorLimits:
-            if self.state_checkBox[motor_id].get():
-                # update checked ID
-                angles[motor_id] = self.positions[motor_id].get()
-            else:
-                # delete unchecked ID
-                if motor_id in angles:
-                    del angles[motor_id]
+        called = self.ros_manager.call_get_motor_states(
+            ids_, lambda fut: self.root.after(0, lambda: on_response(fut)))
+        if not called:
+            print("get_motor_states service not available.")
+            self._syncing = False
 
-        # Publish topic
-        ids = []
-        angles_ = []
-        for motor_id in self.motorLimits:
-            if self.state_checkBox[motor_id].get():
-               ids.append(motor_id)
-               angles_.append(self.positions[motor_id].get())
-        if ids != []:
-            self.ros_manager.set_positions(ids, angles_)
-
-        # Update last_timestamp
-        self.last_timestamp.set(now)
-
-    def operateObserve(self):
-        # Throttle service calls to prevent controller input lag
+    def observe_hardware(self):
+        if not self.observe_mode.get():
+            return
+            
         current_time = time.time()
-        if self.is_service_calling or (current_time - self.last_observe_time < 0.3):  # Minimum 300ms interval
+        if self.is_service_calling or (current_time - self.last_observe_time < 0.2):
             return
             
         self.is_service_calling = True
         self.last_observe_time = current_time
-        
-        ids_ = list(self.motorLimits.keys())
-        ids_ = [int(x) for x in ids_]
+        ids_ = [int(x) for x in self.motorLimits.keys()]
         
         def on_response(future):
             try:
                 response = future.result()
-                # Reduce console output for better performance
-                # Only print on errors or significant events
-                error_count = sum(1 for error in response.error_status if error != "NO_ERROR")
-                if error_count > 0:
-                    print(f"Motor errors detected: {error_count}")
-                    for i, error in enumerate(response.error_status):
-                        if error != "NO_ERROR":
-                            print(f"  Motor {response.ids[i]}: {error}")
-                
-                for i, id in enumerate(response.ids):
-                    # Set position
-                    self.positions[f"{id}"].set(response.positions[i])
-
-                    # Set temperature
-                    temp_val = response.temperatures[i]
-                    self.temperatures[f"{id}"].set(temp_val)
-                    # Temperature color mapping: 20°C (blue) to 80°C (red)
-                    color = self.val_to_color(temp_val, min_val=20, max_val=80)
-                    self.labels_temperature[f"{id}"].configure(bg=color)
-
-                    # Set torques
-                    torque_val = response.torques[i]
-                    self.torques[f"{id}"].set(torque_val)
-                    # Torque color mapping: 0mA (blue) to 2000mA (red) for current-based torque
-                    color = self.val_to_color(torque_val, min_val=0, max_val=2000)
-                    self.labels_torque[f"{id}"].configure(bg=color)
+                for i, id_val in enumerate(response.ids):
+                    id_str = str(id_val)
                     
-                    # Set error status
-                    error_text = response.error_status[i] if i < len(response.error_status) else "NO_ERROR"
-                    if error_text == "NO_ERROR":
-                        display_text = "OK"
-                        error_color = "lightgreen"
-                        text_color = "black"
-                    else:
-                        # Parse error types for user-friendly display
-                        error_parts = error_text.split(",")
-                        display_parts = []
-                        for error in error_parts:
-                            if error == "OVERHEATING":
-                                display_parts.append("HOT")
-                            elif error == "OVERLOAD":
-                                display_parts.append("OVERLOAD")
-                            elif error == "INPUT_VOLTAGE":
-                                display_parts.append("VOLTAGE")
-                            elif error == "MOTOR_ENCODER":
-                                display_parts.append("ENCODER")
-                            elif error == "ELECTRICAL_SHOCK":
-                                display_parts.append("SHOCK")
-                            else:
-                                display_parts.append(error)
-                        
-                        display_text = ",".join(display_parts)
-                        if len(display_text) > 12:  # Truncate if too long
-                            display_text = display_text[:9] + "..."
-                        
-                        error_color = "red"
-                        text_color = "white"
+                    # --- Update error status label ---
+                    if id_str in self.error_status:
+                        err = response.error_status[i] if i < len(response.error_status) else "NO_ERROR"
+                        self.error_status[id_str].set("OK" if err == "NO_ERROR" else "ERR")
+                        bg_col = "lightgreen" if err == "NO_ERROR" else "red"
+                        self.labels_error[id_str].configure(bg=bg_col)
                     
-                    self.error_status[f"{id}"].set(display_text)
-                    self.labels_error[f"{id}"].configure(bg=error_color, fg=text_color)
-                
-                # Update total current displays
+                    # --- Sync slider to actual motor position ---
+                    if i < len(response.positions) and id_str in self.positions:
+                        hw_pos = int(response.positions[i])
+                        self.hardware_positions[id_str] = hw_pos
+                        
+                        # Do NOT overwrite the slider if:
+                        #   1. The user is actively dragging this slider, OR
+                        #   2. The timeline was recently moved (within 0.5 s)
+                        timeline_busy = (time.time() - self._timeline_updated_at) < 0.5
+                        if self._editing_id == id_str or timeline_busy:
+                            # Just update the label without touching the slider value
+                            if id_str in self.labels_ID:
+                                self.labels_ID[id_str].config(text=f"ID:{id_str} [HW:{hw_pos}]")
+                            continue
+                        
+                        # Safe to sync slider to hardware position
+                        self.positions[id_str].set(hw_pos)
+                        
+                        # Update the ID label to show current position
+                        if id_str in self.labels_ID:
+                            self.labels_ID[id_str].config(text=f"ID:{id_str} [{hw_pos}]")
+                        
                 self.port0_current.set(response.port0_total_current)
                 self.port1_current.set(response.port1_total_current)
                 self.system_current.set(response.system_total_current)
-                
-                # Color code total current labels based on load level
-                # PORT0 color coding (0-5000mA range)
-                port0_color = self.val_to_color(response.port0_total_current, min_val=0, max_val=5000)
-                self.label_port0_current.configure(bg=port0_color)
-                
-                # PORT1 color coding (0-5000mA range)
-                port1_color = self.val_to_color(response.port1_total_current, min_val=0, max_val=5000) 
-                self.label_port1_current.configure(bg=port1_color)
-                
-                # System total color coding (0-10000mA range)
-                system_color = self.val_to_color(response.system_total_current, min_val=0, max_val=10000)
-                self.label_system_current.configure(bg=system_color)
-                
             except Exception as e:
-                print(f"Failed to call service {e}")
+                pass
             finally:
-                # Reset service calling flag
                 self.is_service_calling = False
                 
-        self.ros_manager.call_get_motor_states(ids_, lambda fut: self.root.after(0, lambda: on_response(fut)))
+        called = self.ros_manager.call_get_motor_states(ids_, lambda fut: self.root.after(0, lambda: on_response(fut)))
+        if not called:
+            self.is_service_calling = False  # サービス未応答時にフラグをリセット
 
-    def main(self):
-        print("main")
-        if self.is_playing:
-            now = time.time()
-            print(now)
-            print(self.last_updated_time)
-            if now - self.last_updated_time >= 1:
-                new_time = self.timestamp.get() + 1
-                self.last_timestamp.set(self.timestamp.get())
-                self.timestamp.set(new_time)
-                self.last_updated_time = now
-
-                if new_time > self.timeMax.get() and new_time < self.timeEndMotion.get():
-                    self.moveForward()
-
-        for id in self.positions:
-            #print(id)
-            #print(self.positions[id].get())
-            pass
-
-        if self.mode.get() == 0:
-            self.operateSend()
-        elif self.mode.get() == 1:
-            self.operateWrite()
-        elif self.mode.get() == 2:
-            self.operateEdit()
-        elif self.mode.get() == 3:
-            self.operateObserve()
-
-        self.root.after(self.timeSpan, self.main)
-
-    def start(self):
-        print("start")
+    def main_loop(self):
+        t = self.timestamp.get()
+        if t != self.last_timestamp.get():
+            self._timeline_updated_at = time.time()  # mark timeline as recently moved
+            self.update_sliders_from_timeline()
+            self.last_timestamp.set(t)
+            
+        self.observe_hardware()
+        self.root.after(100, self.main_loop)
 
 def main():
     rclpy.init()
-
     ros_manager = ROSManager()
-
     ros_thread = threading.Thread(target=rclpy.spin, args=(ros_manager,), daemon=True)
     ros_thread.start()
 
-    motion_editor = MotionEditor(ros_manager)
-    motion_editor.run()
+    app = MotionEditor(ros_manager, tk.Tk())
+    # Setting up standalone titles just for testing
+    app.root.title("Keypose Motion Editor")
+    app.root.geometry("1100x750")
+    app.root.mainloop()
 
+    ros_manager.destroy_node()
+    rclpy.shutdown()
     ros_thread.join()
     
 if __name__ == "__main__":
-    editor = MotionEditor()
-    editor.start()
+    main()

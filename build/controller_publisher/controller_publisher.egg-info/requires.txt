@@ -1,4 +1,0 @@
-pygame
-rclpy
-sensor_msgs
-setuptools

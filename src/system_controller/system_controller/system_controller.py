@@ -8,14 +8,8 @@ from sensor_msgs.msg import Joy
 from motor_commands.msg import IdAngle
 from motor_commands.srv import GetMotorStates
 from motor_commands.srv import SetTorque
-from rosbag2_py import (
-    SequentialReader,
-    SequentialWriter,
-    StorageOptions,
-    ConverterOptions,
-    TopicMetadata,
-)
-from rclpy.serialization import serialize_message, deserialize_message
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
+from builtin_interfaces.msg import Duration
 from std_msgs.msg import Int32, String
 import os
 import time
@@ -35,7 +29,7 @@ class SystemController(Node):
         self.get_logger().info('Run system controller node')
         
         # Recording-related state removed
-        self.controllerMap = "/home/csanimatronics/CS_Animatronics/ControllerMap.json"
+        self.controllerMap = os.path.expanduser("~/CS_Animatronics/ControllerMap.json")
 
         # Load motor limit
         self.motorLimits = {}
@@ -69,12 +63,18 @@ class SystemController(Node):
             'controller_feedback',
             10
         )
+        # Trajectory publisher
+        self.traj_publisher = self.create_publisher(
+            JointTrajectory,
+            'animatronics_trajectory',
+            10
+        )
 
         # Selection mode
         self.selecting = False
         self.file_list = []
         self.cursor_index = 0
-        self.record_dir = "/home/csanimatronics/CS_Animatronics/MotionFiles"
+        self.record_dir = os.path.expanduser("~/CS_Animatronics/MotionFiles")
         self.last_nav_time = 0.0
         self.assigning = False
         self.assign_stage = 0  # 0=button選択, 1=file選択
@@ -118,30 +118,13 @@ class SystemController(Node):
         self.audio_dir = self.find_audio_directory()
         self.get_logger().info(f"Using audio directory: {self.audio_dir}")
 
-        # ===== New Recording (torque-off, hand-guided) =====
-        self.is_recording = False
-        self.record_mode = None  # 'controller' or 'hand'
-        self.pending_record_mode = False
-        self.record_ids = [int(k) for k in self.motorLimits.keys()]
-        self.record_start_time = None
-        self.record_calling = False
-        self.motion_dir = "/home/csanimatronics/CS_Animatronics/MotionFiles"
-        self.bag_writer = None
-        self.current_bag_uri = None
-        self.bag_topic_name = "/recorded_motor_states"
-
-        # Service clients
-        self.get_motor_states_client = self.create_client(GetMotorStates, 'get_motor_states')
-        self.set_torque_client = self.create_client(SetTorque, 'set_torque')
-        
-        # Background timer for recording sampling (20 Hz)
-        self.record_timer = self.create_timer(0.05, self.record_timer_callback)
+        # Recording previously here has been removed
     
     def find_audio_directory(self):
         """Find the correct audio directory"""
         import os
         audio_dirs = [
-            "/home/csanimatronics/CS_Animatronics/AudioFiles",
+            os.path.expanduser("~/CS_Animatronics/AudioFiles"),
             "/Users/isogawaryou/CS_Animatronics/AudioFiles"
         ]
         for dir_path in audio_dirs:
@@ -162,27 +145,6 @@ class SystemController(Node):
             elif len(self.prev_buttons) < max_btn:
                 self.prev_buttons += [False] * (max_btn - len(self.prev_buttons))
             just_pressed = [curr_buttons[i] and not self.prev_buttons[i] for i in range(max_btn)]
-
-            if self.pending_record_mode:
-                if just_pressed[0]:
-                    self.get_logger().info("Recording mode selected: controller input (Cross)")
-                    self.pending_record_mode = False
-                    os.system('clear')
-                    self.start_recording(mode='controller')
-                    return
-                if just_pressed[1]:
-                    self.get_logger().info("Recording mode selected: hand-guided (Circle)")
-                    self.pending_record_mode = False
-                    os.system('clear')
-                    self.start_recording(mode='hand')
-                    return
-                if just_pressed[10]:
-                    self.get_logger().info("Recording mode selection cancelled (PS pressed again)")
-                    self.pending_record_mode = False
-                    os.system('clear')
-                    return
-                # Wait for selection without processing other inputs
-                return
 
             # Log axes and buttons
             # Axes [0:LeftStick_X, 1:LeftStick_Y, 2:LeftTrigger, 3:RightStick_X, 4:RightStick_Y, 5:RightTrigger]
@@ -249,18 +211,6 @@ class SystemController(Node):
             new_msg.ids = ids
             new_msg.angles = angles
 
-            if (
-                self.is_recording
-                and self.record_mode == 'controller'
-                and self.bag_writer is not None
-                and new_msg.ids
-            ):
-                try:
-                    timestamp_ns = int(time.time() * 1_000_000_000)
-                    serialized = serialize_message(new_msg)
-                    self.bag_writer.write(self.bag_topic_name, serialized, timestamp_ns)
-                except Exception as exc:
-                    self.get_logger().error(f"Failed to write controller recording sample: {exc}")
 
             # Debug: Check new_msg contents AFTER assignment
             self.get_logger().info(f'After assignment - new_msg.ids: {new_msg.ids} (length: {len(new_msg.ids)})')
@@ -291,147 +241,9 @@ class SystemController(Node):
         msg.data = json.dumps(cmd_dict)
         self.feedback_pub.publish(msg)
 
-    # ===== Recording helpers =====
-    def start_recording(self, mode='hand'):
-        if self.is_recording:
-            self.get_logger().warn("start_recording called while already recording")
-            return
-
-        if mode not in ('hand', 'controller'):
-            self.get_logger().error(f"Unknown recording mode '{mode}'")
-            return
-
-        self.record_mode = mode
-        self.pending_record_mode = False
-        os.makedirs(self.motion_dir, exist_ok=True)
-        suffix = 'hand' if mode == 'hand' else 'controller'
-        bag_folder = time.strftime(f"record_%Y%m%d_%H%M%S_{suffix}")
-        bag_uri = os.path.join(self.motion_dir, bag_folder)
-
-        try:
-            storage_options = StorageOptions(uri=bag_uri, storage_id='sqlite3')
-            converter_options = ConverterOptions(input_serialization_format='cdr', output_serialization_format='cdr')
-            writer = SequentialWriter()
-            writer.open(storage_options, converter_options)
-            topic_metadata = TopicMetadata(
-                name=self.bag_topic_name,
-                type='motor_commands/msg/IdAngle',
-                serialization_format='cdr',
-            )
-            writer.create_topic(topic_metadata)
-        except Exception as exc:
-            self.get_logger().error(f"Failed to start rosbag recording: {exc}")
-            self.record_mode = None
-            return
-
-        self.bag_writer = writer
-        self.current_bag_uri = bag_uri
-        self.is_recording = True
-        self.record_start_time = time.time()
-        mode_label = 'controller input' if mode == 'controller' else 'hand-guided (torque OFF)'
-        self.get_logger().info(f"Recording START [{mode_label}] → {bag_uri}")
-        
-        # Feedback: Red LED for recording
-        self.send_feedback({"type": "led", "r": 255, "g": 0, "b": 0})
-        # Short rumble to confirm start
-        self.send_feedback({"type": "rumble", "left": 100, "right": 100})
-
-        if mode == 'hand':
-            # Request torque OFF for hand-guided recording
-            if self.set_torque_client.service_is_ready():
-                req = SetTorque.Request()
-                req.ids = [int(i) for i in self.record_ids]
-                req.enable = False
-                self.set_torque_client.call_async(req)
-            else:
-                self.get_logger().warn("set_torque service not ready; cannot disable torque")
-
-    def stop_recording(self):
-        if not self.is_recording:
-            return
-
-        mode = self.record_mode
-        self.is_recording = False
-
-        if mode == 'hand':
-            # Request torque ON when leaving hand-guided mode
-            if self.set_torque_client.service_is_ready():
-                req = SetTorque.Request()
-                req.ids = [int(i) for i in self.record_ids]
-                req.enable = True
-                self.set_torque_client.call_async(req)
-            else:
-                self.get_logger().warn("set_torque service not ready; cannot re-enable torque")
-
-        self.record_start_time = None
-        self.record_calling = False
-        if self.bag_writer is not None:
-            self.get_logger().info(f"Recording SAVED: {self.current_bag_uri}")
-            self.bag_writer = None
-        else:
-            self.get_logger().warn("Recording stopped but no bag writer was active")
-        self.current_bag_uri = None
-        self.record_mode = None
-        self.pending_record_mode = False
-        
-        # Feedback: Blue LED (Manual Mode)
-        self.send_feedback({"type": "led", "r": 0, "g": 0, "b": 255})
-        # Double rumble
-        self.send_feedback({"type": "rumble", "left": 255, "right": 255})
-
-    def record_timer_callback(self):
-        # Periodically sample positions during recording
-        if not self.is_recording or self.bag_writer is None:
-            return
-        if self.record_mode != 'hand':
-            return
-        if self.record_calling:
-            return
-        if not self.get_motor_states_client.service_is_ready():
-            return
-
-        self.record_calling = True
-        req = GetMotorStates.Request()
-        req.ids = [int(i) for i in self.record_ids]
-
-        future = self.get_motor_states_client.call_async(req)
-
-        def on_response(fut):
-            try:
-                resp = fut.result()
-                if resp is None:
-                    return
-
-                ids = list(resp.ids)
-                positions = list(resp.positions)
-                if not ids or not positions:
-                    return
-
-                if len(ids) != len(positions):
-                    self.get_logger().error(
-                        f"record sample mismatch: ids={len(ids)} positions={len(positions)}"
-                    )
-                    return
-
-                if not self.is_recording or self.bag_writer is None:
-                    return
-
-                bag_msg = IdAngle()
-                bag_msg.ids = ids
-                bag_msg.angles = positions
-
-                timestamp_ns = int(time.time() * 1_000_000_000)
-                serialized = serialize_message(bag_msg)
-                self.bag_writer.write(self.bag_topic_name, serialized, timestamp_ns)
-            except Exception as e:
-                self.get_logger().error(f"record sample failed: {e}")
-            finally:
-                self.record_calling = False
-
-        future.add_done_callback(on_response)
 
     def loadMotorLimits(self):
-        with open("/home/csanimatronics/CS_Animatronics/Motor_Limits.json", "r", encoding="utf-8") as file:
+        with open(os.path.expanduser("~/CS_Animatronics/Motor_Limits.json"), "r", encoding="utf-8") as file:
             data = json.load(file)
 
         for key, subdict in data.items():
@@ -463,13 +275,13 @@ class SystemController(Node):
 
         if int(selectedButton) in range(0,12):
             # Search recorded motion files
-            fileFounded = os.listdir("/home/csanimatronics/CS_Animatronics/MotionFiles")
+            fileFounded = os.listdir(os.path.expanduser("~/CS_Animatronics/MotionFiles"))
             # Chose a file to assign
             fileSelected = input(f"Chose file to assign {fileFounded}: ")
-            path = os.path.join("/home/csanimatronics/CS_Animatronics/MotionFiles", fileSelected)
+            path = os.path.join(os.path.expanduser("~/CS_Animatronics/MotionFiles"), fileSelected)
             data[selectedButton] = path
             # path to assign
-            file = open("/home/csanimatronics/CS_Animatronics/ControllerMap.json", "w")
+            file = open(os.path.expanduser("~/CS_Animatronics/ControllerMap.json"), "w")
             self.get_logger().info(f"{fileFounded}")
             json.dump(data, file, indent=4)
             self.get_logger().info(f"Update: {data}")
@@ -478,23 +290,16 @@ class SystemController(Node):
     def list_bag_records(self):
         if not os.path.isdir(self.record_dir):
             return []
-
         records = []
         for entry in sorted(os.listdir(self.record_dir)):
-            full_path = os.path.join(self.record_dir, entry)
-            metadata_path = os.path.join(full_path, "metadata.yaml")
-            if os.path.isdir(full_path) and os.path.exists(metadata_path):
+            if entry.endswith(".json"):
                 records.append(entry)
         return records
 
     def assign_motion(self, filepath, button):
-        if not os.path.isdir(filepath):
-            self.get_logger().error(f"Cannot assign motion; directory missing: {filepath}")
+        if not os.path.exists(filepath) or not filepath.endswith(".json"):
+            self.get_logger().error(f"Cannot assign motion; invalid JSON file: {filepath}")
             return
-        if not os.path.exists(os.path.join(filepath, "metadata.yaml")):
-            self.get_logger().error(f"Cannot assign motion; metadata.yaml missing in {filepath}")
-            return
-
         with open(self.controllerMap, "r+") as f:
             data = json.load(f)
             data[button] = filepath
@@ -502,85 +307,60 @@ class SystemController(Node):
         self.get_logger().info(f"Assigned '{os.path.basename(filepath)}' → Button {button}")
 
     def PlayMotion(self, button):
-        self.get_logger().info(f"Start playing recorded motion for button {button}")
-        
-        # Feedback: Green LED for playback
+        self.get_logger().info(f"Start playing motion for button {button}")
         self.send_feedback({"type": "led", "r": 0, "g": 255, "b": 0})
         
-        # Load motion file mapping
         try:
             with open(self.controllerMap, "r") as file:
                 data = json.load(file)
-        except (FileNotFoundError, json.JSONDecodeError) as e:
-            self.get_logger().error(f"Failed to load controller mapping: {e}")
-            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0}) # Error Feedback: Flash Yellow/Red (Manual override for now)
+        except Exception as e:
+            self.get_logger().error(f"Failed to load map: {e}")
+            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0})
             return
             
         path = data.get(button, "")
-        
-        # Check if button has assigned motion
-        if not path or path.strip() == "":
-            self.get_logger().info(f"No motion assigned to button {button}")
-            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0}) # Error Feedback: Flash Yellow/Red (Manual override for now)
+        if not path or not os.path.exists(path) or not path.endswith(".json"):
+            self.get_logger().warn(f"Invalid motion file for button {button}: {path}")
+            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0})
             return
+
+        try:
+            with open(path, "r") as f:
+                motion_data = json.load(f)
+            if not motion_data:
+                return
+
+            msg = JointTrajectory()
+            # Collect unique joints
+            all_joints = set()
+            for e in motion_data:
+                for k in e.get("angles", {}).keys():
+                    all_joints.add(str(k))
+            msg.joint_names = list(all_joints)
             
-        if path.endswith('.json'):
-            self.get_logger().warn(f"Legacy JSON motion detected; please re-record using rosbag: {path}")
-            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0}) # Error Feedback: Flash Yellow/Red (Manual override for now)
-            return
+            for entry in sorted(motion_data, key=lambda x: x["timestamp"]):
+                point = JointTrajectoryPoint()
+                sec = int(entry["timestamp"])
+                nanosec = int((entry["timestamp"] - sec) * 1e9)
+                point.time_from_start = Duration(sec=sec, nanosec=nanosec)
+                point.positions = []
+                for j in msg.joint_names:
+                    # Provide default value safely or interpolation (for now default to 2048 or closest)
+                    # For simplicity, if a joint is missing in a keypose, we just fall back to standard 'ini' from motorLimits.
+                    ini_val = self.motorLimits.get(j, {}).get("ini", 2048)
+                    val = entry["angles"].get(j, ini_val)
+                    point.positions.append(float(val))
+                msg.points.append(point)
 
-        if not os.path.isdir(path):
-            self.get_logger().error(f"Motion bag directory not found: {path}")
-            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0}) # Error Feedback: Flash Yellow/Red (Manual override for now)
-            return
-
-        metadata_path = os.path.join(path, "metadata.yaml")
-        if not os.path.exists(metadata_path):
-            self.get_logger().error(f"Invalid bag directory (missing metadata.yaml): {path}")
-            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0}) # Error Feedback: Flash Yellow/Red (Manual override for now)
-            return
-
-        storage_options = StorageOptions(uri=path, storage_id='sqlite3')
-        converter_options = ConverterOptions(input_serialization_format='cdr', output_serialization_format='cdr')
-        reader = SequentialReader()
-
-        try:
-            reader.open(storage_options, converter_options)
+            self.traj_publisher.publish(msg)
+            self.get_logger().info(f"Published trajectory with {len(msg.points)} points to animatronics_trajectory.")
+            
         except Exception as e:
-            self.get_logger().error(f"Failed to open rosbag {path}: {e}")
-            self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0}) # Error Feedback: Flash Yellow/Red (Manual override for now)
+            self.get_logger().error(f"Error playing motion: {e}")
+            self.send_feedback({"type": "led", "r": 255, "g": 0, "b": 0})
             return
 
-        last_timestamp = None
-
-        try:
-            while reader.has_next():
-                topic, raw, timestamp = reader.read_next()
-                if topic != self.bag_topic_name:
-                    continue
-
-                msg = deserialize_message(raw, IdAngle)
-                if last_timestamp is not None:
-                    delta = (timestamp - last_timestamp) / 1_000_000_000
-                    if delta > 0:
-                        time.sleep(delta)
-                last_timestamp = timestamp
-
-                new_msg = IdAngle()
-                new_msg.ids = list(msg.ids)
-                new_msg.angles = list(msg.angles)
-
-                self.publisher.publish(new_msg)
-                self.get_logger().info(f'Playing recorded motion: {new_msg.ids}, Angles: {new_msg.angles}')
-        except Exception as e:
-            self.get_logger().error(f"Error during motion playback: {e}")
-            self.send_feedback({"type": "led", "r": 255, "g": 0, "b": 0}) # Error Red
-            return
-        finally:
-            del reader
-
-        self.get_logger().info("Finish playing recorded motion") 
-        # Restore Blue LED
+        self.get_logger().info("Finished triggering motion.")
         self.send_feedback({"type": "led", "r": 0, "g": 0, "b": 255})
 
     def translate(self, axes, buttons):
@@ -646,16 +426,9 @@ class SystemController(Node):
             self.get_logger().info(f'Options was pressed')
             # self.play_dinosaur_sound(9)  # Warning call - DISABLED
 
-        # PS (record toggle) — rising-edge only (buttons passed are just_pressed)
+        # PS (removed recording toggle)
         elif buttons[10]:
-            if self.is_recording:
-                self.stop_recording()
-            elif not self.pending_record_mode:
-                self.pending_record_mode = True
-                self.get_logger().info("PS pressed: press Cross to record controller input or Circle for hand-guided (torque-off) recording")
-                self.print_record_mode_prompt()
-            else:
-                self.get_logger().info("Recording mode selection already pending")
+            pass
 
         # LeftStick
         elif buttons[11]:

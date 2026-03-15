@@ -29,6 +29,7 @@ setup(
         'console_scripts': [
             'controller_publisher = controller_publisher:main',
             'system_controller = system_controller.system_controller:main',
+            'trajectory_interpolator = system_controller.trajectory_interpolator:main',
         ],
     },
 )

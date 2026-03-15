@@ -1,2 +1,0 @@
-[console_scripts]
-audio_player = audio_player.audio_player:main
