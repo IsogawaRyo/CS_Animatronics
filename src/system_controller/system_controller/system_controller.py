@@ -49,7 +49,11 @@ class SystemController(Node):
             'IdAngle',
             12
         )
-        
+        self.initial_pose_attempts = 0
+        self.initial_pose_max_attempts = 5
+        # 起動直後～トルクON完了まで定期的に初期姿勢を送信
+        self.initial_pose_timer = self.create_timer(1.0, self.publish_initial_pose_until_ready)
+
         # Audio publisher for dinosaur sounds
         self.audio_publisher = self.create_publisher(
             Int32,
@@ -67,6 +71,26 @@ class SystemController(Node):
         self.traj_publisher = self.create_publisher(
             JointTrajectory,
             'animatronics_trajectory',
+            10
+        )
+
+        # Trajectory subscriber (for tracking playback state)
+        self.traj_active = False
+        self.traj_end_time = 0.0
+        self.controller_timeout = 2.0
+        self.last_joy_time = None
+        self.controller_connected = False
+        self.motion_playback_lock_ids = {
+            41, 42, 43, 44,  # arms
+            51, 52,          # tail
+            60, 61, 62, 63, 64,
+            65, 66, 67, 68, 69,  # legs
+        }
+        
+        self.traj_subscription = self.create_subscription(
+            JointTrajectory,
+            'animatronics_trajectory',
+            self.traj_callback,
             10
         )
 
@@ -134,6 +158,20 @@ class SystemController(Node):
 
     
     def listener_callback(self, msg):
+        now = time.time()
+        if self.last_joy_time is None:
+            # First controller message after boot
+            self.controller_connected = True
+            self.last_joy_time = now
+        elif now - self.last_joy_time > self.controller_timeout:
+            self.controller_connected = False
+            self.last_joy_time = now
+            self.get_logger().debug("Controller inactive for >2s; suppressing manual publish.")
+            return
+        else:
+            self.controller_connected = True
+            self.last_joy_time = now
+
         try:
             # Rising-edge detection for all buttons
             max_btn = max(13, len(msg.buttons))
@@ -202,6 +240,8 @@ class SystemController(Node):
 
             # translate values
             ids, angles = self.translate(msg.axes, just_pressed)
+            if not ids:
+                return
  
             # Check for breathing sound (background ambient sound)
             self.check_breathing_sound()
@@ -213,8 +253,8 @@ class SystemController(Node):
 
 
             # Debug: Check new_msg contents AFTER assignment
-            self.get_logger().info(f'After assignment - new_msg.ids: {new_msg.ids} (length: {len(new_msg.ids)})')
-            self.get_logger().info(f'After assignment - new_msg.angles: {new_msg.angles} (length: {len(new_msg.angles)})')
+            self.get_logger().debug(f'After assignment - new_msg.ids: {new_msg.ids} (length: {len(new_msg.ids)})')
+            self.get_logger().debug(f'After assignment - new_msg.angles: {new_msg.angles} (length: {len(new_msg.angles)})')
             
             # Check if ROS2 added any extra elements
             if len(new_msg.ids) != len(ids):
@@ -223,9 +263,9 @@ class SystemController(Node):
                 self.get_logger().error(f'ROS2 modified angles length! Original: {len(angles)}, ROS2: {len(new_msg.angles)}')
 
             self.publisher.publish(new_msg)
-            self.get_logger().info(f'Publishing IDs: {new_msg.ids}')
-            self.get_logger().info(f'Publishing Angles: {new_msg.angles}')
-            self.get_logger().info(f'IDs length: {len(new_msg.ids)}, Angles length: {len(new_msg.angles)}')
+            self.get_logger().debug(f'Publishing IDs: {new_msg.ids}')
+            self.get_logger().debug(f'Publishing Angles: {new_msg.angles}')
+            self.get_logger().debug(f'IDs length: {len(new_msg.ids)}, Angles length: {len(new_msg.angles)}')
         except Exception as e:
             self.get_logger().error(f"Error in listener_callback: {e}")
             return
@@ -363,67 +403,92 @@ class SystemController(Node):
         self.get_logger().info("Finished triggering motion.")
         self.send_feedback({"type": "led", "r": 0, "g": 0, "b": 255})
 
+    def traj_callback(self, msg: JointTrajectory):
+        """Track motion playback to avoid fighting with manual commands."""
+        if not msg.points:
+            self.traj_active = False
+            self.traj_end_time = 0.0
+            self.get_logger().debug("Trajectory STOP signal received; manual control restored.")
+            return
+
+        # Determine how long playback should be considered active
+        last_point = msg.points[-1]
+        duration = last_point.time_from_start.sec + (last_point.time_from_start.nanosec * 1e-9)
+        # Defensive: avoid negative durations
+        duration = max(0.0, duration)
+        self.traj_active = True
+        self.traj_end_time = time.time() + duration
+        self.get_logger().debug(f"Trajectory playback active for {duration:.2f}s.")
+
     def translate(self, axes, buttons):
+        # Stop sending commands if controller disconnected for 2 seconds
+        if not self.controller_connected:
+            return [], []
+
+        # Clear trajectory active flag if playback time has expired
+        if self.traj_active and time.time() > self.traj_end_time:
+            self.traj_active = False
+
         # Debug: Check MODE and axes values
-        self.get_logger().info(f"translate() called - MODE: {MODE}, axes: {axes[:6]}")
+        self.get_logger().debug(f"translate() called - MODE: {MODE}, axes: {axes[:6]}")
         
         # Buttons event
         # Cross
         if buttons[0]:
-            self.get_logger().info(f'Cross was pressed')
+            self.get_logger().debug(f'Cross was pressed')
             self.PlayMotion("0")
             # self.play_dinosaur_sound(1)  # Basic roar - DISABLED
 
         # Circle
         elif buttons[1]:
-            self.get_logger().info(f'Circle was pressed')
+            self.get_logger().debug(f'Circle was pressed')
             self.PlayMotion("1")
             # self.play_dinosaur_sound(2)  # Aggressive roar - DISABLED
 
         # Square
         elif buttons[2]:
-            self.get_logger().info(f'Square was pressed')
+            self.get_logger().debug(f'Square was pressed')
             self.PlayMotion("2")
             # self.play_dinosaur_sound(3)  # Growl - DISABLED
 
         # Triangle
         elif buttons[3]:
-            self.get_logger().info(f'Triangle was pressed')
+            self.get_logger().debug(f'Triangle was pressed')
             self.PlayMotion("3")
             # self.play_dinosaur_sound(4)  # Hiss - DISABLED
 
         # LeftBumper
         elif buttons[4]:
-            self.get_logger().info(f'LeftBumper was pressed')
+            self.get_logger().debug(f'LeftBumper was pressed')
             self.PlayMotion("4")
             # self.play_dinosaur_sound(5)  # Chomp - DISABLED
 
         # RightBumper
         elif buttons[5]:
-            self.get_logger().info(f'RightBumper was pressed')
+            self.get_logger().debug(f'RightBumper was pressed')
             self.PlayMotion("5")
             # self.play_dinosaur_sound(6)  # Footstep - DISABLED
 
         # LeftTrigger
         elif buttons[6]:
-            self.get_logger().info(f'*** CONTROLLER LEFTTRIGGER *** was pressed - playing sound ID 7')
+            self.get_logger().debug(f'*** CONTROLLER LEFTTRIGGER *** was pressed - playing sound ID 7')
             # self.play_dinosaur_sound(7)  # Ground shake - DISABLED
 
         # RightTrigger
         elif buttons[7]:
-            self.get_logger().info(f'RightTrigger was pressed')
+            self.get_logger().debug(f'RightTrigger was pressed')
             # self.play_dinosaur_sound(8)  # Heavy breathing - DISABLED
 
         # Share
         elif buttons[8]:
-            self.get_logger().info(f'Share was pressed')
+            self.get_logger().debug(f'Share was pressed')
             """
             self.AssignMotion()
             """
 
         # Options
         elif buttons[9]:
-            self.get_logger().info(f'Options was pressed')
+            self.get_logger().debug(f'Options was pressed')
             # self.play_dinosaur_sound(9)  # Warning call - DISABLED
 
         # PS (removed recording toggle)
@@ -432,13 +497,13 @@ class SystemController(Node):
 
         # LeftStick
         elif buttons[11]:
-            self.get_logger().info(f'LeftStick was pressed')
+            self.get_logger().debug(f'LeftStick was pressed')
             self.PlayMotion("11")
             # self.play_dinosaur_sound(11)  # Pain sound - DISABLED
 
         # RightStick
         elif buttons[12]:
-            self.get_logger().info(f'RightStick was pressed')
+            self.get_logger().debug(f'RightStick was pressed')
             self.PlayMotion("12")
             # self.play_dinosaur_sound(12)  # Victory roar - DISABLED
 
@@ -465,10 +530,10 @@ class SystemController(Node):
             tail51, tail52 = self.tail()
             
             # Legs (New - Placeholder)
-            leg61, leg62, leg63, leg64, leg65, leg66, leg67, leg68 = self.legs()
+            leg60, leg61, leg62, leg63, leg64, leg65, leg66, leg67, leg68, leg69 = self.legs()
 
             # Debug: Log motor command values (Sample)
-            self.get_logger().info(f"Motor commands - Jaw: {jaw}, Eyes: {eyeR}/{eyeL}, Neck: {neck31}/{neck32}")
+            self.get_logger().debug(f"Motor commands - Jaw: {jaw}, Eyes: {eyeR}/{eyeL}, Neck: {neck31}/{neck32}")
             
             ids = [
                 11, 12, 13, 
@@ -476,7 +541,8 @@ class SystemController(Node):
                 31, 32, 33, 34,
                 41, 42, 43, 44,
                 51, 52,
-                61, 62, 63, 64, 65, 66, 67, 68
+                60, 61, 62, 63, 64,
+                65, 66, 67, 68, 69
             ]
             
             angles = [
@@ -485,7 +551,8 @@ class SystemController(Node):
                 neck31, neck32, neck33, neck34,
                 arm41, arm42, arm43, arm44,
                 tail51, tail52,
-                leg61, leg62, leg63, leg64, leg65, leg66, leg67, leg68
+                leg60, leg61, leg62, leg63, leg64,
+                leg65, leg66, leg67, leg68, leg69
             ]
             
             # Debug: Check for None values that might become 0
@@ -504,7 +571,62 @@ class SystemController(Node):
             ids = []
             angles = []
 
+        if self.traj_active and ids:
+            filtered_ids = []
+            filtered_angles = []
+            for motor_id, angle in zip(ids, angles):
+                if motor_id in self.motion_playback_lock_ids:
+                    continue
+                filtered_ids.append(motor_id)
+                filtered_angles.append(angle)
+
+            if len(filtered_ids) != len(ids):
+                self.get_logger().debug(
+                    f"Skipping manual commands for IDs {set(ids) - set(filtered_ids)} during trajectory playback."
+                )
+
+            ids = filtered_ids
+            angles = filtered_angles
+
         return ids, angles
+
+    def publish_initial_pose_until_ready(self):
+        """Send initial pose repeatedly so one command certainly arrives after torque ON."""
+        if self.initial_pose_attempts >= self.initial_pose_max_attempts:
+            if self.initial_pose_timer is not None:
+                self.initial_pose_timer.cancel()
+                self.initial_pose_timer = None
+            return
+
+        msg = IdAngle()
+        for motor_id_str, limits in sorted(self.motorLimits.items(), key=lambda kv: int(kv[0])):
+            try:
+                motor_id = int(motor_id_str)
+            except ValueError:
+                continue
+            ini = limits.get("ini")
+            if ini is None:
+                continue
+            msg.ids.append(motor_id)
+            msg.angles.append(int(ini))
+
+        if not msg.ids:
+            self.get_logger().warn("Initial pose publish skipped: no motor limits loaded.")
+            if self.initial_pose_timer is not None:
+                self.initial_pose_timer.cancel()
+                self.initial_pose_timer = None
+            return
+
+        self.publisher.publish(msg)
+        self.initial_pose_attempts += 1
+        self.get_logger().info(
+            f"Initial pose publish #{self.initial_pose_attempts}/{self.initial_pose_max_attempts} "
+            f"({len(msg.ids)} motors)."
+        )
+
+        if self.initial_pose_attempts >= self.initial_pose_max_attempts and self.initial_pose_timer is not None:
+            self.initial_pose_timer.cancel()
+            self.initial_pose_timer = None
 
     def enter_selection_mode(self):
         self.selecting = True
@@ -810,22 +932,24 @@ class SystemController(Node):
         return arm41, arm42, arm43, arm44
 
     def tail(self):
-        # 51: 尻尾 ベースYaw, 52: 尻尾 ミドルPitch
+        # 51: 尻尾右, 52: 尻尾左
         tail51 = self.motorLimits["51"]["ini"]
         tail52 = self.motorLimits["52"]["ini"]
         return tail51, tail52
 
     def legs(self):
-        # 61-68: 脚
-        l61 = self.motorLimits["61"]["ini"]
-        l62 = self.motorLimits["62"]["ini"]
-        l63 = self.motorLimits["63"]["ini"]
-        l64 = self.motorLimits["64"]["ini"]
-        l65 = self.motorLimits["65"]["ini"]
-        l66 = self.motorLimits["66"]["ini"]
-        l67 = self.motorLimits["67"]["ini"]
-        l68 = self.motorLimits["68"]["ini"]
-        return l61, l62, l63, l64, l65, l66, l67, l68
+        # 60-64: 左脚, 65-69: 右脚
+        l60 = self.motorLimits.get("60", {}).get("ini", 2048)
+        l61 = self.motorLimits.get("61", {}).get("ini", 2048)
+        l62 = self.motorLimits.get("62", {}).get("ini", 2048)
+        l63 = self.motorLimits.get("63", {}).get("ini", 2048)
+        l64 = self.motorLimits.get("64", {}).get("ini", 2048)
+        l65 = self.motorLimits.get("65", {}).get("ini", 2048)
+        l66 = self.motorLimits.get("66", {}).get("ini", 2048)
+        l67 = self.motorLimits.get("67", {}).get("ini", 2048)
+        l68 = self.motorLimits.get("68", {}).get("ini", 2048)
+        l69 = self.motorLimits.get("69", {}).get("ini", 2048)
+        return l60, l61, l62, l63, l64, l65, l66, l67, l68, l69
     
     def play_dinosaur_sound(self, sound_id):
         """Play dinosaur sound with cooldown to prevent rapid triggering"""

@@ -19,9 +19,12 @@ import subprocess
 import os
 import math
 from std_msgs.msg import String, Int32
+from std_srvs.srv import Trigger
 from rclpy.executors import MultiThreadedExecutor
 
 from motion_editor.motion_editor import MotionEditor, ROSManager as MotionROSManager
+
+STATE_POLL_PERIOD = 5.0  # seconds between motor state refreshes
 
 class SystemMonitor(Node):
     def __init__(self, motion_ros_manager):
@@ -57,6 +60,9 @@ class SystemMonitor(Node):
         # Service Client for Motor States
         self.get_states_client = self.create_client(GetMotorStates, 'get_motor_states')
         
+        # Service Client for Reconnection
+        self.reconnect_client = self.create_client(Trigger, 'reconnect_ports')
+        
         # Tkinter Setup
         self.root = tk.Tk()
         self.root.title("CS_Animatronics System Monitor")
@@ -65,7 +71,7 @@ class SystemMonitor(Node):
         self.setup_ui()
         
         # Start state polling timer (Slower to reduce bus contention)
-        self.create_timer(3.0, self.poll_motor_states)
+        self.create_timer(STATE_POLL_PERIOD, self.poll_motor_states)
         
         # Start GUI update loop (separate from ROS loop)
         self.update_gui()
@@ -135,7 +141,8 @@ class SystemMonitor(Node):
             31, 32, 33, 34,
             41, 42, 43, 44,
             51, 52,
-            61, 62, 63, 64, 65, 66, 67, 68
+            60, 61, 62, 63, 64,
+            65, 66, 67, 68, 69
         ]
         
         self.role_map = {
@@ -143,9 +150,9 @@ class SystemMonitor(Node):
             21: "Lid RU", 22: "Lid RL", 23: "Lid LU", 24: "Lid LL",
             31: "Neck Yaw", 32: "Neck P1", 33: "Neck R", 34: "Neck P2",
             41: "Shld R", 42: "Elbw R", 43: "Shld L", 44: "Elbw L",
-            51: "Tail Yaw", 52: "Tail Pit",
-            61: "Leg R1", 62: "Leg R2", 63: "Leg R3", 64: "Leg R4",
-            65: "Leg L1", 66: "Leg L2", 67: "Leg L3", 68: "Leg L4"
+            51: "Tail R", 52: "Tail L",
+            60: "HipA L", 61: "HipB L", 62: "HipC L", 63: "Knee L", 64: "Ankle L",
+            65: "HipA R", 66: "HipB R", 67: "HipC R", 68: "Knee R", 69: "Ankle R"
         }
 
         for mid in self.motor_ids:
@@ -153,6 +160,68 @@ class SystemMonitor(Node):
                 mid, self.role_map.get(mid, "Unknown"), 
                 "-", "-", "-", "-", "-", "-"
             ))
+
+        # --- Reboot button row ---
+        btn_frame = ttk.Frame(table_frame)
+        btn_frame.pack(fill="x", pady=(4, 0))
+        ttk.Button(btn_frame, text="🔄 Reboot Selected Motor",
+                   command=self._reboot_selected_motor).pack(side="left", padx=4)
+        ttk.Label(btn_frame,
+                  text="(Select a row then click, or right-click a row)",
+                  foreground="gray").pack(side="left")
+
+        # --- Reconnect button ---
+        ttk.Button(btn_frame, text="🔌 接続切れポートを再接続",
+                   command=self._reconnect_ports).pack(side="right", padx=10)
+
+        # Right-click context menu
+        self._ctx_menu = tk.Menu(self.root, tearoff=0)
+        self._ctx_menu.add_command(label="🔄 Reboot this motor",
+                                   command=self._reboot_selected_motor)
+        self.tree.bind("<Button-3>", self._show_ctx_menu)
+
+    def _show_ctx_menu(self, event):
+        """Select the row under cursor and show context menu."""
+        row = self.tree.identify_row(event.y)
+        if row:
+            self.tree.selection_set(row)
+            self._ctx_menu.tk_popup(event.x_root, event.y_root)
+
+    def _reboot_selected_motor(self):
+        """Reboot the motor currently selected in the treeview."""
+        sel = self.tree.selection()
+        if not sel:
+            messagebox.showwarning("No Selection", "Motor Monitor: モーター行を選択してください。")
+            return
+        motor_id = int(sel[0])
+        if not messagebox.askyesno("Reboot Motor",
+                                   f"Motor ID {motor_id} ({self.role_map.get(motor_id, '?')}) を再起動しますか？\n"
+                                   "トルク OFF 後に自動再初期化されます。"):
+            return
+        self.motion_ros_manager.reboot_motor(motor_id)
+        self.get_logger().info(f"Reboot sent to motor {motor_id}.")
+
+    def _reconnect_ports(self):
+        if not self.reconnect_client.service_is_ready():
+            messagebox.showerror("Error", "Motor Controller is not ready or service is unavailable!")
+            return
+            
+        if not messagebox.askyesno("Confirm Reconnect", "USBポートの再スキャンと再接続を実行しますか？\n(実行中、モーターが一時的に初期状態に戻る可能性があります)"):
+            return
+            
+        req = Trigger.Request()
+        future = self.reconnect_client.call_async(req)
+        future.add_done_callback(self._on_reconnect_done)
+        
+    def _on_reconnect_done(self, future):
+        try:
+            resp = future.result()
+            if resp.success:
+                messagebox.showinfo("Success", f"再接続に成功しました:\n{resp.message}")
+            else:
+                messagebox.showwarning("Failed", f"再接続に失敗しました:\n{resp.message}")
+        except Exception as e:
+            messagebox.showerror("Error", f"Reconnection request failed: {e}")
 
     def setup_node_manager_tab(self, parent):
         # Manager Settings

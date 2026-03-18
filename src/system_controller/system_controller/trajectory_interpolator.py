@@ -23,8 +23,8 @@ class TrajectoryInterpolator(Node):
             10
         )
 
-        # Timer for 50Hz control loop
-        self.timer_period = 0.02  # 50 Hz
+        # Timer for 30Hz control loop to avoid RS485 bus congestion at 115200 bps
+        self.timer_period = 0.033  # ~30 Hz
         self.timer = self.create_timer(self.timer_period, self.control_loop)
 
         self.current_trajectory = None
@@ -36,10 +36,23 @@ class TrajectoryInterpolator(Node):
             "lid_ru": 21, "lid_rl": 22, "lid_lu": 23, "lid_ll": 24,
             "neck_yaw": 31, "neck_p1": 32, "neck_r": 33, "neck_p2": 34,
             "shld_r": 41, "elbw_r": 42, "shld_l": 43, "elbw_l": 44,
-            "tail_yaw": 51, "tail_pit": 52,
-            "leg_r1": 61, "leg_r2": 62, "leg_r3": 63, "leg_r4": 64,
-            "leg_l1": 65, "leg_l2": 66, "leg_l3": 67, "leg_l4": 68
         }
+
+        # Updated tail + leg naming that Motion Editor now emits
+        self.role_map.update({
+            "tail_r": 51,
+            "tail_l": 52,
+            "hip_a_l": 60,
+            "hip_b_l": 61,
+            "hip_c_l": 62,
+            "knee_l": 63,
+            "ankle_l": 64,
+            "hip_a_r": 65,
+            "hip_b_r": 66,
+            "hip_c_r": 67,
+            "knee_r": 68,
+            "ankle_r": 69,
+        })
         
         # Reverse map to support uppercase/spaced names
         # Also map integer strings like "11" -> 11
@@ -53,7 +66,10 @@ class TrajectoryInterpolator(Node):
 
     def trajectory_callback(self, msg: JointTrajectory):
         if not msg.points:
-            self.get_logger().warn("Received empty trajectory!")
+            # Empty trajectory = STOP signal
+            self.get_logger().info("Received STOP signal (empty trajectory). Halting playback.")
+            self.current_trajectory = None
+            self.start_time = None
             return
             
         self.get_logger().info(f"Received new trajectory with {len(msg.points)} points. Joint count: {len(msg.joint_names)}")

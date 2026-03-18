@@ -10,6 +10,7 @@ from dynamixel_sdk import GroupSyncRead
 from dynamixel_sdk_custom_interfaces.msg import SetPosition
 from motor_commands.srv import GetMotorStates
 from motor_commands.srv import SetTorque
+from std_srvs.srv import Trigger
 import numpy as np
 from time import sleep
 import json
@@ -36,8 +37,10 @@ PROTOCOL_VERSION = 2.0
 
 # Default setting
 BAUDRATE     = 115200 
-DEVICE_NAME0 = "/dev/ttyUSB0"
-DEVICE_NAME1 = "/dev/ttyUSB1"
+import glob
+available_ports = sorted(glob.glob('/dev/ttyUSB*') + glob.glob('/dev/ttyACM*'))
+DEVICE_NAME0 = available_ports[0] if len(available_ports) > 0 else "/dev/ttyUSB0"
+DEVICE_NAME1 = available_ports[1] if len(available_ports) > 1 else "/dev/ttyUSB1"
 
 # Initialize PortHandler and PacketHandler
 port_handler0 = PortHandler(DEVICE_NAME0)
@@ -78,8 +81,11 @@ MOTOR_IDS = [
     31, 32, 33, 34,
     41, 42, 43, 44,
     51, 52,
-    61, 62, 63, 64, 65, 66, 67, 68
+    60, 61, 62, 63, 64,
+    65, 66, 67, 68, 69
 ]
+
+OBSERVE_CACHE_DURATION = 0.3  # seconds MotionEditor Observe result may be reused
 
 class MotorController(Node):
     def __init__(self, port0_open: bool, port1_open: bool):
@@ -97,7 +103,7 @@ class MotorController(Node):
         # Cache for GetMotorStates to reduce communication overhead  
         self.motor_states_cache = {}
         self.last_cache_time = 0.0
-        self.cache_duration = 0.1  # 100ms cache duration for observe mode
+        self.cache_duration = OBSERVE_CACHE_DURATION
         
         # Read cycle counter for interleaving optimization
         self.read_cycle = 0
@@ -118,9 +124,19 @@ class MotorController(Node):
             SetTorque, 'set_torque', self.set_torque)
         self.get_logger().info('Run SetTorque server')
 
+        # Service: Reconnect Ports
+        self.reconnect_service = self.create_service(
+            Trigger, 'reconnect_ports', self.reconnect_ports_callback)
+        self.get_logger().info('Run ReconnectPorts server')
+
         # Subscriber: IdAngle
         self.subscription = self.create_subscription(
             IdAngle, 'IdAngle', self.listener_callback, 12)
+
+        # Subscriber: motor_reboot (uses IdAngle.ids; angles ignored)
+        self.reboot_subscription = self.create_subscription(
+            IdAngle, 'motor_reboot', self.reboot_callback, 10)
+        self.get_logger().info('Reboot subscriber ready on /motor_reboot')
         
     def load_motor_limits(self):
         limits_path = os.path.expanduser("~/CS_Animatronics/Motor_Limits.json")
@@ -214,12 +230,18 @@ class MotorController(Node):
                 self.get_logger().info(f"Unknown motor ID: {motor_id}")
                 continue
 
-        dxl_comm_result = groupSyncWrite0.txPacket()
-        if dxl_comm_result != COMM_SUCCESS:
-            self.get_logger().error(f"Sync Write Error on port0: {packet_handler.getTxRxResult(dxl_comm_result)}")
-        dxl_comm_result = groupSyncWrite1.txPacket()
-        if dxl_comm_result != COMM_SUCCESS:
-            self.get_logger().error(f"Sync Write Error on port1: {packet_handler.getTxRxResult(dxl_comm_result)}")
+        # Only transmit if at least one motor param was added for that port
+        port0_motors_added = any(mid in PORT0 for mid in msg.ids if mid != 0)
+        port1_motors_added = any(mid in PORT1 for mid in msg.ids if mid != 0)
+
+        if port0_motors_added:
+            dxl_comm_result = groupSyncWrite0.txPacket()
+            if dxl_comm_result != COMM_SUCCESS:
+                self.get_logger().error(f"Sync Write Error on port0: {packet_handler.getTxRxResult(dxl_comm_result)}")
+        if port1_motors_added:
+            dxl_comm_result = groupSyncWrite1.txPacket()
+            if dxl_comm_result != COMM_SUCCESS:
+                self.get_logger().error(f"Sync Write Error on port1: {packet_handler.getTxRxResult(dxl_comm_result)}")
 
         groupSyncWrite0.clearParam()
         groupSyncWrite1.clearParam()
@@ -312,6 +334,35 @@ class MotorController(Node):
         response.system_total_current = system_total
         return response
 
+    def reboot_callback(self, msg: IdAngle):
+        """Reboot each requested motor ID via Dynamixel reboot packet."""
+        for motor_id in msg.ids:
+            if motor_id == 0:
+                continue
+            if motor_id in PORT0:
+                ph = port_handler0
+            elif motor_id in PORT1:
+                ph = port_handler1
+            else:
+                self.get_logger().warn(f"Reboot: unknown motor ID {motor_id}")
+                continue
+
+            comm_result, error = packet_handler.reboot(ph, motor_id)
+            if comm_result == COMM_SUCCESS:
+                self.get_logger().info(f"Motor {motor_id} rebooted successfully.")
+                # Brief delay for motor to come back online
+                sleep(0.5)
+                # Re-enable torque and LED after reboot
+                limits = self.motor_limits.get(f"{motor_id}", {})
+                ini = limits.get("ini", 2048)
+                packet_handler.write4ByteTxRx(ph, motor_id, ADDR_GOAL_POSITION, ini)
+                packet_handler.write1ByteTxRx(ph, motor_id, ADDR_TORQUE_ENABLE, 1)
+                packet_handler.write1ByteTxRx(ph, motor_id, ADDR_LED, 1)
+                self.get_logger().info(f"Motor {motor_id} re-initialized to pos={ini}.")
+            else:
+                self.get_logger().error(
+                    f"Reboot failed for {motor_id}: {packet_handler.getTxRxResult(comm_result)}")
+
     def set_torque(self, request, response):
         """Service handler to enable/disable torque for the specified motor IDs"""
         try:
@@ -342,6 +393,20 @@ class MotorController(Node):
                     self.get_logger().info(
                         f"SetTorque {'ENABLED' if request.enable else 'DISABLED'} for ID {motor_id}")
 
+                    # When torque is enabled, drive motor back to its ini position so it holds safely
+                    if request.enable:
+                        limits = self.motor_limits.get(f"{motor_id}")
+                        ini = limits.get("ini") if limits else None
+                        if ini is not None:
+                            write_result, _ = packet_handler.write4ByteTxRx(
+                                selected_port_handler, motor_id, ADDR_GOAL_POSITION, int(ini))
+                            if write_result != COMM_SUCCESS:
+                                self.get_logger().warn(
+                                    f"SetTorque: failed to reset ID {motor_id} to ini ({packet_handler.getTxRxResult(write_result)})")
+                        else:
+                            self.get_logger().warn(
+                                f"SetTorque: ini position unknown for ID {motor_id}; skipping reset")
+
             response.success = True
             response.message = 'Torque updated'
             return response
@@ -350,6 +415,76 @@ class MotorController(Node):
             response.success = False
             response.message = str(e)
             return response
+
+    def reconnect_ports_callback(self, request, response):
+        self.get_logger().info("Reconnecting ports...")
+        global DEVICE_NAME0, DEVICE_NAME1, PORT0, PORT1
+        global port_handler0, port_handler1
+        global groupSyncWrite0, groupSyncWrite1
+        global groupSyncRead0_pos, groupSyncRead1_pos
+        global groupSyncRead0_temp, groupSyncRead1_temp
+        global groupSyncRead0_current, groupSyncRead1_current
+        global groupSyncRead0_load, groupSyncRead1_load
+        global groupSyncRead0_error, groupSyncRead1_error
+
+        if self.port0_open:
+            port_handler0.closePort()
+        if self.port1_open:
+            port_handler1.closePort()
+            
+        import glob
+        available_ports = sorted(glob.glob('/dev/ttyUSB*') + glob.glob('/dev/ttyACM*'))
+        DEVICE_NAME0 = available_ports[0] if len(available_ports) > 0 else "/dev/ttyUSB0"
+        DEVICE_NAME1 = available_ports[1] if len(available_ports) > 1 else "/dev/ttyUSB1"
+        
+        # Recreate port handlers so the Dynamixel SDK picks up the new device names
+        port_handler0 = PortHandler(DEVICE_NAME0)
+        port_handler1 = PortHandler(DEVICE_NAME1)
+        groupSyncWrite0 = GroupSyncWrite(port_handler0, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
+        groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
+        groupSyncRead0_pos = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
+        groupSyncRead1_pos = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
+        groupSyncRead0_temp = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
+        groupSyncRead1_temp = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
+        groupSyncRead0_current = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
+        groupSyncRead1_current = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
+        groupSyncRead0_load = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
+        groupSyncRead1_load = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
+        groupSyncRead0_error = GroupSyncRead(port_handler0, packet_handler, ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
+        groupSyncRead1_error = GroupSyncRead(port_handler1, packet_handler, ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
+        
+        try:
+            self.port0_open = port_handler0.openPort()
+            if self.port0_open: port_handler0.setBaudRate(BAUDRATE)
+        except Exception as e:
+            self.get_logger().error(f"Error opening port0: {e}")
+            self.port0_open = False
+            
+        try:
+            self.port1_open = port_handler1.openPort()
+            if self.port1_open: port_handler1.setBaudRate(BAUDRATE)
+        except Exception as e:
+            self.get_logger().error(f"Error opening port1: {e}")
+            self.port1_open = False
+            
+        PORT0.clear()
+        PORT1.clear()
+        
+        self.simulation = not (self.port0_open or self.port1_open)
+        
+        if self.port0_open or self.port1_open:
+            scan_motors(self.port0_open, self.port1_open)
+            try:
+                initialize_motor()
+            except Exception as e:
+                self.get_logger().error(f"Initialize failed: {e}")
+            response.success = True
+            response.message = f"Connected P0: {DEVICE_NAME0} ({self.port0_open}), P1: {DEVICE_NAME1} ({self.port1_open})"
+        else:
+            response.success = False
+            response.message = "Failed to connect to any port. Running in simulation mode."
+            
+        return response
     
     def _bulk_read_motor_states(self, requested_ids):
         """Optimized bulk reading using GroupSyncRead (Interleaved)"""
@@ -667,33 +802,73 @@ def initialize_motor():
         # 3. Enable Torque
         set_motor1(selected_port_handler, motor_id, ADDR_TORQUE_ENABLE, 1)
         sleep(0.1)
+
+        # 4. After torque is back on, command the ini pose again so the joint moves away from its slack position
+        if is_configured:
+            set_motor4(selected_port_handler, motor_id, ADDR_GOAL_POSITION, motor_limits[f"{motor_id}"]["ini"])
+            sleep(0.1)
         
-        # 4. LED
+        # 5. LED
         set_motor1(selected_port_handler, motor_id, ADDR_LED, 1)
         sleep(0.1)
         
         print(f"Finished initializing motor {motor_id}")
     print("Finished initializing motors")
 
-def scan_motors():
-    try:
-        print("\nScanning motors on /dev/ttyUSB0")
-        for motor_id in range(1, 254):
-            _, comm_result, _ = packet_handler.ping(port_handler0, motor_id)
-            if comm_result == COMM_SUCCESS:
-                PORT0.append(motor_id)
-            prog = motor_id / 254 * 100
-            print(f"\rScanning /dev/ttyUSB0 [{prog:.1f}%]", end="")
-        print(f"\nFound on /dev/ttyUSB0: {PORT0}")
+def scan_motors(port0_open, port1_open):
+    """Scan for motors. Phase 1: ping only known MOTOR_IDS (fast, with retry
+    for motors still booting). Phase 2: full range for any undocumented IDs."""
+    MAX_RETRIES = 2
+    RETRY_DELAY = 1.5  # seconds between retries for known IDs
 
-        print("\nScanning motors on /dev/ttyUSB1")
-        for motor_id in range(1, 254):
-            _, comm_result, _ = packet_handler.ping(port_handler1, motor_id)
+    def _ping_with_retry(port_handler, motor_id):
+        for attempt in range(MAX_RETRIES):
+            _, comm_result, _ = packet_handler.ping(port_handler, motor_id)
             if comm_result == COMM_SUCCESS:
+                return True
+            if attempt < MAX_RETRIES - 1:
+                sleep(RETRY_DELAY)
+        return False
+
+    try:
+        # Phase 1: scan known Motor IDs on both ports (with retry)
+        print("\n[Scan] Phase 1 – known IDs (with retry for late-booting motors)")
+        for motor_id in MOTOR_IDS:
+            found = False
+            if port0_open and _ping_with_retry(port_handler0, motor_id):
+                PORT0.append(motor_id)
+                print(f"  ID {motor_id:>3} -> PORT0")
+                found = True
+            elif port1_open and _ping_with_retry(port_handler1, motor_id):
                 PORT1.append(motor_id)
-            prog = motor_id / 254 * 100
-            print(f"\rScanning /dev/ttyUSB1 [{prog:.1f}%]", end="")
-        print(f"\nFound on /dev/ttyUSB1: {PORT1}")
+                print(f"  ID {motor_id:>3} -> PORT1")
+                found = True
+            if not found:
+                print(f"  ID {motor_id:>3} -> NOT FOUND (check hardware)")
+
+        # Phase 2: full range to catch undocumented IDs (no retry, fast)
+        print("\n[Scan] Phase 2 – full range for unknown IDs")
+        for motor_id in range(1, 254):
+            if motor_id in PORT0 or motor_id in PORT1 or motor_id in MOTOR_IDS:
+                continue
+            if port0_open:
+                _, r0, _ = packet_handler.ping(port_handler0, motor_id)
+                if r0 == COMM_SUCCESS:
+                    PORT0.append(motor_id)
+                    print(f"  Unknown ID {motor_id} -> PORT0")
+                    continue
+            if port1_open:
+                _, r1, _ = packet_handler.ping(port_handler1, motor_id)
+                if r1 == COMM_SUCCESS:
+                    PORT1.append(motor_id)
+                    print(f"  Unknown ID {motor_id} -> PORT1")
+
+        print(f"\n[Scan] Final PORT0: {sorted(PORT0)}")
+        print(f"[Scan] Final PORT1: {sorted(PORT1)}")
+        missing = [m for m in MOTOR_IDS if m not in PORT0 and m not in PORT1]
+        if missing:
+            print(f"[Scan] WARNING – expected IDs not found: {missing}")
+
     except Exception as e:
         print(f"Scanning error: {e}")
 
@@ -729,7 +904,7 @@ def main(args=None):
 
     if port0_open or port1_open:
         print(f"Baudrate set to {BAUDRATE} on available ports.")
-        scan_motors()
+        scan_motors(port0_open, port1_open)
         try:
             initialize_motor()
         except Exception as e:

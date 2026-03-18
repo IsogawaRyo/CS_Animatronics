@@ -31,6 +31,12 @@ class ROSManager(Node):
             10
         )
 
+        self.reboot_publisher = self.create_publisher(
+            IdAngle,
+            'motor_reboot',
+            10
+        )
+
         self.get_motor_states_client = self.create_client(
             GetMotorStates,
             "get_motor_states"
@@ -57,6 +63,17 @@ class ROSManager(Node):
     def publish_trajectory(self, trajectory_msg):
         self.traj_publisher.publish(trajectory_msg)
 
+    def stop_trajectory(self):
+        """Publish an empty JointTrajectory to signal the interpolator to stop."""
+        self.traj_publisher.publish(JointTrajectory())
+
+    def reboot_motor(self, motor_id: int):
+        """Publish a reboot request for a single motor via /motor_reboot topic."""
+        msg = IdAngle()
+        msg.ids = [motor_id]
+        msg.angles = [0]  # placeholder; ignored by reboot_callback
+        self.reboot_publisher.publish(msg)
+
 
 class MotionEditor:
     def __init__(self, ros_manager, parent_frame):
@@ -79,6 +96,13 @@ class MotionEditor:
         self._syncing = False              # guard for sync_sliders_from_hardware (独立)
         self.last_observe_time = 0.0
         
+        # Edit mode: when True, timeline does NOT overwrite sliders/include state
+        self.edit_mode = False
+        
+        # Playback tracking: wall-clock time when PLAY was pressed
+        self._play_start_wall = None    # float or None
+        self._play_total_duration = 0.0  # seconds (last keypose timestamp)
+        
         # Track which slider the user is currently dragging (None = not dragging)
         self._editing_id = None
         # Track when timeline was last updated to temporarily block observe overwrites
@@ -100,8 +124,8 @@ class MotionEditor:
 
         self.setup_ui()
         
-        # Start main loop
-        self.root.after(100, self.main_loop)
+        # Start main loop at 50Hz for smooth playback UI
+        self.root.after(20, self.main_loop)
 
     def loadMotorLimits(self):
         try:
@@ -142,27 +166,39 @@ class MotionEditor:
         tk.Button(self.frame_operations, text="Add/Update Keypose (At Current Time)", bg="lightblue", command=self.add_keypose).grid(row=1, column=1, columnspan=2, pady=10)
         tk.Button(self.frame_operations, text="Delete Keypose", bg="#ff9999", command=self.delete_keypose).grid(row=1, column=3, pady=10)
         
-        tk.Button(self.frame_operations, text="▶ PLAY Trajectory", bg="lightgreen", command=self.playMotion).grid(row=2, column=2, pady=5)
+        # Edit / Preview toggle button
+        self.btn_edit = tk.Button(self.frame_operations, text="✏️ EDIT MODE: OFF",
+                                  bg="#d0d0d0", width=18, command=self.toggle_edit_mode)
+        self.btn_edit.grid(row=2, column=0, columnspan=1, pady=5, padx=4)
+        
+        tk.Button(self.frame_operations, text="▶ PLAY Trajectory", bg="lightgreen", command=self.playMotion).grid(row=2, column=1, pady=5)
+        tk.Button(self.frame_operations, text="⏹ STOP", bg="#ff6666", fg="white", font=("TkDefaultFont", 10, "bold"),
+                  command=self.stopMotion).grid(row=2, column=2, pady=5)
         
         # Monitor Frame (Sliders)
         self.frame_monitor = tk.LabelFrame(self.root, text="Motor Control (Edit Position)", foreground="green")
-        self.frame_monitor.grid(sticky="NW", row=2, column=0, padx=5, pady=5)
+        self.frame_monitor.grid(sticky="NSEW", row=2, column=0, padx=5, pady=5)
+        self.frame_monitor.grid_rowconfigure(0, weight=1)
+        self.frame_monitor.grid_columnconfigure(0, weight=1)
         
-        # Add Canvas + Scrollbar for motors
-        canvas = tk.Canvas(self.frame_monitor, width=650, height=400)
-        vbar = tk.Scrollbar(self.frame_monitor, orient=tk.VERTICAL, command=canvas.yview)
-        canvas.configure(yscrollcommand=vbar.set)
+        # Add Canvas + Scrollbar for motors (vertical + horizontal)
+        self.motor_canvas = tk.Canvas(self.frame_monitor)
+        vbar = tk.Scrollbar(self.frame_monitor, orient=tk.VERTICAL, command=self.motor_canvas.yview)
+        hbar = tk.Scrollbar(self.frame_monitor, orient=tk.HORIZONTAL, command=self.motor_canvas.xview)
+        self.motor_canvas.configure(yscrollcommand=vbar.set, xscrollcommand=hbar.set)
         
-        self.inner_monitor = tk.Frame(canvas)
-        self.inner_monitor.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
-        canvas.create_window((0, 0), window=self.inner_monitor, anchor="nw")
+        self.inner_monitor = tk.Frame(self.motor_canvas)
+        self.inner_monitor.bind("<Configure>", lambda e: self.motor_canvas.configure(
+            scrollregion=self.motor_canvas.bbox("all")))
+        self.motor_canvas.create_window((0, 0), window=self.inner_monitor, anchor="nw")
         
-        canvas.pack(side="left", fill="both", expand=True)
-        vbar.pack(side="right", fill="y")
+        self.motor_canvas.grid(row=0, column=0, sticky="NSEW")
+        vbar.grid(row=0, column=1, sticky="NS")
+        hbar.grid(row=1, column=0, sticky="EW")
         
         # Current Frame
         self.frame_current = tk.LabelFrame(self.root, text="System Status", foreground="blue")
-        self.frame_current.grid(sticky="NW", row=2, column=1, padx=5, pady=5)
+        self.frame_current.grid(sticky="NEW", row=2, column=1, padx=5, pady=5)
         
         tk.Checkbutton(self.frame_current, text="Enable Hardware Observe Mode", variable=self.observe_mode).grid(row=0, column=0, columnspan=3, pady=5)
         
@@ -194,8 +230,10 @@ class MotionEditor:
         self.error_status = {}
 
         for i, id_str in enumerate(self.motorLimits):
-            self.labels_ID[id_str] = tk.Label(self.inner_monitor, text=f"ID: {id_str}")
-            self.labels_ID[id_str].grid(row=i, column=0, padx=2)
+            # Fixed-width label so slider column never shifts when value digits change
+            self.labels_ID[id_str] = tk.Label(self.inner_monitor, text=f"ID:{id_str:>3}",
+                                              width=14, anchor="w", font=("Courier", 10))
+            self.labels_ID[id_str].grid(row=i, column=0, padx=2, sticky="W")
             
             min_ = self.motorLimits[id_str]["min"]
             max_ = self.motorLimits[id_str]["max"]
@@ -203,25 +241,45 @@ class MotionEditor:
             
             self.positions[id_str] = tk.IntVar(self.root, value=ini_)
             self.scales_angle[id_str] = tk.Scale(self.inner_monitor, from_=min_, to_=max_, 
-                                                 variable=self.positions[id_str], orient=tk.HORIZONTAL, length=300)
+                                                 variable=self.positions[id_str], orient=tk.HORIZONTAL,
+                                                 length=350)
             # Track which slider is being dragged to block observe_hardware overwrites
             self.scales_angle[id_str].bind("<ButtonPress-1>",
                 lambda e, k=id_str: self._on_slider_press(k))
             self.scales_angle[id_str].bind("<ButtonRelease-1>",
                 lambda e, k=id_str: self._on_slider_release_for(k))
-            self.scales_angle[id_str].grid(row=i, column=1, padx=2)
+            self.scales_angle[id_str].grid(row=i, column=1, padx=2, sticky="EW")
+            self.inner_monitor.grid_columnconfigure(1, weight=1)
             
             self.state_checkBox[id_str] = tk.BooleanVar(self.root, value=False)
-            self.checkBox[id_str] = tk.Checkbutton(self.inner_monitor, text="Include", variable=self.state_checkBox[id_str])
+            self.checkBox[id_str] = tk.Checkbutton(self.inner_monitor, text="Include",
+                                                   variable=self.state_checkBox[id_str],
+                                                   state=tk.DISABLED)  # enabled only on keyposes
             self.checkBox[id_str].grid(row=i, column=2, padx=2)
             
             self.error_status[id_str] = tk.StringVar(self.root, value="OK")
             self.labels_error[id_str] = tk.Label(self.inner_monitor, textvariable=self.error_status[id_str], width=10)
             self.labels_error[id_str].grid(row=i, column=3, padx=2)
 
+            # Per-motor reboot button
+            tk.Button(self.inner_monitor, text="🔄", width=3,
+                      command=lambda k=id_str: self._reboot_motor(k)
+                      ).grid(row=i, column=4, padx=2)
+
+    def _reboot_motor(self, id_str: str):
+        """Send a reboot command for a single motor (with confirmation)."""
+        if not messagebox.askyesno("Reboot Motor",
+                                   f"Motor ID {id_str} を再起動しますか？\n"
+                                   "トルクOFFになった後、自動で再初期化されます。"):
+            return
+        self.ros_manager.reboot_motor(int(id_str))
+        print(f"Reboot sent to motor {id_str}.")
+
     def fileDialog(self):
         fTyp = [("JSON Motion", "*.json")]
-        iDir = os.path.abspath(os.path.dirname(__file__))
+        iDir = os.path.expanduser("~/CS_Animatronics/MotionFiles")
+        if not os.path.exists(iDir):
+            os.makedirs(iDir)
         file_name = tk.filedialog.askopenfilename(filetypes=fTyp, initialdir=iDir)
         if file_name:
             self.selectedFile.set(file_name)
@@ -256,7 +314,10 @@ class MotionEditor:
             return
 
         fTyp = [("JSON Motion", "*.json")]
-        file_name = tk.filedialog.asksaveasfilename(defaultextension=".json", filetypes=fTyp)
+        iDir = os.path.expanduser("~/CS_Animatronics/MotionFiles")
+        if not os.path.exists(iDir):
+            os.makedirs(iDir)
+        file_name = tk.filedialog.asksaveasfilename(defaultextension=".json", filetypes=fTyp, initialdir=iDir)
         if file_name:
             self.motionFile.sort(key=lambda x: x["timestamp"])
             try:
@@ -341,13 +402,34 @@ class MotionEditor:
         b = int(255 * (1 - norm))
         return f"#{r:02x}{g:02x}{b:02x}"
 
+    def toggle_edit_mode(self):
+        """Switch between EDIT mode (free slider editing) and PREVIEW mode (timeline-driven)."""
+        self.edit_mode = not self.edit_mode
+        if self.edit_mode:
+            # Switch to EDIT: enable all checkboxes, update button style
+            self.btn_edit.config(text="✏️ EDIT MODE: ON", bg="#ffa500", fg="white")
+            self.frame_monitor.config(text="Motor Control [✂ EDIT MODE - Free Edit]")
+            for id_str in self.motorLimits:
+                self.checkBox[id_str].config(state=tk.NORMAL)
+        else:
+            # Switch to PREVIEW: restore timeline-driven behaviour
+            self.btn_edit.config(text="✏️ EDIT MODE: OFF", bg="#d0d0d0", fg="black")
+            self.frame_monitor.config(text="Motor Control (Edit Position)")
+            # Force a timeline refresh so sliders/checkboxes re-sync
+            self.last_timestamp.set(-1.0)
+
     def update_sliders_from_timeline(self):
         t = round(self.timestamp.get(), 1)
+        
+        # --- EDIT mode: do not overwrite anything the user has set ---
+        if self.edit_mode:
+            return
         
         # Check if exactly on a keypose
         exact_entry = next((e for e in self.motionFile if abs(e["timestamp"] - t) < 0.05), None)
         
         if exact_entry:
+            # ON a keypose: update sliders and Include checkboxes from keypose data
             angles = exact_entry["angles"]
             for id_str in self.motorLimits:
                 if id_str in angles:
@@ -355,14 +437,23 @@ class MotionEditor:
                     self.state_checkBox[id_str].set(True)
                 else:
                     self.state_checkBox[id_str].set(False)
+                # Enable the checkbox so user can edit which motors are included
+                self.checkBox[id_str].config(state=tk.NORMAL)
         else:
-            # Interpolate for preview if not exact
+            # NOT on a keypose: disable and uncheck all Include boxes
+            for id_str in self.motorLimits:
+                self.state_checkBox[id_str].set(False)
+                self.checkBox[id_str].config(state=tk.DISABLED)
+            # Interpolate slider positions for preview only (don't change Include)
             self.interpolate_and_preview(t)
             
-        # Send to ROS
-        self.on_slider_release(None)
+        # Send to ROS ONLY if we are NOT playing back automatically
+        # (trajectory_interpolator handles automatic playback)
+        if self._play_start_wall is None:
+            self.on_slider_release(None)
         
     def interpolate_and_preview(self, t):
+        """Update slider positions by interpolating between keyposes. Does NOT touch Include state."""
         if len(self.motionFile) < 2:
             return
             
@@ -382,7 +473,7 @@ class MotionEditor:
                     val2 = after["angles"][id_str]
                     val_int = int(val1 + ratio * (val2 - val1))
                     self.positions[id_str].set(val_int)
-                    self.state_checkBox[id_str].set(True)
+                    # NOTE: Include state is NOT changed here
 
     def playMotion(self):
         if not self.motionFile:
@@ -417,7 +508,20 @@ class MotionEditor:
             msg.points.append(point)
             
         self.ros_manager.publish_trajectory(msg)
-        print("Trajectory published!")
+        
+        # Start playback timer so the time slider tracks progress
+        self._play_start_wall = time.time()
+        self._play_total_duration = self.motionFile[-1]["timestamp"]  # already sorted
+        # Rewind the time slider to 0 before starting
+        self.timestamp.set(0.0)
+        self.last_timestamp.set(-1.0)
+        print(f"Trajectory published! Duration: {self._play_total_duration:.1f}s")
+
+    def stopMotion(self):
+        """Stop ongoing trajectory playback by sending an empty JointTrajectory."""
+        self.ros_manager.stop_trajectory()
+        self._play_start_wall = None  # stop the UI timer too
+        print("Trajectory STOP sent.")
 
     def sync_sliders_from_hardware(self):
         """Button handler: one-shot sync of all sliders from current hardware positions."""
@@ -437,7 +541,7 @@ class MotionEditor:
                         self.positions[id_str].set(hw_pos)
                         self.hardware_positions[id_str] = hw_pos
                         if id_str in self.labels_ID:
-                            self.labels_ID[id_str].config(text=f"ID:{id_str} [{hw_pos}]")
+                            self.labels_ID[id_str].config(text=f"ID:{id_str:>3} [{hw_pos:>4}]")
                 self.port0_current.set(response.port0_total_current)
                 self.port1_current.set(response.port1_total_current)
                 self.system_current.set(response.system_total_current)
@@ -490,15 +594,17 @@ class MotionEditor:
                         if self._editing_id == id_str or timeline_busy:
                             # Just update the label without touching the slider value
                             if id_str in self.labels_ID:
-                                self.labels_ID[id_str].config(text=f"ID:{id_str} [HW:{hw_pos}]")
+                                self.labels_ID[id_str].config(
+                                    text=f"ID:{id_str:>3} [~{hw_pos:>4}]")
                             continue
                         
                         # Safe to sync slider to hardware position
                         self.positions[id_str].set(hw_pos)
                         
-                        # Update the ID label to show current position
+                        # Update the ID label to show current position (fixed width)
                         if id_str in self.labels_ID:
-                            self.labels_ID[id_str].config(text=f"ID:{id_str} [{hw_pos}]")
+                            self.labels_ID[id_str].config(
+                                text=f"ID:{id_str:>3} [{hw_pos:>4}]")
                         
                 self.port0_current.set(response.port0_total_current)
                 self.port1_current.set(response.port1_total_current)
@@ -513,6 +619,19 @@ class MotionEditor:
             self.is_service_calling = False  # サービス未応答時にフラグをリセット
 
     def main_loop(self):
+        # --- Playback timer: advance time slider to match trajectory progress ---
+        if self._play_start_wall is not None:
+            elapsed = time.time() - self._play_start_wall
+            if elapsed <= self._play_total_duration:
+                # Quantise to 0.1 s resolution to match slider
+                new_t = round(min(elapsed, self._play_total_duration), 1)
+                self.timestamp.set(new_t)
+            else:
+                # Reached end: hold the last pose, stop the timer
+                self.timestamp.set(self._play_total_duration)
+                self._play_start_wall = None
+                print("Playback finished.")
+
         t = self.timestamp.get()
         if t != self.last_timestamp.get():
             self._timeline_updated_at = time.time()  # mark timeline as recently moved
@@ -520,7 +639,7 @@ class MotionEditor:
             self.last_timestamp.set(t)
             
         self.observe_hardware()
-        self.root.after(100, self.main_loop)
+        self.root.after(20, self.main_loop)
 
 def main():
     rclpy.init()
@@ -529,9 +648,12 @@ def main():
     ros_thread.start()
 
     app = MotionEditor(ros_manager, tk.Tk())
-    # Setting up standalone titles just for testing
     app.root.title("Keypose Motion Editor")
-    app.root.geometry("1100x750")
+    app.root.geometry("1200x800")
+    app.root.minsize(900, 600)
+    # Allow the motor slider column to grow with window resize
+    app.root.grid_rowconfigure(2, weight=1)
+    app.root.grid_columnconfigure(0, weight=1)
     app.root.mainloop()
 
     ros_manager.destroy_node()
