@@ -2,7 +2,7 @@
 ROS 2 workspace for building and testing a dinosaur animatronics stack. The system targets a Raspberry Pi 5 (8 GB, Ubuntu), uses DualSense as the primary controller, and drives Dynamixel XL430/XL330 servos plus auxiliary audio and IMU subsystems.
 
 ## Hardware & Software Requirements
-- Raspberry Pi 5 or equivalent Linux host with `/dev/ttyUSB[0-1]` access to the Dynamixel bus.
+- Raspberry Pi 5 or equivalent Linux host with access to up to **three** U2D2 adapters (`/dev/ttyUSB[0-2]`) for high-torque body segments.
 - DualSense (or other joystick supported by `pygame`) connected over USB/Bluetooth.
 - Dynamixel XL430/XL330 servos powered with per-motor limits defined in `Motor_Limits.json`.
 - Optional BNO055 IMU array streamed from the `PICO/code.py` firmware via USB CDC.
@@ -33,7 +33,7 @@ ROS 2 workspace for building and testing a dinosaur animatronics stack. The sys
 3. Optional: run `setup_genesis_venv.sh` to create a `genesis_env` virtual environment with PyTorch, Taichi, Genesis, and helper activation scripts (`activate_genesis.sh`, `deactivate_genesis.sh`).
 4. Optional: `develop_environment.sh` installs Git, sets the repo identity, and provisions SSH keys on a fresh Ubuntu install.
 
-The `ros2_start.sh` script automates a clean build followed by spawning gnome-terminal tabs for `system_controller`, `controller_publisher`, `motor_controller`, `motion_editor`, and `audio_player`. It also places the `csanimatronics` user in the `dialout` group for serial access.
+> **Note:** `ros2_start.sh` deletes `build/ log/ install/` unconditionally, rebuilds, adds the current user to `dialout`, and then spawns every core node in separate `gnome-terminal` windows. Use it only when you expect a clean build and have physical access to confirm the new terminals; otherwise launch nodes manually or via `ros2 launch`.
 
 ## Running the Core Nodes
 ### Launch file
@@ -51,23 +51,24 @@ Source `install/setup.bash` in every shell, then run:
 - `ros2 run system_controller system_controller` — consumes joystick input, computes motor commands, triggers audio, and handles motion recording/playback.
 - `ros2 run motor_controller motor_controller` — bridges `IdAngle` commands to the Dynamixel buses and exposes the `get_motor_states`/`set_torque` services.
 - `ros2 run audio_player audio_player` — plays dinosaur sounds when `system_controller` publishes `play_audio_id`/`play_audio_name`.
-- `ros2 run motion_editor motion_editor` — Tk GUI for tweaking recorded motions and monitoring motor telemetry.
+- `ros2 run motion_editor motion_editor` — resizable Tk GUI for tweaking recorded motions, mapping controller buttons, and authoring timeline audio cues.
 - `ros2 run imu_receiver imu_receiver_node` — converts Pico IMU packets to standard `sensor_msgs/Imu` topics (`imu0`, `imu1`, `imu2`).
+- `ros2 run system_monitor system_monitor` — full-screen dashboard with motor/IMU tabs, live current totals for PORT0/1/2, motion assignment shortcuts, and an embedded Motion Editor instance.
 
 ## ROS 2 Packages
 ### `system_controller`
 Subscribes to `sensor_msgs/Joy` on `controller_input`, enforces `Motor_Limits.json`, and publishes `motor_commands/IdAngle` messages to `IdAngle`. It provides:
 - Mode switching between manual control, assist/test, and torque-off hand recording.
 - Motion selection/assignment UI driven by DualSense buttons with defaults defined in `ControllerMap.json`.
-- Audio triggers: publishes `std_msgs/Int32` IDs to `play_audio_id` and auto-roar/breathe cues based on jaw position.
-- Motion recording/playback using rosbag2 (`MotionFiles/`).
+- Audio triggers: publishes `std_msgs/Int32` IDs to `play_audio_id`, consumes per-keypose audio metadata from Motion Editor, and auto-roar/breathe cues based on jaw position.
+- Motion recording/playback using rosbag2 (`MotionFiles/`) with carry-forward interpolation so partially-specified joints stay smooth.
 - Service clients for `get_motor_states` and `set_torque`, plus background sampling timers for recorded motions.
 
 ### `motor_controller`
-Bridges `IdAngle` to Dynamixel commands via `dynamixel_sdk`, scanning `/dev/ttyUSB0` and `/dev/ttyUSB1` for XL430/XL330 IDs. Features include:
+Bridges `IdAngle` to Dynamixel commands via `dynamixel_sdk`, scanning `/dev/ttyUSB[0-2]` (three U2D2 buses) for XL430/XL330 IDs. Features include:
 - Live enforcement of `Motor_Limits.json` per motor, including simulation fallback when ports are missing.
 - Cached motor-state reporting to reduce serial load.
-- `get_motor_states` service returning position, temperature, torque/load, and aggregated current metrics.
+- `get_motor_states` service returning position, temperature, torque/load, and aggregated current metrics per port and globally.
 - `set_torque` service for enabling/disabling torque per ID.
 
 ### `controller_publisher`
@@ -82,9 +83,12 @@ Includes a default dinosaur sound map and ensures directories exist.
 
 ### `motion_editor`
 Tkinter GUI backed by a `ROSManager` node that publishes `IdAngle` commands and calls `get_motor_states`. Provides:
-- File selection/loading of rosbag motions stored in `MotionFiles/`.
-- Modes for sending, writing, editing, and observing motions.
-- Visual monitors for per-motor position, torque, temperature, error status, and total current.
+- File selection/loading of rosbag motions stored in `MotionFiles/` with resizable panes.
+- Per-keypose editing, controller button assignment (updates `ControllerMap.json`), and timeline authoring of audio cues that now preview locally.
+- Visual monitors for per-motor position, torque, temperature, error status, and total current across PORT0/PORT1/PORT2.
+
+### `system_monitor`
+Tkinter dashboard that opens full-screen, embeds a live Motion Editor tab, plots motor/IMU telemetry, and exposes service buttons for rebooting motors or reconnecting U2D2 ports. Shows controller connectivity, per-port current totals, audio controls, and IMU pose views.
 
 ### `motor_commands`
 Pure interface package defining shared message/service types:

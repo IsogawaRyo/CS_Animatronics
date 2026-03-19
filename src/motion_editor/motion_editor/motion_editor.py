@@ -361,6 +361,24 @@ class MotionEditor:
             self.refresh_audio_event_list()
             messagebox.showinfo("Audio", f"Removed audio cue at {t:.1f}s")
 
+    def update_keypose_markers(self):
+        if not hasattr(self, "keypose_canvas"):
+            return
+        canvas = self.keypose_canvas
+        canvas.delete("marker")
+        width = canvas.winfo_width()
+        if width <= 1:
+            width = canvas.winfo_reqwidth()
+        if width <= 1 or not self.motionFile:
+            return
+        time_min = self.timeMin.get()
+        time_span = max(0.1, self.timeMax.get() - time_min)
+        for entry in sorted(self.motionFile, key=lambda e: e.get("timestamp", 0.0)):
+            t = float(entry.get("timestamp", 0.0))
+            normalized = max(0.0, min(1.0, (t - time_min) / time_span))
+            x = normalized * width
+            canvas.create_line(x, 0, x, canvas.winfo_height(), fill="#ff6600", tags="marker")
+
     def _cancel_audio_timers(self):
         for timer in self.audio_timers:
             try:
@@ -400,6 +418,7 @@ class MotionEditor:
         self.frame_operations = tk.LabelFrame(self.root, text="Timeline & Keyposes", foreground="green")
         self.frame_operations.grid(sticky="EW", row=1, column=0, columnspan=2, padx=5, pady=5)
         self.frame_operations.grid_columnconfigure(2, weight=1)
+        self.frame_operations.grid_rowconfigure(0, weight=0)
         
         tk.Button(self.frame_operations, text="< -1s", command=self.moveBackward).grid(row=0, column=0)
         tk.Label(self.frame_operations, text="0.0s").grid(row=0, column=1)
@@ -407,22 +426,26 @@ class MotionEditor:
         self.scale_time = tk.Scale(self.frame_operations, from_=self.timeMin.get(), to_=self.timeMax.get(), 
                                    variable=self.timestamp, orient=tk.HORIZONTAL, resolution=0.1, length=400)
         self.scale_time.grid(row=0, column=2, padx=10, sticky="EW")
+        # Keypose markers along the timeline
+        self.keypose_canvas = tk.Canvas(self.frame_operations, height=8, bg="#f0f0f0", highlightthickness=0)
+        self.keypose_canvas.grid(row=1, column=0, columnspan=5, sticky="EW", padx=10, pady=(2, 6))
+        self.keypose_canvas.bind("<Configure>", lambda e: self.update_keypose_markers())
         
         self.lbl_max_time = tk.Label(self.frame_operations, text=f"{self.timeMax.get()}s")
         self.lbl_max_time.grid(row=0, column=3)
         tk.Button(self.frame_operations, text="+1s >", command=self.moveForward).grid(row=0, column=4)
         
-        tk.Button(self.frame_operations, text="Add/Update Keypose (At Current Time)", bg="lightblue", command=self.add_keypose).grid(row=1, column=1, columnspan=2, pady=10)
-        tk.Button(self.frame_operations, text="Delete Keypose", bg="#ff9999", command=self.delete_keypose).grid(row=1, column=3, pady=10)
+        tk.Button(self.frame_operations, text="Add/Update Keypose (At Current Time)", bg="lightblue", command=self.add_keypose).grid(row=2, column=1, columnspan=2, pady=6)
+        tk.Button(self.frame_operations, text="Delete Keypose", bg="#ff9999", command=self.delete_keypose).grid(row=2, column=3, pady=6)
         
         # Edit / Preview toggle button
         self.btn_edit = tk.Button(self.frame_operations, text="✏️ EDIT MODE: OFF",
                                   bg="#d0d0d0", width=18, command=self.toggle_edit_mode)
-        self.btn_edit.grid(row=2, column=0, columnspan=1, pady=5, padx=4)
+        self.btn_edit.grid(row=3, column=0, columnspan=1, pady=5, padx=4)
         
-        tk.Button(self.frame_operations, text="▶ PLAY Trajectory", bg="lightgreen", command=self.playMotion).grid(row=2, column=1, pady=5)
+        tk.Button(self.frame_operations, text="▶ PLAY Trajectory", bg="lightgreen", command=self.playMotion).grid(row=3, column=1, pady=5)
         tk.Button(self.frame_operations, text="⏹ STOP", bg="#ff6666", fg="white", font=("TkDefaultFont", 10, "bold"),
-                  command=self.stopMotion).grid(row=2, column=2, pady=5)
+                  command=self.stopMotion).grid(row=3, column=2, pady=5)
         
         # Monitor Frame (Sliders)
         self.frame_monitor = tk.LabelFrame(self.root, text="Motor Control (Edit Position)", foreground="green")
@@ -619,6 +642,7 @@ class MotionEditor:
                     self.lbl_max_time.config(text=f"{self.timeMax.get()}s")
                     
                 self.update_sliders_from_timeline()
+                self.update_keypose_markers()
                 self.refresh_audio_event_list()
                 messagebox.showinfo("Loaded", f"Loaded {len(self.motionFile)} keyposes.")
         except Exception as e:
@@ -648,12 +672,14 @@ class MotionEditor:
         self.timeMax.set(self.timeMax.get() + 1.0)
         self.scale_time.config(to_=self.timeMax.get())
         self.lbl_max_time.config(text=f"{self.timeMax.get()}s")
+        self.update_keypose_markers()
 
     def moveBackward(self):
         if self.timeMax.get() > 1.0:
             self.timeMax.set(self.timeMax.get() - 1.0)
             self.scale_time.config(to_=self.timeMax.get())
             self.lbl_max_time.config(text=f"{self.timeMax.get()}s")
+            self.update_keypose_markers()
 
     def add_keypose(self):
         t = round(self.timestamp.get(), 1)
@@ -691,6 +717,7 @@ class MotionEditor:
             
         print(f"Keypose set at {t}s")
         self.refresh_audio_event_list()
+        self.update_keypose_markers()
 
     def delete_keypose(self):
         t = round(self.timestamp.get(), 1)
@@ -698,6 +725,7 @@ class MotionEditor:
         if len(new_file) < len(self.motionFile):
             self.motionFile = new_file
             print(f"Keypose at {t}s deleted.")
+            self.update_keypose_markers()
             self.refresh_audio_event_list()
         else:
             print(f"No keypose found at {t}s.")

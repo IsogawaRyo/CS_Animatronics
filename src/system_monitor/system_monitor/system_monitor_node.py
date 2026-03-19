@@ -24,7 +24,19 @@ from rclpy.executors import MultiThreadedExecutor
 
 from motion_editor.motion_editor import MotionEditor, ROSManager as MotionROSManager
 
+RAW_CURRENT_MAX = 2047.0
+
 STATE_POLL_PERIOD = 5.0  # seconds between motor state refreshes
+
+def _to_load_percent(value):
+    try:
+        val = abs(float(value))
+    except (TypeError, ValueError):
+        return 0
+    if RAW_CURRENT_MAX <= 0:
+        return 0
+    percent = int((val / RAW_CURRENT_MAX) * 100.0)
+    return max(0, min(100, percent))
 
 class SystemMonitor(Node):
     def __init__(self, motion_ros_manager):
@@ -66,8 +78,7 @@ class SystemMonitor(Node):
         # Tkinter Setup
         self.root = tk.Tk()
         self.root.title("CS_Animatronics System Monitor")
-        self.root.geometry("800x600")
-        self.root.after(100, self.root.state, 'zoomed')
+        self.root.geometry("1200x800")
         
         self.setup_ui()
         
@@ -435,10 +446,11 @@ class SystemMonitor(Node):
         try:
             resp = future.result()
             for i, mid in enumerate(resp.ids):
+                load_pct = _to_load_percent(resp.torques[i]) if i < len(resp.torques) else 0
                 self.motor_states[mid] = {
                     "pos": resp.positions[i],
                     "temp": resp.temperatures[i],
-                    "load": resp.torques[i], # Note: message field is 'torques' but logically load/current
+                    "load": load_pct,
                     "error": resp.error_status[i]
                 }
         except Exception as e:

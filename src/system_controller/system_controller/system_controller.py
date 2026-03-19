@@ -368,7 +368,6 @@ class SystemController(Node):
             return
 
         self._cancel_audio_events()
-        self._cancel_audio_events()
         self.pending_audio_events = []
         try:
             with open(path, "r") as f:
@@ -644,6 +643,7 @@ class SystemController(Node):
             ids = []
             angles = []
 
+        # Block manual control for joints that motion playback owns
         if self.traj_active and ids:
             filtered_ids = []
             filtered_angles = []
