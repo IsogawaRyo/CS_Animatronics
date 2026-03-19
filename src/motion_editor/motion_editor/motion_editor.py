@@ -93,11 +93,6 @@ class MotionEditor:
     def __init__(self, ros_manager, parent_frame):
         self.ros_manager = ros_manager
         self.root = parent_frame
-        # Make overall layout responsive
-        self.root.grid_columnconfigure(0, weight=3)
-        self.root.grid_columnconfigure(1, weight=2)
-        for row, weight in ((0, 0), (1, 0), (2, 5), (3, 1), (4, 2)):
-            self.root.grid_rowconfigure(row, weight=weight)
 
         self.motionFile = []
         self.is_playing = False
@@ -404,9 +399,25 @@ class MotionEditor:
         self.ros_manager.play_audio(audio_id=audio_id, audio_name=audio_name)
 
     def setup_ui(self):
+        for child in self.root.winfo_children():
+            child.destroy()
+
+        self.main_paned = ttk.Panedwindow(self.root, orient=tk.VERTICAL)
+        self.main_paned.pack(fill="both", expand=True)
+
+        self.top_section = ttk.Frame(self.main_paned)
+        self.bottom_paned = ttk.Panedwindow(self.main_paned, orient=tk.HORIZONTAL)
+        self.main_paned.add(self.top_section, weight=1)
+        self.main_paned.add(self.bottom_paned, weight=4)
+
+        self.monitor_container = ttk.Frame(self.bottom_paned)
+        self.side_container = ttk.Frame(self.bottom_paned)
+        self.bottom_paned.add(self.monitor_container, weight=3)
+        self.bottom_paned.add(self.side_container, weight=2)
+
         # Settings Frame
-        self.frame_settings = tk.LabelFrame(self.root, text="File Settings", foreground="green")
-        self.frame_settings.grid(sticky="EW", row=0, column=0, columnspan=2, padx=5, pady=5)
+        self.frame_settings = tk.LabelFrame(self.top_section, text="File Settings", foreground="green")
+        self.frame_settings.pack(fill="x", padx=5, pady=5)
         self.frame_settings.grid_columnconfigure(0, weight=1)
         self.frame_settings.grid_columnconfigure(1, weight=1)
         
@@ -415,8 +426,8 @@ class MotionEditor:
         tk.Button(self.frame_settings, text="Save JSON", command=self.saveMotionFile).grid(row=1, column=1, pady=5, sticky="EW")
         
         # Operations Frame
-        self.frame_operations = tk.LabelFrame(self.root, text="Timeline & Keyposes", foreground="green")
-        self.frame_operations.grid(sticky="EW", row=1, column=0, columnspan=2, padx=5, pady=5)
+        self.frame_operations = tk.LabelFrame(self.top_section, text="Timeline & Keyposes", foreground="green")
+        self.frame_operations.pack(fill="x", padx=5, pady=5)
         self.frame_operations.grid_columnconfigure(2, weight=1)
         self.frame_operations.grid_rowconfigure(0, weight=0)
         
@@ -448,8 +459,8 @@ class MotionEditor:
                   command=self.stopMotion).grid(row=3, column=2, pady=5)
         
         # Monitor Frame (Sliders)
-        self.frame_monitor = tk.LabelFrame(self.root, text="Motor Control (Edit Position)", foreground="green")
-        self.frame_monitor.grid(sticky="NSEW", row=2, column=0, padx=5, pady=5)
+        self.frame_monitor = tk.LabelFrame(self.monitor_container, text="Motor Control (Edit Position)", foreground="green")
+        self.frame_monitor.pack(fill="both", expand=True, padx=5, pady=5)
         self.frame_monitor.grid_rowconfigure(0, weight=1)
         self.frame_monitor.grid_columnconfigure(0, weight=1)
         
@@ -469,8 +480,8 @@ class MotionEditor:
         hbar.grid(row=1, column=0, sticky="EW")
         
         # Current Frame
-        self.frame_current = tk.LabelFrame(self.root, text="System Status", foreground="blue")
-        self.frame_current.grid(sticky="NSEW", row=2, column=1, padx=5, pady=5)
+        self.frame_current = tk.LabelFrame(self.side_container, text="System Status", foreground="blue")
+        self.frame_current.pack(fill="x", padx=5, pady=5)
         for col in range(3):
             self.frame_current.grid_columnconfigure(col, weight=1 if col == 1 else 0)
         self.frame_current.grid_rowconfigure(5, weight=1)
@@ -501,8 +512,8 @@ class MotionEditor:
         tk.Label(self.frame_current, text="mA").grid(row=5, column=2)
 
         # Controller assignment frame
-        self.frame_assignment = tk.LabelFrame(self.root, text="Controller Button Assignment", foreground="purple")
-        self.frame_assignment.grid(sticky="EW", row=3, column=0, columnspan=2, padx=5, pady=5)
+        self.frame_assignment = tk.LabelFrame(self.side_container, text="Controller Button Assignment", foreground="purple")
+        self.frame_assignment.pack(fill="x", padx=5, pady=5)
         self.frame_assignment.grid_columnconfigure(1, weight=1)
 
         tk.Label(self.frame_assignment, text="Button:").grid(row=0, column=0, padx=4, pady=4, sticky="W")
@@ -529,8 +540,8 @@ class MotionEditor:
 
         self.update_assignment_label()
         # Audio cue frame
-        self.frame_audio = tk.LabelFrame(self.root, text="Audio Cue (per keypose)", foreground="purple")
-        self.frame_audio.grid(sticky="NSEW", row=4, column=0, columnspan=2, padx=5, pady=5)
+        self.frame_audio = tk.LabelFrame(self.side_container, text="Audio Cue (per keypose)", foreground="purple")
+        self.frame_audio.pack(fill="both", expand=True, padx=5, pady=5)
         self.frame_audio.grid_columnconfigure(1, weight=1)
         self.frame_audio.grid_rowconfigure(5, weight=1)
         tk.Label(self.frame_audio, text="Audio ID:").grid(row=0, column=0, padx=4, pady=4, sticky="W")

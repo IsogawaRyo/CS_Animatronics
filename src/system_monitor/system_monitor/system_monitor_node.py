@@ -79,6 +79,31 @@ class SystemMonitor(Node):
         self.root = tk.Tk()
         self.root.title("CS_Animatronics System Monitor")
         self.root.geometry("1200x800")
+        self.root.grid_rowconfigure(0, weight=1)
+        self.root.grid_columnconfigure(0, weight=1)
+
+        # Scrollable container to support small displays
+        self.main_canvas = tk.Canvas(self.root, highlightthickness=0)
+        self.v_scroll = ttk.Scrollbar(self.root, orient=tk.VERTICAL, command=self.main_canvas.yview)
+        self.h_scroll = ttk.Scrollbar(self.root, orient=tk.HORIZONTAL, command=self.main_canvas.xview)
+        self.main_canvas.configure(yscrollcommand=self.v_scroll.set, xscrollcommand=self.h_scroll.set)
+
+        self.main_canvas.grid(row=0, column=0, sticky="nsew")
+        self.v_scroll.grid(row=0, column=1, sticky="ns")
+        self.h_scroll.grid(row=1, column=0, sticky="ew")
+
+        self.content_frame = ttk.Frame(self.main_canvas)
+        self.main_canvas.create_window((0, 0), window=self.content_frame, anchor="nw")
+        self.content_frame.bind(
+            "<Configure>",
+            lambda e: self.main_canvas.configure(scrollregion=self.main_canvas.bbox("all"))
+        )
+        self.main_canvas.bind_all("<MouseWheel>", self._on_mousewheel)
+        self.main_canvas.bind_all("<Shift-MouseWheel>", self._on_shift_mousewheel)
+        self.main_canvas.bind_all("<Button-4>", lambda e: self.main_canvas.yview_scroll(-1, "units"))
+        self.main_canvas.bind_all("<Button-5>", lambda e: self.main_canvas.yview_scroll(1, "units"))
+        self.main_canvas.bind_all("<Shift-Button-4>", lambda e: self.main_canvas.xview_scroll(-1, "units"))
+        self.main_canvas.bind_all("<Shift-Button-5>", lambda e: self.main_canvas.xview_scroll(1, "units"))
         
         self.setup_ui()
         
@@ -89,8 +114,9 @@ class SystemMonitor(Node):
         self.update_gui()
 
     def setup_ui(self):
+        parent = self.content_frame
         # Notebook (Tabs)
-        self.notebook = ttk.Notebook(self.root)
+        self.notebook = ttk.Notebook(parent)
         self.notebook.pack(fill="both", expand=True, padx=5, pady=5)
         
         # Tab 1: Motor Monitor
@@ -117,6 +143,18 @@ class SystemMonitor(Node):
         self.audio_tab = ttk.Frame(self.notebook)
         self.notebook.add(self.audio_tab, text="Audio Player")
         self.setup_audio_tab(self.audio_tab)
+
+    def _on_mousewheel(self, event):
+        delta = -1 * (event.delta // 120 if event.delta else 0)
+        if delta == 0:
+            delta = -1 if event.delta > 0 else 1
+        self.main_canvas.yview_scroll(delta, "units")
+
+    def _on_shift_mousewheel(self, event):
+        delta = -1 * (event.delta // 120 if event.delta else 0)
+        if delta == 0:
+            delta = -1 if event.delta > 0 else 1
+        self.main_canvas.xview_scroll(delta, "units")
 
     def setup_motor_tab(self, parent):
         # Top Frame: System Status
