@@ -14,6 +14,7 @@ from std_msgs.msg import Int32, String
 import os
 import time
 import json
+import threading
 
 # Operation Mode
 # -1: Test
@@ -60,6 +61,8 @@ class SystemController(Node):
             'play_audio_id',
             10
         )
+        self.audio_event_timers = []
+        self.pending_audio_events = []
         
         # Feedback publisher for DualSense (LED, Rumble, Triggers)
         self.feedback_pub = self.create_publisher(
@@ -364,6 +367,9 @@ class SystemController(Node):
             self.send_feedback({"type": "led", "r": 255, "g": 255, "b": 0})
             return
 
+        self._cancel_audio_events()
+        self._cancel_audio_events()
+        self.pending_audio_events = []
         try:
             with open(path, "r") as f:
                 motion_data = json.load(f)
@@ -371,29 +377,56 @@ class SystemController(Node):
                 return
 
             msg = JointTrajectory()
-            # Collect unique joints
-            all_joints = set()
+            # Collect unique joints while preserving order of first appearance
+            all_joints = []
+            seen_joints = set()
             for e in motion_data:
                 for k in e.get("angles", {}).keys():
-                    all_joints.add(str(k))
+                    key = str(k)
+                    if key not in seen_joints:
+                        seen_joints.add(key)
+                        all_joints.append(key)
+            # Build trajectory points by carrying forward the last-known value for each joint
+            if not all_joints:
+                self.get_logger().warn("Motion file has no joint entries.")
+                return
             msg.joint_names = list(all_joints)
+            last_values = {
+                joint: self.motorLimits.get(joint, {}).get("ini", 2048)
+                for joint in all_joints
+            }
+            audio_events = []
             
             for entry in sorted(motion_data, key=lambda x: x["timestamp"]):
                 point = JointTrajectoryPoint()
                 sec = int(entry["timestamp"])
                 nanosec = int((entry["timestamp"] - sec) * 1e9)
                 point.time_from_start = Duration(sec=sec, nanosec=nanosec)
-                point.positions = []
-                for j in msg.joint_names:
-                    # Provide default value safely or interpolation (for now default to 2048 or closest)
-                    # For simplicity, if a joint is missing in a keypose, we just fall back to standard 'ini' from motorLimits.
-                    ini_val = self.motorLimits.get(j, {}).get("ini", 2048)
-                    val = entry["angles"].get(j, ini_val)
-                    point.positions.append(float(val))
+                for joint, value in entry.get("angles", {}).items():
+                    last_values[str(joint)] = float(value)
+                point.positions = [float(last_values[joint]) for joint in msg.joint_names]
                 msg.points.append(point)
+
+                audio_info = entry.get("audio")
+                if isinstance(audio_info, dict):
+                    event = {"timestamp": float(entry["timestamp"])}
+                    if "audio_id" in audio_info:
+                        try:
+                            event["audio_id"] = int(audio_info["audio_id"])
+                        except (ValueError, TypeError):
+                            pass
+                    if "audio_name" in audio_info:
+                        name = str(audio_info["audio_name"]).strip()
+                        if name.endswith(".wav"):
+                            name = name[:-4]
+                        if name:
+                            event["audio_name"] = name
+                    if any(key in event for key in ("audio_id", "audio_name")):
+                        audio_events.append(event)
 
             self.traj_publisher.publish(msg)
             self.get_logger().info(f"Published trajectory with {len(msg.points)} points to animatronics_trajectory.")
+            self.pending_audio_events = audio_events
             
         except Exception as e:
             self.get_logger().error(f"Error playing motion: {e}")
@@ -409,6 +442,7 @@ class SystemController(Node):
             self.traj_active = False
             self.traj_end_time = 0.0
             self.get_logger().debug("Trajectory STOP signal received; manual control restored.")
+            self._cancel_audio_events()
             return
 
         # Determine how long playback should be considered active
@@ -419,6 +453,45 @@ class SystemController(Node):
         self.traj_active = True
         self.traj_end_time = time.time() + duration
         self.get_logger().debug(f"Trajectory playback active for {duration:.2f}s.")
+        if getattr(self, "pending_audio_events", None) is not None:
+            self._schedule_audio_events(self.pending_audio_events)
+            self.pending_audio_events = []
+
+    def _cancel_audio_events(self):
+        for timer in getattr(self, "audio_event_timers", []):
+            try:
+                timer.cancel()
+            except Exception:
+                pass
+        self.audio_event_timers = []
+
+    def _schedule_audio_events(self, events):
+        self._cancel_audio_events()
+        if not events:
+            return
+
+        for event in events:
+            delay = max(0.0, float(event.get("timestamp", 0.0)))
+            timer = threading.Timer(delay, self._execute_audio_event, args=(event,))
+            timer.daemon = True
+            timer.start()
+            self.audio_event_timers.append(timer)
+
+    def _execute_audio_event(self, event):
+        if not self.traj_active:
+            return
+        audio_id = event.get("audio_id")
+        audio_name = event.get("audio_name")
+        if audio_id is not None:
+            try:
+                self.play_dinosaur_sound(int(audio_id))
+            except Exception as exc:
+                self.get_logger().warn(f"Failed to play audio ID {audio_id}: {exc}")
+        if audio_name:
+            try:
+                self.play_dinosaur_sound_by_name(str(audio_name))
+            except Exception as exc:
+                self.get_logger().warn(f"Failed to play audio '{audio_name}': {exc}")
 
     def translate(self, axes, buttons):
         # Stop sending commands if controller disconnected for 2 seconds

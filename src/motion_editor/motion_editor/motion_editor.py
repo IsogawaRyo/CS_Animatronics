@@ -14,6 +14,7 @@ from motor_commands.msg import IdAngle
 from motor_commands.srv import GetMotorStates
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from builtin_interfaces.msg import Duration
+from std_msgs.msg import Int32, String
 
 class ROSManager(Node):
     def __init__(self):
@@ -30,6 +31,8 @@ class ROSManager(Node):
             'animatronics_trajectory',
             10
         )
+        self.audio_id_pub = self.create_publisher(Int32, 'play_audio_id', 10)
+        self.audio_name_pub = self.create_publisher(String, 'play_audio_name', 10)
 
         self.reboot_publisher = self.create_publisher(
             IdAngle,
@@ -44,6 +47,17 @@ class ROSManager(Node):
     
         # We won't block main thread indefinitely
         self.request = GetMotorStates.Request()
+
+    def play_audio(self, audio_id=None, audio_name=None):
+        if audio_id is not None:
+            msg = Int32()
+            msg.data = int(audio_id)
+            self.audio_id_pub.publish(msg)
+        if audio_name:
+            filename = audio_name if audio_name.endswith(".wav") else f"{audio_name}.wav"
+            msg = String()
+            msg.data = filename
+            self.audio_name_pub.publish(msg)
 
     def call_get_motor_states(self, ids, callback):
         """Returns True if the async call was made, False if service unavailable."""
@@ -79,6 +93,11 @@ class MotionEditor:
     def __init__(self, ros_manager, parent_frame):
         self.ros_manager = ros_manager
         self.root = parent_frame
+        # Make overall layout responsive
+        self.root.grid_columnconfigure(0, weight=3)
+        self.root.grid_columnconfigure(1, weight=2)
+        for row, weight in ((0, 0), (1, 0), (2, 5), (3, 1), (4, 2)):
+            self.root.grid_rowconfigure(row, weight=weight)
 
         self.motionFile = []
         self.is_playing = False
@@ -103,6 +122,14 @@ class MotionEditor:
         self._play_start_wall = None    # float or None
         self._play_total_duration = 0.0  # seconds (last keypose timestamp)
         
+        # Audio cue controls
+        self.audio_id_var = tk.StringVar(self.root, value="")
+        initial_audio_names = ["(none)"] + self._load_audio_file_names()
+        self.audio_name_options = initial_audio_names
+        self.audio_name_var = tk.StringVar(self.root, value=initial_audio_names[0] if initial_audio_names else "(none)")
+        self.audio_event_entries = []
+        self.audio_timers = []
+        
         # Track which slider the user is currently dragging (None = not dragging)
         self._editing_id = None
         # Track when timeline was last updated to temporarily block observe overwrites
@@ -114,6 +141,7 @@ class MotionEditor:
         # Current displays
         self.port0_current = tk.IntVar(self.root)
         self.port1_current = tk.IntVar(self.root)
+        self.port2_current = tk.IntVar(self.root)
         self.system_current = tk.IntVar(self.root)
         
         # Load Motor Limits
@@ -121,6 +149,30 @@ class MotionEditor:
         self.loadMotorLimits()
 
         self.selectedFile = tk.StringVar(value="Not Selected")
+
+        # Controller button assignment support
+        self.controller_map_path = os.path.expanduser("~/CS_Animatronics/ControllerMap.json")
+        self.controller_button_labels = {
+            "0": "Cross",
+            "1": "Circle",
+            "2": "Square",
+            "3": "Triangle",
+            "4": "L1",
+            "5": "R1",
+            "6": "L2",
+            "7": "R2",
+            "8": "Share",
+            "9": "Options",
+            "11": "L3",
+            "12": "R3",
+        }
+        self.controller_map = self.load_controller_map()
+        self.controller_button_choices = [
+            f"{bid}: {label}" for bid, label in self.controller_button_labels.items()
+        ]
+        default_choice = self.controller_button_choices[0]
+        self.selected_button_display = tk.StringVar(self.root, value=default_choice)
+        self.current_assignment = tk.StringVar(self.root, value="(none)")
 
         self.setup_ui()
         
@@ -139,25 +191,222 @@ class MotionEditor:
         except Exception as e:
             print(f"Failed to load Motor_Limits.json: {e}")
 
+    def _load_audio_file_names(self):
+        audio_dir = os.path.expanduser("~/CS_Animatronics/AudioFiles")
+        names = []
+        try:
+            if os.path.isdir(audio_dir):
+                for fname in sorted(os.listdir(audio_dir)):
+                    if fname.lower().endswith(".wav"):
+                        names.append(os.path.splitext(fname)[0])
+        except Exception as e:
+            print(f"Failed to list AudioFiles: {e}")
+        return names
+
+    def load_controller_map(self):
+        try:
+            if os.path.exists(self.controller_map_path):
+                with open(self.controller_map_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    if isinstance(data, dict):
+                        return data
+        except Exception as e:
+            print(f"Failed to load ControllerMap.json: {e}")
+        return {}
+
+    def save_controller_map(self):
+        try:
+            directory = os.path.dirname(self.controller_map_path)
+            if directory and not os.path.exists(directory):
+                os.makedirs(directory, exist_ok=True)
+            with open(self.controller_map_path, "w", encoding="utf-8") as f:
+                json.dump(self.controller_map, f, indent=2)
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to update ControllerMap.json: {e}")
+            raise
+
+    def _get_selected_button_id(self):
+        value = self.selected_button_display.get()
+        if not value:
+            return None
+        return value.split(":", 1)[0].strip()
+
+    def _on_button_selection_change(self, *_):
+        self.update_assignment_label()
+
+    def update_assignment_label(self):
+        btn_id = self._get_selected_button_id()
+        path = self.controller_map.get(btn_id)
+        if path:
+            display = os.path.basename(path)
+        else:
+            display = "(none)"
+        self.current_assignment.set(display)
+
+    def assign_motion_to_button(self):
+        btn_id = self._get_selected_button_id()
+        if not btn_id:
+            messagebox.showwarning("Warning", "No controller button selected.")
+            return
+
+        current_file = self.selectedFile.get()
+        if not current_file or current_file == "Not Selected":
+            messagebox.showwarning("Warning", "Please open or save a motion file first.")
+            return
+        if not os.path.exists(current_file):
+            messagebox.showwarning("Warning", "Selected motion file does not exist. Please save it before assigning.")
+            return
+
+        self.controller_map[btn_id] = current_file
+        try:
+            self.save_controller_map()
+        except Exception:
+            return
+
+        self.update_assignment_label()
+        messagebox.showinfo("Assigned", f"Assigned {os.path.basename(current_file)} to button {btn_id}.")
+
+    def refresh_audio_list(self):
+        names = self._load_audio_file_names()
+        options = ["(none)"] + names
+        self.audio_name_options = options
+        if hasattr(self, "combo_audio"):
+            self.combo_audio["values"] = options
+        if self.audio_name_var.get() not in options:
+            self.audio_name_var.set(options[0])
+
+    def clear_audio_selection(self):
+        self.audio_id_var.set("")
+        if self.audio_name_options:
+            self.audio_name_var.set(self.audio_name_options[0])
+        else:
+            self.audio_name_var.set("(none)")
+
+    def _build_audio_payload(self):
+        payload = {}
+        audio_id_text = self.audio_id_var.get().strip()
+        if audio_id_text:
+            try:
+                payload["audio_id"] = int(audio_id_text)
+            except ValueError:
+                messagebox.showerror("Invalid Audio ID", "Audio ID must be an integer.")
+                return None, False
+        audio_name = self.audio_name_var.get()
+        if audio_name and audio_name != "(none)":
+            payload["audio_name"] = audio_name
+        if payload:
+            return payload, True
+        return None, True
+
+    def _apply_audio_from_entry(self, entry):
+        audio = entry.get("audio")
+        if isinstance(audio, dict):
+            audio_id = audio.get("audio_id")
+            audio_name = audio.get("audio_name")
+            self.audio_id_var.set(str(audio_id) if audio_id is not None else "")
+            if audio_name:
+                if audio_name not in self.audio_name_options:
+                    self.audio_name_options.append(audio_name)
+                    if hasattr(self, "combo_audio"):
+                        self.combo_audio["values"] = self.audio_name_options
+                self.audio_name_var.set(audio_name)
+            else:
+                if self.audio_name_options:
+                    self.audio_name_var.set(self.audio_name_options[0])
+        else:
+            self.clear_audio_selection()
+
+    def refresh_audio_event_list(self):
+        events = []
+        for entry in sorted(self.motionFile, key=lambda x: x.get("timestamp", 0.0)):
+            audio = entry.get("audio")
+            if isinstance(audio, dict):
+                ts = float(entry.get("timestamp", 0.0))
+                parts = []
+                if "audio_id" in audio:
+                    parts.append(f"ID:{audio['audio_id']}")
+                if "audio_name" in audio:
+                    parts.append(f"NAME:{audio['audio_name']}")
+                if parts:
+                    events.append((ts, ", ".join(parts)))
+        self.audio_event_entries = events
+        if hasattr(self, "audio_event_list"):
+            self.audio_event_list.delete(0, tk.END)
+            for ts, desc in events:
+                self.audio_event_list.insert(tk.END, f"{ts:6.1f}s  {desc}")
+
+    def on_audio_event_select(self, *_):
+        if not hasattr(self, "audio_event_list"):
+            return
+        selection = self.audio_event_list.curselection()
+        if not selection:
+            return
+        idx = selection[0]
+        if idx >= len(self.audio_event_entries):
+            return
+        ts, _ = self.audio_event_entries[idx]
+        self.timestamp.set(round(ts, 1))
+        self.last_timestamp.set(-1.0)
+        self.update_sliders_from_timeline()
+
+    def remove_audio_from_current(self):
+        t = round(self.timestamp.get(), 1)
+        modified = False
+        for entry in self.motionFile:
+            if abs(entry.get("timestamp", 0.0) - t) < 0.05 and "audio" in entry:
+                entry.pop("audio", None)
+                modified = True
+        if modified:
+            self.clear_audio_selection()
+            self.refresh_audio_event_list()
+            messagebox.showinfo("Audio", f"Removed audio cue at {t:.1f}s")
+
+    def _cancel_audio_timers(self):
+        for timer in self.audio_timers:
+            try:
+                timer.cancel()
+            except Exception:
+                pass
+        self.audio_timers = []
+
+    def _schedule_audio_events(self, events):
+        self._cancel_audio_timers()
+        if not events:
+            return
+        for event in events:
+            delay = max(0.0, float(event.get("timestamp", 0.0)))
+            timer = threading.Timer(delay, self._fire_audio_event, args=(event,))
+            timer.daemon = True
+            timer.start()
+            self.audio_timers.append(timer)
+
+    def _fire_audio_event(self, event):
+        audio_id = event.get("audio_id")
+        audio_name = event.get("audio_name")
+        self.ros_manager.play_audio(audio_id=audio_id, audio_name=audio_name)
+
     def setup_ui(self):
         # Settings Frame
         self.frame_settings = tk.LabelFrame(self.root, text="File Settings", foreground="green")
-        self.frame_settings.grid(sticky="W", row=0, column=0, columnspan=2, padx=5, pady=5)
+        self.frame_settings.grid(sticky="EW", row=0, column=0, columnspan=2, padx=5, pady=5)
+        self.frame_settings.grid_columnconfigure(0, weight=1)
+        self.frame_settings.grid_columnconfigure(1, weight=1)
         
-        tk.Label(self.frame_settings, textvariable=self.selectedFile, width=40).grid(row=0, column=0, columnspan=2)
-        tk.Button(self.frame_settings, text="Open JSON", command=self.fileDialog).grid(row=1, column=0, pady=5)
-        tk.Button(self.frame_settings, text="Save JSON", command=self.saveMotionFile).grid(row=1, column=1, pady=5)
+        tk.Label(self.frame_settings, textvariable=self.selectedFile, width=40).grid(row=0, column=0, columnspan=2, sticky="EW")
+        tk.Button(self.frame_settings, text="Open JSON", command=self.fileDialog).grid(row=1, column=0, pady=5, sticky="EW")
+        tk.Button(self.frame_settings, text="Save JSON", command=self.saveMotionFile).grid(row=1, column=1, pady=5, sticky="EW")
         
         # Operations Frame
         self.frame_operations = tk.LabelFrame(self.root, text="Timeline & Keyposes", foreground="green")
-        self.frame_operations.grid(sticky="W", row=1, column=0, columnspan=2, padx=5, pady=5)
+        self.frame_operations.grid(sticky="EW", row=1, column=0, columnspan=2, padx=5, pady=5)
+        self.frame_operations.grid_columnconfigure(2, weight=1)
         
         tk.Button(self.frame_operations, text="< -1s", command=self.moveBackward).grid(row=0, column=0)
         tk.Label(self.frame_operations, text="0.0s").grid(row=0, column=1)
         
         self.scale_time = tk.Scale(self.frame_operations, from_=self.timeMin.get(), to_=self.timeMax.get(), 
                                    variable=self.timestamp, orient=tk.HORIZONTAL, resolution=0.1, length=400)
-        self.scale_time.grid(row=0, column=2, padx=10)
+        self.scale_time.grid(row=0, column=2, padx=10, sticky="EW")
         
         self.lbl_max_time = tk.Label(self.frame_operations, text=f"{self.timeMax.get()}s")
         self.lbl_max_time.grid(row=0, column=3)
@@ -198,7 +447,10 @@ class MotionEditor:
         
         # Current Frame
         self.frame_current = tk.LabelFrame(self.root, text="System Status", foreground="blue")
-        self.frame_current.grid(sticky="NEW", row=2, column=1, padx=5, pady=5)
+        self.frame_current.grid(sticky="NSEW", row=2, column=1, padx=5, pady=5)
+        for col in range(3):
+            self.frame_current.grid_columnconfigure(col, weight=1 if col == 1 else 0)
+        self.frame_current.grid_rowconfigure(5, weight=1)
         
         tk.Checkbutton(self.frame_current, text="Enable Hardware Observe Mode", variable=self.observe_mode).grid(row=0, column=0, columnspan=3, pady=5)
         
@@ -215,10 +467,73 @@ class MotionEditor:
         self.label_port1.grid(row=3, column=1)
         tk.Label(self.frame_current, text="mA").grid(row=3, column=2)
 
-        tk.Label(self.frame_current, text="Total:").grid(row=4, column=0)
-        self.label_total = tk.Label(self.frame_current, textvariable=self.system_current, width=6, relief="sunken")
-        self.label_total.grid(row=4, column=1)
+        tk.Label(self.frame_current, text="PORT2:").grid(row=4, column=0)
+        self.label_port2 = tk.Label(self.frame_current, textvariable=self.port2_current, width=6, relief="sunken")
+        self.label_port2.grid(row=4, column=1)
         tk.Label(self.frame_current, text="mA").grid(row=4, column=2)
+
+        tk.Label(self.frame_current, text="Total:").grid(row=5, column=0)
+        self.label_total = tk.Label(self.frame_current, textvariable=self.system_current, width=6, relief="sunken")
+        self.label_total.grid(row=5, column=1)
+        tk.Label(self.frame_current, text="mA").grid(row=5, column=2)
+
+        # Controller assignment frame
+        self.frame_assignment = tk.LabelFrame(self.root, text="Controller Button Assignment", foreground="purple")
+        self.frame_assignment.grid(sticky="EW", row=3, column=0, columnspan=2, padx=5, pady=5)
+        self.frame_assignment.grid_columnconfigure(1, weight=1)
+
+        tk.Label(self.frame_assignment, text="Button:").grid(row=0, column=0, padx=4, pady=4, sticky="W")
+        self.combo_buttons = ttk.Combobox(
+            self.frame_assignment,
+            state="readonly",
+            values=self.controller_button_choices,
+            textvariable=self.selected_button_display,
+            width=18,
+        )
+        self.combo_buttons.grid(row=0, column=1, padx=4, pady=4, sticky="EW")
+        self.combo_buttons.bind("<<ComboboxSelected>>", self._on_button_selection_change)
+
+        tk.Label(self.frame_assignment, text="Currently Assigned:").grid(row=1, column=0, padx=4, pady=4, sticky="W")
+        tk.Label(self.frame_assignment, textvariable=self.current_assignment, width=30, relief="sunken").grid(
+            row=1, column=1, padx=4, pady=4, sticky="W"
+        )
+        tk.Button(
+            self.frame_assignment,
+            text="Assign current motion file",
+            bg="#d4ffd4",
+            command=self.assign_motion_to_button,
+        ).grid(row=2, column=0, columnspan=2, pady=6, sticky="EW")
+
+        self.update_assignment_label()
+        # Audio cue frame
+        self.frame_audio = tk.LabelFrame(self.root, text="Audio Cue (per keypose)", foreground="purple")
+        self.frame_audio.grid(sticky="NSEW", row=4, column=0, columnspan=2, padx=5, pady=5)
+        self.frame_audio.grid_columnconfigure(1, weight=1)
+        self.frame_audio.grid_rowconfigure(5, weight=1)
+        tk.Label(self.frame_audio, text="Audio ID:").grid(row=0, column=0, padx=4, pady=4, sticky="W")
+        tk.Entry(self.frame_audio, textvariable=self.audio_id_var, width=10).grid(row=0, column=1, padx=4, pady=4, sticky="EW")
+        tk.Button(self.frame_audio, text="Clear ID", command=lambda: self.audio_id_var.set("")).grid(row=0, column=2, padx=4, pady=4, sticky="EW")
+
+        tk.Label(self.frame_audio, text="Audio File:").grid(row=1, column=0, padx=4, pady=4, sticky="W")
+        self.combo_audio = ttk.Combobox(
+            self.frame_audio,
+            state="readonly",
+            values=self.audio_name_options,
+            textvariable=self.audio_name_var,
+            width=25,
+        )
+        self.combo_audio.grid(row=1, column=1, padx=4, pady=4, sticky="EW")
+        tk.Button(self.frame_audio, text="Refresh list", command=self.refresh_audio_list).grid(row=1, column=2, padx=4, pady=4, sticky="EW")
+        tk.Button(self.frame_audio, text="Clear audio fields", command=self.clear_audio_selection).grid(row=2, column=0, columnspan=3, pady=4, sticky="EW")
+        tk.Button(self.frame_audio, text="Remove cue at current time", command=self.remove_audio_from_current).grid(row=3, column=0, columnspan=3, pady=4, sticky="EW")
+
+        tk.Label(self.frame_audio, text="Timeline Cues:").grid(row=4, column=0, padx=4, pady=(8, 2), sticky="W")
+        self.audio_event_list = tk.Listbox(self.frame_audio, height=6, width=45)
+        self.audio_event_list.grid(row=5, column=0, columnspan=3, padx=4, pady=4, sticky="NSEW")
+        self.audio_event_list.bind("<<ListboxSelect>>", self.on_audio_event_select)
+
+        self.refresh_audio_list()
+        self.refresh_audio_event_list()
 
         # Build Motor Sliders
         self.labels_ID = {}
@@ -304,6 +619,7 @@ class MotionEditor:
                     self.lbl_max_time.config(text=f"{self.timeMax.get()}s")
                     
                 self.update_sliders_from_timeline()
+                self.refresh_audio_event_list()
                 messagebox.showinfo("Loaded", f"Loaded {len(self.motionFile)} keyposes.")
         except Exception as e:
             messagebox.showerror("Error", f"Failed to load JSON: {e}")
@@ -350,19 +666,31 @@ class MotionEditor:
             messagebox.showwarning("Warning", "No motors selected (Include checkbox) for this keypose.")
             return
 
+        audio_payload, ok = self._build_audio_payload()
+        if not ok:
+            return
+
         # Check if exists
         updated = False
         for entry in self.motionFile:
             if abs(entry["timestamp"] - t) < 0.05:
                 entry["angles"] = angles
+                if audio_payload:
+                    entry["audio"] = audio_payload
+                else:
+                    entry.pop("audio", None)
                 updated = True
                 break
                 
         if not updated:
-            self.motionFile.append({"timestamp": t, "angles": angles})
+            new_entry = {"timestamp": t, "angles": angles}
+            if audio_payload:
+                new_entry["audio"] = audio_payload
+            self.motionFile.append(new_entry)
             self.motionFile.sort(key=lambda x: x["timestamp"])
             
         print(f"Keypose set at {t}s")
+        self.refresh_audio_event_list()
 
     def delete_keypose(self):
         t = round(self.timestamp.get(), 1)
@@ -370,6 +698,7 @@ class MotionEditor:
         if len(new_file) < len(self.motionFile):
             self.motionFile = new_file
             print(f"Keypose at {t}s deleted.")
+            self.refresh_audio_event_list()
         else:
             print(f"No keypose found at {t}s.")
 
@@ -439,6 +768,7 @@ class MotionEditor:
                     self.state_checkBox[id_str].set(False)
                 # Enable the checkbox so user can edit which motors are included
                 self.checkBox[id_str].config(state=tk.NORMAL)
+            self._apply_audio_from_entry(exact_entry)
         else:
             # NOT on a keypose: disable and uncheck all Include boxes
             for id_str in self.motorLimits:
@@ -446,6 +776,7 @@ class MotionEditor:
                 self.checkBox[id_str].config(state=tk.DISABLED)
             # Interpolate slider positions for preview only (don't change Include)
             self.interpolate_and_preview(t)
+            self.clear_audio_selection()
             
         # Send to ROS ONLY if we are NOT playing back automatically
         # (trajectory_interpolator handles automatic playback)
@@ -490,6 +821,7 @@ class MotionEditor:
                 all_joints.add(str(k))
         
         msg.joint_names = list(all_joints)
+        audio_events = []
         
         for entry in self.motionFile:
             point = JointTrajectoryPoint()
@@ -506,8 +838,26 @@ class MotionEditor:
                 point.positions.append(float(val))
                 
             msg.points.append(point)
+
+            audio_info = entry.get("audio")
+            if isinstance(audio_info, dict):
+                event = {"timestamp": float(entry["timestamp"])}
+                if "audio_id" in audio_info:
+                    try:
+                        event["audio_id"] = int(audio_info["audio_id"])
+                    except (ValueError, TypeError):
+                        pass
+                if "audio_name" in audio_info:
+                    name = str(audio_info["audio_name"]).strip()
+                    if name.endswith(".wav"):
+                        name = name[:-4]
+                    if name:
+                        event["audio_name"] = name
+                if any(key in event for key in ("audio_id", "audio_name")):
+                    audio_events.append(event)
             
         self.ros_manager.publish_trajectory(msg)
+        self._schedule_audio_events(audio_events)
         
         # Start playback timer so the time slider tracks progress
         self._play_start_wall = time.time()
@@ -521,6 +871,7 @@ class MotionEditor:
         """Stop ongoing trajectory playback by sending an empty JointTrajectory."""
         self.ros_manager.stop_trajectory()
         self._play_start_wall = None  # stop the UI timer too
+        self._cancel_audio_timers()
         print("Trajectory STOP sent.")
 
     def sync_sliders_from_hardware(self):
@@ -542,9 +893,14 @@ class MotionEditor:
                         self.hardware_positions[id_str] = hw_pos
                         if id_str in self.labels_ID:
                             self.labels_ID[id_str].config(text=f"ID:{id_str:>3} [{hw_pos:>4}]")
-                self.port0_current.set(response.port0_total_current)
-                self.port1_current.set(response.port1_total_current)
-                self.system_current.set(response.system_total_current)
+                p0 = getattr(response, "port0_total_current", 0)
+                p1 = getattr(response, "port1_total_current", 0)
+                total = getattr(response, "system_total_current", 0)
+                p2 = total - p0 - p1
+                self.port0_current.set(p0)
+                self.port1_current.set(p1)
+                self.port2_current.set(p2)
+                self.system_current.set(total)
                 print("Sliders synced from hardware.")
             except Exception as e:
                 print(f"Sync from hardware failed: {e}")
@@ -606,9 +962,14 @@ class MotionEditor:
                             self.labels_ID[id_str].config(
                                 text=f"ID:{id_str:>3} [{hw_pos:>4}]")
                         
-                self.port0_current.set(response.port0_total_current)
-                self.port1_current.set(response.port1_total_current)
-                self.system_current.set(response.system_total_current)
+                p0 = getattr(response, "port0_total_current", 0)
+                p1 = getattr(response, "port1_total_current", 0)
+                total = getattr(response, "system_total_current", 0)
+                p2 = total - p0 - p1
+                self.port0_current.set(p0)
+                self.port1_current.set(p1)
+                self.port2_current.set(p2)
+                self.system_current.set(total)
             except Exception as e:
                 pass
             finally:
@@ -652,8 +1013,6 @@ def main():
     app.root.geometry("1200x800")
     app.root.minsize(900, 600)
     # Allow the motor slider column to grow with window resize
-    app.root.grid_rowconfigure(2, weight=1)
-    app.root.grid_columnconfigure(0, weight=1)
     app.root.mainloop()
 
     ros_manager.destroy_node()

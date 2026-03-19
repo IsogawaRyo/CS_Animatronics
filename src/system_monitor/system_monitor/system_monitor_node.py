@@ -67,6 +67,7 @@ class SystemMonitor(Node):
         self.root = tk.Tk()
         self.root.title("CS_Animatronics System Monitor")
         self.root.geometry("800x600")
+        self.root.after(100, self.root.state, 'zoomed')
         
         self.setup_ui()
         

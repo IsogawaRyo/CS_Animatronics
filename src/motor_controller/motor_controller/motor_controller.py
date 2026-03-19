@@ -41,20 +41,24 @@ import glob
 available_ports = sorted(glob.glob('/dev/ttyUSB*') + glob.glob('/dev/ttyACM*'))
 DEVICE_NAME0 = available_ports[0] if len(available_ports) > 0 else "/dev/ttyUSB0"
 DEVICE_NAME1 = available_ports[1] if len(available_ports) > 1 else "/dev/ttyUSB1"
+DEVICE_NAME2 = available_ports[2] if len(available_ports) > 2 else "/dev/ttyUSB2"
 
 # Initialize PortHandler and PacketHandler
 port_handler0 = PortHandler(DEVICE_NAME0)
 port_handler1 = PortHandler(DEVICE_NAME1)
+port_handler2 = PortHandler(DEVICE_NAME2)
 packet_handler = PacketHandler(PROTOCOL_VERSION)
 
 # Global lists for motor IDs found on each port
 PORT0 = []
 PORT1 = []
+PORT2 = []
 
 # GroupSyncWrite for sending commands to multiple motors at once
 LEN_GOAL_POSITION = 4
 groupSyncWrite0 = GroupSyncWrite(port_handler0, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
+groupSyncWrite2 = GroupSyncWrite(port_handler2, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
 
 # GroupSyncRead for reading states from multiple motors at once
 LEN_PRESENT_POSITION = 4
@@ -64,15 +68,20 @@ LEN_PRESENT_LOAD = 2
 LEN_HARDWARE_ERROR = 1   # Hardware error status is 1 byte
 groupSyncRead0_pos = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
 groupSyncRead1_pos = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
+groupSyncRead2_pos = GroupSyncRead(port_handler2, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
 groupSyncRead0_temp = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
 groupSyncRead1_temp = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
+groupSyncRead2_temp = GroupSyncRead(port_handler2, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
 # Try both current and load addresses for better compatibility
 groupSyncRead0_current = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
 groupSyncRead1_current = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
+groupSyncRead2_current = GroupSyncRead(port_handler2, packet_handler, ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
 groupSyncRead0_load = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
 groupSyncRead1_load = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
+groupSyncRead2_load = GroupSyncRead(port_handler2, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
 groupSyncRead0_error = GroupSyncRead(port_handler0, packet_handler, ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
 groupSyncRead1_error = GroupSyncRead(port_handler1, packet_handler, ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
+groupSyncRead2_error = GroupSyncRead(port_handler2, packet_handler, ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
 
 # List of motor IDs to initialize/control
 MOTOR_IDS = [
@@ -88,14 +97,15 @@ MOTOR_IDS = [
 OBSERVE_CACHE_DURATION = 0.3  # seconds MotionEditor Observe result may be reused
 
 class MotorController(Node):
-    def __init__(self, port0_open: bool, port1_open: bool):
+    def __init__(self, port0_open: bool, port1_open: bool, port2_open: bool):
         super().__init__('motor_controller')
         self.get_logger().info('Run motor controller node')
         self.port0_open = port0_open
         self.port1_open = port1_open
+        self.port2_open = port2_open
 
         # simulation mode if NO port is open (allow partial connection)
-        self.simulation = not (self.port0_open or self.port1_open)
+        self.simulation = not (self.port0_open or self.port1_open or self.port2_open)
 
         self.motor_limits = {}
         self.load_motor_limits()
@@ -191,6 +201,7 @@ class MotorController(Node):
         # 物理ポートが開いている場合
         groupSyncWrite0.clearParam()
         groupSyncWrite1.clearParam()
+        groupSyncWrite2.clearParam()
 
         for idx, motor_id in enumerate(msg.ids):
             # Skip motor ID 0 (invalid/padding motor ID)
@@ -226,6 +237,9 @@ class MotorController(Node):
             elif motor_id in PORT1:
                 if not groupSyncWrite1.addParam(motor_id, param_goal_position):
                     self.get_logger().error(f"Failed to addParam for ID: {motor_id}")
+            elif motor_id in PORT2:
+                if not groupSyncWrite2.addParam(motor_id, param_goal_position):
+                    self.get_logger().error(f"Failed to addParam for ID: {motor_id}")
             else:
                 self.get_logger().info(f"Unknown motor ID: {motor_id}")
                 continue
@@ -233,6 +247,7 @@ class MotorController(Node):
         # Only transmit if at least one motor param was added for that port
         port0_motors_added = any(mid in PORT0 for mid in msg.ids if mid != 0)
         port1_motors_added = any(mid in PORT1 for mid in msg.ids if mid != 0)
+        port2_motors_added = any(mid in PORT2 for mid in msg.ids if mid != 0)
 
         if port0_motors_added:
             dxl_comm_result = groupSyncWrite0.txPacket()
@@ -242,9 +257,14 @@ class MotorController(Node):
             dxl_comm_result = groupSyncWrite1.txPacket()
             if dxl_comm_result != COMM_SUCCESS:
                 self.get_logger().error(f"Sync Write Error on port1: {packet_handler.getTxRxResult(dxl_comm_result)}")
+        if port2_motors_added:
+            dxl_comm_result = groupSyncWrite2.txPacket()
+            if dxl_comm_result != COMM_SUCCESS:
+                self.get_logger().error(f"Sync Write Error on port2: {packet_handler.getTxRxResult(dxl_comm_result)}")
 
         groupSyncWrite0.clearParam()
         groupSyncWrite1.clearParam()
+        groupSyncWrite2.clearParam()
 
     def get_motor_states(self, request, response):
         import time
@@ -343,6 +363,8 @@ class MotorController(Node):
                 ph = port_handler0
             elif motor_id in PORT1:
                 ph = port_handler1
+            elif motor_id in PORT2:
+                ph = port_handler2
             else:
                 self.get_logger().warn(f"Reboot: unknown motor ID {motor_id}")
                 continue
@@ -379,6 +401,8 @@ class MotorController(Node):
                     selected_port_handler = port_handler0
                 elif motor_id in PORT1:
                     selected_port_handler = port_handler1
+                elif motor_id in PORT2:
+                    selected_port_handler = port_handler2
                 else:
                     # Unknown ID; skip but keep going
                     self.get_logger().warn(f"SetTorque: Unknown motor ID {motor_id}")
@@ -418,40 +442,51 @@ class MotorController(Node):
 
     def reconnect_ports_callback(self, request, response):
         self.get_logger().info("Reconnecting ports...")
-        global DEVICE_NAME0, DEVICE_NAME1, PORT0, PORT1
-        global port_handler0, port_handler1
-        global groupSyncWrite0, groupSyncWrite1
-        global groupSyncRead0_pos, groupSyncRead1_pos
-        global groupSyncRead0_temp, groupSyncRead1_temp
-        global groupSyncRead0_current, groupSyncRead1_current
-        global groupSyncRead0_load, groupSyncRead1_load
-        global groupSyncRead0_error, groupSyncRead1_error
+        global DEVICE_NAME0, DEVICE_NAME1, DEVICE_NAME2
+        global PORT0, PORT1, PORT2
+        global port_handler0, port_handler1, port_handler2
+        global groupSyncWrite0, groupSyncWrite1, groupSyncWrite2
+        global groupSyncRead0_pos, groupSyncRead1_pos, groupSyncRead2_pos
+        global groupSyncRead0_temp, groupSyncRead1_temp, groupSyncRead2_temp
+        global groupSyncRead0_current, groupSyncRead1_current, groupSyncRead2_current
+        global groupSyncRead0_load, groupSyncRead1_load, groupSyncRead2_load
+        global groupSyncRead0_error, groupSyncRead1_error, groupSyncRead2_error
 
         if self.port0_open:
             port_handler0.closePort()
         if self.port1_open:
             port_handler1.closePort()
+        if getattr(self, "port2_open", False):
+            port_handler2.closePort()
             
         import glob
         available_ports = sorted(glob.glob('/dev/ttyUSB*') + glob.glob('/dev/ttyACM*'))
         DEVICE_NAME0 = available_ports[0] if len(available_ports) > 0 else "/dev/ttyUSB0"
         DEVICE_NAME1 = available_ports[1] if len(available_ports) > 1 else "/dev/ttyUSB1"
+        DEVICE_NAME2 = available_ports[2] if len(available_ports) > 2 else "/dev/ttyUSB2"
         
         # Recreate port handlers so the Dynamixel SDK picks up the new device names
         port_handler0 = PortHandler(DEVICE_NAME0)
         port_handler1 = PortHandler(DEVICE_NAME1)
+        port_handler2 = PortHandler(DEVICE_NAME2)
         groupSyncWrite0 = GroupSyncWrite(port_handler0, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
         groupSyncWrite1 = GroupSyncWrite(port_handler1, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
+        groupSyncWrite2 = GroupSyncWrite(port_handler2, packet_handler, ADDR_GOAL_POSITION, LEN_GOAL_POSITION)
         groupSyncRead0_pos = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
         groupSyncRead1_pos = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
+        groupSyncRead2_pos = GroupSyncRead(port_handler2, packet_handler, ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
         groupSyncRead0_temp = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
         groupSyncRead1_temp = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
+        groupSyncRead2_temp = GroupSyncRead(port_handler2, packet_handler, ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
         groupSyncRead0_current = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
         groupSyncRead1_current = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
+        groupSyncRead2_current = GroupSyncRead(port_handler2, packet_handler, ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
         groupSyncRead0_load = GroupSyncRead(port_handler0, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
         groupSyncRead1_load = GroupSyncRead(port_handler1, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
+        groupSyncRead2_load = GroupSyncRead(port_handler2, packet_handler, ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
         groupSyncRead0_error = GroupSyncRead(port_handler0, packet_handler, ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
         groupSyncRead1_error = GroupSyncRead(port_handler1, packet_handler, ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
+        groupSyncRead2_error = GroupSyncRead(port_handler2, packet_handler, ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
         
         try:
             self.port0_open = port_handler0.openPort()
@@ -467,19 +502,31 @@ class MotorController(Node):
             self.get_logger().error(f"Error opening port1: {e}")
             self.port1_open = False
             
+        try:
+            self.port2_open = port_handler2.openPort()
+            if self.port2_open: port_handler2.setBaudRate(BAUDRATE)
+        except Exception as e:
+            self.get_logger().error(f"Error opening port2: {e}")
+            self.port2_open = False
+            
         PORT0.clear()
         PORT1.clear()
+        PORT2.clear()
         
-        self.simulation = not (self.port0_open or self.port1_open)
+        self.simulation = not (self.port0_open or self.port1_open or self.port2_open)
         
-        if self.port0_open or self.port1_open:
-            scan_motors(self.port0_open, self.port1_open)
+        if self.port0_open or self.port1_open or self.port2_open:
+            scan_motors(self.port0_open, self.port1_open, self.port2_open)
             try:
                 initialize_motor()
             except Exception as e:
                 self.get_logger().error(f"Initialize failed: {e}")
             response.success = True
-            response.message = f"Connected P0: {DEVICE_NAME0} ({self.port0_open}), P1: {DEVICE_NAME1} ({self.port1_open})"
+            response.message = (
+                f"Connected P0: {DEVICE_NAME0} ({self.port0_open}), "
+                f"P1: {DEVICE_NAME1} ({self.port1_open}), "
+                f"P2: {DEVICE_NAME2} ({self.port2_open})"
+            )
         else:
             response.success = False
             response.message = "Failed to connect to any port. Running in simulation mode."
@@ -493,6 +540,7 @@ class MotorController(Node):
         # Separate motors by port
         port0_motors = [mid for mid in requested_ids if mid in PORT0]
         port1_motors = [mid for mid in requested_ids if mid in PORT1]
+        port2_motors = [mid for mid in requested_ids if mid in PORT2]
         
         # Determine what to read in this cycle (Round Robin)
         # Cycle 0: Position + Temperature
@@ -502,9 +550,16 @@ class MotorController(Node):
         self.read_cycle += 1
         
         # Read actual position from hardware using GroupSyncRead
-        pos_data = self._bulk_read_parameter(port0_motors, port1_motors, 
-                                            groupSyncRead0_pos, groupSyncRead1_pos, 
-                                            ADDR_PRESENT_POSITION, LEN_PRESENT_POSITION)
+        pos_data = self._bulk_read_parameter(
+            port0_motors,
+            port1_motors,
+            port2_motors,
+            groupSyncRead0_pos,
+            groupSyncRead1_pos,
+            groupSyncRead2_pos,
+            ADDR_PRESENT_POSITION,
+            LEN_PRESENT_POSITION,
+        )
 
         # --- Interleaved Reads (cycle-based to avoid bus congestion) ---
         temp_data = {}
@@ -513,25 +568,53 @@ class MotorController(Node):
         
         if current_phase == 0:
             # Read Temperature
-            temp_data = self._bulk_read_parameter(port0_motors, port1_motors, 
-                                                groupSyncRead0_temp, groupSyncRead1_temp, 
-                                                ADDR_PRESENT_TEMPERATURE, LEN_PRESENT_TEMPERATURE)
+            temp_data = self._bulk_read_parameter(
+                port0_motors,
+                port1_motors,
+                port2_motors,
+                groupSyncRead0_temp,
+                groupSyncRead1_temp,
+                groupSyncRead2_temp,
+                ADDR_PRESENT_TEMPERATURE,
+                LEN_PRESENT_TEMPERATURE,
+            )
         elif current_phase == 1:
             # Read Torque (Current/Load)
-            torque_data = self._bulk_read_parameter(port0_motors, port1_motors, 
-                                                  groupSyncRead0_current, groupSyncRead1_current, 
-                                                  ADDR_PRESENT_CURRENT, LEN_PRESENT_CURRENT)
+            torque_data = self._bulk_read_parameter(
+                port0_motors,
+                port1_motors,
+                port2_motors,
+                groupSyncRead0_current,
+                groupSyncRead1_current,
+                groupSyncRead2_current,
+                ADDR_PRESENT_CURRENT,
+                LEN_PRESENT_CURRENT,
+            )
             
-            if not torque_data and (port0_motors or port1_motors):
+            if not torque_data and (port0_motors or port1_motors or port2_motors):
                 self.get_logger().debug("PRESENT_CURRENT failed, trying PRESENT_LOAD")
-                torque_data = self._bulk_read_parameter(port0_motors, port1_motors, 
-                                                      groupSyncRead0_load, groupSyncRead1_load, 
-                                                      ADDR_PRESENT_LOAD, LEN_PRESENT_LOAD)
+                torque_data = self._bulk_read_parameter(
+                    port0_motors,
+                    port1_motors,
+                    port2_motors,
+                    groupSyncRead0_load,
+                    groupSyncRead1_load,
+                    groupSyncRead2_load,
+                    ADDR_PRESENT_LOAD,
+                    LEN_PRESENT_LOAD,
+                )
         elif current_phase == 2:
             # Read Hardware Error
-            error_data = self._bulk_read_parameter(port0_motors, port1_motors,
-                                                 groupSyncRead0_error, groupSyncRead1_error,
-                                                 ADDR_HARDWARE_ERROR_STATUS, LEN_HARDWARE_ERROR)
+            error_data = self._bulk_read_parameter(
+                port0_motors,
+                port1_motors,
+                port2_motors,
+                groupSyncRead0_error,
+                groupSyncRead1_error,
+                groupSyncRead2_error,
+                ADDR_HARDWARE_ERROR_STATUS,
+                LEN_HARDWARE_ERROR,
+            )
         
         # Combine data (Use read values OR cached values)
         for motor_id in requested_ids:
@@ -581,7 +664,8 @@ class MotorController(Node):
         
         return ids, positions, temperatures, torques, error_statuses
     
-    def _bulk_read_parameter(self, port0_motors, port1_motors, sync_read0, sync_read1, addr, length):
+    def _bulk_read_parameter(self, port0_motors, port1_motors, port2_motors,
+                             sync_read0, sync_read1, sync_read2, addr, length):
         """Helper method for bulk parameter reading"""
         result_data = {}
         
@@ -616,6 +700,22 @@ class MotorController(Node):
                             result_data[motor_id] = sync_read1.getData(motor_id, addr, length)
                         else:
                             result_data[motor_id] = sync_read1.getData(motor_id, addr, length)
+
+        # Setup and read from port2
+        if port2_motors:
+            sync_read2.clearParam()
+            for motor_id in port2_motors:
+                sync_read2.addParam(motor_id)
+
+            if sync_read2.txRxPacket() == COMM_SUCCESS:
+                for motor_id in port2_motors:
+                    if sync_read2.isAvailable(motor_id, addr, length):
+                        if length == 4:
+                            result_data[motor_id] = sync_read2.getData(motor_id, addr, length)
+                        elif length == 2:
+                            result_data[motor_id] = sync_read2.getData(motor_id, addr, length)
+                        else:
+                            result_data[motor_id] = sync_read2.getData(motor_id, addr, length)
         
         return result_data
     
@@ -624,9 +724,12 @@ class MotorController(Node):
         ids, positions, temperatures, torques, error_statuses = [], [], [], [], []
         
         for motor_id in requested_ids:
-            selected_port_handler = (port_handler0 if motor_id in PORT0 
-                                       else port_handler1 if motor_id in PORT1 
-                                       else None)
+            selected_port_handler = (
+                port_handler0 if motor_id in PORT0
+                else port_handler1 if motor_id in PORT1
+                else port_handler2 if motor_id in PORT2
+                else None
+            )
             if selected_port_handler is None:
                 continue
 
@@ -681,6 +784,7 @@ class MotorController(Node):
         """Calculate total currents for each port and system"""
         port0_total = 0
         port1_total = 0
+        port2_total = 0
         
         for i, motor_id in enumerate(ids):
             torque_value = torques[i] if i < len(torques) else 0
@@ -689,10 +793,15 @@ class MotorController(Node):
                 port0_total += torque_value
             elif motor_id in PORT1:
                 port1_total += torque_value
+            elif motor_id in PORT2:
+                port2_total += torque_value
         
-        system_total = port0_total + port1_total
+        system_total = port0_total + port1_total + port2_total
         
-        self.get_logger().debug(f"Current totals - PORT0: {port0_total}mA, PORT1: {port1_total}mA, System: {system_total}mA")
+        self.get_logger().debug(
+            f"Current totals - PORT0: {port0_total}mA, PORT1: {port1_total}mA, "
+            f"PORT2: {port2_total}mA, System: {system_total}mA"
+        )
         
         return port0_total, port1_total, system_total
     
@@ -758,13 +867,15 @@ def initialize_motor():
     print("Start initializing motors")
     
     # Create valid list of all detected motors
-    all_detected_ids = sorted(list(set(PORT0) | set(PORT1)))
+    all_detected_ids = sorted(list(set(PORT0) | set(PORT1) | set(PORT2)))
     
     for motor_id in all_detected_ids:
         if motor_id in PORT0:
             selected_port_handler = port_handler0
         elif motor_id in PORT1:
             selected_port_handler = port_handler1
+        elif motor_id in PORT2:
+            selected_port_handler = port_handler2
         else:
             print(f"Motor ID {motor_id} not found on any port.")
             continue
@@ -815,7 +926,7 @@ def initialize_motor():
         print(f"Finished initializing motor {motor_id}")
     print("Finished initializing motors")
 
-def scan_motors(port0_open, port1_open):
+def scan_motors(port0_open, port1_open, port2_open):
     """Scan for motors. Phase 1: ping only known MOTOR_IDS (fast, with retry
     for motors still booting). Phase 2: full range for any undocumented IDs."""
     MAX_RETRIES = 2
@@ -843,13 +954,17 @@ def scan_motors(port0_open, port1_open):
                 PORT1.append(motor_id)
                 print(f"  ID {motor_id:>3} -> PORT1")
                 found = True
+            elif port2_open and _ping_with_retry(port_handler2, motor_id):
+                PORT2.append(motor_id)
+                print(f"  ID {motor_id:>3} -> PORT2")
+                found = True
             if not found:
                 print(f"  ID {motor_id:>3} -> NOT FOUND (check hardware)")
 
         # Phase 2: full range to catch undocumented IDs (no retry, fast)
         print("\n[Scan] Phase 2 – full range for unknown IDs")
         for motor_id in range(1, 254):
-            if motor_id in PORT0 or motor_id in PORT1 or motor_id in MOTOR_IDS:
+            if motor_id in PORT0 or motor_id in PORT1 or motor_id in PORT2 or motor_id in MOTOR_IDS:
                 continue
             if port0_open:
                 _, r0, _ = packet_handler.ping(port_handler0, motor_id)
@@ -862,10 +977,17 @@ def scan_motors(port0_open, port1_open):
                 if r1 == COMM_SUCCESS:
                     PORT1.append(motor_id)
                     print(f"  Unknown ID {motor_id} -> PORT1")
+                    continue
+            if port2_open:
+                _, r2, _ = packet_handler.ping(port_handler2, motor_id)
+                if r2 == COMM_SUCCESS:
+                    PORT2.append(motor_id)
+                    print(f"  Unknown ID {motor_id} -> PORT2")
 
         print(f"\n[Scan] Final PORT0: {sorted(PORT0)}")
         print(f"[Scan] Final PORT1: {sorted(PORT1)}")
-        missing = [m for m in MOTOR_IDS if m not in PORT0 and m not in PORT1]
+        print(f"[Scan] Final PORT2: {sorted(PORT2)}")
+        missing = [m for m in MOTOR_IDS if m not in PORT0 and m not in PORT1 and m not in PORT2]
         if missing:
             print(f"[Scan] WARNING – expected IDs not found: {missing}")
 
@@ -892,6 +1014,15 @@ def main(args=None):
     if not port1_open:
         print("Failed to open port1. Running in simulation mode.")
 
+    try:
+        port2_open = port_handler2.openPort()
+    except Exception as e:
+        print(f"Exception opening port2: {e}")
+        port2_open = False
+
+    if not port2_open:
+        print("Failed to open port2. Running in simulation mode.")
+
     # 各ポートがオープンしている場合のみbaudrate設定
     if port0_open:
         if not port_handler0.setBaudRate(BAUDRATE):
@@ -901,10 +1032,14 @@ def main(args=None):
         if not port_handler1.setBaudRate(BAUDRATE):
             print(f"Failed to set baudrate {BAUDRATE} on port1")
             port1_open = False
+    if port2_open:
+        if not port_handler2.setBaudRate(BAUDRATE):
+            print(f"Failed to set baudrate {BAUDRATE} on port2")
+            port2_open = False
 
-    if port0_open or port1_open:
+    if port0_open or port1_open or port2_open:
         print(f"Baudrate set to {BAUDRATE} on available ports.")
-        scan_motors(port0_open, port1_open)
+        scan_motors(port0_open, port1_open, port2_open)
         try:
             initialize_motor()
         except Exception as e:
@@ -913,7 +1048,7 @@ def main(args=None):
         print("One or more ports not open; operating in simulation mode.")
 
     rclpy.init(args=args)
-    node = MotorController(port0_open, port1_open)
+    node = MotorController(port0_open, port1_open, port2_open)
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
@@ -924,6 +1059,8 @@ def main(args=None):
                 selected_port_handler = port_handler0
             elif motor_id in PORT1:
                 selected_port_handler = port_handler1
+            elif motor_id in PORT2:
+                selected_port_handler = port_handler2
             else:
                 continue
             packet_handler.write1ByteTxRx(selected_port_handler, motor_id, ADDR_TORQUE_ENABLE, 0)
@@ -934,6 +1071,8 @@ def main(args=None):
             port_handler0.closePort()
         if port1_open:
             port_handler1.closePort()
+        if port2_open:
+            port_handler2.closePort()
 
 if __name__ == "__main__":
     main()
