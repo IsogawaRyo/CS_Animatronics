@@ -93,11 +93,9 @@ class SystemMonitor(Node):
         self.h_scroll.grid(row=1, column=0, sticky="ew")
 
         self.content_frame = ttk.Frame(self.main_canvas)
-        self.main_canvas.create_window((0, 0), window=self.content_frame, anchor="nw")
-        self.content_frame.bind(
-            "<Configure>",
-            lambda e: self.main_canvas.configure(scrollregion=self.main_canvas.bbox("all"))
-        )
+        self.canvas_window = self.main_canvas.create_window((0, 0), window=self.content_frame, anchor="nw")
+        self.content_frame.bind("<Configure>", lambda e: self._update_canvas_region())
+        self.root.bind("<Configure>", lambda e: self._resize_canvas())
         self.main_canvas.bind_all("<MouseWheel>", self._on_mousewheel)
         self.main_canvas.bind_all("<Shift-MouseWheel>", self._on_shift_mousewheel)
         self.main_canvas.bind_all("<Button-4>", lambda e: self.main_canvas.yview_scroll(-1, "units"))
@@ -143,6 +141,16 @@ class SystemMonitor(Node):
         self.audio_tab = ttk.Frame(self.notebook)
         self.notebook.add(self.audio_tab, text="Audio Player")
         self.setup_audio_tab(self.audio_tab)
+
+    def _update_canvas_region(self):
+        self.main_canvas.configure(scrollregion=self.main_canvas.bbox("all"))
+        canvas_width = self.main_canvas.winfo_width()
+        if canvas_width > 1:
+            self.main_canvas.itemconfig(self.canvas_window, width=canvas_width)
+
+    def _resize_canvas(self):
+        self.main_canvas.update_idletasks()
+        self._update_canvas_region()
 
     def _on_mousewheel(self, event):
         delta = -1 * (event.delta // 120 if event.delta else 0)

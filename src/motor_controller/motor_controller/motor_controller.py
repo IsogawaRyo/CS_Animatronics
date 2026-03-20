@@ -11,6 +11,7 @@ from dynamixel_sdk_custom_interfaces.msg import SetPosition
 from motor_commands.srv import GetMotorStates
 from motor_commands.srv import SetTorque
 from std_srvs.srv import Trigger
+from serial import SerialException
 import numpy as np
 from time import sleep
 import json
@@ -674,48 +675,45 @@ class MotorController(Node):
             sync_read0.clearParam()
             for motor_id in port0_motors:
                 sync_read0.addParam(motor_id)
-            
-            if sync_read0.txRxPacket() == COMM_SUCCESS:
+            try:
+                result = sync_read0.txRxPacket()
+            except SerialException as exc:
+                self.get_logger().error(f"Port0 sync-read failed: {exc}")
+                result = None
+            if result == COMM_SUCCESS:
                 for motor_id in port0_motors:
                     if sync_read0.isAvailable(motor_id, addr, length):
-                        if length == 4:
-                            result_data[motor_id] = sync_read0.getData(motor_id, addr, length)
-                        elif length == 2:
-                            result_data[motor_id] = sync_read0.getData(motor_id, addr, length)
-                        else:
-                            result_data[motor_id] = sync_read0.getData(motor_id, addr, length)
+                        result_data[motor_id] = sync_read0.getData(motor_id, addr, length)
         
         # Setup and read from port1  
         if port1_motors:
             sync_read1.clearParam()
             for motor_id in port1_motors:
                 sync_read1.addParam(motor_id)
-                
-            if sync_read1.txRxPacket() == COMM_SUCCESS:
+            try:
+                result = sync_read1.txRxPacket()
+            except SerialException as exc:
+                self.get_logger().error(f"Port1 sync-read failed: {exc}")
+                result = None
+            if result == COMM_SUCCESS:
                 for motor_id in port1_motors:
                     if sync_read1.isAvailable(motor_id, addr, length):
-                        if length == 4:
-                            result_data[motor_id] = sync_read1.getData(motor_id, addr, length)
-                        elif length == 2:
-                            result_data[motor_id] = sync_read1.getData(motor_id, addr, length)
-                        else:
-                            result_data[motor_id] = sync_read1.getData(motor_id, addr, length)
+                        result_data[motor_id] = sync_read1.getData(motor_id, addr, length)
 
         # Setup and read from port2
         if port2_motors:
             sync_read2.clearParam()
             for motor_id in port2_motors:
                 sync_read2.addParam(motor_id)
-
-            if sync_read2.txRxPacket() == COMM_SUCCESS:
+            try:
+                result = sync_read2.txRxPacket()
+            except SerialException as exc:
+                self.get_logger().error(f"Port2 sync-read failed: {exc}")
+                result = None
+            if result == COMM_SUCCESS:
                 for motor_id in port2_motors:
                     if sync_read2.isAvailable(motor_id, addr, length):
-                        if length == 4:
-                            result_data[motor_id] = sync_read2.getData(motor_id, addr, length)
-                        elif length == 2:
-                            result_data[motor_id] = sync_read2.getData(motor_id, addr, length)
-                        else:
-                            result_data[motor_id] = sync_read2.getData(motor_id, addr, length)
+                        result_data[motor_id] = sync_read2.getData(motor_id, addr, length)
         
         return result_data
     
@@ -733,44 +731,52 @@ class MotorController(Node):
             if selected_port_handler is None:
                 continue
 
-            # Read position
-            position, comm_result, _ = packet_handler.read4ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_POSITION)
-            if comm_result != COMM_SUCCESS:
-                position = self.motor_limits.get(f"{motor_id}", {}).get("ini", 0)
+            try:
+                # Read position
+                position, comm_result, _ = packet_handler.read4ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_POSITION)
+                if comm_result != COMM_SUCCESS:
+                    position = self.motor_limits.get(f"{motor_id}", {}).get("ini", 0)
 
-            # Read temperature
-            temperature, comm_result, _ = packet_handler.read1ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_TEMPERATURE)
-            if comm_result != COMM_SUCCESS:
-                cached = self.motor_states_cache.get(motor_id, {})
-                temperature = cached.get('temperature', 25)
+                # Read temperature
+                temperature, comm_result, _ = packet_handler.read1ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_TEMPERATURE)
+                if comm_result != COMM_SUCCESS:
+                    cached = self.motor_states_cache.get(motor_id, {})
+                    temperature = cached.get('temperature', 25)
 
-            # Read torque - try PRESENT_CURRENT first, then PRESENT_LOAD
-            torque, comm_result, _ = packet_handler.read2ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_CURRENT)
-            if comm_result != COMM_SUCCESS:
-                self.get_logger().debug(f"Motor {motor_id}: PRESENT_CURRENT failed, trying PRESENT_LOAD")
-                torque, comm_result, _ = packet_handler.read2ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_LOAD)
+                # Read torque - try PRESENT_CURRENT first, then PRESENT_LOAD
+                torque, comm_result, _ = packet_handler.read2ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_CURRENT)
+                if comm_result != COMM_SUCCESS:
+                    self.get_logger().debug(f"Motor {motor_id}: PRESENT_CURRENT failed, trying PRESENT_LOAD")
+                    torque, comm_result, _ = packet_handler.read2ByteTxRx(selected_port_handler, motor_id, ADDR_PRESENT_LOAD)
+                    
+                if comm_result != COMM_SUCCESS:
+                    cached = self.motor_states_cache.get(motor_id, {})
+                    torque = cached.get('torque', 0)
+                else:
+                    # Convert 2-byte signed integer to mA
+                    if torque > 32767:
+                        torque = torque - 65536
+                    torque_mA = abs(torque)  # Convert to mA and use absolute value
+                    torque = torque_mA
+                    self.get_logger().debug(f"Motor {motor_id} individual read torque: {torque_mA}mA")
                 
-            if comm_result != COMM_SUCCESS:
-                cached = self.motor_states_cache.get(motor_id, {})
-                torque = cached.get('torque', 0)
-            else:
-                # Convert 2-byte signed integer to mA
-                if torque > 32767:
-                    torque = torque - 65536
-                torque_mA = abs(torque)  # Convert to mA and use absolute value
-                torque = torque_mA
-                self.get_logger().debug(f"Motor {motor_id} individual read torque: {torque_mA}mA")
-            
-            # Read hardware error status
-            error_byte, comm_result, _ = packet_handler.read1ByteTxRx(selected_port_handler, motor_id, ADDR_HARDWARE_ERROR_STATUS)
-            if comm_result != COMM_SUCCESS:
-                cached = self.motor_states_cache.get(motor_id, {})
-                error_status = cached.get('error_status', 'NO_ERROR')
-            else:
-                error_list = self._parse_hardware_error(error_byte)
-                error_status = ",".join(error_list)
-                if error_status != "NO_ERROR":
-                    self.get_logger().warn(f"Motor {motor_id} error: {error_status}")
+                # Read hardware error status
+                error_byte, comm_result, _ = packet_handler.read1ByteTxRx(selected_port_handler, motor_id, ADDR_HARDWARE_ERROR_STATUS)
+                if comm_result != COMM_SUCCESS:
+                    cached = self.motor_states_cache.get(motor_id, {})
+                    error_status = cached.get('error_status', 'NO_ERROR')
+                else:
+                    error_list = self._parse_hardware_error(error_byte)
+                    error_status = ",".join(error_list)
+                    if error_status != "NO_ERROR":
+                        self.get_logger().warn(f"Motor {motor_id} error: {error_status}")
+
+            except SerialException as exc:
+                self.get_logger().error(f"Serial read failed for motor {motor_id}: {exc}")
+                position = self.motor_limits.get(f"{motor_id}", {}).get("ini", 0)
+                temperature = 0
+                torque = 0
+                error_status = "SERIAL_ERROR"
             
             positions.append(position)
             temperatures.append(temperature)
