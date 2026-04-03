@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
-<robot name="animatronics_urdf" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<robot name="urdf" xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
 <material name="silver_default">
   <color rgba="0.700 0.700 0.700 1.000"/>
 </material>
-<material name="plastic_glossy_white">
-  <color rgba="0.9647058823529412 0.9647058823529412 0.9529411764705882 1.0"/>
+<material name="steel_satin">
+  <color rgba="0.6274509803921569 0.6274509803921569 0.6274509803921569 1.0"/>
 </material>
 <material name="coating_black_oxide">
   <color rgba="0.17254901960784313 0.17254901960784313 0.17254901960784313 1.0"/>
@@ -13,17 +13,11 @@
 <material name="plastic_translucent_glossy_white">
   <color rgba="0.9647058823529412 0.9647058823529412 0.9529411764705882 1.0"/>
 </material>
-<material name="steel_satin">
-  <color rgba="0.6274509803921569 0.6274509803921569 0.6274509803921569 1.0"/>
-</material>
-<material name="nylon_12_with_formlabs_fuse_1_3d_printer">
-  <color rgba="0.24705882352941178 0.24705882352941178 0.24705882352941178 1.0"/>
-</material>
 <material name="abs_white">
   <color rgba="0.9647058823529412 0.9647058823529412 0.9529411764705882 1.0"/>
 </material>
-<material name="opaque198193188">
-  <color rgba="0.7764705882352941 0.7568627450980392 0.7372549019607844 1.0"/>
+<material name="plastic_glossy_white">
+  <color rgba="0.9647058823529412 0.9647058823529412 0.9529411764705882 1.0"/>
 </material>
 <material name="opaque160160160">
   <color rgba="0.6274509803921569 0.6274509803921569 0.6274509803921569 1.0"/>
