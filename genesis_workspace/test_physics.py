@@ -17,7 +17,7 @@ def test():
             file=urdf_path,
             pos=(0, 0, 0.35),
             quat=(0.7071, 0.7071, 0.0, 0.0),
-            merge_fixed_links=False,
+            merge_fixed_links=True,
             # batch_fixed_verts=True, # Optional, only needed if batching envs usually
         ),
     )

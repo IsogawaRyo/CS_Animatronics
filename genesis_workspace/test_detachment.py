@@ -18,7 +18,7 @@ def test():
             file=urdf_path,
             pos=(0, 0, 0.35),
             quat=(0.7071, 0.7071, 0.0, 0.0),
-            merge_fixed_links=False,
+            merge_fixed_links=True,
             is_free=True,
         ),
     )

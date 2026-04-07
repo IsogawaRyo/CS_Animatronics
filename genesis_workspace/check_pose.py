@@ -16,6 +16,7 @@ def main():
         gs.morphs.URDF(
             file=urdf_path,
             pos=(0, 0, 0.42), # Initial height
+            merge_fixed_links=True,
         ),
     )
 

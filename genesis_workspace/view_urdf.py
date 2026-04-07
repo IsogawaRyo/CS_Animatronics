@@ -15,7 +15,7 @@ gs.init(backend=gs.cuda)
 scene = gs.Scene(show_viewer=True)
 plane = scene.add_entity(gs.morphs.Plane())
 robot = scene.add_entity(
-    gs.morphs.URDF(file=urdf_path),
+    gs.morphs.URDF(file=urdf_path, merge_fixed_links=True),
 )
 
 scene.build()

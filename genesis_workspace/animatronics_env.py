@@ -44,7 +44,7 @@ class AnimatronicsEnv:
                 dt=self.dt,
                 constraint_solver=gs.constraint_solver.Newton,
                 enable_collision=True,
-                enable_self_collision=False,
+                enable_self_collision=True,
                 enable_joint_limit=True,
             ),
             show_viewer=show_viewer,
@@ -67,13 +67,13 @@ class AnimatronicsEnv:
                 file=urdf_path,
                 pos=self.base_init_pos.cpu().numpy(),
                 quat=self.base_init_quat.cpu().numpy(),
-                merge_fixed_links=False,
+                merge_fixed_links=True,
                 batch_fixed_verts=True,
             ),
         )
 
-        # Set high friction for feet to prevent slipping
-        for name in ["Leg04_v11_1", "Leg04_v11_2"]:
+        # Set high friction for feet to prevent slipping (use merged group names instead)
+        for name in ["XM,H,D-540.N101.I101_v5_4", "XM,H,D-540.N101.I101_v5_8"]:
             self.robot.get_link(name).set_friction(1.0)
 
         # build
@@ -88,9 +88,9 @@ class AnimatronicsEnv:
         # imu_link 2 -> LegEnd_v9_2
         # imu_link 3 -> base
         self.imu_links = [
-            self.robot.get_link("Leg04_v11_1"),
-            self.robot.get_link("Leg04_v11_2"),
-            self.robot.get_link("base_link"),
+            self.robot.get_link("XM,H,D-540.N101.I101_v5_4"),
+            self.robot.get_link("XM,H,D-540.N101.I101_v5_8"),
+            self.robot.get_link("base"),
             self.robot.get_link("Head_Joint_v6_1"),
         ]
 
