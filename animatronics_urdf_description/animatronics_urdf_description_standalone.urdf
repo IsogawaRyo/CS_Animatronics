@@ -25,142 +25,142 @@
   <material name="opaque160160160">
     <color rgba="0.6274509803921569 0.6274509803921569 0.6274509803921569 1.0"/>
   </material>
-  <transmission name="Revolute 10_tran">
+  <transmission name="Revolute_10_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 10">
+    <joint name="Revolute_10">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 10_actr">
+    <actuator name="Revolute_10_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 12_tran">
+  <transmission name="Revolute_12_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 12">
+    <joint name="Revolute_12">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 12_actr">
+    <actuator name="Revolute_12_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 13_tran">
+  <transmission name="Revolute_13_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 13">
+    <joint name="Revolute_13">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 13_actr">
+    <actuator name="Revolute_13_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 16_tran">
+  <transmission name="Revolute_16_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 16">
+    <joint name="Revolute_16">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 16_actr">
+    <actuator name="Revolute_16_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 17_tran">
+  <transmission name="Revolute_17_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 17">
+    <joint name="Revolute_17">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 17_actr">
+    <actuator name="Revolute_17_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 20_tran">
+  <transmission name="Revolute_20_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 20">
+    <joint name="Revolute_20">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 20_actr">
+    <actuator name="Revolute_20_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 22_tran">
+  <transmission name="Revolute_22_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 22">
+    <joint name="Revolute_22">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 22_actr">
+    <actuator name="Revolute_22_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 23_tran">
+  <transmission name="Revolute_23_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 23">
+    <joint name="Revolute_23">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 23_actr">
+    <actuator name="Revolute_23_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 26_tran">
+  <transmission name="Revolute_26_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 26">
+    <joint name="Revolute_26">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 26_actr">
+    <actuator name="Revolute_26_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 27_tran">
+  <transmission name="Revolute_27_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 27">
+    <joint name="Revolute_27">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 27_actr">
+    <actuator name="Revolute_27_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 37_tran">
+  <transmission name="Revolute_37_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 37">
+    <joint name="Revolute_37">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 37_actr">
+    <actuator name="Revolute_37_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 42_tran">
+  <transmission name="Revolute_42_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 42">
+    <joint name="Revolute_42">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 42_actr">
+    <actuator name="Revolute_42_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 43_tran">
+  <transmission name="Revolute_43_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 43">
+    <joint name="Revolute_43">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 43_actr">
+    <actuator name="Revolute_43_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 44_tran">
+  <transmission name="Revolute_44_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 44">
+    <joint name="Revolute_44">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 44_actr">
+    <actuator name="Revolute_44_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
@@ -174,18 +174,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/base_link.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/base_link.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="51202_v2_1">
+  <link name="Link_51202_v2_1">
     <inertial>
       <origin rpy="0 0 0" xyz="-2.674484661513432e-10 0.005999999999999998 9.590508942558529e-12"/>
       <mass value="0.05505680395324213"/>
@@ -194,18 +194,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.099 0.011 -0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/51202_v2_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_51202_v2_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.099 0.011 -0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/51202_v2_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_51202_v2_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="51202_v2_2">
+  <link name="Link_51202_v2_2">
     <inertial>
       <origin rpy="0 0 0" xyz="-2.764975609581555e-10 0.005999999999999998 -1.5566548050571782e-11"/>
       <mass value="0.05505680395324213"/>
@@ -214,18 +214,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.099 0.011 0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/51202_v2_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_51202_v2_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.099 0.011 0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/51202_v2_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_51202_v2_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="51202_v2_3">
+  <link name="Link_51202_v2_3">
     <inertial>
       <origin rpy="0 0 0" xyz="-2.8593932083209594e-10 0.005999999999999998 2.916361596660977e-12"/>
       <mass value="0.05505680395324213"/>
@@ -234,18 +234,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.033 0.011 0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/51202_v2_3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_51202_v2_3.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.033 0.011 0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/51202_v2_3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_51202_v2_3.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="51202_v2_4">
+  <link name="Link_51202_v2_4">
     <inertial>
       <origin rpy="0 0 0" xyz="-2.7689021214749587e-10 0.005999999999999998 -1.7363888105137448e-11"/>
       <mass value="0.05505680395324213"/>
@@ -254,14 +254,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.033 0.011 -0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/51202_v2_4.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_51202_v2_4.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.033 0.011 -0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/51202_v2_4.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_51202_v2_4.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -274,18 +274,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.099 -0.001 -0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg_Rotator_v10_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg_Rotator_v10_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.099 -0.001 -0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg_Rotator_v10_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg_Rotator_v10_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="XM,H,D-540.N101.I101_v5_1">
+  <link name="XM_H_D_540_N101_I101_v5_1">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.007318332020298274 0.022971414590661272 -0.01674999999044581"/>
       <mass value="0.6640277986148612"/>
@@ -294,14 +294,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.091 -0.01275 -0.08725"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="coating_black_oxide"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.091 -0.01275 -0.08725"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -314,18 +314,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.0745 -0.05075 -0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg01_v11_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg01_v11_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.0745 -0.05075 -0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg01_v11_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg01_v11_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="XM,H,D-540.N101.I101_v5_2">
+  <link name="XM_H_D_540_N101_I101_v5_2">
     <inertial>
       <origin rpy="0 0 0" xyz="0.011512563950167629 -0.00966018872410861 -0.023818331012862903"/>
       <mass value="0.6640277986148612"/>
@@ -334,14 +334,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.099 -0.03725 -0.1545"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="coating_black_oxide"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.099 -0.03725 -0.1545"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -354,18 +354,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.080657 7e-06 -0.138"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg02_v10_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg02_v10_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.080657 7e-06 -0.138"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg02_v10_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg02_v10_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="XM,H,D-540.N101.I101_v5_3">
+  <link name="XM_H_D_540_N101_I101_v5_3">
     <inertial>
       <origin rpy="0 0 0" xyz="0.006830257227709316 -0.02759715226246829 -0.007318331012862944"/>
       <mass value="0.6640277986148612"/>
@@ -374,14 +374,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.034717 0.053086 -0.138"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_3.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="coating_black_oxide"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.034717 0.053086 -0.138"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_3.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_3.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -394,18 +394,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.05306 0.090343 -0.1545"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg03_v28_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg03_v28_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="plastic_translucent_glossy_white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.05306 0.090343 -0.1545"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg03_v28_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg03_v28_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="XM,H,D-540.N101.I101_v5_4">
+  <link name="XM_H_D_540_N101_I101_v5_4">
     <inertial>
       <origin rpy="0 0 0" xyz="0.008620350868605839 -0.01231037038971286 -0.023818331012862903"/>
       <mass value="0.6640277986148612"/>
@@ -414,14 +414,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.024075 0.182269 -0.1545"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_4.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_4.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="coating_black_oxide"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.024075 0.182269 -0.1545"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_4.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_4.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -434,14 +434,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.011442 0.203789 -0.138"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg04_v11_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg04_v11_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.011442 0.203789 -0.138"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg04_v11_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg04_v11_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -454,14 +454,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.021282 0.271539 -0.116284"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg_Cover_v3_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg_Cover_v3_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.021282 0.271539 -0.116284"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg_Cover_v3_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg_Cover_v3_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -474,18 +474,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.099 -0.001 0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg_Rotator_v10_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg_Rotator_v10_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.099 -0.001 0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg_Rotator_v10_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg_Rotator_v10_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="XM,H,D-540.N101.I101_v5_5">
+  <link name="XM_H_D_540_N101_I101_v5_5">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.00731833202934741 0.022971414590661272 -0.01675000001560286"/>
       <mass value="0.6640277986148612"/>
@@ -494,14 +494,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.091 -0.01275 0.05375"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_5.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_5.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="coating_black_oxide"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.091 -0.01275 0.05375"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_5.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_5.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -514,18 +514,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.0745 -0.05075 0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg01_v11_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg01_v11_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.0745 -0.05075 0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg01_v11_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg01_v11_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="XM,H,D-540.N101.I101_v5_6">
+  <link name="XM_H_D_540_N101_I101_v5_6">
     <inertial>
       <origin rpy="0 0 0" xyz="0.011512563818134189 -0.009660188678067227 0.02381833100689157"/>
       <mass value="0.6640277986148612"/>
@@ -534,14 +534,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.099 -0.03725 0.1545"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_6.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_6.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="coating_black_oxide"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.099 -0.03725 0.1545"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_6.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_6.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -554,18 +554,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.080657 7e-06 0.122"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg02_v10_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg02_v10_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.080657 7e-06 0.122"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg02_v10_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg02_v10_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="XM,H,D-540.N101.I101_v5_7">
+  <link name="XM_H_D_540_N101_I101_v5_7">
     <inertial>
       <origin rpy="0 0 0" xyz="0.02836425709577542 -0.0019341522163085073 -0.008681668993108432"/>
       <mass value="0.6640277986148612"/>
@@ -574,14 +574,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.013183 0.078749 0.122"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_7.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_7.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="coating_black_oxide"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.013183 0.078749 0.122"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_7.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_7.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -594,18 +594,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.05306 0.090343 0.1545"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg03_v28_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg03_v28_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="plastic_translucent_glossy_white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.05306 0.090343 0.1545"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg03_v28_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg03_v28_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="XM,H,D-540.N101.I101_v5_8">
+  <link name="XM_H_D_540_N101_I101_v5_8">
     <inertial>
       <origin rpy="0 0 0" xyz="0.00862035073655892 -0.012310370343656785 0.023818331006891513"/>
       <mass value="0.6640277986148612"/>
@@ -614,14 +614,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.024075 0.182269 0.1545"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_8.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_8.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="coating_black_oxide"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.024075 0.182269 0.1545"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H,D-540.N101.I101_v5_8.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_D_540_N101_I101_v5_8.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -634,14 +634,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.011442 0.203789 0.138"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg04_v11_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg04_v11_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.011442 0.203789 0.138"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg04_v11_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg04_v11_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -654,14 +654,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.021282 0.271539 0.116284"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg_Cover_v3_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg_Cover_v3_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.021282 0.271539 0.116284"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg_Cover_v3_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg_Cover_v3_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -674,18 +674,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.13 0.026 0.035"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Tail_Base_v3_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Tail_Base_v3_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.13 0.026 0.035"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Tail_Base_v3_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Tail_Base_v3_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="XM,H-430_idler_v3_1">
+  <link name="XM_H_430_idler_v3_1">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.019683702260469157 0.011000000128979462 0.017067018759162545"/>
       <mass value="0.12871928366116375"/>
@@ -694,14 +694,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.117 -0.00325 0.0215"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H-430_idler_v3_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_430_idler_v3_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.117 -0.00325 0.0215"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XM,H-430_idler_v3_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XM_H_430_idler_v3_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -714,14 +714,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.109 -0.01425 -0.0145"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_Gear_v10_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_Gear_v10_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.109 -0.01425 -0.0145"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_Gear_v10_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_Gear_v10_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -734,14 +734,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.117466 -0.05875 0.0315"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_Bar_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_Bar_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.117466 -0.05875 0.0315"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_Bar_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_Bar_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -754,18 +754,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.11725 -0.05275 -0.0315"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_Bar_v1_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_Bar_v1_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.11725 -0.05275 -0.0315"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_Bar_v1_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_Bar_v1_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="6900ZZNR_v2_2">
+  <link name="Link_6900ZZNR_v2_2">
     <inertial>
       <origin rpy="0 0 0" xyz="6.693118281830834e-13 6.320638457069094e-14 -0.003000000017362319"/>
       <mass value="0.014205025342471455"/>
@@ -774,18 +774,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.11025 -0.05575 0.0155"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/6900ZZNR_v2_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_6900ZZNR_v2_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.11025 -0.05575 0.0155"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/6900ZZNR_v2_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_6900ZZNR_v2_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="6900ZZNR_v2_1">
+  <link name="Link_6900ZZNR_v2_1">
     <inertial>
       <origin rpy="0 0 0" xyz="6.209616154606579e-13 5.796058077933708e-14 -0.0030000000173622567"/>
       <mass value="0.014205025342471455"/>
@@ -794,18 +794,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.11025 -0.05575 -0.0215"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/6900ZZNR_v2_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_6900ZZNR_v2_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.11025 -0.05575 -0.0215"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/6900ZZNR_v2_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_6900ZZNR_v2_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="XL-430_new_v5_1">
+  <link name="XL_430_new_v5_1">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.006210633295508319 0.025330786091814946 0.011008281617777189"/>
       <mass value="0.33677880262575866"/>
@@ -814,14 +814,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.130949 -0.059914 0.011099"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XL-430_new_v5_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XL_430_new_v5_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver_default"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.130949 -0.059914 0.011099"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XL-430_new_v5_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XL_430_new_v5_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -834,14 +834,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.146286 -0.088071 9.9e-05"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_Gear_Mid_v13_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_Gear_Mid_v13_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.146286 -0.088071 9.9e-05"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_Gear_Mid_v13_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_Gear_Mid_v13_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -854,14 +854,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.132813 -0.08994 -0.014151"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/NeckMidGearHolder_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/NeckMidGearHolder_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="abs_white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.132813 -0.08994 -0.014151"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/NeckMidGearHolder_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/NeckMidGearHolder_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -874,14 +874,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.135088 -0.109015 0.000199"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_Gear_Mid_Axis_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_Gear_Mid_Axis_v6_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="abs_white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.135088 -0.109015 0.000199"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_Gear_Mid_Axis_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_Gear_Mid_Axis_v6_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -894,18 +894,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.136356 -0.111734 0.000199"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_Gear_Top_v17_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_Gear_Top_v17_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="abs_white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.136356 -0.111734 0.000199"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_Gear_Top_v17_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_Gear_Top_v17_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="2XC-430_v6_1">
+  <link name="Link_2XC_430_v6_1">
     <inertial>
       <origin rpy="0 0 0" xyz="3.8730834067995934e-05 0.012000459371747318 -0.019038679827954846"/>
       <mass value="0.09031899704975468"/>
@@ -914,14 +914,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.157104 -0.156228 -0.018801"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/2XC-430_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_2XC_430_v6_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.157104 -0.156228 -0.018801"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/2XC-430_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_2XC_430_v6_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -934,14 +934,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.138104 -0.180228 0.000199"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Head_Joint_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Head_Joint_v6_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="plastic_glossy_white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.138104 -0.180228 0.000199"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Head_Joint_v6_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Head_Joint_v6_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -954,18 +954,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.181604 -0.166228 0.028699"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Head_MainPlate_v4_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Head_MainPlate_v4_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="opaque160160160"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.181604 -0.166228 0.028699"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Head_MainPlate_v4_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Head_MainPlate_v4_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="XL-430_new_v5_2">
+  <link name="XL_430_new_v5_2">
     <inertial>
       <origin rpy="0 0 0" xyz="0.020332416006495213 -0.011007747728442957 -0.017665721643406695"/>
       <mass value="0.33677880262575866"/>
@@ -974,14 +974,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.180604 -0.156728 -0.016801"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XL-430_new_v5_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XL_430_new_v5_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver_default"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.180604 -0.156728 -0.016801"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/XL-430_new_v5_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/XL_430_new_v5_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -994,14 +994,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.212604 -0.145728 0.019199"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Jaw_v4_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Jaw_v4_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="plastic_glossy_white"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.212604 -0.145728 0.019199"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Jaw_v4_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Jaw_v4_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -1014,14 +1014,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.11025 -0.05575 -0.0155"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_JointH_v28_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_JointH_v28_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.11025 -0.05575 -0.0155"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Neck_JointH_v28_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Neck_JointH_v28_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -1034,18 +1034,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.091 -0.04475 -0.08725"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg_Rotator_Upper_v4_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg_Rotator_Upper_v4_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.091 -0.04475 -0.08725"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg_Rotator_Upper_v4_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg_Rotator_Upper_v4_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="51202_v2_5">
+  <link name="Link_51202_v2_5">
     <inertial>
       <origin rpy="0 0 0" xyz="-2.674484245179798e-10 0.0059999999999999915 9.592826533122434e-12"/>
       <mass value="0.05505680395324213"/>
@@ -1054,14 +1054,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.099 -0.0685 -0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/51202_v2_5.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_51202_v2_5.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.099 -0.0685 -0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/51202_v2_5.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_51202_v2_5.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -1074,18 +1074,18 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.091 -0.04475 0.05375"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg_Rotator_Upper_v4_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg_Rotator_Upper_v4_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.091 -0.04475 0.05375"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/Leg_Rotator_Upper_v4_2.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Leg_Rotator_Upper_v4_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <link name="51202_v2_6">
+  <link name="Link_51202_v2_6">
     <inertial>
       <origin rpy="0 0 0" xyz="-2.764975609581555e-10 0.0059999999999999915 -1.5564244337795685e-11"/>
       <mass value="0.05505680395324213"/>
@@ -1094,14 +1094,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.099 -0.0685 0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/51202_v2_6.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_51202_v2_6.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.099 -0.0685 0.0705"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/51202_v2_6.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/Link_51202_v2_6.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -1114,262 +1114,262 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.125 -0.0385 0.0"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/body_cover_v21_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/body_cover_v21_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="steel_satin"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.125 -0.0385 0.0"/>
       <geometry>
-        <mesh filename="package://animatronics_urdf_description/meshes/body_cover_v21_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="./meshes/body_cover_v21_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
-  <joint name="Rigid 6" type="fixed">
+  <joint name="Rigid_6" type="fixed">
     <origin rpy="0 0 0" xyz="-0.099 -0.011 0.0705"/>
     <parent link="base_link"/>
-    <child link="51202_v2_1"/>
+    <child link="Link_51202_v2_1"/>
   </joint>
-  <joint name="Rigid 7" type="fixed">
+  <joint name="Rigid_7" type="fixed">
     <origin rpy="0 0 0" xyz="-0.099 -0.011 -0.0705"/>
     <parent link="base_link"/>
-    <child link="51202_v2_2"/>
+    <child link="Link_51202_v2_2"/>
   </joint>
-  <joint name="Rigid 8" type="fixed">
+  <joint name="Rigid_8" type="fixed">
     <origin rpy="0 0 0" xyz="-0.033 -0.011 -0.0705"/>
     <parent link="base_link"/>
-    <child link="51202_v2_3"/>
+    <child link="Link_51202_v2_3"/>
   </joint>
-  <joint name="Rigid 9" type="fixed">
+  <joint name="Rigid_9" type="fixed">
     <origin rpy="0 0 0" xyz="-0.033 -0.011 0.0705"/>
     <parent link="base_link"/>
-    <child link="51202_v2_4"/>
+    <child link="Link_51202_v2_4"/>
   </joint>
-  <joint name="Revolute 10" type="continuous">
+  <joint name="Revolute_10" type="continuous">
     <origin rpy="0 0 0" xyz="0.0 0.012 0.0"/>
-    <parent link="51202_v2_1"/>
+    <parent link="Link_51202_v2_1"/>
     <child link="Leg_Rotator_v10_1"/>
     <axis xyz="0.0 1.0 0.0"/>
   </joint>
-  <joint name="Rigid 11" type="fixed">
+  <joint name="Rigid_11" type="fixed">
     <origin rpy="0 0 0" xyz="0.008 0.01175 0.01675"/>
     <parent link="Leg_Rotator_v10_1"/>
-    <child link="XM,H,D-540.N101.I101_v5_1"/>
+    <child link="XM_H_D_540_N101_I101_v5_1"/>
   </joint>
-  <joint name="Revolute 12" type="continuous">
+  <joint name="Revolute_12" type="continuous">
     <origin rpy="0 0 0" xyz="0.0165 0.038 -0.01675"/>
-    <parent link="XM,H,D-540.N101.I101_v5_1"/>
+    <parent link="XM_H_D_540_N101_I101_v5_1"/>
     <child link="Leg01_v11_1"/>
     <axis xyz="-1.0 0.0 0.0"/>
   </joint>
-  <joint name="Revolute 13" type="continuous">
+  <joint name="Revolute_13" type="continuous">
     <origin rpy="0 0 0" xyz="-0.0245 -0.0135 0.084"/>
     <parent link="Leg01_v11_1"/>
-    <child link="XM,H,D-540.N101.I101_v5_2"/>
+    <child link="XM_H_D_540_N101_I101_v5_2"/>
     <axis xyz="0.0 0.0 -1.0"/>
   </joint>
-  <joint name="Rigid 14" type="fixed">
+  <joint name="Rigid_14" type="fixed">
     <origin rpy="0 0 0" xyz="0.018343 -0.037257 -0.0165"/>
-    <parent link="XM,H,D-540.N101.I101_v5_2"/>
+    <parent link="XM_H_D_540_N101_I101_v5_2"/>
     <child link="Leg02_v10_1"/>
   </joint>
-  <joint name="Rigid 15" type="fixed">
+  <joint name="Rigid_15" type="fixed">
     <origin rpy="0 0 0" xyz="0.115374 -0.053079 0.0"/>
     <parent link="Leg02_v10_1"/>
-    <child link="XM,H,D-540.N101.I101_v5_3"/>
+    <child link="XM_H_D_540_N101_I101_v5_3"/>
   </joint>
-  <joint name="Revolute 16" type="continuous">
+  <joint name="Revolute_16" type="continuous">
     <origin rpy="0 0 0" xyz="0.018343 -0.037257 0.0165"/>
-    <parent link="XM,H,D-540.N101.I101_v5_3"/>
+    <parent link="XM_H_D_540_N101_I101_v5_3"/>
     <child link="Leg03_v28_1"/>
     <axis xyz="-0.0 0.0 -1.0"/>
   </joint>
-  <joint name="Revolute 17" type="continuous">
+  <joint name="Revolute_17" type="continuous">
     <origin rpy="0 0 0" xyz="-0.077135 -0.091926 0.0"/>
     <parent link="Leg03_v28_1"/>
-    <child link="XM,H,D-540.N101.I101_v5_4"/>
+    <child link="XM_H_D_540_N101_I101_v5_4"/>
     <axis xyz="-0.0 0.0 -1.0"/>
   </joint>
-  <joint name="Rigid 18" type="fixed">
+  <joint name="Rigid_18" type="fixed">
     <origin rpy="0 0 0" xyz="0.035517 -0.02152 -0.0165"/>
-    <parent link="XM,H,D-540.N101.I101_v5_4"/>
+    <parent link="XM_H_D_540_N101_I101_v5_4"/>
     <child link="Leg04_v11_1"/>
   </joint>
-  <joint name="Rigid 19" type="fixed">
+  <joint name="Rigid_19" type="fixed">
     <origin rpy="0 0 0" xyz="0.00984 -0.06775 -0.021716"/>
     <parent link="Leg04_v11_1"/>
     <child link="Leg_Cover_v3_1"/>
   </joint>
-  <joint name="Revolute 20" type="continuous">
+  <joint name="Revolute_20" type="continuous">
     <origin rpy="0 0 0" xyz="0.0 0.012 0.0"/>
-    <parent link="51202_v2_2"/>
+    <parent link="Link_51202_v2_2"/>
     <child link="Leg_Rotator_v10_2"/>
     <axis xyz="0.0 1.0 0.0"/>
   </joint>
-  <joint name="Rigid 21" type="fixed">
+  <joint name="Rigid_21" type="fixed">
     <origin rpy="0 0 0" xyz="0.008 0.01175 0.01675"/>
     <parent link="Leg_Rotator_v10_2"/>
-    <child link="XM,H,D-540.N101.I101_v5_5"/>
+    <child link="XM_H_D_540_N101_I101_v5_5"/>
   </joint>
-  <joint name="Revolute 22" type="continuous">
+  <joint name="Revolute_22" type="continuous">
     <origin rpy="0 0 0" xyz="0.0165 0.038 -0.01675"/>
-    <parent link="XM,H,D-540.N101.I101_v5_5"/>
+    <parent link="XM_H_D_540_N101_I101_v5_5"/>
     <child link="Leg01_v11_2"/>
     <axis xyz="-1.0 0.0 0.0"/>
   </joint>
-  <joint name="Revolute 23" type="continuous">
+  <joint name="Revolute_23" type="continuous">
     <origin rpy="0 0 0" xyz="-0.0245 -0.0135 -0.084"/>
     <parent link="Leg01_v11_2"/>
-    <child link="XM,H,D-540.N101.I101_v5_6"/>
+    <child link="XM_H_D_540_N101_I101_v5_6"/>
     <axis xyz="0.0 -0.0 1.0"/>
   </joint>
-  <joint name="Rigid 24" type="fixed">
+  <joint name="Rigid_24" type="fixed">
     <origin rpy="0 0 0" xyz="0.018343 -0.037257 0.0325"/>
-    <parent link="XM,H,D-540.N101.I101_v5_6"/>
+    <parent link="XM_H_D_540_N101_I101_v5_6"/>
     <child link="Leg02_v10_2"/>
   </joint>
-  <joint name="Rigid 25" type="fixed">
+  <joint name="Rigid_25" type="fixed">
     <origin rpy="0 0 0" xyz="0.09384 -0.078742 0.0"/>
     <parent link="Leg02_v10_2"/>
-    <child link="XM,H,D-540.N101.I101_v5_7"/>
+    <child link="XM_H_D_540_N101_I101_v5_7"/>
   </joint>
-  <joint name="Revolute 26" type="continuous">
+  <joint name="Revolute_26" type="continuous">
     <origin rpy="0 0 0" xyz="0.039877 -0.011594 -0.0325"/>
-    <parent link="XM,H,D-540.N101.I101_v5_7"/>
+    <parent link="XM_H_D_540_N101_I101_v5_7"/>
     <child link="Leg03_v28_2"/>
     <axis xyz="-0.0 -0.0 1.0"/>
   </joint>
-  <joint name="Revolute 27" type="continuous">
+  <joint name="Revolute_27" type="continuous">
     <origin rpy="0 0 0" xyz="-0.077135 -0.091926 0.0"/>
     <parent link="Leg03_v28_2"/>
-    <child link="XM,H,D-540.N101.I101_v5_8"/>
+    <child link="XM_H_D_540_N101_I101_v5_8"/>
     <axis xyz="0.0 -0.0 1.0"/>
   </joint>
-  <joint name="Rigid 28" type="fixed">
+  <joint name="Rigid_28" type="fixed">
     <origin rpy="0 0 0" xyz="0.035517 -0.02152 0.0165"/>
-    <parent link="XM,H,D-540.N101.I101_v5_8"/>
+    <parent link="XM_H_D_540_N101_I101_v5_8"/>
     <child link="Leg04_v11_2"/>
   </joint>
-  <joint name="Rigid 29" type="fixed">
+  <joint name="Rigid_29" type="fixed">
     <origin rpy="0 0 0" xyz="0.00984 -0.06775 0.021716"/>
     <parent link="Leg04_v11_2"/>
     <child link="Leg_Cover_v3_2"/>
   </joint>
-  <joint name="Rigid 30" type="fixed">
+  <joint name="Rigid_30" type="fixed">
     <origin rpy="0 0 0" xyz="-0.13 -0.026 -0.035"/>
     <parent link="base_link"/>
     <child link="Tail_Base_v3_1"/>
   </joint>
-  <joint name="Rigid 31" type="fixed">
+  <joint name="Rigid_31" type="fixed">
     <origin rpy="0 0 0" xyz="0.117 0.00325 -0.0215"/>
     <parent link="base_link"/>
-    <child link="XM,H-430_idler_v3_1"/>
+    <child link="XM_H_430_idler_v3_1"/>
   </joint>
-  <joint name="Rigid 32" type="fixed">
+  <joint name="Rigid_32" type="fixed">
     <origin rpy="0 0 0" xyz="-0.008 0.011 0.036"/>
-    <parent link="XM,H-430_idler_v3_1"/>
+    <parent link="XM_H_430_idler_v3_1"/>
     <child link="Neck_Gear_v10_1"/>
   </joint>
-  <joint name="Rigid 33" type="fixed">
+  <joint name="Rigid_33" type="fixed">
     <origin rpy="0 0 0" xyz="0.117466 0.05875 -0.0315"/>
     <parent link="base_link"/>
     <child link="Neck_Bar_v1_1"/>
   </joint>
-  <joint name="Rigid 34" type="fixed">
+  <joint name="Rigid_34" type="fixed">
     <origin rpy="0 0 0" xyz="0.11725 0.05275 0.0315"/>
     <parent link="base_link"/>
     <child link="Neck_Bar_v1_2"/>
   </joint>
-  <joint name="Rigid 36" type="fixed">
+  <joint name="Rigid_36" type="fixed">
     <origin rpy="0 0 0" xyz="0.0 0.0 -0.031"/>
     <parent link="Neck_JointH_v28_1"/>
-    <child link="6900ZZNR_v2_2"/>
+    <child link="Link_6900ZZNR_v2_2"/>
   </joint>
-  <joint name="Revolute 37" type="continuous">
+  <joint name="Revolute_37" type="continuous">
     <origin rpy="0 0 0" xyz="0.11025 0.05575 0.0215"/>
     <parent link="base_link"/>
-    <child link="6900ZZNR_v2_1"/>
+    <child link="Link_6900ZZNR_v2_1"/>
     <axis xyz="-0.0 -0.0 1.0"/>
   </joint>
-  <joint name="Rigid 38" type="fixed">
+  <joint name="Rigid_38" type="fixed">
     <origin rpy="0 0 0" xyz="0.020699 0.004164 -0.026599"/>
     <parent link="Neck_JointH_v28_1"/>
-    <child link="XL-430_new_v5_1"/>
+    <child link="XL_430_new_v5_1"/>
   </joint>
-  <joint name="Rigid 39" type="fixed">
+  <joint name="Rigid_39" type="fixed">
     <origin rpy="0 0 0" xyz="0.015337 0.028157 0.011"/>
-    <parent link="XL-430_new_v5_1"/>
+    <parent link="XL_430_new_v5_1"/>
     <child link="Neck_Gear_Mid_v13_1"/>
   </joint>
-  <joint name="Rigid 40" type="fixed">
+  <joint name="Rigid_40" type="fixed">
     <origin rpy="0 0 0" xyz="0.001864 0.030026 0.02525"/>
-    <parent link="XL-430_new_v5_1"/>
+    <parent link="XL_430_new_v5_1"/>
     <child link="NeckMidGearHolder_v1_1"/>
   </joint>
-  <joint name="Rigid 41" type="fixed">
+  <joint name="Rigid_41" type="fixed">
     <origin rpy="0 0 0" xyz="0.002275 0.019075 -0.01435"/>
     <parent link="NeckMidGearHolder_v1_1"/>
     <child link="Neck_Gear_Mid_Axis_v6_1"/>
   </joint>
-  <joint name="Revolute 42" type="continuous">
+  <joint name="Revolute_42" type="continuous">
     <origin rpy="0 0 0" xyz="0.001268 0.002719 0.0"/>
     <parent link="Neck_Gear_Mid_Axis_v6_1"/>
     <child link="Neck_Gear_Top_v17_1"/>
     <axis xyz="-0.422618 -0.906308 -0.0"/>
   </joint>
-  <joint name="Revolute 43" type="continuous">
+  <joint name="Revolute_43" type="continuous">
     <origin rpy="0 0 0" xyz="0.020748 0.044494 0.019"/>
     <parent link="Neck_Gear_Top_v17_1"/>
-    <child link="2XC-430_v6_1"/>
+    <child link="Link_2XC_430_v6_1"/>
     <axis xyz="0.0 0.0 -1.0"/>
   </joint>
-  <joint name="Revolute 44" type="continuous">
+  <joint name="Revolute_44" type="continuous">
     <origin rpy="0 0 0" xyz="-0.019 0.024 -0.019"/>
-    <parent link="2XC-430_v6_1"/>
+    <parent link="Link_2XC_430_v6_1"/>
     <child link="Head_Joint_v6_1"/>
     <axis xyz="-1.0 -0.0 -0.0"/>
   </joint>
-  <joint name="Rigid 45" type="fixed">
+  <joint name="Rigid_45" type="fixed">
     <origin rpy="0 0 0" xyz="0.0435 -0.014 -0.0285"/>
     <parent link="Head_Joint_v6_1"/>
     <child link="Head_MainPlate_v4_1"/>
   </joint>
-  <joint name="Rigid 46" type="fixed">
+  <joint name="Rigid_46" type="fixed">
     <origin rpy="0 0 0" xyz="-0.001 -0.0095 0.0455"/>
     <parent link="Head_MainPlate_v4_1"/>
-    <child link="XL-430_new_v5_2"/>
+    <child link="XL_430_new_v5_2"/>
   </joint>
-  <joint name="Rigid 47" type="fixed">
+  <joint name="Rigid_47" type="fixed">
     <origin rpy="0 0 0" xyz="0.032 -0.011 -0.036"/>
-    <parent link="XL-430_new_v5_2"/>
+    <parent link="XL_430_new_v5_2"/>
     <child link="Jaw_v4_1"/>
   </joint>
-  <joint name="Rigid 48" type="fixed">
+  <joint name="Rigid_48" type="fixed">
     <origin rpy="0 0 0" xyz="0.0 0.0 -0.006"/>
-    <parent link="6900ZZNR_v2_1"/>
+    <parent link="Link_6900ZZNR_v2_1"/>
     <child link="Neck_JointH_v28_1"/>
   </joint>
-  <joint name="Rigid 49" type="fixed">
+  <joint name="Rigid_49" type="fixed">
     <origin rpy="0 0 0" xyz="0.0 0.032 0.0"/>
-    <parent link="XM,H,D-540.N101.I101_v5_1"/>
+    <parent link="XM_H_D_540_N101_I101_v5_1"/>
     <child link="Leg_Rotator_Upper_v4_1"/>
   </joint>
-  <joint name="Rigid 50" type="fixed">
+  <joint name="Rigid_50" type="fixed">
     <origin rpy="0 0 0" xyz="-0.008 0.02375 -0.01675"/>
     <parent link="Leg_Rotator_Upper_v4_1"/>
-    <child link="51202_v2_5"/>
+    <child link="Link_51202_v2_5"/>
   </joint>
-  <joint name="Rigid 51" type="fixed">
+  <joint name="Rigid_51" type="fixed">
     <origin rpy="0 0 0" xyz="0.0 0.032 0.0"/>
-    <parent link="XM,H,D-540.N101.I101_v5_5"/>
+    <parent link="XM_H_D_540_N101_I101_v5_5"/>
     <child link="Leg_Rotator_Upper_v4_2"/>
   </joint>
-  <joint name="Rigid 52" type="fixed">
+  <joint name="Rigid_52" type="fixed">
     <origin rpy="0 0 0" xyz="-0.008 0.02375 -0.01675"/>
     <parent link="Leg_Rotator_Upper_v4_2"/>
-    <child link="51202_v2_6"/>
+    <child link="Link_51202_v2_6"/>
   </joint>
-  <joint name="Rigid 58" type="fixed">
+  <joint name="Rigid_58" type="fixed">
     <origin rpy="0 0 0" xyz="-0.125 0.0385 0.0"/>
     <parent link="base_link"/>
     <child link="body_cover_v21_1"/>
