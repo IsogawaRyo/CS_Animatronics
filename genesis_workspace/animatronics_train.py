@@ -70,47 +70,39 @@ def get_train_cfg(exp_name, max_iterations):
 
 def get_cfgs():
     env_cfg = {
-        "num_actions": 18,
+        "num_actions": 14,
         # joint/link names
         "default_joint_angles": {  # [rad]
-            "Revolute_3": 0.0,
-            "Revolute_4": 0.0,
-            "Revolute_10": 0.0,
-            "Revolute_11": 0.0,
-            "Revolute_14": 0.0,
-            "Revolute_15": 0.0,
-            "Revolute_18": 0.0,
-            "Revolute_19": 0.0,
-            "Revolute_22": 0.0,
-            "Revolute_23": 0.0,
-            "Revolute_36": 0.0,
-            "Revolute_37": 0.0,
-            "Revolute_40": 0.0,
-            "Revolute_42": 0.0,
-            "Revolute_44": 0.0,
-            "Revolute_46": 0.0,
-            "Revolute_47": 0.0,
-            "Revolute_50": 0.0,
+            "Revolute 10": 0.0,
+            "Revolute 12": 0.0,
+            "Revolute 13": 0.0,
+            "Revolute 16": 0.0,
+            "Revolute 17": 0.0,
+            "Revolute 20": 0.0,
+            "Revolute 22": 0.0,
+            "Revolute 23": 0.0,
+            "Revolute 26": 0.0,
+            "Revolute 27": 0.0,
+            "Revolute 37": 0.0,
+            "Revolute 42": 0.0,
+            "Revolute 43": 0.0,
+            "Revolute 44": 0.0,
         },
         "joint_names" : [
-            "Revolute_3",
-            "Revolute_4",
-            "Revolute_10",
-            "Revolute_11",
-            "Revolute_14",
-            "Revolute_15",
-            "Revolute_18",
-            "Revolute_19",
-            "Revolute_22",
-            "Revolute_23",
-            "Revolute_36",
-            "Revolute_37",
-            "Revolute_40",
-            "Revolute_42",
-            "Revolute_44",
-            "Revolute_46",
-            "Revolute_47",
-            "Revolute_50",
+            "Revolute 10",
+            "Revolute 12",
+            "Revolute 13",
+            "Revolute 16",
+            "Revolute 17",
+            "Revolute 20",
+            "Revolute 22",
+            "Revolute 23",
+            "Revolute 26",
+            "Revolute 27",
+            "Revolute 37",
+            "Revolute 42",
+            "Revolute 43",
+            "Revolute 44",
         ],
         "kp": 15.0,
         "kd": 1.0,
@@ -120,14 +112,14 @@ def get_cfgs():
         # base pose
         # base pose
         "base_init_pos": [0.0, 0.05, 0.35], # Shifted 0.05 forward in Y
-        "base_init_quat": [0.991, 0.131, 0.0, 0.0], # Approx 15 degrees forward lean
+        "base_init_quat": [0.7071, 0.7071, 0.0, 0.0], # Corrected for Y-up to Z-up mismatch (Roll around X +90 deg)
         "episode_length_s": 20.0,
         "resampling_time_s": 4.0,
         "simulate_action_latency": True,
         "clip_actions": 100.0,
     }
     obs_cfg = {
-        "num_obs": 79, # 3+3+3 + 18 + 18 + 18 + 16 (IMU) = 79
+        "num_obs": 67, # 3+3+3 + 14 + 14 + 14 + 16 (IMU) = 67
         "obs_scales": {
             "lin_vel": 2.0,
             "ang_vel": 0.25,

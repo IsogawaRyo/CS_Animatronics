@@ -44,6 +44,7 @@ class AnimatronicsEnv:
                 dt=self.dt,
                 constraint_solver=gs.constraint_solver.Newton,
                 enable_collision=True,
+                enable_self_collision=False,
                 enable_joint_limit=True,
             ),
             show_viewer=show_viewer,
@@ -66,17 +67,20 @@ class AnimatronicsEnv:
                 file=urdf_path,
                 pos=self.base_init_pos.cpu().numpy(),
                 quat=self.base_init_quat.cpu().numpy(),
+                merge_fixed_links=False,
+                batch_fixed_verts=True,
             ),
         )
 
         # Set high friction for feet to prevent slipping
-        for name in ["LegEnd_v9_1", "LegEnd_v9_2"]:
+        for name in ["Leg04_v11_1", "Leg04_v11_2"]:
             self.robot.get_link(name).set_friction(1.0)
 
         # build
         self.scene.build(n_envs=num_envs)
 
         # names to indices
+        print("AVAILABLE JOINTS:", [j.name for j in self.robot.joints])
         self.motors_dof_idx = [self.robot.get_joint(name).dof_start for name in self.env_cfg["joint_names"]]
 
         # IMU links (using proxies since fixed links are merged)
@@ -84,10 +88,10 @@ class AnimatronicsEnv:
         # imu_link 2 -> LegEnd_v9_2
         # imu_link 3 -> base
         self.imu_links = [
-            self.robot.get_link("LegEnd_v9_1"),
-            self.robot.get_link("LegEnd_v9_2"),
-            self.robot.get_link("base"),
-            self.robot.get_link("HeadJoint2_v6_1"),
+            self.robot.get_link("Leg04_v11_1"),
+            self.robot.get_link("Leg04_v11_2"),
+            self.robot.get_link("base_link"),
+            self.robot.get_link("Head_Joint_v6_1"),
         ]
 
         # PD control parameters
@@ -177,10 +181,11 @@ class AnimatronicsEnv:
         self.episode_length_buf += 1
         self.base_pos[:] = self.robot.get_pos()
         self.base_quat[:] = self.robot.get_quat()
+        rel_quat = transform_quat_by_quat(self.base_quat, self.inv_base_init_quat)
         self.base_euler = quat_to_xyz(
-            self.base_quat,
+            rel_quat,
             rpy=True,
-            degrees=True,
+            degrees=False,
         )
         inv_base_quat = inv_quat(self.base_quat)
         self.base_lin_vel[:] = transform_by_quat(self.robot.get_vel(), inv_base_quat)

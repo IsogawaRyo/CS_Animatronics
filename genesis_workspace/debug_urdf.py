@@ -8,7 +8,7 @@ def list_links():
     urdf_path = os.path.join(script_dir, "../animatronics_urdf_description/animatronics_urdf_description_standalone.urdf")
     
     scene = gs.Scene(show_viewer=False)
-    robot = scene.add_entity(gs.morphs.URDF(file=urdf_path))
+    robot = scene.add_entity(gs.morphs.URDF(file=urdf_path, merge_fixed_links=False))
     scene.build()
     
     print("--- Available Link Names ---")

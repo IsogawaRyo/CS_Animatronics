@@ -8,7 +8,7 @@ ROS 2 workspace for building and testing a dinosaur animatronics stack. The sys
 - Optional BNO055 IMU array streamed from the `PICO/code.py` firmware via USB CDC.
 - ROS 2 Jazzy: `source /opt/ros/jazzy/setup.bash` before building or running.
 - Python 3.8+ with `rclpy`, `pygame`, `numpy`, `serial`, `pygame.mixer`, `rosbag2_py`, `dynamixel_sdk`, and GUI dependencies for Tk (`motion_editor`).
-- Optional Genesis + PyTorch tooling for the `genesiss/` environment (see `setup_genesis_venv.sh`).
+- Optional Genesis + PyTorch tooling for the `genesis_workspace/` environment (see `setup_genesis_venv.sh`).
 
 ## Repository Layout
 | Path | Purpose |
@@ -19,7 +19,7 @@ ROS 2 workspace for building and testing a dinosaur animatronics stack. The sys
 | `ControllerMap.json` | User-assignable DualSense button → motion mapping. |
 | `Motor_Limits.json` | Per-motor initial position, soft limits, acceleration, and velocity caps consumed by controllers. |
 | `PICO/` | CircuitPython firmware for the BNO055 IMU multiplexer streaming packets consumed by `imu_receiver`. |
-| `genesiss/`, `simple_model.urdf` | Genesis robotics practice environment, training, and evaluation scripts. |
+| `genesis_workspace/`, `simple_model.urdf` | Genesis robotics practice environment, training, and evaluation scripts. |
 | `ros2_start.sh`, `develop_environment.sh`, `setup_genesis_venv.sh` | Helper scripts for spawning ROS nodes, configuring Git/SSH on new devices, and provisioning the Genesis virtual environment. |
 | `test_motor_states.py`, `test_IMU.py` | Standalone diagnostics for the `get_motor_states` service and the IMU visualization pipeline. |
 
@@ -102,7 +102,7 @@ Consumes the Pico serial stream defined in `PICO/code.py`, parses BNO055 quatern
 ### Additional Content
 - `audio_player/test`, `motor_controller/test`, and other package-specific tests live under their respective `test/` directories.
 - `src/DeepLabCut/` holds DeepLabCut projects (`Animatronics-Ryo-2024-12-17`, `animatronics-ryo-2024-12-18`), captured videos, and `DeepLabCutAnalysis.py` bootstrap code for creating new DLC projects.
-- `genesiss/` contains reinforcement-learning practice scripts (`go2_env.py`, `go2_train.py`, `go2_eval.py`, `practice_0x.py`) that rely on Genesis, PyTorch, and the provided `simple_model.urdf`.
+- `genesis_workspace/` contains reinforcement-learning practice scripts (`go2_env.py`, `go2_train.py`, `go2_eval.py`, `practice_0x.py`) that rely on Genesis, PyTorch, and the provided `simple_model.urdf`.
 
 ## Messages & Services
 - `motor_commands/msg/IdAngle`: `uint8[] ids`, `int32[] angles`.
@@ -128,7 +128,7 @@ Consumes the Pico serial stream defined in `PICO/code.py`, parses BNO055 quatern
 - `ros2_start.sh`: end-to-end launcher that cleans previous builds (`build/`, `log/`, `install/`), rebuilds, and starts all primary nodes in separate terminals. Requires a graphical session due to `gnome-terminal`.
 - `setup_genesis_venv.sh`: creates `genesis_env`, installs CUDA-capable PyTorch when available, Taichi, Genesis dependencies, clones the Genesis repo if absent, and generates activation/deactivation scripts plus `genesis_requirements_installed.txt`.
 - `develop_environment.sh`: bootstrap Git + SSH credentials on a fresh Ubuntu install (`apt install git`, configure user/email, generate keys).
-- `genesiss/go2_train.py`, `go2_eval.py`, `go2_env.py`: reinforcement-learning workflow for the simple URDF, leveraging Genesis for multi-environment simulation.
+- `genesis_workspace/go2_train.py`, `go2_eval.py`, `go2_env.py`: reinforcement-learning workflow for the simple URDF, leveraging Genesis for multi-environment simulation.
 - `test_IMU.py` + `PICO/code.py`: use together for validating IMU packet integrity before integrating with ROS.
 
 With these components in place, you can record hand-guided motions, map them to controller inputs, stream IMU telemetry, and use Genesis/DeepLabCut tooling for offline experimentation—all from this single repository.
