@@ -11,7 +11,19 @@ ROS 2 workspace for building and testing a dinosaur animatronics stack. The sys
 - Optional Genesis + PyTorch tooling for the `genesis_workspace/` environment (see `setup_genesis_venv.sh`).
 
 ## Repository Layout
-| Path | Purpose |
+The repository has been restructured into two main top-level directories based on hardware domains:
+- **`DINO`**: The main animatronics robot running ROS 2 (upper body).
+- **`CAR`**: The separate mobile cart base running independently.
+
+### Important Structure (DINO)
+Inside `DINO/` you will find:
+- **`src`**: Core ROS 2 packages (`system_controller`, `motor_controller`, etc.)
+- **`PICO`**: Submodule/scripts for Raspberry Pi Pico integrations.
+- **`ros2_start.sh`**: Centralized startup script that launches all essential ROS 2 nodes.
+- **Configurations**: `Motor_Limits.json`, `ControllerMap.json`, `AudioMap.json`
+- **Assets**: `AudioFiles/`, `MotionFiles/`, `RecordedLog/`
+
+| Path (Inside DINO/) | Purpose |
 | --- | --- |
 | `src/` | All ROS 2 packages following the `package_name/package_name` layout. |
 | `AudioFiles/`, `AudioMap.json` | Dinosaur audio clips plus ID → filename map used by `audio_player`. |

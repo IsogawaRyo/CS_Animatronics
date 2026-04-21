@@ -1,13 +1,15 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- `src/` holds all ROS 2 packages (e.g., `system_controller`, `motor_controller`, `controller_publisher`, `audio_player`). Each package follows the standard `package_name/package_name` Python layout.
-- Shared assets sit at the workspace root: motion bags in `MotionFiles/`, audio clips in `AudioFiles/`, controller mappings in `ControllerMap.json`, and per-motor limits in `Motor_Limits.json`.
-- Utility scripts such as `ros2_start.sh`, `setup_genesis_venv.sh`, and tests like `test_motor_states.py` live in the repository root. Keep new tooling alongside these helpers.
+- **Top-level directories**: `DINO/` holds all the main animatronics robot systems, and `CAR/` holds the separate mobile base software and hardware specs.
+- **Hardware Integration**: Use [WireViz](https://github.com/wireviz/WireViz) (`.yaml`) to document wiring logic. Place these in the respective `hardware/` folders and commit the YAML format.
+- Inside `DINO/`, `src/` holds all ROS 2 packages (e.g., `system_controller`, `motor_controller`, `controller_publisher`, `audio_player`). Each package follows the standard `package_name/package_name` Python layout.
+- Shared core assets for the main robot sit at the `DINO/` root: motion bags in `MotionFiles/`, audio clips in `AudioFiles/`, controller mappings in `ControllerMap.json`, and per-motor limits in `Motor_Limits.json`.
+- Utility scripts such as `ros2_start.sh`, `setup_genesis_venv.sh`, and tests like `test_motor_states.py` live in `DINO/`. Keep new tooling alongside these helpers.
 
 ## Build, Test, and Development Commands
 - `source /opt/ros/jazzy/setup.bash` loads the system ROS 2 environment; run it before any workspace commands.
-- `colcon build --symlink-install` (from the repo root) builds every package; prefer `--symlink-install` during development for faster iteration.
+- `colcon build --symlink-install` (from the `DINO/` directory) builds every package; prefer `--symlink-install` during development for faster iteration.
 - `source install/setup.bash` (after a successful build) overlays the workspace before running executables.
 - `ros2 run system_controller system_controller` launches the main control node; pair it with `controller_publisher` and `motor_controller` in separate shells.
 - `python test_motor_states.py` exercises the motor state service mock; add similar CLI entry points for new diagnostics.

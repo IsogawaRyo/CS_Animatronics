@@ -1,1 +1,0 @@
-Invoking command in '/home/cvl/CS_Animatronics/src/build/motor_command_msg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/cvl/CS_Animatronics/src/motor_command_msg -DCMAKE_INSTALL_PREFIX=/home/cvl/CS_Animatronics/src/install/motor_command_msg

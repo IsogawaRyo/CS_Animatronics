@@ -1,7 +1,13 @@
 genesis/
 __pycache__/
 *.pyc
-build/
-install/
-log/
-logs/
+**/build/
+**/install/
+**/log/
+**/logs/
+.DS_Store
+*.png
+*.svg
+*.html
+*.tsv
+!CAR/hardware/*.yaml

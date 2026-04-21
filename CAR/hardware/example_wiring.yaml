@@ -1,0 +1,75 @@
+# CAR Mobile Base Wiring Diagram
+# To generate graphical diagram (PNG/SVG):
+#   conda activate cs_animatronics_env
+#   wireviz example_wiring.yaml
+
+connectors:
+  ESP32_A:
+    type: "ESP32-S3-DevKitC-1-N8R8"
+    notes: "ESP32-S3-WROOM-1\n@2,380 JPY"
+    pins: [5V, GND, TX, RX]
+
+  ESP32_B:
+    type: "ESP32-S3-DevKitC-1-N8R8"
+    notes: "ESP32-S3-WROOM-1\n@2,380 JPY"
+    pins: [5V, GND, TX, RX]
+    
+  RS485_A:
+    type: "Gravity RS485-UART"
+    notes: "Switch Science:\nアクティブ絶縁型RS485-UART\n@3,590 JPY"
+    # UART側の入力ピンと、出力側のRS485ピン (A, B) を仮想的に定義
+    pins: [VCC, GND, TX, RX, RS485_A, RS485_B]
+
+  RS485_B:
+    type: "Gravity RS485-UART"
+    notes: "Switch Science:\nアクティブ絶縁型RS485-UART\n@3,590 JPY"
+    pins: [VCC, GND, TX, RX, RS485_A, RS485_B]
+
+  # この先につながるモーターなどのためのプレースホルダー
+  MotorBus_A:
+    type: "RS485 Device (ex: Dynamixel/Motor)"
+    pins: [RS485_A, RS485_B]
+
+  MotorBus_B:
+    type: "RS485 Device (ex: Dynamixel/Motor)"
+    pins: [RS485_A, RS485_B]
+
+cables:
+  UART_Cable_A:
+    # VCC, GND, TX, RX
+    colors: [RD, BK, GN, WH]
+    
+  UART_Cable_B:
+    colors: [RD, BK, GN, WH]
+
+  RS485_BusCable_A:
+    # A(D+), B(D-)
+    colors: [YE, BU]
+
+  RS485_BusCable_B:
+    colors: [YE, BU]
+
+connections:
+  # ESP32_A <--> RS485_A (UART通信。TXとRXがクロスするように結線)
+  -
+    - ESP32_A: [5V, GND, TX, RX]
+    - UART_Cable_A: [RD, BK, GN, WH]
+    - RS485_A: [VCC, GND, RX, TX]
+    
+  # ESP32_B <--> RS485_B
+  -
+    - ESP32_B: [5V, GND, TX, RX]
+    - UART_Cable_B: [RD, BK, GN, WH]
+    - RS485_B: [VCC, GND, RX, TX]
+
+  # RS485_A <--> Target Motor A
+  -
+    - RS485_A: [RS485_A, RS485_B]
+    - RS485_BusCable_A: [YE, BU]
+    - MotorBus_A: [RS485_A, RS485_B]
+
+  # RS485_B <--> Target Motor B
+  -
+    - RS485_B: [RS485_A, RS485_B]
+    - RS485_BusCable_B: [YE, BU]
+    - MotorBus_B: [RS485_A, RS485_B]
