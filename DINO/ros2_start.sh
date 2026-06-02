@@ -25,3 +25,5 @@ gnome-terminal -- bash -c "export DINO_ROOT_DIR=$DIR && source $DIR/install/setu
 gnome-terminal -- bash -c "export DINO_ROOT_DIR=$DIR && source $DIR/install/setup.bash && source $DIR/install/local_setup.bash && source $DIR/install/setup.bash  && ros2 run audio_player audio_player; read"
 
 gnome-terminal -- bash -c "export DINO_ROOT_DIR=$DIR && source $DIR/install/setup.bash && source $DIR/install/local_setup.bash && source $DIR/install/setup.bash  && ros2 run imu_receiver imu_receiver; read"
+
+gnome-terminal -- bash -c "export DINO_ROOT_DIR=$DIR && source $DIR/install/setup.bash && source $DIR/install/local_setup.bash && source $DIR/install/setup.bash  && ros2 run vision_receiver vision_receiver_node; read"
